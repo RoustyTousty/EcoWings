@@ -75,6 +75,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnCraftItem(), this)
         pluginmanager.registerEvents(OnPlayerDeath(), this)
         pluginmanager.registerEvents(OnPlayerDamage(), this)
+        pluginmanager.registerEvents(OnPlayerDrop(), this)
 
         // GUI
         pluginmanager.registerEvents(ShopMenu(), this)
