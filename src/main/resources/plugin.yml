@@ -1,0 +1,29 @@
+name: ElytraPVP
+version: '${project.version}'
+main: me.roustytousty.elytrapvp.ElytraPVP
+api-version: '1.21'
+
+commands:
+  upgrade:
+    description: "Opens the upgrade GUI"
+  shop:
+    description: "Opens the shop GUI"
+  stats:
+    description: "Opens the stats GUI"
+
+
+  gold:
+    aliases: [money, bal, balance]
+    description: "Check how much gold you have"
+
+
+  reloadcache:
+    description: "Reloads the player data cache!"
+  reloadupgradeconfig:
+    description: "Reloads the upgrade config!"
+  buildmode:
+    description: "Toggles buildmode!"
+  feed:
+    description: "Feeds you!"
+  setgold:
+    description: "Set players gold amount!"
