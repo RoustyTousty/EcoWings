@@ -5,10 +5,10 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.CraftItemEvent
 
-class OnCraftItem : Listener {
+class OnPlayerCraft : Listener {
 
     @EventHandler
-    fun onCraft(event: CraftItemEvent) {
+    fun onPlayerCraft(event: CraftItemEvent) {
         val result = event.currentItem
         if (result != null) {
             event.isCancelled = true

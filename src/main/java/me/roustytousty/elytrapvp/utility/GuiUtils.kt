@@ -20,14 +20,12 @@ object GuiUtils {
         val item = ItemStack(material, ammount)
         val meta = item.itemMeta
 
-        // Set name
         meta.setDisplayName(StringUtils.parse(name))
 
         meta.attributeModifiers = item.type.getDefaultAttributeModifiers(EquipmentSlot.HAND)
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
-        // Set lore
-        if (lore.size > 0) {
+        if (lore.isNotEmpty()) {
             val l: MutableList<String> = ArrayList()
             for (s in lore) {
                 l.add(StringUtils.parse(s))
@@ -48,10 +46,8 @@ object GuiUtils {
 
         meta.owningPlayer = player
 
-        // Set the name of the item
         meta.setDisplayName(StringUtils.parse(name))
 
-        // Set the lore of the item
         if (lore.isNotEmpty()) {
             val l: MutableList<String> = ArrayList()
             for (s in lore) {

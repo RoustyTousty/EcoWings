@@ -72,7 +72,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnPlayerMove(), this)
         pluginmanager.registerEvents(OnPlayerRespawn(), this)
         pluginmanager.registerEvents(OnFoodLevelChange(), this)
-        pluginmanager.registerEvents(OnCraftItem(), this)
+        pluginmanager.registerEvents(OnPlayerCraft(), this)
         pluginmanager.registerEvents(OnPlayerDeath(), this)
         pluginmanager.registerEvents(OnPlayerDamage(), this)
         pluginmanager.registerEvents(OnPlayerDrop(), this)
