@@ -45,6 +45,10 @@ class UpgradeMenu : Listener {
             ConfirmUpgradeMenu.openInventory(p, "leggings")
         } else if (e.rawSlot == 14) {
             ConfirmUpgradeMenu.openInventory(p, "boots")
+        } else if (e.rawSlot == 15) {
+            ConfirmUpgradeMenu.openInventory(p, "sword")
+        } else if (e.rawSlot == 22) {
+            ConfirmUpgradeMenu.openInventory(p, "shears")
         }
     }
 
@@ -74,11 +78,15 @@ class UpgradeMenu : Listener {
             val nextElytraLevel = ((CacheConfig.getplrVal(player, "elytraLevel") as? Int) ?: 0) + 1
             val nextLeggingsLevel = ((CacheConfig.getplrVal(player, "leggingsLevel") as? Int) ?: 0) + 1
             val nextBootsLevel = ((CacheConfig.getplrVal(player, "bootsLevel") as? Int) ?: 0) + 1
+            val nextSwordLevel = ((CacheConfig.getplrVal(player, "swordLevel") as? Int) ?: 0) + 1
+            val nextShearsLevel = ((CacheConfig.getplrVal(player, "swordLevel") as? Int) ?: 0) + 1
 
             val helmetCost = UpgradeConfig.getConfig().getInt("upgrades.helmet.$nextHelmetLevel.cost", -1)
             val elytraCost = UpgradeConfig.getConfig().getInt("upgrades.elytra.$nextElytraLevel.cost", -1)
             val leggingsCost = UpgradeConfig.getConfig().getInt("upgrades.leggings.$nextLeggingsLevel.cost", -1)
             val bootsCost = UpgradeConfig.getConfig().getInt("upgrades.boots.$nextBootsLevel.cost", -1)
+            val swordCost = UpgradeConfig.getConfig().getInt("upgrades.sword.$nextSwordLevel.cost", -1)
+            val shearsCost = UpgradeConfig.getConfig().getInt("upgrades.shears.$nextShearsLevel.cost", -1)
 
             // Helmet
             if (helmetCost == -1) {
@@ -197,29 +205,67 @@ class UpgradeMenu : Listener {
                 )
             }
 
-            inv!!.setItem(15,
-                createGuiItem(
-                    Material.WOODEN_SWORD,
-                    1,
-                    false,
-                    "&eSword",
-                    "&8Upgradable",
-                    "",
-                    "&c&lMAXED"
+            // Swords
+            if (swordCost == -1) {
+                inv!!.setItem(
+                    15,
+                    createGuiItem(
+                        Material.WOODEN_SWORD,
+                        1,
+                        false,
+                        "&eSword",
+                        "&8Upgradable",
+                        "",
+                        "&c&lMAXED"
+                    )
                 )
-            )
+            } else {
+                inv!!.setItem(
+                    15,
+                    createGuiItem(
+                        Material.WOODEN_SWORD,
+                        1,
+                        false,
+                        "&eSword",
+                        "&8Upgradable",
+                        "",
+                        "&fCost: &6${formatNumber(swordCost)}g",
+                        "",
+                        "&7Click to upgrade!"
+                    )
+                )
+            }
 
-            inv!!.setItem(22,
-                createGuiItem(
-                    Material.SHEARS,
-                    1,
-                    false,
-                    "&eShears",
-                    "&8Upgradable",
-                    "",
-                    "&c&lMAXED"
+            // Shears
+            if (swordCost == -1) {
+                inv!!.setItem(
+                    22,
+                    createGuiItem(
+                        Material.SHEARS,
+                        1,
+                        false,
+                        "&eShears",
+                        "&8Upgradable",
+                        "",
+                        "&c&lMAXED"
+                    )
                 )
-            )
+            } else {
+                inv!!.setItem(
+                    22,
+                    createGuiItem(
+                        Material.SHEARS,
+                        1,
+                        false,
+                        "&eShears",
+                        "&8Upgradable",
+                        "",
+                        "&fCost: &6${formatNumber(shearsCost)}g",
+                        "",
+                        "&7Click to upgrade!"
+                    )
+                )
+            }
 
 
             inv!!.setItem(

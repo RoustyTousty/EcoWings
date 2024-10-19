@@ -17,6 +17,9 @@ object KitUtils {
         giveArmorPiece(player, "elytra", "chestplate")
         giveArmorPiece(player, "leggings", "leggings")
         giveArmorPiece(player, "boots", "boots")
+
+        giveTool(player, "sword", 0)
+        giveTool(player, "shears", 1)
     }
 
     private fun giveArmorPiece(player: Player, configKey: String, armorSlot: String) {
@@ -28,6 +31,20 @@ object KitUtils {
             "chestplate" -> player.inventory.chestplate = itemStack
             "leggings" -> player.inventory.leggings = itemStack
             "boots" -> player.inventory.boots = itemStack
+        }
+    }
+
+    private fun giveTool(player: Player, configKey: String, defaultSlot: Int) {
+        val config = UpgradeConfig.getConfig()
+        val level = CacheConfig.getplrVal(player, "${configKey}Level") as? Int ?: 0
+        val itemStack = createKitItem(config.getConfigurationSection("upgrades.$configKey.$level")!!)
+
+        val existingSlot = player.inventory.contents.indexOfFirst { it != null && it.type == itemStack.type }
+
+        if (existingSlot != -1) {
+            player.inventory.setItem(existingSlot, itemStack)
+        } else {
+            player.inventory.setItem(defaultSlot, itemStack)
         }
     }
 
