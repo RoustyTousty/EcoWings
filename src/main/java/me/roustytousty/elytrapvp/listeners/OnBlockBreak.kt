@@ -33,7 +33,6 @@ class OnBlockBreak : Listener {
             return
         }
 
-        player.sendMessage("huh")
         if (event.block.type == Material.ORANGE_WOOL) {
             event.isCancelled = true
             event.block.type = Material.YELLOW_WOOL

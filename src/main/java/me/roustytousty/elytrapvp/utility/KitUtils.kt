@@ -20,6 +20,8 @@ object KitUtils {
 
         giveTool(player, "sword", 0)
         giveTool(player, "shears", 1)
+
+        giveWhiteWool(player, 16)
     }
 
     private fun giveArmorPiece(player: Player, configKey: String, armorSlot: String) {
@@ -45,6 +47,15 @@ object KitUtils {
             player.inventory.setItem(existingSlot, itemStack)
         } else {
             player.inventory.setItem(defaultSlot, itemStack)
+        }
+    }
+
+    private fun giveWhiteWool(player: Player, amount: Int) {
+        val hasBlocks = player.inventory.contents.any { it != null && it.type.isBlock }
+
+        if (!hasBlocks && player.inventory.firstEmpty() != -1) {
+            val wool = ItemStack(Material.WHITE_WOOL, amount)
+            player.inventory.addItem(wool)
         }
     }
 

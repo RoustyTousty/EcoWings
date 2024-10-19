@@ -79,7 +79,7 @@ class UpgradeMenu : Listener {
             val nextLeggingsLevel = ((CacheConfig.getplrVal(player, "leggingsLevel") as? Int) ?: 0) + 1
             val nextBootsLevel = ((CacheConfig.getplrVal(player, "bootsLevel") as? Int) ?: 0) + 1
             val nextSwordLevel = ((CacheConfig.getplrVal(player, "swordLevel") as? Int) ?: 0) + 1
-            val nextShearsLevel = ((CacheConfig.getplrVal(player, "swordLevel") as? Int) ?: 0) + 1
+            val nextShearsLevel = ((CacheConfig.getplrVal(player, "shearsLevel") as? Int) ?: 0) + 1
 
             val helmetCost = UpgradeConfig.getConfig().getInt("upgrades.helmet.$nextHelmetLevel.cost", -1)
             val elytraCost = UpgradeConfig.getConfig().getInt("upgrades.elytra.$nextElytraLevel.cost", -1)
@@ -237,7 +237,7 @@ class UpgradeMenu : Listener {
             }
 
             // Shears
-            if (swordCost == -1) {
+            if (shearsCost == -1) {
                 inv!!.setItem(
                     22,
                     createGuiItem(
