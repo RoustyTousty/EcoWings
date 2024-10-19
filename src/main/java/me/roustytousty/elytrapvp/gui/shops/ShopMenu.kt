@@ -23,13 +23,10 @@ class ShopMenu : Listener {
 
         if (e.rawSlot == 11) {
             BlockShopMenu.openInventory(p)
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         } else if (e.rawSlot == 12) {
             UtilityShopMenu.openInventory(p)
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         } else if (e.rawSlot == 13) {
             ConsumablesShopMenu.openInventory(p)
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         } else if (e.rawSlot == 18) {
             p.closeInventory()
             p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
@@ -50,6 +47,7 @@ class ShopMenu : Listener {
             inv = Bukkit.createInventory(null, 27, "Shop")
             initItems()
             player.openInventory(inv!!)
+            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
         private fun initItems() {

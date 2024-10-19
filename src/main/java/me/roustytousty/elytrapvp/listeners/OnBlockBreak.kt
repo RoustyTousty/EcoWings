@@ -28,7 +28,7 @@ class OnBlockBreak : Listener {
 
         if (!isInPVPRegion || isInPVPBufferRegion) {
             event.isCancelled = true
-            player.sendMessage(StringUtils.parse("&c&lWWWings &8| &fYou cant break blocks here!"))
+            player.sendMessage(StringUtils.parse("&c&lEcoWings &8| &fYou cant break blocks here!"))
             player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
             return
         }

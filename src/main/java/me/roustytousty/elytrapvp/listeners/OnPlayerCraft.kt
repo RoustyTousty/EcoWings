@@ -12,7 +12,7 @@ class OnPlayerCraft : Listener {
         val result = event.currentItem
         if (result != null) {
             event.isCancelled = true
-            event.whoClicked.sendMessage(parse("&6&lWWWings &8| &fItem crafting is disabled!"))
+            event.whoClicked.sendMessage(parse("&6&lEcoWings &8| &fItem crafting is disabled!"))
         }
     }
 }

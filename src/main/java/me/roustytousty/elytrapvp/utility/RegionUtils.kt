@@ -30,7 +30,7 @@ object RegionUtils {
                 }
 
                 if (timeRemainingMinutes == 1) {
-                    sendWarningToPlayers("&6&lWWWings &8| &fMap will reset in 1 minute!")
+                    sendWarningToPlayers("&6&lEcoWings &8| &fMap will reset in 1 minute!")
                 }
 
                 if (timeRemainingMinutes == 0) {
@@ -43,7 +43,7 @@ object RegionUtils {
 
             private fun handleFinalCountdown() {
                 when (finalCountdownSeconds) {
-                    10, 3, 2, 1 -> sendWarningToPlayers("&6&lWWWings &8| &fMap will reset in $finalCountdownSeconds second${if (finalCountdownSeconds > 1) "s" else ""}!")
+                    10, 3, 2, 1 -> sendWarningToPlayers("&6&lEcoWings &8| &fMap will reset in $finalCountdownSeconds second${if (finalCountdownSeconds > 1) "s" else ""}!")
                     0 -> {
 
 

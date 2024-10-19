@@ -13,39 +13,44 @@ object ScoreboardUtils {
 
     fun createScoreboard(player: Player) {
         val board = Bukkit.getScoreboardManager().newScoreboard
-        val objective = board.registerNewObjective("test", "dummy", parse("  &6WWWings &7[1.21.x]  "))
+        val objective = board.registerNewObjective("test", "dummy", parse("  &6EcoWings &7[1.21.x]  "))
         objective.displaySlot = DisplaySlot.SIDEBAR
 
         val line1 = objective.getScore(parse("&f&lServer:"))
-        val line2 = objective.getScore(parse(" &7| &fPlayers: "))
+        val line2 = objective.getScore(parse(" &7| &fPlayers: " + Bukkit.getOnlinePlayers().size))
         val line3 = objective.getScore(parse("&f"))
         val line4 = objective.getScore(parse("&f${player.name}"))
 
+        // Create and set up the teams for gold, kills, and killstreak
+        val goldEntry = parse(" &7| &6Gold: ")
         val goldTeam = board.registerNewTeam("gold")
-        goldTeam.addEntry(parse(" &7| &6Gold: "))
+        goldTeam.addEntry(goldEntry)
         goldTeam.suffix = parse("&f${formatNumber(CacheConfig.getplrVal(player, "gold") as Int)}")
 
+        val killsEntry = parse(" &7| &6Kills: ")
         val killsTeam = board.registerNewTeam("kills")
-        killsTeam.addEntry(parse(" &7| &6Kills: "))
+        killsTeam.addEntry(killsEntry)
         killsTeam.suffix = parse("&f${formatNumber(CacheConfig.getplrVal(player, "kills") as Int)}")
 
+        val killstreakEntry = parse(" &7| &6Killstreak: ")
         val killstreakTeam = board.registerNewTeam("killstreak")
-        killstreakTeam.addEntry(parse(" &7| &6Killstreak: "))
+        killstreakTeam.addEntry(killstreakEntry)
         killstreakTeam.suffix = parse("&f${formatNumber(CacheConfig.getplrVal(player, "killstreak") as Int)} &8(0)")
 
-        line1.score = 8
-        line2.score = 7
-        line3.score = 6
-        line4.score = 5
+        line1.score = 9
+        line2.score = 8
+        line3.score = 7
+        line4.score = 6
 
-        objective.getScore(parse("&6Gold: ")).score = 4
-        objective.getScore(parse("&6Kills: ")).score = 3
-        objective.getScore(parse("&6Killstreak: ")).score = 2
+        // Add the entries for gold, kills, and killstreak to the scoreboard
+        objective.getScore(goldEntry).score = 5
+        objective.getScore(killsEntry).score = 4
+        objective.getScore(killstreakEntry).score = 3
 
         val line8 = objective.getScore(parse("&6"))
-        val line9 = objective.getScore(parse("&7wwwings.minehut.gg"))
-        line8.score = 1
-        line9.score = 0
+        val line9 = objective.getScore(parse("&7ecowings.minehut.gg"))
+        line8.score = 2
+        line9.score = 1
 
         player.scoreboard = board
     }

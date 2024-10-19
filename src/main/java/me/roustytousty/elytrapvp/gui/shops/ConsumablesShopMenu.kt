@@ -23,7 +23,6 @@ class ConsumablesShopMenu : Listener {
 
         if (e.rawSlot == 18) {
             ShopMenu.openInventory(p)
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
     }
 
@@ -41,6 +40,7 @@ class ConsumablesShopMenu : Listener {
             inv = Bukkit.createInventory(null, 27, "Consumables")
             initItems()
             player.openInventory(inv!!)
+            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
         private fun initItems() {

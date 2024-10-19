@@ -23,10 +23,8 @@ class StatsMenu : Listener {
 
         if (e.rawSlot == 12) {
             PlayerStatsMenu.openInventory(p)
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         } else if (e.rawSlot == 14) {
             LeaderboardSelectMenu.openInventory(p)
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
     }
 
@@ -44,6 +42,7 @@ class StatsMenu : Listener {
             inv = Bukkit.createInventory(null, 27, "Stats")
             initItems()
             player.openInventory(inv!!)
+            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
         private fun initItems() {

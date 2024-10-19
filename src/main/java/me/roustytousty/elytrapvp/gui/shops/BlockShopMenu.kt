@@ -34,7 +34,6 @@ class BlockShopMenu : Listener {
             MiscUtils.shopPurchaseItem(p, 12, clickedItem.type, 16)
         } else if (e.rawSlot == 18) {
             ShopMenu.openInventory(p)
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
     }
 
@@ -52,6 +51,7 @@ class BlockShopMenu : Listener {
             inv = Bukkit.createInventory(null, 27, "Blocks")
             initItems()
             player.openInventory(inv!!)
+            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
         private fun initItems() {

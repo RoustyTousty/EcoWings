@@ -29,7 +29,7 @@ class UpgradeMenu : Listener {
         val lore = itemMeta.lore ?: return
 
         if (lore.any { it.contains("MAXED", ignoreCase = true) }) {
-            p.sendMessage(parse("&c&lWWWings &8| &fThis item is already &c&lMAXED &fand cannot be upgraded further."))
+            p.sendMessage(parse("&c&lEcoWings &8| &fThis item is already &c&lMAXED &fand cannot be upgraded further."))
             p.playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
             return
         }
@@ -49,6 +49,9 @@ class UpgradeMenu : Listener {
             ConfirmUpgradeMenu.openInventory(p, "sword")
         } else if (e.rawSlot == 22) {
             ConfirmUpgradeMenu.openInventory(p, "shears")
+        } else if (e.rawSlot == 27) {
+            p.closeInventory()
+            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
     }
 
@@ -66,6 +69,7 @@ class UpgradeMenu : Listener {
             inv = Bukkit.createInventory(null, 36, "Upgrade")
             initItems(player)
             player.openInventory(inv!!)
+            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
         private fun initItems(player: Player) {
