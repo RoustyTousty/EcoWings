@@ -1,6 +1,8 @@
 package me.roustytousty.elytrapvp.gui.stats
 
+import me.roustytousty.elytrapvp.gui.shops.ShopMenu
 import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
+import me.roustytousty.elytrapvp.utility.GuiUtils.createPlayerHead
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -25,6 +27,9 @@ class StatsMenu : Listener {
             PlayerStatsMenu.openInventory(p)
         } else if (e.rawSlot == 14) {
             LeaderboardSelectMenu.openInventory(p)
+        } else if (e.rawSlot == 18) {
+            p.closeInventory()
+            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
     }
 
@@ -40,13 +45,13 @@ class StatsMenu : Listener {
         var inv: Inventory? = null
         fun openInventory(player: Player) {
             inv = Bukkit.createInventory(null, 27, "Stats")
-            initItems()
+            initItems(player)
             player.openInventory(inv!!)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
-        private fun initItems() {
-            val slots = intArrayOf(0, 8, 9, 17, 18, 26)
+        private fun initItems(player: Player) {
+            val slots = intArrayOf(0, 8, 9, 17, 26)
             for (slot in slots) {
                 inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
@@ -54,10 +59,8 @@ class StatsMenu : Listener {
 
             inv!!.setItem(
                 12,
-                createGuiItem(
-                    Material.PLAYER_HEAD,
-                    1,
-                    false,
+                createPlayerHead(
+                    player,
                     "&eStats",
                     "&7Your personal stats menu!"
                 )
@@ -70,6 +73,16 @@ class StatsMenu : Listener {
                     false,
                     "&eLeaderboards",
                     "&7Top players in different stats!"
+                )
+            )
+
+            inv!!.setItem(
+                18,
+                createGuiItem(
+                    Material.RED_STAINED_GLASS_PANE,
+                    1,
+                    false,
+                    "&cClose"
                 )
             )
         }

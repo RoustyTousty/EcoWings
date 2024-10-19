@@ -27,6 +27,8 @@ class LeaderboardSelectMenu : Listener {
             LeaderboardMenu.openInventory(p, "gold")
         } else if (e.rawSlot == 15) {
             LeaderboardMenu.openInventory(p, "deaths")
+        } else if (e.rawSlot == 18) {
+            StatsMenu.openInventory(p)
         }
     }
 
@@ -41,14 +43,14 @@ class LeaderboardSelectMenu : Listener {
 
         var inv: Inventory? = null
         fun openInventory(player: Player) {
-            inv = Bukkit.createInventory(null, 36, "Leaderboards")
+            inv = Bukkit.createInventory(null, 27, "Leaderboards")
             initItems()
             player.openInventory(inv!!)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
         private fun initItems() {
-            val slots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35)
+            val slots = intArrayOf(0, 8, 9, 17, 26)
             for (slot in slots) {
                 inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
@@ -81,6 +83,16 @@ class LeaderboardSelectMenu : Listener {
                     false,
                     "&eDeaths",
                     "&7Top players for deaths!"
+                )
+            )
+
+            inv!!.setItem(
+                18,
+                createGuiItem(
+                    Material.RED_STAINED_GLASS_PANE,
+                    1,
+                    false,
+                    "&cBack"
                 )
             )
         }

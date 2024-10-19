@@ -1,5 +1,6 @@
 package me.roustytousty.elytrapvp.gui.stats
 
+import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
 import me.roustytousty.elytrapvp.utility.GuiUtils.createPlayerHead
@@ -23,6 +24,10 @@ class PlayerStatsMenu : Listener {
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
+
+        if (e.rawSlot == 27) {
+            StatsMenu.openInventory(p)
+        }
     }
 
     @EventHandler
@@ -43,7 +48,7 @@ class PlayerStatsMenu : Listener {
         }
 
         private fun initItems(player: Player) {
-            val slots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35)
+            val slots = intArrayOf(0, 8, 9, 17, 18, 26, 35)
             for (slot in slots) {
                 inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
@@ -51,6 +56,10 @@ class PlayerStatsMenu : Listener {
             val gold = CacheConfig.getplrVal(player, "gold")
             val kills = CacheConfig.getplrVal(player, "kills")
             val deaths = CacheConfig.getplrVal(player, "deaths")
+
+            val goldRank = MongoDB.getPlayerRank(player, "gold")
+            val killsRank = MongoDB.getPlayerRank(player, "kills")
+            val deathsRank = MongoDB.getPlayerRank(player, "deaths")
 
 
             inv!!.setItem(
@@ -87,8 +96,8 @@ class PlayerStatsMenu : Listener {
                     Material.GOLD_INGOT,
                     1,
                     false,
-                    "&eGold",
-                    "&7${formatNumber(gold as Int)}"
+                    "&eGold &6#$goldRank",
+                    "&7Value: ${formatNumber(gold as Int)}"
                 )
             )
             inv!!.setItem(
@@ -97,8 +106,8 @@ class PlayerStatsMenu : Listener {
                     Material.WOODEN_SWORD,
                     1,
                     false,
-                    "&eKills",
-                    "&7${formatNumber(kills as Int)}"
+                    "&eKills &6#$killsRank",
+                    "&7Value: ${formatNumber(kills as Int)}"
                 )
             )
             inv!!.setItem(
@@ -107,8 +116,18 @@ class PlayerStatsMenu : Listener {
                     Material.SKELETON_SKULL,
                     1,
                     false,
-                    "&eDeaths",
-                    "&7${formatNumber(deaths as Int)}"
+                    "&eDeaths &6#$deathsRank",
+                    "&7Value: ${formatNumber(deaths as Int)}"
+                )
+            )
+
+            inv!!.setItem(
+                27,
+                createGuiItem(
+                    Material.RED_STAINED_GLASS_PANE,
+                    1,
+                    false,
+                    "&cBack"
                 )
             )
         }
