@@ -10,11 +10,15 @@ commands:
     description: "Opens the shop GUI"
   stats:
     description: "Opens the stats GUI"
+  perks:
+    description: "Opens the perks GUI"
 
 
   gold:
     aliases: [money, bal, balance]
     description: "Check how much gold you have"
+  stat:
+    description: "Opens specific players stats"
 
 
   reloadcache:

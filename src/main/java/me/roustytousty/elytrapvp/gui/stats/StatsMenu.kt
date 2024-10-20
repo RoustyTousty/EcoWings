@@ -24,7 +24,7 @@ class StatsMenu : Listener {
         val p = e.whoClicked as Player
 
         if (e.rawSlot == 12) {
-            PlayerStatsMenu.openInventory(p)
+            PlayerStatsMenu.openInventory(p, p)
         } else if (e.rawSlot == 14) {
             LeaderboardSelectMenu.openInventory(p)
         } else if (e.rawSlot == 18) {

@@ -7,6 +7,7 @@ import me.roustytousty.elytrapvp.commands.StaffCommands
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.data.RegionConfig
 import me.roustytousty.elytrapvp.data.UpgradeConfig
+import me.roustytousty.elytrapvp.gui.perks.PerksMenu
 import me.roustytousty.elytrapvp.gui.shops.BlockShopMenu
 import me.roustytousty.elytrapvp.gui.shops.ConsumablesShopMenu
 import me.roustytousty.elytrapvp.gui.shops.ShopMenu
@@ -89,16 +90,19 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(PlayerStatsMenu(), this)
         pluginmanager.registerEvents(LeaderboardSelectMenu(), this)
         pluginmanager.registerEvents(LeaderboardMenu(), this)
+        pluginmanager.registerEvents(PerksMenu(), this)
     }
 
     private fun registerCommands(){
         // Commands
         getCommand("gold")?.setExecutor(PlayerCommands())
+        getCommand("stat")?.setExecutor(PlayerCommands())
 
         // Commands (gui)
         getCommand("shop")?.setExecutor(GuiCommands())
         getCommand("upgrade")?.setExecutor(GuiCommands())
         getCommand("stats")?.setExecutor(GuiCommands())
+        getCommand("perks")?.setExecutor(GuiCommands())
 
         // Staff commands
         getCommand("reloadcache")?.setExecutor(StaffCommands())

@@ -2,12 +2,16 @@ package me.roustytousty.elytrapvp.gui.stats
 
 import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.data.CacheConfig
+import me.roustytousty.elytrapvp.data.UpgradeConfig
 import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
 import me.roustytousty.elytrapvp.utility.GuiUtils.createPlayerHead
+import me.roustytousty.elytrapvp.utility.KitUtils
 import me.roustytousty.elytrapvp.utility.StringUtils.formatNumber
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.OfflinePlayer
 import org.bukkit.Sound
+import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -25,7 +29,7 @@ class PlayerStatsMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        if (e.rawSlot == 27) {
+        if (e.rawSlot == 45) {
             StatsMenu.openInventory(p)
         }
     }
@@ -40,38 +44,78 @@ class PlayerStatsMenu : Listener {
     companion object {
 
         var inv: Inventory? = null
-        fun openInventory(player: Player) {
-            inv = Bukkit.createInventory(null, 36, "Stats - ${player.name}")
-            initItems(player)
+        fun openInventory(player: Player, statPlayer: Player) {
+            inv = Bukkit.createInventory(null, 54, "Stats - ${statPlayer.name}")
+            initItems(statPlayer)
             player.openInventory(inv!!)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
-        private fun initItems(player: Player) {
-            val slots = intArrayOf(0, 8, 9, 17, 18, 26, 35)
+        private fun initItems(statPlayer: Player) {
+            val slots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35, 36, 44, 53)
             for (slot in slots) {
                 inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
-            val gold = CacheConfig.getplrVal(player, "gold")
-            val kills = CacheConfig.getplrVal(player, "kills")
-            val deaths = CacheConfig.getplrVal(player, "deaths")
+            val cacheConfig = UpgradeConfig.getConfig()
 
-            val goldRank = MongoDB.getPlayerRank(player, "gold")
-            val killsRank = MongoDB.getPlayerRank(player, "kills")
-            val deathsRank = MongoDB.getPlayerRank(player, "deaths")
+            val gold = CacheConfig.getplrVal(statPlayer, "gold")
+            val kills = CacheConfig.getplrVal(statPlayer, "kills")
+            val deaths = CacheConfig.getplrVal(statPlayer, "deaths")
 
+            val goldRank = MongoDB.getPlayerRank(statPlayer, "gold")
+            val killsRank = MongoDB.getPlayerRank(statPlayer, "kills")
+            val deathsRank = MongoDB.getPlayerRank(statPlayer, "deaths")
+
+            val helmetLevel = CacheConfig.getplrVal(statPlayer, "helmetLevel") as? Int ?: 0
+            val elytraLevel = CacheConfig.getplrVal(statPlayer, "elytraLevel") as? Int ?: 0
+            val leggingsLevel = CacheConfig.getplrVal(statPlayer, "leggingsLevel") as? Int ?: 0
+            val bootsLevel = CacheConfig.getplrVal(statPlayer, "bootsLevel") as? Int ?: 0
+            val swordLevel = CacheConfig.getplrVal(statPlayer, "swordLevel") as? Int ?: 0
+            val shearsLevel = CacheConfig.getplrVal(statPlayer, "shearsLevel") as? Int ?: 0
+
+            val helmetItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.helmet.$helmetLevel")!!)
+            val elytraItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.elytra.$elytraLevel")!!)
+            val leggingsItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.leggings.$leggingsLevel")!!)
+            val bootsItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.boots.$bootsLevel")!!)
+            val swordItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.sword.$swordLevel")!!)
+            val shearsItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.shears.$shearsLevel")!!)
 
             inv!!.setItem(
-                13,
+                11,
+                helmetItem
+            )
+            inv!!.setItem(
+                20,
+                elytraItem
+            )
+            inv!!.setItem(
+                29,
+                leggingsItem
+            )
+            inv!!.setItem(
+                38,
+                bootsItem
+            )
+            inv!!.setItem(
+                21,
+                swordItem
+            )
+            inv!!.setItem(
+                30,
+                shearsItem
+            )
+
+            inv!!.setItem(
+                4,
                 createPlayerHead(
-                    player,
+                    statPlayer,
                     "&eStats",
                     "&7Your personal stats menu!"
                 )
             )
             inv!!.setItem(
-                20,
+                24,
                 createGuiItem(
                     Material.GOLDEN_SWORD,
                     1,
@@ -81,7 +125,7 @@ class PlayerStatsMenu : Listener {
                 )
             )
             inv!!.setItem(
-                21,
+                23,
                 createGuiItem(
                     Material.AMETHYST_SHARD,
                     1,
@@ -91,7 +135,7 @@ class PlayerStatsMenu : Listener {
                 )
             )
             inv!!.setItem(
-                22,
+                14,
                 createGuiItem(
                     Material.GOLD_INGOT,
                     1,
@@ -101,7 +145,7 @@ class PlayerStatsMenu : Listener {
                 )
             )
             inv!!.setItem(
-                23,
+                15,
                 createGuiItem(
                     Material.WOODEN_SWORD,
                     1,
@@ -111,7 +155,7 @@ class PlayerStatsMenu : Listener {
                 )
             )
             inv!!.setItem(
-                24,
+                33,
                 createGuiItem(
                     Material.SKELETON_SKULL,
                     1,
@@ -122,7 +166,7 @@ class PlayerStatsMenu : Listener {
             )
 
             inv!!.setItem(
-                27,
+                45,
                 createGuiItem(
                     Material.RED_STAINED_GLASS_PANE,
                     1,

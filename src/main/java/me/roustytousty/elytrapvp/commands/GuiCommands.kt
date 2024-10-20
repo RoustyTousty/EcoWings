@@ -1,5 +1,6 @@
 package me.roustytousty.elytrapvp.commands
 
+import me.roustytousty.elytrapvp.gui.perks.PerksMenu
 import me.roustytousty.elytrapvp.gui.shops.ShopMenu
 import me.roustytousty.elytrapvp.gui.stats.StatsMenu
 import me.roustytousty.elytrapvp.gui.upgrade.UpgradeMenu
@@ -17,6 +18,8 @@ class GuiCommands : CommandExecutor {
             ShopMenu.openInventory(player)
         } else if (command.name.equals("stats", ignoreCase = true)) {
             StatsMenu.openInventory(player)
+        } else if (command.name.equals("perks", ignoreCase = true)) {
+            PerksMenu.openInventory(player)
         }
         return true
     }
