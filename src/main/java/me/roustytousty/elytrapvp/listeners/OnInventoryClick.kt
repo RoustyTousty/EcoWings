@@ -7,16 +7,14 @@ import org.bukkit.event.inventory.InventoryType
 
 class OnInventoryClick : Listener {
 
-    private val armorSlots = listOf(5, 6, 7, 8)
-
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
 
-        if (event.view.type != InventoryType.PLAYER) {
+        if (event.view.type != InventoryType.CRAFTING && event.view.type != InventoryType.PLAYER) {
             return
         }
 
-        if (armorSlots.contains(event.rawSlot)) {
+        if (event.slotType == InventoryType.SlotType.ARMOR) {
             event.isCancelled = true
         }
     }
