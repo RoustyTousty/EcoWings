@@ -96,13 +96,13 @@ class ElytraPVP : JavaPlugin() {
     private fun registerCommands(){
         // Commands
         getCommand("gold")?.setExecutor(PlayerCommands())
-        getCommand("stat")?.setExecutor(PlayerCommands())
+        getCommand("stats")?.setExecutor(PlayerCommands())
 
         // Commands (gui)
-        getCommand("shop")?.setExecutor(GuiCommands())
-        getCommand("upgrade")?.setExecutor(GuiCommands())
-        getCommand("stats")?.setExecutor(GuiCommands())
-        getCommand("perks")?.setExecutor(GuiCommands())
+        getCommand("shopmenu")?.setExecutor(GuiCommands())
+        getCommand("upgrademenu")?.setExecutor(GuiCommands())
+        getCommand("statsmenu")?.setExecutor(GuiCommands())
+        getCommand("perksmenu")?.setExecutor(GuiCommands())
 
         // Staff commands
         getCommand("reloadcache")?.setExecutor(StaffCommands())

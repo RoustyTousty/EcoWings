@@ -4,20 +4,20 @@ main: me.roustytousty.elytrapvp.ElytraPVP
 api-version: '1.21'
 
 commands:
-  upgrade:
+  upgrademenu:
     description: "Opens the upgrade GUI"
-  shop:
+  shopmenu:
     description: "Opens the shop GUI"
-  stats:
+  statsmenu:
     description: "Opens the stats GUI"
-  perks:
+  perksmenu:
     description: "Opens the perks GUI"
 
 
   gold:
     aliases: [money, bal, balance]
     description: "Check how much gold you have"
-  stat:
+  stats:
     description: "Opens specific players stats"
 
 

@@ -15,7 +15,7 @@ class PlayerCommands : CommandExecutor {
         if (command.name.equals("gold", ignoreCase = true)) {
             val gold = CacheConfig.getplrVal(player, "gold")
             player.sendMessage(StringUtils.parse("&6&lEcoWings &8| &fGold: &6${gold}g"))
-        } else if (command.name.equals("stat", ignoreCase = true)) {
+        } else if (command.name.equals("stats", ignoreCase = true)) {
             if (args.isEmpty()) {
                 PlayerStatsMenu.openInventory(player, player)
                 return true
