@@ -13,8 +13,10 @@ class OnPlayerDamage : Listener {
         val attacker = event.damager as? Player ?: return
         val victim = event.entity as? Player ?: return
 
-        if (!RegionUtils.isLocationInRegion(attacker.location, "pvpRegion") || !RegionUtils.isLocationInRegion(victim.location, "pvpRegion")) {
-            event.isCancelled = true
+        if (!RegionUtils.isLocationInRegion(attacker.location, "spawnRegion") && !RegionUtils.isLocationInRegion(victim.location, "spawnRegion")) {
+            return
         }
+
+        event.isCancelled = true
     }
 }
