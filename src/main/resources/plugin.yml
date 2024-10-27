@@ -12,6 +12,8 @@ commands:
     description: "Opens the stats GUI"
   perksmenu:
     description: "Opens the perks GUI"
+  eventsmenu:
+    description: "Opens the events GUI"
 
 
   gold:

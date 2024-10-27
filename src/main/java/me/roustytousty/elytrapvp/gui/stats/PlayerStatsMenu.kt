@@ -52,7 +52,7 @@ class PlayerStatsMenu : Listener {
         }
 
         private fun initItems(statPlayer: Player) {
-            val slots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35, 36, 44, 53)
+            val slots = intArrayOf(8, 9, 17, 18, 26, 27, 35, 36, 44, 53)
             for (slot in slots) {
                 inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
@@ -107,11 +107,10 @@ class PlayerStatsMenu : Listener {
             )
 
             inv!!.setItem(
-                4,
+                0,
                 createPlayerHead(
                     statPlayer,
-                    "&eStats",
-                    "&7Your personal stats menu!"
+                    "&f"
                 )
             )
             inv!!.setItem(
