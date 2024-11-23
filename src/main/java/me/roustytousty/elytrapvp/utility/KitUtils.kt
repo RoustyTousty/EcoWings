@@ -63,11 +63,7 @@ object KitUtils {
         val materialName = kitSection.getString("material")
         val material = Material.getMaterial(materialName ?: throw IllegalArgumentException("Invalid material: $materialName"))!!
         val item = ItemStack(material)
-        val meta = item.itemMeta
-
-        if (meta == null) {
-            return item
-        }
+        val meta = item.itemMeta ?: return item
 
         meta.setDisplayName(StringUtils.parse(kitSection.getString("name")!!))
 
@@ -80,7 +76,7 @@ object KitUtils {
         kitSection.getConfigurationSection("enchants")?.getValues(false)?.let { enchants ->
             (enchants as Map<String, Int>).forEach { (enchantName, level) ->
                 Enchantment.getByName(enchantName)?.let { enchantment ->
-                    meta?.addEnchant(enchantment, level, true)
+                    meta.addEnchant(enchantment, level, true)
                 }
             }
         }
