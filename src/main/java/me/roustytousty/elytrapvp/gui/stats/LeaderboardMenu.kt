@@ -73,7 +73,7 @@ class LeaderboardMenu : Listener {
             inv!!.setItem(35, createPlayerHead(player, "&e${player.name} &6#$playerRank", "&7Value: ${formatNumber(playerStat as Int)}"))
 
             val leaderboardSlots = intArrayOf(17, 16, 15, 14, 13, 12, 11, 10, 9)
-            val topPlayers = MongoDB.getTopPlayers("gold", 8)
+            val topPlayers = MongoDB.getTopPlayers(stat, 8)
 
             topPlayers.forEachIndexed { index, playerDoc ->
                 val pName = playerDoc.getString("username")

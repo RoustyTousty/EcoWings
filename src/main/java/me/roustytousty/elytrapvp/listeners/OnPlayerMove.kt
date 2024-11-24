@@ -12,7 +12,7 @@ class OnPlayerMove : Listener {
         val player = event.player
         val playerLocation = player.location
 
-        if (playerLocation.y > 85) {
+        if (playerLocation.y > 0) {
             return
         }
 
