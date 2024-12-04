@@ -110,6 +110,8 @@ class PlayerStatsMenu : Listener {
                 0,
                 createPlayerHead(
                     statPlayer,
+                    1,
+                    false,
                     "&f"
                 )
             )

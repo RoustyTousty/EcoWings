@@ -61,6 +61,8 @@ class StatsMenu : Listener {
                 12,
                 createPlayerHead(
                     player,
+                    1,
+                    false,
                     "&eStats",
                     "&7Your personal stats menu!"
                 )

@@ -127,6 +127,8 @@ class WarTableMenu : Listener {
                 27,
                 createPlayerHead(
                     player,
+                    1,
+                    false,
                     "&eBest Outlaw",
                     "",
                     "&7Name: RoustyTousty",
@@ -137,6 +139,8 @@ class WarTableMenu : Listener {
                 35,
                 createPlayerHead(
                     player,
+                    1,
+                    false,
                     "&eBest Marshal",
                     "",
                     "&7Name: RoustyTousty",

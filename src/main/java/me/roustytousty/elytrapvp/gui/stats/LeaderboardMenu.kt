@@ -70,7 +70,7 @@ class LeaderboardMenu : Listener {
 
             val playerStat = CacheConfig.getplrVal(player, stat)
             val playerRank = MongoDB.getPlayerRank(player, stat)
-            inv!!.setItem(35, createPlayerHead(player, "&e${player.name} &6#$playerRank", "&7Value: ${formatNumber(playerStat as Int)}"))
+            inv!!.setItem(35, createPlayerHead(player, 1, false, "&e${player.name} &6#$playerRank", "&7Value: ${formatNumber(playerStat as Int)}"))
 
             val leaderboardSlots = intArrayOf(17, 16, 15, 14, 13, 12, 11, 10, 9)
             val topPlayers = MongoDB.getTopPlayers(stat, 8)
@@ -78,7 +78,7 @@ class LeaderboardMenu : Listener {
             topPlayers.forEachIndexed { index, playerDoc ->
                 val pName = playerDoc.getString("username")
                 val pStat = playerDoc.getInteger(stat)
-                val skullItem = createPlayerHead(Bukkit.getOfflinePlayer(pName), "&e$pName &6#${index + 1}", "&7Value: ${formatNumber(pStat as Int)}")
+                val skullItem = createPlayerHead(Bukkit.getOfflinePlayer(pName), 1, false, "&e$pName &6#${index + 1}", "&7Value: ${formatNumber(pStat as Int)}")
 
                 inv!!.setItem(leaderboardSlots[index], skullItem)
             }
