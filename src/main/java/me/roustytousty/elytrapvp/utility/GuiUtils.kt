@@ -12,12 +12,12 @@ object GuiUtils {
 
     fun createGuiItem(
         material: Material,
-        ammount: Int,
+        amount: Int,
         glow: Boolean,
         name: String?,
         vararg lore: String?
     ): ItemStack {
-        val item = ItemStack(material, ammount)
+        val item = ItemStack(material, amount)
         val meta = item.itemMeta
 
         meta.setDisplayName(StringUtils.parse(name))
@@ -32,16 +32,24 @@ object GuiUtils {
             }
             meta.lore = l
         }
+
         if (glow) {
             meta.addEnchant(Enchantment.DURABILITY, 1, false)
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         }
+
         item.itemMeta = meta
         return item
     }
 
-    fun createPlayerHead(player: OfflinePlayer, name: String?, vararg lore: String?): ItemStack {
-        val item = ItemStack(Material.PLAYER_HEAD, 1)
+    fun createPlayerHead(
+        player: OfflinePlayer,
+        amount: Int,
+        glow: Boolean,
+        name: String?,
+        vararg lore: String?
+    ): ItemStack {
+        val item = ItemStack(Material.PLAYER_HEAD, amount)
         val meta = item.itemMeta as SkullMeta
 
         meta.owningPlayer = player
@@ -54,6 +62,11 @@ object GuiUtils {
                 l.add(StringUtils.parse(s))
             }
             meta.lore = l
+        }
+
+        if (glow) {
+            meta.addEnchant(Enchantment.DURABILITY, 1, false)
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         }
 
         item.itemMeta = meta

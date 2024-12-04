@@ -74,7 +74,9 @@ object KitUtils {
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
 
         kitSection.getConfigurationSection("enchants")?.getValues(false)?.let { enchants ->
+
             (enchants as Map<String, Int>).forEach { (enchantName, level) ->
+
                 Enchantment.getByName(enchantName)?.let { enchantment ->
                     meta.addEnchant(enchantment, level, true)
                 }

@@ -35,5 +35,4 @@ object UpgradeConfig {
     fun getConfig(): YamlConfiguration {
         return config
     }
-
 }
