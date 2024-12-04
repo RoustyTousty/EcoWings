@@ -2,8 +2,9 @@ package me.roustytousty.elytrapvp
 
 import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.commands.GuiCommands
-import me.roustytousty.elytrapvp.commands.PlayerCommands
-import me.roustytousty.elytrapvp.commands.StaffCommands
+import me.roustytousty.elytrapvp.commands.playercommands.GoldCommand
+import me.roustytousty.elytrapvp.commands.playercommands.StatsCommand
+import me.roustytousty.elytrapvp.commands.staffcommands.*
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.data.RegionConfig
 import me.roustytousty.elytrapvp.data.UpgradeConfig
@@ -101,8 +102,8 @@ class ElytraPVP : JavaPlugin() {
 
     private fun registerCommands(){
         // Commands
-        getCommand("gold")?.setExecutor(PlayerCommands())
-        getCommand("stats")?.setExecutor(PlayerCommands())
+        getCommand("gold")?.setExecutor(GoldCommand())
+        getCommand("stats")?.setExecutor(StatsCommand())
 
         // Commands (gui)
         getCommand("shopmenu")?.setExecutor(GuiCommands())
@@ -112,11 +113,11 @@ class ElytraPVP : JavaPlugin() {
         getCommand("eventsmenu")?.setExecutor(GuiCommands())
 
         // Staff commands
-        getCommand("reloadcache")?.setExecutor(StaffCommands())
-        getCommand("reloadupgradeconfig")?.setExecutor(StaffCommands())
-        getCommand("feed")?.setExecutor(StaffCommands())
-        getCommand("buildmode")?.setExecutor(StaffCommands())
-        getCommand("setgold")?.setExecutor(StaffCommands())
+        getCommand("reloadcache")?.setExecutor(ReloadCacheCommand())
+        getCommand("reloadupgradeconfig")?.setExecutor(ReloadUpgradeConfigCommand())
+        getCommand("feed")?.setExecutor(FeedCommand())
+        getCommand("buildmode")?.setExecutor(BuildModeCommand())
+        getCommand("setgold")?.setExecutor(SetGoldCommand())
     }
 
     private fun setupConfigsOnEnable() {
