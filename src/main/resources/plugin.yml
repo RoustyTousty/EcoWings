@@ -4,6 +4,8 @@ main: me.roustytousty.elytrapvp.ElytraPVP
 api-version: '1.21'
 
 commands:
+
+  # Gui commands
   upgrademenu:
     description: "Opens the upgrade GUI"
   shopmenu:
@@ -15,21 +17,31 @@ commands:
   eventsmenu:
     description: "Opens the events GUI"
 
-
+  # Player commands
   gold:
     aliases: [money, bal, balance]
     description: "Check how much gold you have"
   stats:
     description: "Opens specific players stats"
 
-
+  # Staff commands
   reloadcache:
     description: "Reloads the player data cache!"
+    permission: op
+    permission-message: "&c&lWwwings &8| &fYou don't have permission to use this command!"
   reloadupgradeconfig:
     description: "Reloads the upgrade config!"
+    permission: op
+    permission-message: "&c&lWwwings &8| &fYou don't have permission to use this command!"
   buildmode:
     description: "Toggles buildmode!"
+    permission: op
+    permission-message: "&c&lWwwings &8| &fYou don't have permission to use this command!"
   feed:
     description: "Feeds you!"
+    permission: op
+    permission-message: "&c&lWwwings &8| &fYou don't have permission to use this command!"
   setgold:
     description: "Set players gold amount!"
+    permission: op
+    permission-message: "&c&lWwwings &8| &fYou don't have permission to use this command!"

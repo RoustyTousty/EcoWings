@@ -12,11 +12,6 @@ class ReloadUpgradeConfigCommand : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         val player = sender as Player
 
-        if (!player.isOp) {
-            player.sendMessage(StringUtils.parse("&c&lWwwings &8| &fYou don't have permission to use this command!"))
-            return false
-        }
-
         UpgradeConfig.load()
 
         return true
