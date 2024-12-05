@@ -13,7 +13,7 @@ class OnPlayerRespawn : Listener {
     @EventHandler
     fun onPlayerRespawn(event: PlayerRespawnEvent) {
         val player = event.player
-        event.player.teleport(Location(Bukkit.getWorld("Industrial"), 0.0, 137.0, 175.0, -180.0F, 0.0F))
+        event.player.teleport(Location(Bukkit.getWorld("EcoWings"), 0.0, 137.0, 175.0, -180.0F, 0.0F))
 
         KitUtils.givePlayerKit(player)
 

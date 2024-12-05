@@ -19,7 +19,7 @@ class OnPlayerJoin : Listener {
 
         MongoDB.setupPlayerOnJoin(player)
 
-        player.teleport(Location(Bukkit.getWorld("Industrial"), 0.0, 137.0, 175.0, -180.0F, 0.0F))
+        player.teleport(Location(Bukkit.getWorld("EcoWings"), 0.0, 137.0, 175.0, -180.0F, 0.0F))
         event.joinMessage(Component.text(parse("&f[&a+&f] ${player.name}")))
 
         ScoreboardUtils.createScoreboard(player)
