@@ -1,0 +1,25 @@
+regions:
+
+  pvpRegion:
+    pos1:
+      world: "EcoWings"
+      x: -22
+      y: 180
+      z: 127
+    pos2:
+      world: "EcoWings"
+      x: 21
+      y: 85
+      z: 170
+
+  warTableRegion:
+    pos1:
+      world: "EcoWings"
+      x: 10
+      y: 137
+      z: 187
+    pos2:
+      world: "EcoWings"
+      x: 14
+      y: 138
+      z: 188

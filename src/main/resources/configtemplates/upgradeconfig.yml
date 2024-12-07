@@ -1,0 +1,192 @@
+upgrades:
+
+  helmet:
+    0:
+      material: AIR
+      name: "&f"
+    1:
+      material: LEATHER_HELMET
+      name: "&fHelmet &6[&fT1&6]"
+      cost: 100
+    2:
+      material: LEATHER_HELMET
+      name: "&fHelmet &6[&fT2&6]"
+      enchants:
+        PROTECTION: 1
+      cost: 250
+    3:
+      material: LEATHER_HELMET
+      name: "&fHelmet &6[&fT3&6]"
+      enchants:
+        PROTECTION: 2
+      cost: 500
+    4:
+      material: LEATHER_HELMET
+      name: "&fHelmet &6[&fT4&6]"
+      enchants:
+        PROTECTION: 3
+      cost: 1000
+    5:
+      material: LEATHER_HELMET
+      name: "&fHelmet &6[&fT5&6]"
+      enchants:
+        PROTECTION: 4
+      cost: 1500
+
+
+  elytra:
+    0:
+      material: ELYTRA
+      name: "&fElytra &6[&fT1&6]"
+    1:
+      material: ELYTRA
+      name: "&fElytra &6[&fT2&6]"
+      enchants:
+        PROTECTION: 1
+      cost: 200
+    2:
+      material: ELYTRA
+      name: "&fElytra &6[&fT3&6]"
+      enchants:
+        PROTECTION: 2
+      cost: 500
+    3:
+      material: ELYTRA
+      name: "&fElytra &6[&fT4&6]"
+      enchants:
+        PROTECTION: 3
+      cost: 1000
+    4:
+      material: ELYTRA
+      name: "&fElytra &6[&fT5&6]"
+      enchants:
+        PROTECTION: 4
+      cost: 1500
+
+
+  leggings:
+    0:
+      material: AIR
+      name: "&f"
+    1:
+      material: LEATHER_LEGGINGS
+      name: "&fLeggings &6[&fT1&6]"
+      cost: 100
+    2:
+      material: LEATHER_LEGGINGS
+      name: "&fLeggings &6[&fT2&6]"
+      enchants:
+        PROTECTION: 1
+      cost: 250
+    3:
+      material: LEATHER_LEGGINGS
+      name: "&fLeggings &6[&fT3&6]"
+      enchants:
+        PROTECTION: 2
+      cost: 500
+    4:
+      material: LEATHER_LEGGINGS
+      name: "&fLeggings &6[&fT4&6]"
+      enchants:
+        PROTECTION: 3
+      cost: 1000
+    5:
+      material: LEATHER_LEGGINGS
+      name: "&fLeggings &6[&fT5&6]"
+      enchants:
+        PROTECTION: 4
+      cost: 1500
+
+
+  boots:
+    0:
+      material: AIR
+      name: "&f"
+    1:
+      material: LEATHER_BOOTS
+      name: "&fBoots &6[&fT1&6]"
+      cost: 100
+    2:
+      material: LEATHER_BOOTS
+      name: "&fBoots &6[&fT2&6]"
+      enchants:
+        PROTECTION: 1
+      cost: 250
+    3:
+      material: LEATHER_BOOTS
+      name: "&fBoots &6[&fT3&6]"
+      enchants:
+        PROTECTION: 2
+      cost: 500
+    4:
+      material: LEATHER_BOOTS
+      name: "&fBoots &6[&fT4&6]"
+      enchants:
+        PROTECTION: 3
+      cost: 1000
+    5:
+      material: LEATHER_BOOTS
+      name: "&fBoots &6[&fT5&6]"
+      enchants:
+        PROTECTION: 4
+      cost: 1500
+
+
+  sword:
+    0:
+      material: WOODEN_SWORD
+      name: "&fSword &6[&fT1&6]"
+    1:
+      material: WOODEN_SWORD
+      name: "&fSword &6[&fT2&6]"
+      enchants:
+        SHARPNESS: 1
+      cost: 150
+    2:
+      material: WOODEN_SWORD
+      name: "&fSword &6[&fT3&6]"
+      enchants:
+        SHARPNESS: 2
+      cost: 400
+    3:
+      material: WOODEN_SWORD
+      name: "&fSword &6[&fT4&6]"
+      enchants:
+        SHARPNESS: 3
+      cost: 800
+    4:
+      material: WOODEN_SWORD
+      name: "&fSword &6[&fT5&6]"
+      enchants:
+        SHARPNESS: 4
+      cost: 1300
+
+
+  shears:
+    0:
+      material: SHEARS
+      name: "&fShears &6[&fT1&6]"
+    1:
+      material: SHEARS
+      name: "&fShears &6[&fT2&6]"
+      enchants:
+        EFFICIENCY: 1
+      cost: 100
+    2:
+      material: SHEARS
+      name: "&fShears &6[&fT3&6]"
+      enchants:
+        EFFICIENCY: 2
+      cost: 250
+    3:
+      material: SHEARS
+      name: "&fShears &6[&fT4&6]"
+      enchants:
+        EFFICIENCY: 3
+      cost: 500
+    4:
+      material: SHEARS
+      name: "&fShears &6[&fT5&6]"
+      enchants:
+        EFFICIENCY: 4
+      cost: 850
