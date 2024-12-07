@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Sorts
 import com.mongodb.client.model.Updates
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.data.CacheConfig
@@ -148,10 +149,10 @@ object MongoDB {
 
     fun getTopPlayers(stat: String, num: Int): List<Document> {
         val db = mongoClient?.getDatabase("ElytraPVP")
-        val collection = db?.getCollection("PlayerData")!!
+        val collection = db?.getCollection("PlayerData") ?: return emptyList()
 
         return collection.find()
-            .sort(Document(stat, -1))
+            .sort(Sorts.descending(stat))
             .limit(num)
             .toList()
     }
