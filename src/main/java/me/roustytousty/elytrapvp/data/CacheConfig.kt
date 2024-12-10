@@ -73,18 +73,4 @@ object CacheConfig {
     fun setplrVal(plr: OfflinePlayer, key: String, value: Any?): Any?{
         return config.set("cached.${plr.name}.${key}", value)
     }
-//    fun getplrBal(plr: OfflinePlayer): Int{
-//        return config.getInt("cached.${plr.name}.balance")
-//    }
-//    fun getplrGameVals(plr : Player, game : String) : List<Map<*, *>> {
-//        return config.getMapList("cached.${plr.name}.${game}")
-//    }
-//
-//
-//    fun getall(plr : Player){
-//        plr.sendMessage("${config.getStringList("cached")}")
-//        for (key in config.getStringList("cached")){
-//            plr.sendMessage(key)
-//        }
-//    }
 }

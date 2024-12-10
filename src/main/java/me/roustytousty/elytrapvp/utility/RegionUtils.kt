@@ -2,12 +2,10 @@ package me.roustytousty.elytrapvp.utility
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.data.RegionConfig
-import me.roustytousty.elytrapvp.utility.StringUtils.parse
-import org.bukkit.Bukkit
+import me.roustytousty.elytrapvp.utility.MessageUtils.sendMessage
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.World
-import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 
 object RegionUtils {
@@ -30,7 +28,7 @@ object RegionUtils {
                 }
 
                 if (timeRemainingMinutes == 1) {
-                    sendWarningToPlayers("&6&lEcoWings &8| &fMap will reset in 1 minute!")
+                    sendMessage("&6&lEcoWings &8| &fMap will reset in 1 minute!")
                 }
 
                 if (timeRemainingMinutes == 0) {
@@ -43,7 +41,7 @@ object RegionUtils {
 
             private fun handleFinalCountdown() {
                 when (finalCountdownSeconds) {
-                    10, 3, 2, 1 -> sendWarningToPlayers("&6&lEcoWings &8| &fMap will reset in $finalCountdownSeconds second${if (finalCountdownSeconds > 1) "s" else ""}!")
+                    10, 3, 2, 1 -> sendMessage("&6&lEcoWings &8| &fMap will reset in $finalCountdownSeconds second${if (finalCountdownSeconds > 1) "s" else ""}!")
                     0 -> {
 
 
@@ -80,12 +78,6 @@ object RegionUtils {
                     block.type = Material.AIR
                 }
             }
-        }
-    }
-
-    private fun sendWarningToPlayers(message: String) {
-        for (player: Player in Bukkit.getOnlinePlayers()) {
-            player.sendMessage(parse(message))
         }
     }
 

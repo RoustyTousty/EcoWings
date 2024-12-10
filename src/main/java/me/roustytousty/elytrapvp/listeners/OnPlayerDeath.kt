@@ -1,11 +1,8 @@
 package me.roustytousty.elytrapvp.listeners
 
-import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.services.PlayerService
-import me.roustytousty.elytrapvp.services.bounty.BountyService
 import me.roustytousty.elytrapvp.utility.StringUtils.parse
 import net.kyori.adventure.text.Component
-import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

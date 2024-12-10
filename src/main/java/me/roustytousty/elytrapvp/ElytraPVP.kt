@@ -25,6 +25,7 @@ import me.roustytousty.elytrapvp.gui.upgrade.UpgradeMenu
 import me.roustytousty.elytrapvp.listeners.*
 import me.roustytousty.elytrapvp.listeners.items.RegenApple
 import me.roustytousty.elytrapvp.listeners.items.Dusty
+import me.roustytousty.elytrapvp.services.PlayerService
 import me.roustytousty.elytrapvp.services.ScoreboardService
 import me.roustytousty.elytrapvp.utility.RegionUtils
 import org.bukkit.Bukkit
