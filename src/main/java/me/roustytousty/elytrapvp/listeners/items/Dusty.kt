@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.listeners.utility
+package me.roustytousty.elytrapvp.listeners.items
 
 import org.bukkit.Material
 import org.bukkit.Particle
@@ -8,7 +8,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.util.Vector
 
-class OnDusty : Listener {
+class Dusty : Listener {
 
     @EventHandler
     fun onPlayerRightClick(event: PlayerInteractEvent) {

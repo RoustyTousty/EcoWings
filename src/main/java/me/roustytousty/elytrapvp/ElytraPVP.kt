@@ -23,10 +23,10 @@ import me.roustytousty.elytrapvp.gui.stats.StatsMenu
 import me.roustytousty.elytrapvp.gui.upgrade.ConfirmUpgradeMenu
 import me.roustytousty.elytrapvp.gui.upgrade.UpgradeMenu
 import me.roustytousty.elytrapvp.listeners.*
-import me.roustytousty.elytrapvp.listeners.consumables.OnRegenApple
-import me.roustytousty.elytrapvp.listeners.utility.OnDusty
+import me.roustytousty.elytrapvp.listeners.items.RegenApple
+import me.roustytousty.elytrapvp.listeners.items.Dusty
+import me.roustytousty.elytrapvp.services.ScoreboardService
 import me.roustytousty.elytrapvp.utility.RegionUtils
-import me.roustytousty.elytrapvp.utility.ScoreboardUtils
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
@@ -49,7 +49,7 @@ class ElytraPVP : JavaPlugin() {
         registerEvents()
         registerCommands()
         MongoDB.setupDbOnEnable()
-        ScoreboardUtils.startUpdatingScoreboard()
+        ScoreboardService().startUpdateTask()
         RegionUtils.startRegionResetTask()
 
         logger.info("Plugin Setup!")
@@ -66,8 +66,8 @@ class ElytraPVP : JavaPlugin() {
 
     private fun registerEvents(){
         // Special items
-        pluginmanager.registerEvents(OnDusty(), this)
-        pluginmanager.registerEvents(OnRegenApple(), this)
+        pluginmanager.registerEvents(Dusty(), this)
+        pluginmanager.registerEvents(RegenApple(), this)
 
         // Listeners
         pluginmanager.registerEvents(OnPlayerJoin(), this)

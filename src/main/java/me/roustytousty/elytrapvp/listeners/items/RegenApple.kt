@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.listeners.consumables
+package me.roustytousty.elytrapvp.listeners.items
 
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class OnRegenApple : Listener {
+class RegenApple : Listener {
 
     @EventHandler
     fun onPlayerRightClick(event: PlayerInteractEvent) {

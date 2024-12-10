@@ -1,10 +1,10 @@
-package me.roustytousty.elytrapvp.utility.bounty
+package me.roustytousty.elytrapvp.services.bounty;
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 
-class BountyManager {
+class BountyService {
 
     private val activeBounties = mutableMapOf<Player, Bounty>()
 
@@ -13,7 +13,7 @@ class BountyManager {
             update(bountyAmount)
         } ?: createBounty(player, bountyAmount)
 
-        bountyHologramUpdator(player, bounty)
+        bountyHologramUpdateTask(player, bounty)
     }
 
     fun removeBounty(player: Player) {
@@ -26,7 +26,7 @@ class BountyManager {
         return bounty
     }
 
-    private fun bountyHologramUpdator(player: Player, bounty: Bounty) {
+    private fun bountyHologramUpdateTask(player: Player, bounty: Bounty) {
         object : BukkitRunnable() {
             override fun run() {
 

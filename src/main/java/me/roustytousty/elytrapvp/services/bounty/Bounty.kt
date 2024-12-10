@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.utility.bounty
+package me.roustytousty.elytrapvp.services.bounty
 
 import eu.decentsoftware.holograms.api.DHAPI
 import eu.decentsoftware.holograms.api.holograms.Hologram

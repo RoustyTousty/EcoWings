@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.commands
 
-import me.roustytousty.elytrapvp.utility.bounty.BountyManager
+import me.roustytousty.elytrapvp.services.bounty.BountyService
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -11,7 +11,7 @@ class TestCommand : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         val player = sender as Player
 
-        BountyManager().applyBounty(player, 334)
+        BountyService().applyBounty(player, 334)
 
         return true
     }
