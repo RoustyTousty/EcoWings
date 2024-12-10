@@ -3,7 +3,18 @@ version: '${project.version}'
 main: me.roustytousty.elytrapvp.ElytraPVP
 api-version: '1.21'
 
+dependencies:
+  server:
+    DecentHolograms:
+      load: BEFORE
+      required: true
+
+
+
 commands:
+
+  test:
+    description: "Test command for Rousty!"
 
   # Gui commands
   upgrademenu:
