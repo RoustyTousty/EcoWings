@@ -42,8 +42,7 @@ class Bounty(private val player: Player, initialBountyAmount: Int) {
                 player.name,
                 getHologramLocation(player),
                 listOf(formatHologramText(0))
-            )
-//            ).apply { setHidePlayer(player) }
+            ).apply { setHidePlayer(player) }
         }
     }
 }

@@ -1,7 +1,7 @@
 package me.roustytousty.elytrapvp.utility
 
 import me.roustytousty.elytrapvp.data.CacheConfig
-import me.roustytousty.elytrapvp.utility.StringUtils.parse
+import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player

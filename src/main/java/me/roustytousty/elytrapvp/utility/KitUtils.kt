@@ -65,7 +65,7 @@ object KitUtils {
         val item = ItemStack(material)
         val meta = item.itemMeta ?: return item
 
-        meta.setDisplayName(StringUtils.parse(kitSection.getString("name")!!))
+        meta.setDisplayName(FormatUtils.parse(kitSection.getString("name")!!))
 
         meta.isUnbreakable = true
 

@@ -5,7 +5,7 @@ import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.data.UpgradeConfig
 import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
 import me.roustytousty.elytrapvp.utility.KitUtils
-import me.roustytousty.elytrapvp.utility.StringUtils
+import me.roustytousty.elytrapvp.utility.FormatUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -48,11 +48,11 @@ class ConfirmUpgradeMenu : Listener {
 
                     KitUtils.givePlayerKit(p)
 
-                    p.sendMessage(StringUtils.parse("&a&lEcoWings &8| &fUpgrade successful! &6${item} &fis now level &6$nextItemLevel"))
+                    p.sendMessage(FormatUtils.parse("&a&lEcoWings &8| &fUpgrade successful! &6${item} &fis now level &6$nextItemLevel"))
                     p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
                     p.closeInventory()
                 } else {
-                    p.sendMessage(StringUtils.parse("&c&lEcoWings &8| &fNot enough gold! You need &6${upgradeCost}g"))
+                    p.sendMessage(FormatUtils.parse("&c&lEcoWings &8| &fNot enough gold! You need &6${upgradeCost}g"))
                     p.playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
                 }
             }

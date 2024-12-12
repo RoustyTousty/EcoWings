@@ -2,8 +2,8 @@ package me.roustytousty.elytrapvp.services
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.data.CacheConfig
-import me.roustytousty.elytrapvp.utility.StringUtils.formatNumber
-import me.roustytousty.elytrapvp.utility.StringUtils.parse
+import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
+import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
@@ -53,7 +53,15 @@ class ScoreboardService {
         player.scoreboard = board
     }
 
-    fun update() {
+    fun startUpdateTask() {
+        object : BukkitRunnable() {
+            override fun run() {
+                update()
+            }
+        }.runTaskTimer(ElytraPVP.instance!!, 0, 20)
+    }
+
+    private fun update() {
         for (player in Bukkit.getOnlinePlayers()) {
             val board = player.scoreboard
             val goldTeam = board.getTeam("gold") ?: continue
@@ -69,13 +77,5 @@ class ScoreboardService {
             val killstreak = CacheConfig.getplrVal(player, "killstreak") as Int
             killstreakTeam.suffix = parse("&f${formatNumber(killstreak)}")
         }
-    }
-
-    fun startUpdateTask() {
-        object : BukkitRunnable() {
-            override fun run() {
-                update()
-            }
-        }.runTaskTimer(ElytraPVP.instance!!, 0, 50)
     }
 }

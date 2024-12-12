@@ -3,7 +3,7 @@ package me.roustytousty.elytrapvp.listeners
 import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.services.ScoreboardService
 import me.roustytousty.elytrapvp.utility.KitUtils
-import me.roustytousty.elytrapvp.utility.StringUtils.parse
+import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.Location

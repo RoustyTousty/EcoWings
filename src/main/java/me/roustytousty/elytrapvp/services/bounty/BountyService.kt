@@ -20,6 +20,10 @@ class BountyService {
         activeBounties.remove(player)
     }
 
+    fun getBounty(player: Player): Bounty? {
+        return activeBounties[player]
+    }
+
     private fun createBounty(player: Player, bountyAmount: Int) : Bounty {
         val bounty = Bounty(player, bountyAmount)
         activeBounties[player] = bounty

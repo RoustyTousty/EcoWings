@@ -3,8 +3,8 @@ package me.roustytousty.elytrapvp.gui.upgrade
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.data.UpgradeConfig
 import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
-import me.roustytousty.elytrapvp.utility.StringUtils.formatNumber
-import me.roustytousty.elytrapvp.utility.StringUtils.parse
+import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
+import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound

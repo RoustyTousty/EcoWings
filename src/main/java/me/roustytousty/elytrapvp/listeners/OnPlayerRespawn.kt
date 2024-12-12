@@ -1,7 +1,8 @@
 package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.utility.KitUtils
-import me.roustytousty.elytrapvp.utility.StringUtils.parse
+import me.roustytousty.elytrapvp.utility.FormatUtils.parse
+import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.event.EventHandler
@@ -17,6 +18,6 @@ class OnPlayerRespawn : Listener {
 
         KitUtils.givePlayerKit(player)
 
-        player.sendTitle(parse("&c&lDeath"), parse("&7Try harder next time."), 5, 30, 5)
+        MessageUtils.sendTitle(player, "&c&lDeath", "&7Try harder next time.", 5, 30, 5)
     }
 }

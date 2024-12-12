@@ -2,7 +2,7 @@ package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.utility.RegionUtils
-import me.roustytousty.elytrapvp.utility.StringUtils
+import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
@@ -28,7 +28,7 @@ class OnBlockBreak : Listener {
 
         if (!isInPVPRegion || isInPVPBufferRegion) {
             event.isCancelled = true
-            player.sendMessage(StringUtils.parse("&c&lEcoWings &8| &fYou cant break blocks here!"))
+            MessageUtils.sendMessage(player, "&fYou cant break blocks here!")
             player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
             return
         }

@@ -2,7 +2,8 @@ package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.utility.RegionUtils
-import me.roustytousty.elytrapvp.utility.StringUtils
+import me.roustytousty.elytrapvp.utility.FormatUtils
+import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -25,7 +26,7 @@ class OnBlockPlace : Listener {
 
         if (!isInPVPRegion || isInPVPBufferRegion) {
             event.isCancelled = true
-            player.sendMessage(StringUtils.parse("&c&lEcoWings &8| &fYou cant place blocks here!"))
+            MessageUtils.sendMessage(player, "&c&lEcoWings &8| &fYou cant place blocks here!")
             player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
         }
     }

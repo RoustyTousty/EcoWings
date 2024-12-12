@@ -6,12 +6,10 @@ import me.roustytousty.elytrapvp.data.UpgradeConfig
 import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
 import me.roustytousty.elytrapvp.utility.GuiUtils.createPlayerHead
 import me.roustytousty.elytrapvp.utility.KitUtils
-import me.roustytousty.elytrapvp.utility.StringUtils.formatNumber
+import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.OfflinePlayer
 import org.bukkit.Sound
-import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

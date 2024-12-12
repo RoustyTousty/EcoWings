@@ -2,7 +2,7 @@ package me.roustytousty.elytrapvp.services
 
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.services.bounty.BountyService
-import me.roustytousty.elytrapvp.utility.MessageUtils.sendActionBar
+import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 
@@ -20,7 +20,7 @@ class PlayerService {
         CacheConfig.setplrVal(player, "gold", gold + 10)
 
         player.health = (player.health + 3).coerceAtMost(player.maxHealth)
-        sendActionBar(player, "&6+10g")
+        MessageUtils.sendActionBar(player, "&6+10g")
         player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
 
         if (newKillstreak >= 10) {

@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.utility
 
-import me.roustytousty.elytrapvp.utility.StringUtils.parse
+import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
@@ -13,6 +13,16 @@ object MessageUtils {
     fun sendError(message: String) {
         Bukkit.getOnlinePlayers().forEach { player ->
             player.sendMessage(parse("&c&lEcoWings &8| $message"))
+        }
+    }
+
+    fun sendSuccess(player: Player, message: String) {
+        player.sendMessage(parse("&a&lEcoWings &8| $message"))
+    }
+
+    fun sendSuccess(message: String) {
+        Bukkit.getOnlinePlayers().forEach { player ->
+            player.sendMessage(parse("&a&lEcoWings &8| $message"))
         }
     }
 
@@ -36,13 +46,13 @@ object MessageUtils {
         }
     }
 
-    fun sendTitle(player: Player, title: String, subTitle: String) {
-        player.sendTitle(parse(title), parse(subTitle))
+    fun sendTitle(player: Player, title: String, subTitle: String, fadeIn: Int, stay: Int, fadeOut: Int) {
+        player.sendTitle(parse(title), parse(subTitle), fadeIn, stay, fadeOut)
     }
 
-    fun sendTitle(title: String, subTitle: String) {
+    fun sendTitle(title: String, subTitle: String, fadeIn: Int, stay: Int, fadeOut: Int) {
         for (player: Player in Bukkit.getOnlinePlayers()) {
-            player.sendTitle(parse(title), parse(subTitle))
+            player.sendTitle(parse(title), parse(subTitle), fadeIn, stay, fadeOut)
         }
     }
 }

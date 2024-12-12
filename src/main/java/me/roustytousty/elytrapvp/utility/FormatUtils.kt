@@ -4,7 +4,7 @@ import org.bukkit.ChatColor
 import java.text.DecimalFormat
 
 
-object StringUtils {
+object FormatUtils {
 
     fun parse(s: String?): String {
         return ChatColor.translateAlternateColorCodes('&', s!!)

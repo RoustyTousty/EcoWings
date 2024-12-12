@@ -20,7 +20,7 @@ object GuiUtils {
         val item = ItemStack(material, amount)
         val meta = item.itemMeta
 
-        meta.setDisplayName(StringUtils.parse(name))
+        meta.setDisplayName(FormatUtils.parse(name))
 
         meta.attributeModifiers = item.type.getDefaultAttributeModifiers(EquipmentSlot.HAND)
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
@@ -28,7 +28,7 @@ object GuiUtils {
         if (lore.isNotEmpty()) {
             val l: MutableList<String> = ArrayList()
             for (s in lore) {
-                l.add(StringUtils.parse(s))
+                l.add(FormatUtils.parse(s))
             }
             meta.lore = l
         }
@@ -54,12 +54,12 @@ object GuiUtils {
 
         meta.owningPlayer = player
 
-        meta.setDisplayName(StringUtils.parse(name))
+        meta.setDisplayName(FormatUtils.parse(name))
 
         if (lore.isNotEmpty()) {
             val l: MutableList<String> = ArrayList()
             for (s in lore) {
-                l.add(StringUtils.parse(s))
+                l.add(FormatUtils.parse(s))
             }
             meta.lore = l
         }

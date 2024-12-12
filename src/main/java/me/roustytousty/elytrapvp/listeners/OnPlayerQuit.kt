@@ -1,7 +1,7 @@
 package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.api.MongoDB
-import me.roustytousty.elytrapvp.utility.StringUtils
+import me.roustytousty.elytrapvp.utility.FormatUtils
 import net.kyori.adventure.text.Component
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -15,6 +15,6 @@ class OnPlayerQuit : Listener {
 
         MongoDB.saveCachedData(player)
 
-        event.quitMessage(Component.text(StringUtils.parse("&f[&c-&f] ${player.name}")))
+        event.quitMessage(Component.text(FormatUtils.parse("&f[&c-&f] ${player.name}")))
     }
 }

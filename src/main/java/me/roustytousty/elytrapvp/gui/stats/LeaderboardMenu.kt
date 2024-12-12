@@ -4,7 +4,7 @@ import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
 import me.roustytousty.elytrapvp.utility.GuiUtils.createPlayerHead
-import me.roustytousty.elytrapvp.utility.StringUtils.formatNumber
+import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
