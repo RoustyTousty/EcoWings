@@ -55,7 +55,7 @@ class PlayerStatsMenu : Listener {
                 )
             }
 
-            val cacheConfig = UpgradeConfig.getConfig()
+            val upgradeConfig = UpgradeConfig.getConfig()
 
             val gold = CacheConfig.getplrVal(statPlayer, "gold")
             val kills = CacheConfig.getplrVal(statPlayer, "kills")
@@ -72,12 +72,12 @@ class PlayerStatsMenu : Listener {
             val swordLevel = CacheConfig.getplrVal(statPlayer, "swordLevel") as? Int ?: 0
             val shearsLevel = CacheConfig.getplrVal(statPlayer, "shearsLevel") as? Int ?: 0
 
-            val helmetItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.helmet.$helmetLevel")!!)
-            val elytraItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.elytra.$elytraLevel")!!)
-            val leggingsItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.leggings.$leggingsLevel")!!)
-            val bootsItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.boots.$bootsLevel")!!)
-            val swordItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.sword.$swordLevel")!!)
-            val shearsItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.shears.$shearsLevel")!!)
+            val helmetItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.helmet.$helmetLevel")!!)
+            val elytraItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.elytra.$elytraLevel")!!)
+            val leggingsItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.leggings.$leggingsLevel")!!)
+            val bootsItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.boots.$bootsLevel")!!)
+            val swordItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.sword.$swordLevel")!!)
+            val shearsItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.shears.$shearsLevel")!!)
 
             inv!!.setItem(
                 11,

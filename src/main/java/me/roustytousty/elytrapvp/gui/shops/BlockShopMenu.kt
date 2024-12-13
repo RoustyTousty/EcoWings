@@ -1,5 +1,6 @@
 package me.roustytousty.elytrapvp.gui.shops
 
+import me.roustytousty.elytrapvp.services.ShopService
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.MiscUtils
 import org.bukkit.Bukkit
@@ -14,6 +15,8 @@ import org.bukkit.inventory.Inventory
 
 class BlockShopMenu : Listener {
 
+    private val shopService = ShopService()
+
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
         if (e.inventory != inv) return
@@ -23,15 +26,15 @@ class BlockShopMenu : Listener {
         val p = e.whoClicked as Player
 
         if (e.rawSlot == 11) {
-            MiscUtils.shopPurchaseItem(p, 1, clickedItem.type, 16)
+            shopService.shopPurchaseItem(p, 1, clickedItem.type, 16)
         } else if (e.rawSlot == 12) {
-            MiscUtils.shopPurchaseItem(p, 3, clickedItem.type, 16)
+            shopService.shopPurchaseItem(p, 3, clickedItem.type, 16)
         } else if (e.rawSlot == 13) {
-            MiscUtils.shopPurchaseItem(p, 10, clickedItem.type, 16)
+            shopService.shopPurchaseItem(p, 10, clickedItem.type, 16)
         } else if (e.rawSlot == 14) {
-            MiscUtils.shopPurchaseItem(p, 6, clickedItem.type, 16)
+            shopService.shopPurchaseItem(p, 6, clickedItem.type, 16)
         } else if (e.rawSlot == 15) {
-            MiscUtils.shopPurchaseItem(p, 12, clickedItem.type, 16)
+            shopService.shopPurchaseItem(p, 12, clickedItem.type, 16)
         } else if (e.rawSlot == 18) {
             ShopMenu.openInventory(p)
         }

@@ -3,8 +3,10 @@ package me.roustytousty.elytrapvp.gui.upgrade
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.data.UpgradeConfig
+import me.roustytousty.elytrapvp.services.kit.KitService
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.FormatUtils
+import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -18,6 +20,8 @@ import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.metadata.MetadataValue
 
 class ConfirmUpgradeMenu : Listener {
+
+    private val kitService = KitService()
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
@@ -45,7 +49,7 @@ class ConfirmUpgradeMenu : Listener {
 
                     CacheConfig.setplrVal(p, "${item}Level", nextItemLevel)
 
-                    ItemUtils.givePlayerKit(p)
+                    kitService.giveKit(p)
 
                     p.sendMessage(FormatUtils.parse("&a&lEcoWings &8| &fUpgrade successful! &6${item} &fis now level &6$nextItemLevel"))
                     p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
@@ -87,7 +91,7 @@ class ConfirmUpgradeMenu : Listener {
             val itemConfigSection = UpgradeConfig.getConfig().getConfigurationSection("upgrades.$item.$nextItemLevel")
 
             if (itemConfigSection != null) {
-                val itemStack = ItemUtils.createKitItem(itemConfigSection)
+                val itemStack = ItemUtils.kitItemBuilder(itemConfigSection)
                 inv!!.setItem(4, itemStack)
 
                 val upgradeCost = itemConfigSection.getInt("cost")

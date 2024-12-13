@@ -33,7 +33,9 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
 class ElytraPVP : JavaPlugin() {
-    val pluginmanager = Bukkit.getPluginManager()
+
+    private val pluginmanager = Bukkit.getPluginManager()
+    private val scoreboardService = ScoreboardService()
 
     companion object {
         var instance: ElytraPVP? = null
@@ -50,7 +52,7 @@ class ElytraPVP : JavaPlugin() {
         registerEvents()
         registerCommands()
         MongoDB.setupDbOnEnable()
-        ScoreboardService().startUpdateTask()
+        scoreboardService.startUpdateTask()
         RegionUtils.startRegionResetTask()
 
         logger.info("Plugin Setup!")

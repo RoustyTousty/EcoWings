@@ -75,7 +75,9 @@ object ItemUtils {
         return item
     }
 
-    fun kitItemBuilder(config: ConfigurationSection): ItemStack {
+    fun kitItemBuilder(
+        config: ConfigurationSection
+    ): ItemStack {
         val material = Material.getMaterial(config.getString("material", "AIR")!!) ?: Material.AIR
         val itemStack = ItemStack(material)
         val meta: ItemMeta = itemStack.itemMeta ?: return itemStack
