@@ -5,7 +5,10 @@ import eu.decentsoftware.holograms.api.holograms.Hologram
 import org.bukkit.Location
 import org.bukkit.entity.Player
 
-class Bounty(private val player: Player, initialBountyAmount: Int) {
+class Bounty(
+    private val player: Player,
+    initialBountyAmount: Int
+) {
 
     var amount: Int = initialBountyAmount
         private set

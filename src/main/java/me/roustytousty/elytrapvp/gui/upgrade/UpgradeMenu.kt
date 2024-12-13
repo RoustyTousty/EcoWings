@@ -2,7 +2,7 @@ package me.roustytousty.elytrapvp.gui.upgrade
 
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.data.UpgradeConfig
-import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
+import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import org.bukkit.Bukkit
@@ -75,7 +75,7 @@ class UpgradeMenu : Listener {
         private fun initItems(player: Player) {
             val slots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35)
             for (slot in slots) {
-                inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inv!!.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
             val nextHelmetLevel = ((CacheConfig.getplrVal(player, "helmetLevel") as? Int) ?: 0) + 1
@@ -95,7 +95,7 @@ class UpgradeMenu : Listener {
             // Helmet
             if (helmetCost == -1) {
                 inv!!.setItem(11,
-                    createGuiItem(
+                    itemBuilder(
                         Material.LEATHER_HELMET,
                         1,
                         false,
@@ -107,7 +107,7 @@ class UpgradeMenu : Listener {
                 )
             } else {
                 inv!!.setItem(11,
-                    createGuiItem(
+                    itemBuilder(
                         Material.LEATHER_HELMET,
                         1,
                         false,
@@ -124,7 +124,7 @@ class UpgradeMenu : Listener {
             // Elytra
             if (elytraCost == -1) {
                 inv!!.setItem(12,
-                    createGuiItem(
+                    itemBuilder(
                         Material.ELYTRA,
                         1,
                         false,
@@ -136,7 +136,7 @@ class UpgradeMenu : Listener {
                 )
             } else {
                 inv!!.setItem(12,
-                    createGuiItem(
+                    itemBuilder(
                         Material.ELYTRA,
                         1,
                         false,
@@ -153,7 +153,7 @@ class UpgradeMenu : Listener {
             // Leggings
             if (leggingsCost == -1) {
                 inv!!.setItem(13,
-                    createGuiItem(
+                    itemBuilder(
                         Material.LEATHER_LEGGINGS,
                         1,
                         false,
@@ -165,7 +165,7 @@ class UpgradeMenu : Listener {
                 )
             } else {
                 inv!!.setItem(13,
-                    createGuiItem(
+                    itemBuilder(
                         Material.LEATHER_LEGGINGS,
                         1,
                         false,
@@ -182,7 +182,7 @@ class UpgradeMenu : Listener {
             // Boots
             if (bootsCost == -1) {
                 inv!!.setItem(14,
-                    createGuiItem(
+                    itemBuilder(
                         Material.LEATHER_BOOTS,
                         1,
                         false,
@@ -195,7 +195,7 @@ class UpgradeMenu : Listener {
             } else {
                 inv!!.setItem(
                     14,
-                    createGuiItem(
+                    itemBuilder(
                         Material.LEATHER_BOOTS,
                         1,
                         false,
@@ -213,7 +213,7 @@ class UpgradeMenu : Listener {
             if (swordCost == -1) {
                 inv!!.setItem(
                     15,
-                    createGuiItem(
+                    itemBuilder(
                         Material.WOODEN_SWORD,
                         1,
                         false,
@@ -226,7 +226,7 @@ class UpgradeMenu : Listener {
             } else {
                 inv!!.setItem(
                     15,
-                    createGuiItem(
+                    itemBuilder(
                         Material.WOODEN_SWORD,
                         1,
                         false,
@@ -244,7 +244,7 @@ class UpgradeMenu : Listener {
             if (shearsCost == -1) {
                 inv!!.setItem(
                     22,
-                    createGuiItem(
+                    itemBuilder(
                         Material.SHEARS,
                         1,
                         false,
@@ -257,7 +257,7 @@ class UpgradeMenu : Listener {
             } else {
                 inv!!.setItem(
                     22,
-                    createGuiItem(
+                    itemBuilder(
                         Material.SHEARS,
                         1,
                         false,
@@ -274,7 +274,7 @@ class UpgradeMenu : Listener {
 
             inv!!.setItem(
                 27,
-                createGuiItem(
+                itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,
                     1,
                     false,

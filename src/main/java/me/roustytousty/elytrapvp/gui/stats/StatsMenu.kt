@@ -1,8 +1,6 @@
 package me.roustytousty.elytrapvp.gui.stats
 
-import me.roustytousty.elytrapvp.gui.shops.ShopMenu
-import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
-import me.roustytousty.elytrapvp.utility.GuiUtils.createPlayerHead
+import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -53,13 +51,15 @@ class StatsMenu : Listener {
         private fun initItems(player: Player) {
             val slots = intArrayOf(0, 8, 9, 17, 26)
             for (slot in slots) {
-                inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inv!!.setItem(slot,
+                    ItemUtils.itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f")
+                )
             }
 
 
             inv!!.setItem(
                 12,
-                createPlayerHead(
+                ItemUtils.itemBuilder(
                     player,
                     1,
                     false,
@@ -69,7 +69,7 @@ class StatsMenu : Listener {
             )
             inv!!.setItem(
                 14,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.GOLD_BLOCK,
                     1,
                     false,
@@ -80,7 +80,7 @@ class StatsMenu : Listener {
 
             inv!!.setItem(
                 18,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,
                     1,
                     false,

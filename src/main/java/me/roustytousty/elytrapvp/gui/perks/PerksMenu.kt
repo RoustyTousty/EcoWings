@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.gui.perks
 
-import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
+import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -47,13 +47,13 @@ class PerksMenu : Listener {
         private fun initItems() {
             val slots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35, 36, 44, 53)
             for (slot in slots) {
-                inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inv!!.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
 
             inv!!.setItem(
                 13,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -65,7 +65,7 @@ class PerksMenu : Listener {
 
             inv!!.setItem(
                 29,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -75,7 +75,7 @@ class PerksMenu : Listener {
             )
             inv!!.setItem(
                 30,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -85,7 +85,7 @@ class PerksMenu : Listener {
             )
             inv!!.setItem(
                 31,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -95,7 +95,7 @@ class PerksMenu : Listener {
             )
             inv!!.setItem(
                 32,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -105,7 +105,7 @@ class PerksMenu : Listener {
             )
             inv!!.setItem(
                 33,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -115,7 +115,7 @@ class PerksMenu : Listener {
             )
             inv!!.setItem(
                 38,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -125,7 +125,7 @@ class PerksMenu : Listener {
             )
             inv!!.setItem(
                 39,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -135,7 +135,7 @@ class PerksMenu : Listener {
             )
             inv!!.setItem(
                 40,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -145,7 +145,7 @@ class PerksMenu : Listener {
             )
             inv!!.setItem(
                 41,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -155,7 +155,7 @@ class PerksMenu : Listener {
             )
             inv!!.setItem(
                 42,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -166,7 +166,7 @@ class PerksMenu : Listener {
 
             inv!!.setItem(
                 45,
-                createGuiItem(
+                itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,
                     1,
                     false,

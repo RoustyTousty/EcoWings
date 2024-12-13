@@ -1,7 +1,6 @@
 package me.roustytousty.elytrapvp.gui.events
 
-import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
-import me.roustytousty.elytrapvp.utility.GuiUtils.createPlayerHead
+import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -48,13 +47,15 @@ class WarTableMenu : Listener {
         private fun initItems(player: Player) {
             val slots = intArrayOf(3, 5, 12, 14, 21, 23, 30, 32, 39, 41)
             for (slot in slots) {
-                inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inv!!.setItem(slot,
+                    ItemUtils.itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f")
+                )
             }
 
 
             inv!!.setItem(
                 4,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.BOOK,
                     1,
                     false,
@@ -63,7 +64,7 @@ class WarTableMenu : Listener {
             )
             inv!!.setItem(
                 4,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.DIAMOND,
                     1,
                     false,
@@ -72,7 +73,7 @@ class WarTableMenu : Listener {
             )
             inv!!.setItem(
                 31,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.LECTERN,
                     1,
                     false,
@@ -83,7 +84,7 @@ class WarTableMenu : Listener {
 
             inv!!.setItem(
                 1,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.REINFORCED_DEEPSLATE,
                     1,
                     false,
@@ -92,7 +93,7 @@ class WarTableMenu : Listener {
             )
             inv!!.setItem(
                 7,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.PACKED_ICE,
                     1,
                     false,
@@ -102,7 +103,7 @@ class WarTableMenu : Listener {
 
             inv!!.setItem(
                 28,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.GOLD_BLOCK,
                     1,
                     false,
@@ -113,7 +114,7 @@ class WarTableMenu : Listener {
             )
             inv!!.setItem(
                 34,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.GOLD_BLOCK,
                     1,
                     false,
@@ -125,7 +126,7 @@ class WarTableMenu : Listener {
 
             inv!!.setItem(
                 27,
-                createPlayerHead(
+                ItemUtils.itemBuilder(
                     player,
                     1,
                     false,
@@ -137,7 +138,7 @@ class WarTableMenu : Listener {
             )
             inv!!.setItem(
                 35,
-                createPlayerHead(
+                ItemUtils.itemBuilder(
                     player,
                     1,
                     false,
@@ -152,7 +153,7 @@ class WarTableMenu : Listener {
 
             inv!!.setItem(
                 40,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,
                     1,
                     false,

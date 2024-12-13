@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.gui.events
 
-import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
+import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -47,13 +47,13 @@ class EventsMenu : Listener {
         private fun initItems() {
             val slots = intArrayOf(0, 8, 9, 17, 26)
             for (slot in slots) {
-                inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inv!!.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
 
             inv!!.setItem(
                 13,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -65,7 +65,7 @@ class EventsMenu : Listener {
 
             inv!!.setItem(
                 13,
-                createGuiItem(
+                itemBuilder(
                     Material.BARRIER,
                     1,
                     false,
@@ -82,7 +82,7 @@ class EventsMenu : Listener {
 
             inv!!.setItem(
                 18,
-                createGuiItem(
+                itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,
                     1,
                     false,

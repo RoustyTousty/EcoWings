@@ -2,7 +2,6 @@ package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.services.ScoreboardService
-import me.roustytousty.elytrapvp.utility.KitUtils
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
@@ -23,6 +22,6 @@ class OnPlayerJoin : Listener {
         event.joinMessage(Component.text(parse("&f[&a+&f] ${player.name}")))
 
         ScoreboardService().create(player)
-        KitUtils.givePlayerKit(player)
+        ItemUtils.givePlayerKit(player)
     }
 }

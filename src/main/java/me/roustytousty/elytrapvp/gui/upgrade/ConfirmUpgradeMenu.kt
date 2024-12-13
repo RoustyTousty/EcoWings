@@ -3,8 +3,7 @@ package me.roustytousty.elytrapvp.gui.upgrade
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.data.UpgradeConfig
-import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
-import me.roustytousty.elytrapvp.utility.KitUtils
+import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.FormatUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -46,7 +45,7 @@ class ConfirmUpgradeMenu : Listener {
 
                     CacheConfig.setplrVal(p, "${item}Level", nextItemLevel)
 
-                    KitUtils.givePlayerKit(p)
+                    ItemUtils.givePlayerKit(p)
 
                     p.sendMessage(FormatUtils.parse("&a&lEcoWings &8| &fUpgrade successful! &6${item} &fis now level &6$nextItemLevel"))
                     p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
@@ -80,7 +79,7 @@ class ConfirmUpgradeMenu : Listener {
         private fun initItems(player: Player, item: String) {
             val slots = intArrayOf(1, 2, 3, 5, 6, 7)
             for (slot in slots) {
-                inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inv!!.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
             val itemLevel = CacheConfig.getplrVal(player, "${item}Level") as? Int ?: 0
@@ -88,12 +87,12 @@ class ConfirmUpgradeMenu : Listener {
             val itemConfigSection = UpgradeConfig.getConfig().getConfigurationSection("upgrades.$item.$nextItemLevel")
 
             if (itemConfigSection != null) {
-                val itemStack = KitUtils.createKitItem(itemConfigSection)
+                val itemStack = ItemUtils.createKitItem(itemConfigSection)
                 inv!!.setItem(4, itemStack)
 
                 val upgradeCost = itemConfigSection.getInt("cost")
-                inv!!.setItem(0, createGuiItem(Material.RED_STAINED_GLASS_PANE, 1, false, "&cCancel"))
-                inv!!.setItem(8, createGuiItem(Material.LIME_STAINED_GLASS_PANE, 1, false, "&aConfirm", "", "&fCost: &6${upgradeCost}g", "", "&7Click to confirm!"))
+                inv!!.setItem(0, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cCancel"))
+                inv!!.setItem(8, itemBuilder(Material.LIME_STAINED_GLASS_PANE, 1, false, "&aConfirm", "", "&fCost: &6${upgradeCost}g", "", "&7Click to confirm!"))
             }
         }
 

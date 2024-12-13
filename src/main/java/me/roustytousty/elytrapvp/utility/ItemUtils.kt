@@ -2,15 +2,17 @@ package me.roustytousty.elytrapvp.utility
 
 import org.bukkit.Material
 import org.bukkit.OfflinePlayer
+import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.inventory.meta.SkullMeta
 
-object GuiUtils {
+object ItemUtils {
 
-    fun createGuiItem(
+    fun itemBuilder(
         material: Material,
         amount: Int,
         glow: Boolean,
@@ -42,7 +44,7 @@ object GuiUtils {
         return item
     }
 
-    fun createPlayerHead(
+    fun itemBuilder(
         player: OfflinePlayer,
         amount: Int,
         glow: Boolean,
@@ -71,5 +73,28 @@ object GuiUtils {
 
         item.itemMeta = meta
         return item
+    }
+
+    fun kitItemBuilder(config: ConfigurationSection): ItemStack {
+        val material = Material.getMaterial(config.getString("material", "AIR")!!) ?: Material.AIR
+        val itemStack = ItemStack(material)
+        val meta: ItemMeta = itemStack.itemMeta ?: return itemStack
+
+        meta.isUnbreakable = true
+
+        meta.attributeModifiers = itemStack.type.getDefaultAttributeModifiers(EquipmentSlot.HAND)
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
+
+        meta.setDisplayName(config.getString("name", ""))
+        config.getConfigurationSection("enchants")?.let { enchants ->
+            for (key in enchants.getKeys(false)) {
+                val enchant = Enchantment.getByName(key.uppercase()) ?: continue
+                val level = enchants.getInt(key, 1)
+                meta.addEnchant(enchant, level, true)
+            }
+        }
+        itemStack.itemMeta = meta
+        return itemStack
     }
 }

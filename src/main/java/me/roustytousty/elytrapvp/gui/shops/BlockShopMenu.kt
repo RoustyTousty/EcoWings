@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.gui.shops
 
-import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
+import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.MiscUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -57,12 +57,12 @@ class BlockShopMenu : Listener {
         private fun initItems() {
             val slots = intArrayOf(0, 8, 9, 17, 18, 26)
             for (slot in slots) {
-                inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inv!!.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
             inv!!.setItem(
                 11,
-                createGuiItem(
+                itemBuilder(
                     Material.WHITE_WOOL,
                     1,
                     false,
@@ -76,7 +76,7 @@ class BlockShopMenu : Listener {
             )
             inv!!.setItem(
                 12,
-                createGuiItem(
+                itemBuilder(
                     Material.YELLOW_WOOL,
                     1,
                     false,
@@ -90,7 +90,7 @@ class BlockShopMenu : Listener {
             )
             inv!!.setItem(
                 13,
-                createGuiItem(
+                itemBuilder(
                     Material.ORANGE_WOOL,
                     1,
                     false,
@@ -104,7 +104,7 @@ class BlockShopMenu : Listener {
             )
             inv!!.setItem(
                 14,
-                createGuiItem(
+                itemBuilder(
                     Material.WHITE_CONCRETE,
                     1,
                     false,
@@ -118,7 +118,7 @@ class BlockShopMenu : Listener {
             )
             inv!!.setItem(
                 15,
-                createGuiItem(
+                itemBuilder(
                     Material.LIGHT_GRAY_CONCRETE,
                     1,
                     false,
@@ -134,7 +134,7 @@ class BlockShopMenu : Listener {
 
             inv!!.setItem(
                 18,
-                createGuiItem(
+                itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,
                     1,
                     false,

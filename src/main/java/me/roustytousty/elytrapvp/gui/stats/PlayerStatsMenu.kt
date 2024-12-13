@@ -3,10 +3,8 @@ package me.roustytousty.elytrapvp.gui.stats
 import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.data.UpgradeConfig
-import me.roustytousty.elytrapvp.utility.GuiUtils.createGuiItem
-import me.roustytousty.elytrapvp.utility.GuiUtils.createPlayerHead
-import me.roustytousty.elytrapvp.utility.KitUtils
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
+import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -52,7 +50,9 @@ class PlayerStatsMenu : Listener {
         private fun initItems(statPlayer: Player) {
             val slots = intArrayOf(8, 9, 17, 18, 26, 27, 35, 36, 44, 53)
             for (slot in slots) {
-                inv!!.setItem(slot, createGuiItem(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inv!!.setItem(slot,
+                    ItemUtils.itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f")
+                )
             }
 
             val cacheConfig = UpgradeConfig.getConfig()
@@ -72,12 +72,12 @@ class PlayerStatsMenu : Listener {
             val swordLevel = CacheConfig.getplrVal(statPlayer, "swordLevel") as? Int ?: 0
             val shearsLevel = CacheConfig.getplrVal(statPlayer, "shearsLevel") as? Int ?: 0
 
-            val helmetItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.helmet.$helmetLevel")!!)
-            val elytraItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.elytra.$elytraLevel")!!)
-            val leggingsItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.leggings.$leggingsLevel")!!)
-            val bootsItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.boots.$bootsLevel")!!)
-            val swordItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.sword.$swordLevel")!!)
-            val shearsItem = KitUtils.createKitItem(cacheConfig.getConfigurationSection("upgrades.shears.$shearsLevel")!!)
+            val helmetItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.helmet.$helmetLevel")!!)
+            val elytraItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.elytra.$elytraLevel")!!)
+            val leggingsItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.leggings.$leggingsLevel")!!)
+            val bootsItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.boots.$bootsLevel")!!)
+            val swordItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.sword.$swordLevel")!!)
+            val shearsItem = ItemUtils.kitItemBuilder(cacheConfig.getConfigurationSection("upgrades.shears.$shearsLevel")!!)
 
             inv!!.setItem(
                 11,
@@ -106,7 +106,7 @@ class PlayerStatsMenu : Listener {
 
             inv!!.setItem(
                 0,
-                createPlayerHead(
+                ItemUtils.itemBuilder(
                     statPlayer,
                     1,
                     false,
@@ -115,7 +115,7 @@ class PlayerStatsMenu : Listener {
             )
             inv!!.setItem(
                 24,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.GOLDEN_SWORD,
                     1,
                     false,
@@ -125,7 +125,7 @@ class PlayerStatsMenu : Listener {
             )
             inv!!.setItem(
                 23,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.AMETHYST_SHARD,
                     1,
                     false,
@@ -135,7 +135,7 @@ class PlayerStatsMenu : Listener {
             )
             inv!!.setItem(
                 14,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.GOLD_INGOT,
                     1,
                     false,
@@ -145,7 +145,7 @@ class PlayerStatsMenu : Listener {
             )
             inv!!.setItem(
                 15,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.WOODEN_SWORD,
                     1,
                     false,
@@ -155,7 +155,7 @@ class PlayerStatsMenu : Listener {
             )
             inv!!.setItem(
                 33,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.SKELETON_SKULL,
                     1,
                     false,
@@ -166,7 +166,7 @@ class PlayerStatsMenu : Listener {
 
             inv!!.setItem(
                 45,
-                createGuiItem(
+                ItemUtils.itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,
                     1,
                     false,
