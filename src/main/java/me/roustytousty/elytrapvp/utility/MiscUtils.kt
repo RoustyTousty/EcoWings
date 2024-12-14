@@ -6,6 +6,11 @@ import org.bukkit.inventory.ItemStack
 
 object MiscUtils {
 
+
+
+    /*
+        Checks if player has inventory space for a given ItemStack
+     */
     fun hasInventorySpaceForItemStack(player: Player, itemStack: ItemStack): Boolean {
         val inventory = player.inventory
         var remainingAmount = itemStack.amount

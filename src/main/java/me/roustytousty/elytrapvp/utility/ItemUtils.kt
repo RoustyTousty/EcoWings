@@ -12,6 +12,11 @@ import org.bukkit.inventory.meta.SkullMeta
 
 object ItemUtils {
 
+
+
+    /*
+        Creates a generic ItemStack
+     */
     fun itemBuilder(
         material: Material,
         amount: Int,
@@ -44,6 +49,11 @@ object ItemUtils {
         return item
     }
 
+
+
+    /*
+        Creates a player head ItemStack
+     */
     fun itemBuilder(
         player: OfflinePlayer,
         amount: Int,
@@ -75,6 +85,11 @@ object ItemUtils {
         return item
     }
 
+
+
+    /*
+        Creates an ItemStack based on a specific UpgradeConfig item
+     */
     fun kitItemBuilder(
         config: ConfigurationSection
     ): ItemStack {
