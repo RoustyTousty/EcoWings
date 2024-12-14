@@ -23,11 +23,10 @@ import me.roustytousty.elytrapvp.gui.stats.StatsMenu
 import me.roustytousty.elytrapvp.gui.upgrade.ConfirmUpgradeMenu
 import me.roustytousty.elytrapvp.gui.upgrade.UpgradeMenu
 import me.roustytousty.elytrapvp.listeners.*
-import me.roustytousty.elytrapvp.listeners.items.RegenApple
 import me.roustytousty.elytrapvp.listeners.items.Dusty
-import me.roustytousty.elytrapvp.services.PlayerService
+import me.roustytousty.elytrapvp.listeners.items.RegenApple
+import me.roustytousty.elytrapvp.services.MapResetService
 import me.roustytousty.elytrapvp.services.ScoreboardService
-import me.roustytousty.elytrapvp.utility.RegionUtils
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
@@ -35,7 +34,9 @@ import java.io.File
 class ElytraPVP : JavaPlugin() {
 
     private val pluginmanager = Bukkit.getPluginManager()
+
     private val scoreboardService = ScoreboardService()
+    private val mapResetService = MapResetService()
 
     companion object {
         var instance: ElytraPVP? = null
@@ -53,7 +54,7 @@ class ElytraPVP : JavaPlugin() {
         registerCommands()
         MongoDB.setupDbOnEnable()
         scoreboardService.startUpdateTask()
-        RegionUtils.startRegionResetTask()
+        mapResetService.startRegionResetTask()
 
         logger.info("Plugin Setup!")
     }

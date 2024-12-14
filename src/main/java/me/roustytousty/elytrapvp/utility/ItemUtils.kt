@@ -88,7 +88,12 @@ object ItemUtils {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
 
-        meta.setDisplayName(config.getString("name", ""))
+        meta.setDisplayName(
+            FormatUtils.parse(
+                config.getString("name", "")
+            )
+        )
+
         config.getConfigurationSection("enchants")?.let { enchants ->
             for (key in enchants.getKeys(false)) {
                 val enchant = Enchantment.getByName(key.uppercase()) ?: continue
