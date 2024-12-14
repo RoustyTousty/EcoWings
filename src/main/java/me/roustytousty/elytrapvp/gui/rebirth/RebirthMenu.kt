@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.gui.events
+package me.roustytousty.elytrapvp.gui.rebirth
 
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import org.bukkit.Bukkit
@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import org.bukkit.inventory.Inventory
 
-class EventsMenu : Listener {
+class RebirthMenu : Listener {
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
@@ -50,21 +50,18 @@ class EventsMenu : Listener {
                 inv!!.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
-
             inv!!.setItem(
                 13,
                 itemBuilder(
-                    Material.BARRIER,
+                    Material.CHERRY_SAPLING,
                     1,
                     false,
-                    "&eEvent-EX",
-                    "&7Every player gets x and",
-                    "&7x things happen when x.",
+                    "&eRebirth",
+                    "&7Reset your account and get",
+                    "&7extra 5 coins per kill.",
+                    "&7And a rebirth token.",
                     "",
-                    "&fProgress: &640g&f/&6150g",
-                    "",
-                    "&7Click to donate 10g!",
-                    "&7Shift-Click to donate 100g!"
+                    "&7Click to rebirth!",
                 )
             )
 

@@ -27,6 +27,8 @@ commands:
     description: "Opens the perks GUI"
   eventsmenu:
     description: "Opens the events GUI"
+  rebirthmenu:
+    description: "Opens the rebirth GUI"
 
   # Player commands
   gold:

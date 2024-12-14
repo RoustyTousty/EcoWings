@@ -15,6 +15,8 @@ class GuiCommands : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         val player = sender as Player
 
+        // TODO: Check if player is in spawn region
+
         if (command.name.equals("upgrademenu", ignoreCase = true)) {
             UpgradeMenu.openInventory(player)
         } else if (command.name.equals("shopmenu", ignoreCase = true)) {
@@ -24,6 +26,8 @@ class GuiCommands : CommandExecutor {
         } else if (command.name.equals("perksmenu", ignoreCase = true)) {
             PerksMenu.openInventory(player)
         } else if (command.name.equals("eventsmenu", ignoreCase = true)) {
+            EventsMenu.openInventory(player)
+        } else if (command.name.equals("rebirthmenu", ignoreCase = true)) {
             EventsMenu.openInventory(player)
         }
 
