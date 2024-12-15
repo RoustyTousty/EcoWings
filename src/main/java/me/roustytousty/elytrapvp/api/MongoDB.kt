@@ -16,10 +16,30 @@ import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 
 object MongoDB {
+
     private val uri =
         "mongodb+srv://roustytousty:JIEOjRyzV0XxVotF@roustytoustydb.nkqhd.mongodb.net/?retryWrites=true&w=majority&appName=RoustyToustyDB"
 
     var mongoClient: MongoClient? = null
+
+    val DEFAULT_VALUES = mapOf(
+        "gold" to 0,
+
+        "isStaff" to false,
+        "isBuildMode" to false,
+
+        "kills" to 0,
+        "killstreak" to 0,
+        "topkillstreak" to 0,
+        "deaths" to 0,
+
+        "helmetLevel" to 0,
+        "elytraLevel" to 0,
+        "leggingsLevel" to 0,
+        "bootsLevel" to 0,
+        "swordLevel" to 0,
+        "shearsLevel" to 0
+    )
 
     fun setupDbOnEnable() {
         try {
@@ -42,77 +62,119 @@ object MongoDB {
 
     }
 
-    //TODO: NOTIFY FRIENDS
     fun setupPlayerOnJoin(plr: Player) {
         val db = mongoClient?.getDatabase("ElytraPVP")
-        val collection = db?.getCollection("PlayerData")!!
+        val collection = db?.getCollection("PlayerData") ?: return
+
         try {
-            val playerDoc = collection.find(Filters.eq("_id", "${plr.uniqueId}")).first()
-            if (playerDoc != null) {
-                println("Player Joined Before")
+            val playerDoc = collection.find(Filters.eq("_id", "${plr.uniqueId}")).firstOrNull()
 
-                val newVariables = mapOf(
-                    "gold" to 0,
-
-                    "isStaff" to false,
-                    "isBuildMode" to false,
-
-                    "kills" to 0,
-                    "killstreak" to 0,
-                    "deaths" to 0,
-
-                    "helmetLevel" to 0,
-                    "elytraLevel" to 0,
-                    "leggingsLevel" to 0,
-                    "bootsLevel" to 0,
-                    "swordLevel" to 0,
-                    "shearsLevel" to 0,
-                )
+            if (playerDoc == null) {
+                // New player: Create a document based on the template
+                val newDoc = Document(DEFAULT_VALUES)
+                    .append("_id", "${plr.uniqueId}")
+                    .append("username", plr.name)
+                collection.insertOne(newDoc)
+                println("Player is new! Created default document.")
+            } else {
+                println("Player has joined before. Updating document.")
 
                 val updates = mutableListOf<Bson>()
-                for ((key, defaultValue) in newVariables) {
+                // Add missing keys
+                DEFAULT_VALUES.forEach { (key, defaultValue) ->
                     if (!playerDoc.containsKey(key)) {
                         updates.add(Updates.set(key, defaultValue))
                     }
                 }
+                // Remove extra keys
+                playerDoc.keys.filterNot { it in DEFAULT_VALUES || it == "_id" || it == "username" }
+                    .forEach { key ->
+                        updates.add(Updates.unset(key))
+                    }
 
                 if (updates.isNotEmpty()) {
                     collection.updateOne(Filters.eq("_id", "${plr.uniqueId}"), Updates.combine(*updates.toTypedArray()))
-                    println("Updated player document with new variables.")
+                    println("Updated player document to match schema.")
                 }
-
-                createCacheData(plr)
-            } else {
-                println("Player Is New!")
-                val doc = Document("_id", "${plr.uniqueId}")
-                    .append("username", plr.name)
-                    .append("gold", 0)
-                    .append("kills", 0)
-                    .append("killstreak", 0)
-                    .append("deaths", 0)
-                    .append("isStaff", false)
-                    .append("isBuildMode", false)
-                    .append("helmetLevel", 0)
-                    .append("elytraLevel", 0)
-                    .append("leggingsLevel", 0)
-                    .append("bootsLevel", 0)
-                    .append("swordLevel", 0)
-                    .append("shearsLevel", 0)
-
-
-                collection.insertOne(doc)
             }
+
             createCacheData(plr)
-            //Functions.setupPlayerComponent(plr)
-            /*if (isnew) {
-                Bukkit.broadcast(Component.text("Please Welcome, ").append(plr.displayName().append(Component.text("!"))))
-            }*/
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        // Functions.setupPlayerComponent(plr)
-
     }
+
+//    fun setupPlayerOnJoin(plr: Player) {
+//        val db = mongoClient?.getDatabase("ElytraPVP")
+//        val collection = db?.getCollection("PlayerData")!!
+//        try {
+//            val playerDoc = collection.find(Filters.eq("_id", "${plr.uniqueId}")).first()
+//            if (playerDoc != null) {
+//                println("Player Joined Before")
+//
+//                val newVariables = mapOf(
+//                    "gold" to 0,
+//
+//                    "isStaff" to false,
+//                    "isBuildMode" to false,
+//
+//                    "kills" to 0,
+//                    "killstreak" to 0,
+//                    "deaths" to 0,
+//
+//                    "helmetLevel" to 0,
+//                    "elytraLevel" to 0,
+//                    "leggingsLevel" to 0,
+//                    "bootsLevel" to 0,
+//                    "swordLevel" to 0,
+//                    "shearsLevel" to 0,
+//                )
+//
+//                val updates = mutableListOf<Bson>()
+//                for ((key, defaultValue) in newVariables) {
+//                    if (!playerDoc.containsKey(key)) {
+//                        updates.add(Updates.set(key, defaultValue))
+//                    }
+//                }
+//
+//                if (updates.isNotEmpty()) {
+//                    collection.updateOne(Filters.eq("_id", "${plr.uniqueId}"), Updates.combine(*updates.toTypedArray()))
+//                    println("Updated player document with new variables.")
+//                }
+//
+//                createCacheData(plr)
+//
+//            } else {
+//
+//                println("Player Is New!")
+//
+//                val doc = Document("_id", "${plr.uniqueId}")
+//                    .append("username", plr.name)
+//                    .append("gold", 0)
+//                    .append("kills", 0)
+//                    .append("killstreak", 0)
+//                    .append("deaths", 0)
+//                    .append("isStaff", false)
+//                    .append("isBuildMode", false)
+//                    .append("helmetLevel", 0)
+//                    .append("elytraLevel", 0)
+//                    .append("leggingsLevel", 0)
+//                    .append("bootsLevel", 0)
+//                    .append("swordLevel", 0)
+//                    .append("shearsLevel", 0)
+//
+//
+//                collection.insertOne(doc)
+//            }
+//
+//            createCacheData(plr)
+//
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//
+//    }
 
     fun getAccountsCollection(): MongoCollection<Document> {
         val db = mongoClient?.getDatabase("ElytraPVP")
@@ -178,16 +240,7 @@ object MongoDB {
         if (doc != null) {
             updatePlayerDocument(plr, doc)
         }
-    } // jolo
-
-//    fun setPlayerDocVal(plr: OfflinePlayer, key: String, newValue: Any?) {
-//        val collection = getAccountsCollection()
-//        val search = Filters.eq("_id", "${plr.uniqueId}")
-//
-//        // Update the value in MongoDB directly
-//        collection.updateOne(search, Updates.set(key, newValue))
-//    }
-
+    }
 
     fun createCacheData(plr: Player) {
         val doc = getPlayerDocument(plr) ?: return
@@ -240,9 +293,3 @@ object MongoDB {
         }
     }
 }
-//    fun getPlayerTitle(plr : Player): String{
-//        val user = LuckPermsProvider.get().userManager.loadUser(plr.getUniqueId())
-//        val primaryGroup: String = user.get().primaryGroup
-//
-//        return primaryGroup
-//  

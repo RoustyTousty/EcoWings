@@ -34,7 +34,7 @@ class ScoreboardService {
         val killstreakEntry = parse(" &7| &6Killstreak: ")
         val killstreakTeam = board.registerNewTeam("killstreak")
         killstreakTeam.addEntry(killstreakEntry)
-        killstreakTeam.suffix = parse("&f${formatNumber(CacheConfig.getplrVal(player, "killstreak") as Int)} &8(0)")
+        killstreakTeam.suffix = parse("&f${formatNumber(CacheConfig.getplrVal(player, "killstreak") as Int)} &8(${formatNumber(CacheConfig.getplrVal(player, "topkillstreak") as Int)})")
 
         line1.score = 9
         line2.score = 8
@@ -75,7 +75,8 @@ class ScoreboardService {
             killsTeam.suffix = parse("&f${formatNumber(kills)}")
 
             val killstreak = CacheConfig.getplrVal(player, "killstreak") as Int
-            killstreakTeam.suffix = parse("&f${formatNumber(killstreak)}")
+            val topkillstreak = formatNumber(CacheConfig.getplrVal(player, "killstreak") as Int)
+            killstreakTeam.suffix = parse("&f${formatNumber(killstreak)} &8(${topkillstreak})")
         }
     }
 }
