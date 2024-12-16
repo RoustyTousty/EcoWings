@@ -17,12 +17,16 @@ import org.bukkit.entity.Player
 
 object MongoDB {
 
-    private val uri =
-        "mongodb+srv://roustytousty:JIEOjRyzV0XxVotF@roustytoustydb.nkqhd.mongodb.net/?retryWrites=true&w=majority&appName=RoustyToustyDB"
+    private const val URI = "mongodb+srv://roustytousty:JIEOjRyzV0XxVotF@roustytoustydb.nkqhd.mongodb.net/?retryWrites=true&w=majority&appName=RoustyToustyDB"
+    private const val DB_NAME = "ElytraPVP"
+    private const val COLLECTION_NAME = "PlayerData"
 
     var mongoClient: MongoClient? = null
 
-    val DEFAULT_VALUES = mapOf(
+    /*
+        MongoDB Default document values to be saved
+     */
+    private val DEFAULT_VALUES = mapOf(
         "gold" to 0,
 
         "isStaff" to false,
@@ -41,16 +45,26 @@ object MongoDB {
         "shearsLevel" to 0
     )
 
+
+
+    /*
+        Setup MongoDB mongoClient on plugin enable
+     */
     fun setupDbOnEnable() {
         try {
-            println(uri)
-            mongoClient = MongoClients.create(uri)
+            println(URI)
+            mongoClient = MongoClients.create(URI)
 
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
+
+
+    /*
+        Disable/Close MongoDB mongoClient on plugin disable
+     */
     fun setupDbOnDisable() {
         try {
             if (mongoClient != null) {
@@ -62,31 +76,33 @@ object MongoDB {
 
     }
 
+
+
+    /*
+        Setup players MongoDB data and start cache creation.
+     */
     fun setupPlayerOnJoin(plr: Player) {
-        val db = mongoClient?.getDatabase("ElytraPVP")
-        val collection = db?.getCollection("PlayerData") ?: return
+        val collection = getAccountsCollection()
 
         try {
             val playerDoc = collection.find(Filters.eq("_id", "${plr.uniqueId}")).firstOrNull()
 
             if (playerDoc == null) {
-                // New player: Create a document based on the template
                 val newDoc = Document(DEFAULT_VALUES)
                     .append("_id", "${plr.uniqueId}")
                     .append("username", plr.name)
-                collection.insertOne(newDoc)
-                println("Player is new! Created default document.")
-            } else {
-                println("Player has joined before. Updating document.")
 
+                collection.insertOne(newDoc)
+
+            } else {
                 val updates = mutableListOf<Bson>()
-                // Add missing keys
+
                 DEFAULT_VALUES.forEach { (key, defaultValue) ->
                     if (!playerDoc.containsKey(key)) {
                         updates.add(Updates.set(key, defaultValue))
                     }
                 }
-                // Remove extra keys
+
                 playerDoc.keys.filterNot { it in DEFAULT_VALUES || it == "_id" || it == "username" }
                     .forEach { key ->
                         updates.add(Updates.unset(key))
@@ -94,7 +110,6 @@ object MongoDB {
 
                 if (updates.isNotEmpty()) {
                     collection.updateOne(Filters.eq("_id", "${plr.uniqueId}"), Updates.combine(*updates.toTypedArray()))
-                    println("Updated player document to match schema.")
                 }
             }
 
@@ -105,125 +120,81 @@ object MongoDB {
         }
     }
 
-//    fun setupPlayerOnJoin(plr: Player) {
-//        val db = mongoClient?.getDatabase("ElytraPVP")
-//        val collection = db?.getCollection("PlayerData")!!
-//        try {
-//            val playerDoc = collection.find(Filters.eq("_id", "${plr.uniqueId}")).first()
-//            if (playerDoc != null) {
-//                println("Player Joined Before")
-//
-//                val newVariables = mapOf(
-//                    "gold" to 0,
-//
-//                    "isStaff" to false,
-//                    "isBuildMode" to false,
-//
-//                    "kills" to 0,
-//                    "killstreak" to 0,
-//                    "deaths" to 0,
-//
-//                    "helmetLevel" to 0,
-//                    "elytraLevel" to 0,
-//                    "leggingsLevel" to 0,
-//                    "bootsLevel" to 0,
-//                    "swordLevel" to 0,
-//                    "shearsLevel" to 0,
-//                )
-//
-//                val updates = mutableListOf<Bson>()
-//                for ((key, defaultValue) in newVariables) {
-//                    if (!playerDoc.containsKey(key)) {
-//                        updates.add(Updates.set(key, defaultValue))
-//                    }
-//                }
-//
-//                if (updates.isNotEmpty()) {
-//                    collection.updateOne(Filters.eq("_id", "${plr.uniqueId}"), Updates.combine(*updates.toTypedArray()))
-//                    println("Updated player document with new variables.")
-//                }
-//
-//                createCacheData(plr)
-//
-//            } else {
-//
-//                println("Player Is New!")
-//
-//                val doc = Document("_id", "${plr.uniqueId}")
-//                    .append("username", plr.name)
-//                    .append("gold", 0)
-//                    .append("kills", 0)
-//                    .append("killstreak", 0)
-//                    .append("deaths", 0)
-//                    .append("isStaff", false)
-//                    .append("isBuildMode", false)
-//                    .append("helmetLevel", 0)
-//                    .append("elytraLevel", 0)
-//                    .append("leggingsLevel", 0)
-//                    .append("bootsLevel", 0)
-//                    .append("swordLevel", 0)
-//                    .append("shearsLevel", 0)
-//
-//
-//                collection.insertOne(doc)
-//            }
-//
-//            createCacheData(plr)
-//
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-//
-//    }
 
-    fun getAccountsCollection(): MongoCollection<Document> {
-        val db = mongoClient?.getDatabase("ElytraPVP")
-        val collection = db?.getCollection("PlayerData")!!
+
+    /*
+        Get the PlayerData collection
+     */
+    private fun getAccountsCollection(): MongoCollection<Document> {
+        val db = mongoClient?.getDatabase(DB_NAME)
+        val collection = db?.getCollection(COLLECTION_NAME)!!
 
         return collection
     }
 
-    fun updatePlayerDocument(plr: OfflinePlayer, newdoc: Document) {
+
+
+    /*
+        Replaces players current document with a new provided document
+     */
+    private fun updatePlayerDocument(plr: OfflinePlayer, newdoc: Document) {
         val collection = getAccountsCollection()
-        val search = Filters.eq("_id", "${plr.uniqueId}")
-        val olddoc = collection.find(search).first()
+        val olddoc = getPlayerDocument(plr)
 
         if (olddoc != null) {
             try {
                 collection.replaceOne(olddoc, newdoc)
                 val updateOperation = Updates.combine(newdoc.map { Updates.set(it.key, it.value) })
-                collection.updateOne(search, updateOperation)
+                collection.updateOne(getSearchFilter(plr), updateOperation)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
 
-    fun getPlayerDocument(plr: OfflinePlayer): Document? {
-        val db = mongoClient?.getDatabase("ElytraPVP")
-        val collection = db?.getCollection("PlayerData")!!
-        val olddoc = collection.find(Filters.eq("_id", "${plr.uniqueId}")).first()
-        if (olddoc != null) {
-            return olddoc
-        }
-        return null
+
+
+    /*
+        Returns players document
+     */
+    private fun getPlayerDocument(plr: OfflinePlayer): Document? {
+        val collection = getAccountsCollection()
+        val doc = collection.find(getSearchFilter(plr)).firstOrNull()
+        return doc
     }
 
-    fun getTopPlayers(stat: String, num: Int): List<Document> {
-        val db = mongoClient?.getDatabase("ElytraPVP")
-        val collection = db?.getCollection("PlayerData") ?: return emptyList()
+
+
+    /*
+        Returns players data search filter
+     */
+    private fun getSearchFilter(plr: OfflinePlayer): Bson {
+        return Filters.eq("_id", "${plr.uniqueId}")
+    }
+
+
+
+    /*
+        Returns top players for a specific stat in descending order
+     */
+    fun getTopPlayers(stat: String, entries: Int): List<Document> {
+        val collection = getAccountsCollection()
 
         return collection.find()
             .sort(Sorts.descending(stat))
-            .limit(num)
+            .limit(entries)
             .toList()
     }
 
-    fun getPlayerRank(plr: OfflinePlayer, stat: String): Int {
-        val db = mongoClient?.getDatabase("ElytraPVP")
-        val collection = db?.getCollection("PlayerData")!!
 
-        val playerDoc = collection.find(Filters.eq("_id", "${plr.uniqueId}")).firstOrNull()
+
+    /*
+        Returns a specific players ranking in the leaderboard
+     */
+    fun getPlayerRank(plr: OfflinePlayer, stat: String): Int {
+        val collection = getAccountsCollection()
+
+        val playerDoc = getPlayerDocument(plr)
         val playerStat = playerDoc?.getInteger(stat) ?: return -1
 
         val rank = collection.countDocuments(Filters.gte(stat, playerStat)).toInt()
@@ -231,6 +202,11 @@ object MongoDB {
         return rank
     }
 
+
+
+    /*
+        Sets a specific value in the players MongoDB document
+     */
     fun setPlayerDocVal(plr: OfflinePlayer, key: String, newValue: Any?) {
         val doc = getPlayerDocument(plr)
 
@@ -242,11 +218,16 @@ object MongoDB {
         }
     }
 
-    fun createCacheData(plr: Player) {
+
+
+    /*
+        Creates players cache data and saves it to the CacheConfig
+     */
+    private fun createCacheData(plr: Player) {
         val doc = getPlayerDocument(plr) ?: return
         val plrCache = "cached.${plr.name}"
-        val cachedConfig = CacheConfig.getConfig() // Main.instance?.config!!
-        //val cached = Main.cacheConfig!!
+        val cachedConfig = CacheConfig.getConfig()
+
         for (key in doc.keys) {
             var value = doc.get(key)
 
@@ -261,6 +242,10 @@ object MongoDB {
     }
 
 
+
+    /*
+        Saves players cached data to MongoDB
+     */
     fun saveCachedData(plr: Player) {
         val newDoc = Document()
         val cachedConfig = CacheConfig.getConfig()
@@ -286,6 +271,11 @@ object MongoDB {
         ElytraPVP.instance?.logger?.info("Saved Cache Data for: ${plr.name}")
     }
 
+
+
+    /*
+        Saves cache data for all players online
+     */
     fun saveAllCache() {
         for (plr: Player in Bukkit.getOnlinePlayers()) {
             saveCachedData(plr)

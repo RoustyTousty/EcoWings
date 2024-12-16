@@ -12,7 +12,7 @@ class OnPlayerInteractEntity : Listener {
     @EventHandler
     fun onPlayerRightClick(event: PlayerInteractEntityEvent) {
 
-        if (event.rightClicked is Player) {
+        if (event.rightClicked !is Player) {
             return
         }
 
