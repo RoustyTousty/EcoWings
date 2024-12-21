@@ -7,6 +7,7 @@ import me.roustytousty.elytrapvp.gui.stats.PlayerStatsMenu
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
+import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -28,10 +29,10 @@ class UpgradeMenu : Listener {
         val p = e.whoClicked as Player
 
         val itemMeta = clickedItem.itemMeta ?: return
-        val lore = itemMeta.lore ?: return
+        val itemName = itemMeta.displayName
 
-        if (lore.any { it.contains("MAXED", ignoreCase = true) }) {
-            p.sendMessage(parse("&c&lEcoWings &8| &fThis item is already &c&lMAXED &fand cannot be upgraded further."))
+        if (itemName.contains("MAXED", ignoreCase = true)) {
+            MessageUtils.sendError(p, "&fThis item is already &c&lMAXED &fand cannot be upgraded further.")
             p.playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
             return
         }
