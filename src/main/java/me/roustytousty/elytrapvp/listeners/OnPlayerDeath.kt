@@ -17,7 +17,7 @@ class OnPlayerDeath : Listener {
         val killer = victim.killer as Player
 
         if (killer != null) {
-            PlayerService().handleKillActions(killer)
+            PlayerService().handleKillAction(killer)
             event.deathMessage(
                 Component.text(parse("&6${victim.name} &fwas killed by &6${killer.name}&f!"))
             )
@@ -27,6 +27,6 @@ class OnPlayerDeath : Listener {
             )
         }
 
-        PlayerService().handleDeathActions(victim)
+        PlayerService().handleDeathAction(victim)
     }
 }

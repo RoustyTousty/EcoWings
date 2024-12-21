@@ -24,8 +24,10 @@ class ConsumablesShopMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        if (e.rawSlot == 18) {
-            ShopMenu.openInventory(p)
+        when (e.rawSlot) {
+            11 -> shopService.shopPurchaseItem(p, 20, clickedItem.type, 1)
+
+            18 -> ShopMenu.openInventory(p)
         }
     }
 
@@ -58,11 +60,11 @@ class ConsumablesShopMenu : Listener {
                     Material.APPLE,
                     1,
                     false,
-                    "&fRegen apple",
+                    "&eRegen apple &6x1",
                     "&7Gives regeneration I for",
                     "&730 seconds once consumed!",
                     "",
-                    "&fCost: &620g",
+                    "&fPrice: &620g",
                     "",
                     "&7Click to buy!"
                 )

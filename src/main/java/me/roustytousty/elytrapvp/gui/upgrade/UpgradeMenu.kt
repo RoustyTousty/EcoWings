@@ -2,6 +2,8 @@ package me.roustytousty.elytrapvp.gui.upgrade
 
 import me.roustytousty.elytrapvp.data.CacheConfig
 import me.roustytousty.elytrapvp.data.UpgradeConfig
+import me.roustytousty.elytrapvp.gui.stats.LeaderboardSelectMenu
+import me.roustytousty.elytrapvp.gui.stats.PlayerStatsMenu
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
@@ -34,24 +36,18 @@ class UpgradeMenu : Listener {
             return
         }
 
-        if (e.rawSlot == 27) {
-            p.closeInventory()
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
-        } else if (e.rawSlot == 11) {
-            ConfirmUpgradeMenu.openInventory(p, "helmet")
-        } else if (e.rawSlot == 12) {
-            ConfirmUpgradeMenu.openInventory(p, "elytra")
-        } else if (e.rawSlot == 13) {
-            ConfirmUpgradeMenu.openInventory(p, "leggings")
-        } else if (e.rawSlot == 14) {
-            ConfirmUpgradeMenu.openInventory(p, "boots")
-        } else if (e.rawSlot == 15) {
-            ConfirmUpgradeMenu.openInventory(p, "sword")
-        } else if (e.rawSlot == 22) {
-            ConfirmUpgradeMenu.openInventory(p, "shears")
-        } else if (e.rawSlot == 27) {
-            p.closeInventory()
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+        when (e.rawSlot) {
+            11 -> ConfirmUpgradeMenu.openInventory(p, "helmet")
+            12 -> ConfirmUpgradeMenu.openInventory(p, "elytra")
+            13 -> ConfirmUpgradeMenu.openInventory(p, "leggings")
+            14 -> ConfirmUpgradeMenu.openInventory(p, "boots")
+            15 -> ConfirmUpgradeMenu.openInventory(p, "sword")
+            16 -> ConfirmUpgradeMenu.openInventory(p, "shears")
+
+            18 -> {
+                p.closeInventory()
+                p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+            }
         }
     }
 
@@ -99,10 +95,7 @@ class UpgradeMenu : Listener {
                         Material.LEATHER_HELMET,
                         1,
                         false,
-                        "&eHelmet",
-                        "&8Upgradable",
-                        "",
-                        "&c&lMAXED"
+                        "&eHelmet &c&lMAXED",
                     )
                 )
             } else {
@@ -112,9 +105,8 @@ class UpgradeMenu : Listener {
                         1,
                         false,
                         "&eHelmet",
-                        "&8Upgradable",
                         "",
-                        "&fCost: &6${formatNumber(helmetCost)}g",
+                        "&fPrice: &6${helmetCost}g",
                         "",
                         "&7Click to upgrade!"
                     )
@@ -128,10 +120,7 @@ class UpgradeMenu : Listener {
                         Material.ELYTRA,
                         1,
                         false,
-                        "&eElytra",
-                        "&8Upgradable",
-                        "",
-                        "&c&lMAXED"
+                        "&eElytra &c&lMAXED",
                     )
                 )
             } else {
@@ -141,9 +130,8 @@ class UpgradeMenu : Listener {
                         1,
                         false,
                         "&eElytra",
-                        "&8Upgradable",
                         "",
-                        "&fCost: &6${formatNumber(elytraCost)}g",
+                        "&fPrice: &6${elytraCost}g",
                         "",
                         "&7Click to upgrade!"
                     )
@@ -157,10 +145,7 @@ class UpgradeMenu : Listener {
                         Material.LEATHER_LEGGINGS,
                         1,
                         false,
-                        "&eLeggings",
-                        "&8Upgradable",
-                        "",
-                        "&c&lMAXED"
+                        "&eLeggings &c&lMAXED",
                     )
                 )
             } else {
@@ -170,9 +155,8 @@ class UpgradeMenu : Listener {
                         1,
                         false,
                         "&eLeggings",
-                        "&8Upgradable",
                         "",
-                        "&fCost: &6${formatNumber(leggingsCost)}g",
+                        "&fPrice: &6${leggingsCost}g",
                         "",
                         "&7Click to upgrade!"
                     )
@@ -186,10 +170,7 @@ class UpgradeMenu : Listener {
                         Material.LEATHER_BOOTS,
                         1,
                         false,
-                        "&eBoots",
-                        "&8Upgradable",
-                        "",
-                        "&c&lMAXED"
+                        "&eBoots &c&lMAXED",
                     )
                 )
             } else {
@@ -200,9 +181,8 @@ class UpgradeMenu : Listener {
                         1,
                         false,
                         "&eBoots",
-                        "&8Upgradable",
                         "",
-                        "&fCost: &6${formatNumber(bootsCost)}g",
+                        "&fPrice: &6${bootsCost}g",
                         "",
                         "&7Click to upgrade!"
                     )
@@ -217,10 +197,7 @@ class UpgradeMenu : Listener {
                         Material.WOODEN_SWORD,
                         1,
                         false,
-                        "&eSword",
-                        "&8Upgradable",
-                        "",
-                        "&c&lMAXED"
+                        "&eSword &c&lMAXED",
                     )
                 )
             } else {
@@ -231,9 +208,8 @@ class UpgradeMenu : Listener {
                         1,
                         false,
                         "&eSword",
-                        "&8Upgradable",
                         "",
-                        "&fCost: &6${formatNumber(swordCost)}g",
+                        "&fPrice: &6${swordCost}g",
                         "",
                         "&7Click to upgrade!"
                     )
@@ -248,10 +224,7 @@ class UpgradeMenu : Listener {
                         Material.SHEARS,
                         1,
                         false,
-                        "&eShears",
-                        "&8Upgradable",
-                        "",
-                        "&c&lMAXED"
+                        "&eShears &c&lMAXED",
                     )
                 )
             } else {
@@ -262,9 +235,8 @@ class UpgradeMenu : Listener {
                         1,
                         false,
                         "&eShears",
-                        "&8Upgradable",
                         "",
-                        "&fCost: &6${formatNumber(shearsCost)}g",
+                        "&fPrice: &6${shearsCost}g",
                         "",
                         "&7Click to upgrade!"
                     )

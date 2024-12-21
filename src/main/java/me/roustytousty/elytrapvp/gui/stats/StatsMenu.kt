@@ -21,13 +21,14 @@ class StatsMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        if (e.rawSlot == 12) {
-            PlayerStatsMenu.openInventory(p, p)
-        } else if (e.rawSlot == 14) {
-            LeaderboardSelectMenu.openInventory(p)
-        } else if (e.rawSlot == 18) {
-            p.closeInventory()
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+        when (e.rawSlot) {
+            12 -> PlayerStatsMenu.openInventory(p, p)
+            14 -> LeaderboardSelectMenu.openInventory(p)
+
+            18 -> {
+                p.closeInventory()
+                p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+            }
         }
     }
 

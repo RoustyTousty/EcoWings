@@ -38,26 +38,6 @@ object RegionConfig {
         return config
     }
 
-//    fun getRegionPos1(regionName: String): Location? {
-//        val regionSection = config.getConfigurationSection("regions.$regionName.pos1") ?: return null
-//        return Location(
-//            Bukkit.getWorld(regionSection.getString("world")!!),
-//            regionSection.getDouble("x"),
-//            regionSection.getDouble("y"),
-//            regionSection.getDouble("z")
-//        )
-//    }
-//
-//    fun getRegionPos2(regionName: String): Location? {
-//        val regionSection = config.getConfigurationSection("regions.$regionName.pos2") ?: return null
-//        return Location(
-//            Bukkit.getWorld(regionSection.getString("world")!!),
-//            regionSection.getDouble("x"),
-//            regionSection.getDouble("y"),
-//            regionSection.getDouble("z")
-//        )
-//    }
-
     fun getRegionPositions(regionName: String): Pair<Location, Location>? {
         val regionSection = config.getConfigurationSection("regions.$regionName") ?: return null
 

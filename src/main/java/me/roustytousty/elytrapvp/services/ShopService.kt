@@ -14,7 +14,7 @@ class ShopService {
         val gold = CacheConfig.getplrVal(player, "gold") as Int
 
         if (gold < price) {
-            MessageUtils.sendError(player, "&fNot enough gold! You need &6${price}g")
+            MessageUtils.sendError(player, "&fNot enough gold! You need &6&l${price}g&f!")
             player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
             return
         }
@@ -28,7 +28,7 @@ class ShopService {
 
         CacheConfig.setplrVal(player, "gold", gold - price)
         player.inventory.addItem(itemStack)
-        MessageUtils.sendSuccess(player, "&fYou purchased &6${material.name} &ffor &6${price}g!")
+        MessageUtils.sendSuccess(player, "&fYou purchased &6&l${material.name} &ffor &6&l${price}g&f!")
         player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
     }
 }

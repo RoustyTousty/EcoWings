@@ -21,15 +21,15 @@ class ShopMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        if (e.rawSlot == 11) {
-            BlockShopMenu.openInventory(p)
-        } else if (e.rawSlot == 12) {
-            UtilityShopMenu.openInventory(p)
-        } else if (e.rawSlot == 13) {
-            ConsumablesShopMenu.openInventory(p)
-        } else if (e.rawSlot == 18) {
-            p.closeInventory()
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+        when (e.rawSlot) {
+            11 -> BlockShopMenu.openInventory(p)
+            12 -> UtilityShopMenu.openInventory(p)
+            13 -> ConsumablesShopMenu.openInventory(p)
+
+            18 -> {
+                p.closeInventory()
+                p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+            }
         }
     }
 
@@ -69,7 +69,7 @@ class ShopMenu : Listener {
             inv!!.setItem(
                 12,
                 itemBuilder(
-                    Material.GUNPOWDER,
+                    Material.FEATHER,
                     1,
                     false,
                     "&eUtility",
@@ -89,7 +89,7 @@ class ShopMenu : Listener {
             inv!!.setItem(
                 14,
                 itemBuilder(
-                    Material.FIREWORK_ROCKET,
+                    Material.GUNPOWDER,
                     1,
                     false,
                     "&eRockets",

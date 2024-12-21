@@ -21,14 +21,12 @@ class LeaderboardSelectMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        if (e.rawSlot == 11) {
-            LeaderboardMenu.openInventory(p, "kills")
-        } else if (e.rawSlot == 13) {
-            LeaderboardMenu.openInventory(p, "gold")
-        } else if (e.rawSlot == 15) {
-            LeaderboardMenu.openInventory(p, "deaths")
-        } else if (e.rawSlot == 18) {
-            StatsMenu.openInventory(p)
+        when (e.rawSlot) {
+            11 -> LeaderboardMenu.openInventory(p, "kills")
+            13 -> LeaderboardMenu.openInventory(p, "gold")
+            15 -> LeaderboardMenu.openInventory(p, "deaths")
+
+            18 -> StatsMenu.openInventory(p)
         }
     }
 

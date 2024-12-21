@@ -27,6 +27,13 @@ class UtilityShopMenu : Listener {
         if (e.rawSlot == 18) {
             ShopMenu.openInventory(p)
         }
+
+        when (e.rawSlot) {
+            11 -> shopService.shopPurchaseItem(p, 20, clickedItem.type, 1)
+            12 -> shopService.shopPurchaseItem(p, 50, clickedItem.type, 1)
+
+            18 -> ShopMenu.openInventory(p)
+        }
     }
 
     @EventHandler
@@ -58,7 +65,7 @@ class UtilityShopMenu : Listener {
                     Material.SUGAR,
                     1,
                     false,
-                    "&fDusty",
+                    "&eDusty &6x1",
                     "&7Blocks in 10 block radius",
                     "&7get turned into dust!",
                     "",
@@ -73,7 +80,7 @@ class UtilityShopMenu : Listener {
                     Material.TNT,
                     1,
                     false,
-                    "&fExplosive",
+                    "&eExplosive &6x1",
                     "&7Blows up blocks and deals",
                     "&7damage to anyone near by!",
                     "",

@@ -8,7 +8,7 @@ import org.bukkit.entity.Player
 
 class PlayerService {
 
-    fun handleKillActions(player: Player) {
+    fun handleKillAction(player: Player) {
         val kills = CacheConfig.getplrVal(player, "kills") as? Int ?: 0
         val killstreak = CacheConfig.getplrVal(player, "killstreak") as? Int ?: 0
         val gold = CacheConfig.getplrVal(player, "gold") as? Int ?: 0
@@ -28,12 +28,16 @@ class PlayerService {
         }
     }
 
-    fun handleDeathActions(player: Player) {
+    fun handleDeathAction(player: Player) {
         val deaths = CacheConfig.getplrVal(player, "deaths") as? Int ?: 0
 
         CacheConfig.setplrVal(player, "deaths", deaths + 1)
         CacheConfig.setplrVal(player, "killstreak", 0)
 
         BountyService().removeBounty(player)
+    }
+
+    fun handleRebirthAction(Player: Player) {
+
     }
 }

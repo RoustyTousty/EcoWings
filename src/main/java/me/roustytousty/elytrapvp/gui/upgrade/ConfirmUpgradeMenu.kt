@@ -7,6 +7,7 @@ import me.roustytousty.elytrapvp.services.kit.KitService
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.FormatUtils
 import me.roustytousty.elytrapvp.utility.ItemUtils
+import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -35,6 +36,7 @@ class ConfirmUpgradeMenu : Listener {
             UpgradeMenu.openInventory(p)
             p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         } else if (e.rawSlot == 8) {
+            // TODO: Move this to players service
             val item = getItemFromInventory(p)
             val itemLevel = CacheConfig.getplrVal(p, "${item}Level") as? Int ?: 0
             val nextItemLevel = itemLevel + 1
@@ -51,11 +53,11 @@ class ConfirmUpgradeMenu : Listener {
 
                     kitService.giveKit(p)
 
-                    p.sendMessage(FormatUtils.parse("&a&lEcoWings &8| &fUpgrade successful! &6${item} &fis now level &6$nextItemLevel"))
+                    MessageUtils.sendSuccess(p, "&fUpgrade successful! &6&l${item} &fis now level &6&l${nextItemLevel}&f!")
                     p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
                     p.closeInventory()
                 } else {
-                    p.sendMessage(FormatUtils.parse("&c&lEcoWings &8| &fNot enough gold! You need &6${upgradeCost}g"))
+                    MessageUtils.sendError(p, "&fNot enough gold! You need &6&l${upgradeCost}g&f!")
                     p.playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
                 }
             }
@@ -96,7 +98,7 @@ class ConfirmUpgradeMenu : Listener {
 
                 val upgradeCost = itemConfigSection.getInt("cost")
                 inv!!.setItem(0, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cCancel"))
-                inv!!.setItem(8, itemBuilder(Material.LIME_STAINED_GLASS_PANE, 1, false, "&aConfirm", "", "&fCost: &6${upgradeCost}g", "", "&7Click to confirm!"))
+                inv!!.setItem(8, itemBuilder(Material.LIME_STAINED_GLASS_PANE, 1, false, "&aConfirm", "", "&fPrice: &6${upgradeCost}g", "", "&7Click to confirm!"))
             }
         }
 

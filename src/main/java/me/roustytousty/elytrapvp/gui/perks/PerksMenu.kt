@@ -1,5 +1,6 @@
 package me.roustytousty.elytrapvp.gui.perks
 
+import me.roustytousty.elytrapvp.gui.upgrade.ConfirmUpgradeMenu
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -21,9 +22,11 @@ class PerksMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        if (e.rawSlot == 45) {
-            p.closeInventory()
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+        when (e.rawSlot) {
+            45 -> {
+                p.closeInventory()
+                p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+            }
         }
     }
 

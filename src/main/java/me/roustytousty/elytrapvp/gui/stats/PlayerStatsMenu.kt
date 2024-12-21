@@ -25,8 +25,8 @@ class PlayerStatsMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        if (e.rawSlot == 45) {
-            StatsMenu.openInventory(p)
+        when (e.rawSlot) {
+            45 -> StatsMenu.openInventory(p)
         }
     }
 

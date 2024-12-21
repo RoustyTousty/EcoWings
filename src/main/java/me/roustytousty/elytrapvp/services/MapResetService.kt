@@ -23,8 +23,8 @@ class MapResetService {
 
         override fun run() {
             when (timeRemainingSeconds) {
-                60 -> MessageUtils.sendMessage("&fMap will reset in 1 minute!")
-                10, 3, 2, 1 -> MessageUtils.sendMessage("&fMap will reset in $timeRemainingSeconds second${if (timeRemainingSeconds > 1) "s" else ""}!")
+                60 -> MessageUtils.sendMessage("&fMap will reset in &6&l1 &fminute!")
+                10, 3, 2, 1 -> MessageUtils.sendMessage("&fMap will reset in &6&l$timeRemainingSeconds &fsecond${if (timeRemainingSeconds > 1) "s" else ""}!")
                 0 -> {
                     RegionUtils.resetRegion(REGION_NAME)
                     resetTask()

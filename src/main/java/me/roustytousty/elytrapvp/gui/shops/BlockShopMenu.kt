@@ -25,18 +25,14 @@ class BlockShopMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        if (e.rawSlot == 11) {
-            shopService.shopPurchaseItem(p, 1, clickedItem.type, 16)
-        } else if (e.rawSlot == 12) {
-            shopService.shopPurchaseItem(p, 3, clickedItem.type, 16)
-        } else if (e.rawSlot == 13) {
-            shopService.shopPurchaseItem(p, 10, clickedItem.type, 16)
-        } else if (e.rawSlot == 14) {
-            shopService.shopPurchaseItem(p, 6, clickedItem.type, 16)
-        } else if (e.rawSlot == 15) {
-            shopService.shopPurchaseItem(p, 12, clickedItem.type, 16)
-        } else if (e.rawSlot == 18) {
-            ShopMenu.openInventory(p)
+        when (e.rawSlot) {
+            11 -> shopService.shopPurchaseItem(p, 1, clickedItem.type, 16)
+            12 -> shopService.shopPurchaseItem(p, 3, clickedItem.type, 16)
+            13 -> shopService.shopPurchaseItem(p, 10, clickedItem.type, 16)
+            14 -> shopService.shopPurchaseItem(p, 6, clickedItem.type, 16)
+            15 -> shopService.shopPurchaseItem(p, 12, clickedItem.type, 16)
+
+            18 -> ShopMenu.openInventory(p)
         }
     }
 
@@ -69,10 +65,10 @@ class BlockShopMenu : Listener {
                     Material.WHITE_WOOL,
                     1,
                     false,
-                    "&fWhite wool &6[&f16x&6]",
+                    "&eWhite wool &6x16",
                     "&7Just the usual!",
                     "",
-                    "&fCost: &61g",
+                    "&fPrice: &61g",
                     "",
                     "&7Click to buy!"
                 )
@@ -83,10 +79,10 @@ class BlockShopMenu : Listener {
                     Material.YELLOW_WOOL,
                     1,
                     false,
-                    "&fLight gray wool &6[&f16x&6]",
+                    "&eYellow wool &6x16",
                     "&7Has to be broken 2x times!",
                     "",
-                    "&fCost: &63g",
+                    "&fPrice: &63g",
                     "",
                     "&7Click to buy!"
                 )
@@ -97,10 +93,10 @@ class BlockShopMenu : Listener {
                     Material.ORANGE_WOOL,
                     1,
                     false,
-                    "&fGray wool &6[&f16x&6]",
+                    "&eOrange wool &6x16",
                     "&7Strongest type of wool!",
                     "",
-                    "&fCost: &610g",
+                    "&fPrice: &610g",
                     "",
                     "&7Click to buy!"
                 )
@@ -111,10 +107,10 @@ class BlockShopMenu : Listener {
                     Material.WHITE_CONCRETE,
                     1,
                     false,
-                    "&fWhite concrete &6[&f16x&6]",
+                    "&eWhite concrete &6x16",
                     "&7Lasts for 30 seconds!",
                     "",
-                    "&fCost: &66g",
+                    "&fPrice: &66g",
                     "",
                     "&7Click to buy!"
                 )
@@ -122,13 +118,13 @@ class BlockShopMenu : Listener {
             inv!!.setItem(
                 15,
                 itemBuilder(
-                    Material.LIGHT_GRAY_CONCRETE,
+                    Material.YELLOW_CONCRETE,
                     1,
                     false,
-                    "&fLight gray concrete &6[&f16x&6]",
+                    "&eYellow concrete &6x16",
                     "&7Lasts for 1 minute!",
                     "",
-                    "&fCost: &612g",
+                    "&fPrice: &612g",
                     "",
                     "&7Click to buy!"
                 )

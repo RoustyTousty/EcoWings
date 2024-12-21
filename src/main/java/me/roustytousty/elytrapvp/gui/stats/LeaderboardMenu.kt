@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.gui.stats
 
 import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.data.CacheConfig
+import me.roustytousty.elytrapvp.gui.shops.ShopMenu
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Bukkit
@@ -24,8 +25,8 @@ class LeaderboardMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        if (e.rawSlot == 27) {
-            LeaderboardSelectMenu.openInventory(p)
+        when (e.rawSlot) {
+            27 -> LeaderboardSelectMenu.openInventory(p)
         }
     }
 
