@@ -11,7 +11,7 @@ class EventActivateCommand : CommandExecutor {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
 
-        eventService.activateEvent("Moon")
+        eventService.activateEvent("Voidless")
 
         return true
     }

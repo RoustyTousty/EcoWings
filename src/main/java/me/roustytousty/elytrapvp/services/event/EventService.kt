@@ -85,6 +85,7 @@ class EventService {
             Runnable {
                 event.deactivate()
                 activeEvents.remove(event.name)
+                MessageUtils.sendMessage("&fGlobal event deactivated: &6&l${event.name}&f!")
             },
             event.duration * 20L
         )

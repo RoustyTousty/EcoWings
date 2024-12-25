@@ -29,6 +29,7 @@ import me.roustytousty.elytrapvp.services.MapResetService
 import me.roustytousty.elytrapvp.services.ScoreboardService
 import me.roustytousty.elytrapvp.services.event.EventService
 import me.roustytousty.elytrapvp.services.event.events.MoonEvent
+import me.roustytousty.elytrapvp.services.event.events.VoidlessEvent
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
@@ -60,6 +61,7 @@ class ElytraPVP : JavaPlugin() {
         mapResetService.startRegionResetTask()
 
         eventService.registerEvent(MoonEvent())
+        eventService.registerEvent(VoidlessEvent())
 
         logger.info("Plugin Setup!")
     }

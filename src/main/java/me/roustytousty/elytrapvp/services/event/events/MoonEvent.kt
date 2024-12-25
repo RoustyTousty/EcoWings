@@ -12,31 +12,25 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 
 class MoonEvent : EventIntefrace {
-    override val name = "Moon"
-    override val description = "Makes you take more knockback"
+    override val name = "Knockback"
+    override val description = "Time to fly!"
     override val cost = 220
     override var contributions = 0
     override val duration = 5 * 60
     override var isActive = false
 
-    private val KNOCKBACK_MULTIPLIER = 20.0
+    private val KNOCKBACK_MULTIPLIER = 2.0
 
     private val listener = object : Listener {
         @EventHandler
         fun onPlayerDamageByEntity(event: EntityDamageByEntityEvent) {
             val player = event.entity
-            val attacker = event.damager
-//            if (player is Player) {
-//                val knockbackVector = player.velocity.multiply(KNOCKBACK_MULTIPLIER)
-//                player.velocity = knockbackVector
-//            }
-//
-//            val knockbackVector = player.velocity.multiply(KNOCKBACK_MULTIPLIER)
-//            player.velocity = knockbackVector
-
-            val direction = player.location.toVector().subtract(attacker.location.toVector()).normalize()
-            val knockbackVector = direction.multiply(KNOCKBACK_MULTIPLIER).setY(0.5) // Add upward motion for a "launch" effect
-            player.velocity = knockbackVector
+            if (player is Player) {
+                val attacker = event.damager
+                val direction = player.location.toVector().subtract(attacker.location.toVector()).normalize()
+                val knockbackVector = direction.multiply(KNOCKBACK_MULTIPLIER).setY(0.5)
+                player.velocity = knockbackVector
+            }
         }
     }
 
@@ -47,6 +41,6 @@ class MoonEvent : EventIntefrace {
 
     override fun deactivate() {
         isActive = false
-        PlayerDeathEvent.getHandlerList().unregister(listener)
+        EntityDamageByEntityEvent.getHandlerList().unregister(listener)
     }
 }

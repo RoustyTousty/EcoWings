@@ -26,7 +26,7 @@ class OnBlockPlace : Listener {
 
         if (!isInPVPRegion || isInPVPBufferRegion) {
             event.isCancelled = true
-            MessageUtils.sendMessage(player, "&c&lEcoWings &8| &fYou cant place blocks here!")
+            MessageUtils.sendMessage(player, "&fYou cant place blocks here!")
             player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
         }
     }
