@@ -5,6 +5,7 @@ import me.roustytousty.elytrapvp.data.RegionConfig
 import me.roustytousty.elytrapvp.services.event.EventIntefrace
 import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -15,6 +16,7 @@ import org.bukkit.util.Vector
 class VoidlessEvent : EventIntefrace {
     override val name = "Voidless"
     override val description = "No void, no problem."
+    override val displayManetial = Material.SCULK
     override val cost = 200
     override var contributions = 0
     override val duration = 5 * 60
