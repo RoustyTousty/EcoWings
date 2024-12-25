@@ -58,3 +58,7 @@ commands:
     description: "Set players gold amount!"
     permission: op
     permission-message: "&c&lWwwings &8| &fYou don't have permission to use this command!"
+  eventactivate:
+    description: "Activates a specific event!"
+    permission: op
+    permission-message: "&c&lWwwings &8| &fYou don't have permission to use this command!"

@@ -6,6 +6,7 @@ interface EventIntefrace {
     val cost: Int
     val duration: Int
     var isActive: Boolean
+    var contributions: Int
 
     fun activate()
     fun deactivate()

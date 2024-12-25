@@ -27,6 +27,8 @@ import me.roustytousty.elytrapvp.listeners.items.Dusty
 import me.roustytousty.elytrapvp.listeners.items.RegenApple
 import me.roustytousty.elytrapvp.services.MapResetService
 import me.roustytousty.elytrapvp.services.ScoreboardService
+import me.roustytousty.elytrapvp.services.event.EventService
+import me.roustytousty.elytrapvp.services.event.events.MoonEvent
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
@@ -37,6 +39,7 @@ class ElytraPVP : JavaPlugin() {
 
     private val scoreboardService = ScoreboardService()
     private val mapResetService = MapResetService()
+    private val eventService = EventService()
 
     companion object {
         var instance: ElytraPVP? = null
@@ -55,6 +58,8 @@ class ElytraPVP : JavaPlugin() {
         MongoDB.setupDbOnEnable()
         scoreboardService.startUpdateTask()
         mapResetService.startRegionResetTask()
+
+        eventService.registerEvent(MoonEvent())
 
         logger.info("Plugin Setup!")
     }
@@ -127,6 +132,7 @@ class ElytraPVP : JavaPlugin() {
         getCommand("feed")?.setExecutor(FeedCommand())
         getCommand("buildmode")?.setExecutor(BuildModeCommand())
         getCommand("setgold")?.setExecutor(SetGoldCommand())
+        getCommand("eventactivate")?.setExecutor(EventActivateCommand())
     }
 
     private fun setupConfigsOnEnable() {
@@ -144,4 +150,6 @@ class ElytraPVP : JavaPlugin() {
 
         logger.info("Configs Saved! ")
     }
+
+    fun getEventService(): EventService = eventService
 }
