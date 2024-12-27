@@ -88,9 +88,11 @@ class LeaderboardMenu : Listener {
             topPlayers.forEachIndexed { index, playerDoc ->
                 val pName = playerDoc.getString("username")
                 val pStat = playerDoc.getInteger(stat)
-                val skullItem = ItemUtils.itemBuilder(Bukkit.getOfflinePlayer(pName), 1, false, "&e$pName &6#${index + 1}", "&7Value: ${formatNumber(pStat as Int)}")
+                if (pStat != null) {
+                    val skullItem = ItemUtils.itemBuilder(Bukkit.getOfflinePlayer(pName), 1, false, "&e$pName &6#${index + 1}", "&7Value: ${formatNumber(pStat as Int)}")
 
-                inv!!.setItem(leaderboardSlots[index], skullItem)
+                    inv!!.setItem(leaderboardSlots[index], skullItem)
+                }
             }
 
             inv!!.setItem(27,

@@ -23,6 +23,7 @@ class LeaderboardSelectMenu : Listener {
 
         when (e.rawSlot) {
             11 -> LeaderboardMenu.openInventory(p, "kills")
+            12 -> LeaderboardMenu.openInventory(p, "topkillstreak")
             13 -> LeaderboardMenu.openInventory(p, "gold")
             15 -> LeaderboardMenu.openInventory(p, "deaths")
 
@@ -61,6 +62,16 @@ class LeaderboardSelectMenu : Listener {
                     false,
                     "&eKills",
                     "&7Top players for kills!"
+                )
+            )
+            inv!!.setItem(
+                12,
+                itemBuilder(
+                    Material.GOLDEN_SWORD,
+                    1,
+                    false,
+                    "&eKillstreak",
+                    "&7Top players for killstreak!"
                 )
             )
             inv!!.setItem(
