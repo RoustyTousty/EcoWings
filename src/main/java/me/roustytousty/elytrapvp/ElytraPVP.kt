@@ -24,6 +24,7 @@ import me.roustytousty.elytrapvp.gui.upgrade.ConfirmUpgradeMenu
 import me.roustytousty.elytrapvp.gui.upgrade.UpgradeMenu
 import me.roustytousty.elytrapvp.listeners.*
 import me.roustytousty.elytrapvp.listeners.items.Dusty
+import me.roustytousty.elytrapvp.listeners.items.Explosive
 import me.roustytousty.elytrapvp.listeners.items.RegenApple
 import me.roustytousty.elytrapvp.services.MapResetService
 import me.roustytousty.elytrapvp.services.ScoreboardService
@@ -81,6 +82,7 @@ class ElytraPVP : JavaPlugin() {
         // Special items
         pluginmanager.registerEvents(Dusty(), this)
         pluginmanager.registerEvents(RegenApple(), this)
+        pluginmanager.registerEvents(Explosive(), this)
 
         // Listeners
         pluginmanager.registerEvents(OnPlayerJoin(), this)

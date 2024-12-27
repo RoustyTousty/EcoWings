@@ -36,11 +36,10 @@ class TNTRainEvent : EventIntefrace {
         rainTask = Bukkit.getScheduler().runTaskTimer(
             ElytraPVP.instance!!,
             Runnable {
-                // Randomly spawn a certain number of TNT entities per tick
-                repeat(5) { // Adjust the number for desired intensity
+                repeat(5) {
                     spawnRandomTNT(world, min, max)
                 }
-            }, 0L, 20L // Spawns TNT every second (20 ticks)
+            }, 0L, 20L
         )
     }
 
@@ -51,15 +50,13 @@ class TNTRainEvent : EventIntefrace {
     }
 
     private fun spawnRandomTNT(world: World, min: Location, max: Location) {
-        // Generate random coordinates within the region
         val x = Random.nextDouble(min.blockX.toDouble(), max.blockX + 1.0)
         val z = Random.nextDouble(min.blockZ.toDouble(), max.blockZ + 1.0)
-        val y = min.y // Ceiling height
+        val y = min.y
 
-        val spawnLocation = Location(world, x, y.toDouble(), z)
+        val spawnLocation = Location(world, x, y, z)
 
-        // Spawn and configure TNT
         val tnt = world.spawnEntity(spawnLocation, EntityType.PRIMED_TNT) as TNTPrimed
-        tnt.fuseTicks = 80 // Adjust fuse time (ticks) for when TNT ignites after landing
+        tnt.fuseTicks = 80
     }
 }

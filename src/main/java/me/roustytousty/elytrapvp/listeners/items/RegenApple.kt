@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType
 class RegenApple : Listener {
 
     @EventHandler
-    fun onPlayerRightClick(event: PlayerInteractEvent) {
+    fun onRegenApple(event: PlayerInteractEvent) {
         if (event.action.name.contains("RIGHT_CLICK")) {
 
             val player = event.player

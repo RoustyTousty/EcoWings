@@ -11,7 +11,7 @@ import org.bukkit.util.Vector
 class Dusty : Listener {
 
     @EventHandler
-    fun onPlayerRightClick(event: PlayerInteractEvent) {
+    fun onDusty(event: PlayerInteractEvent) {
         if (event.action.name.contains("RIGHT_CLICK")) {
 
             val item = event.player.inventory.itemInMainHand
