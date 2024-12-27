@@ -36,6 +36,8 @@ commands:
     description: "Check how much gold you have"
   stats:
     description: "Opens specific players stats"
+  discord:
+    description: "Sends an invite link to discord"
 
   # Staff commands
   reloadcache:

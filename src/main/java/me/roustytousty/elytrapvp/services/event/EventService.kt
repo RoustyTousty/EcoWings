@@ -46,6 +46,7 @@ class EventService {
             event.deactivate()
             activeEvents[eventName]?.cancel()
             activeEvents.remove(eventName)
+            playActivationSound()
             MessageUtils.sendMessage("&fGlobal event deactivated: &6&l${eventName}&f!")
         } else {
             println("Event $eventName not found or not active!")

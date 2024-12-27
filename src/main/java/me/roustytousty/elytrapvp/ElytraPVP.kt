@@ -3,6 +3,7 @@ package me.roustytousty.elytrapvp
 import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.commands.GuiCommands
 import me.roustytousty.elytrapvp.commands.TestCommand
+import me.roustytousty.elytrapvp.commands.playercommands.DiscordCommand
 import me.roustytousty.elytrapvp.commands.playercommands.GoldCommand
 import me.roustytousty.elytrapvp.commands.playercommands.StatsCommand
 import me.roustytousty.elytrapvp.commands.staffcommands.*
@@ -132,6 +133,7 @@ class ElytraPVP : JavaPlugin() {
         // Commands
         getCommand("gold")?.setExecutor(GoldCommand())
         getCommand("stats")?.setExecutor(StatsCommand())
+        getCommand("discord")?.setExecutor(DiscordCommand())
 
         // Staff commands
         getCommand("reloadcache")?.setExecutor(ReloadCacheCommand())
