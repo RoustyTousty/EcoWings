@@ -3,6 +3,7 @@ package me.roustytousty.elytrapvp.services.event
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
+import org.bukkit.Sound
 import org.bukkit.scheduler.BukkitTask
 
 class EventService {
@@ -29,10 +30,10 @@ class EventService {
         }
 
         val event = findEventInstance(eventName)
-        println(events)
         if (event != null) {
             event.activate()
             activeEvents[eventName] = startDeactivateTask(event)
+            playActivationSound()
             MessageUtils.sendMessage("&fGlobal event activated: &6&l${eventName}&f!")
         } else {
             println("Event $eventName not found!")
@@ -89,5 +90,11 @@ class EventService {
             },
             event.duration * 20L
         )
+    }
+
+    private fun playActivationSound() {
+        for (player in Bukkit.getOnlinePlayers()) {
+            player.playSound(player, Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f)
+        }
     }
 }

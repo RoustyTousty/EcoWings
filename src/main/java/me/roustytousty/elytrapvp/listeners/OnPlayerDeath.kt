@@ -10,13 +10,12 @@ import org.bukkit.event.entity.PlayerDeathEvent
 
 class OnPlayerDeath : Listener {
 
-
     @EventHandler
     fun onPlayerDeath(event: PlayerDeathEvent) {
         val victim = event.entity
-        val killer = victim.killer as Player
+        val killer = victim.killer
 
-        if (killer != null) {
+        if (killer is Player) {
             PlayerService().handleKillAction(killer)
             event.deathMessage(
                 Component.text(parse("&6${victim.name} &fwas killed by &6${killer.name}&f!"))

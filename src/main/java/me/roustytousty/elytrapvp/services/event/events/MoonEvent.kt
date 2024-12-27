@@ -21,7 +21,7 @@ import org.bukkit.scheduler.BukkitRunnable
 class MoonEvent : EventIntefrace {
     override val name = "Moon"
     override val description = "Time to float!"
-    override val displayManetial = Material.END_STONE
+    override val displayMaterial = Material.END_STONE
     override val cost = 220
     override var contributions = 0
     override val duration = 5 * 60
@@ -85,6 +85,7 @@ class MoonEvent : EventIntefrace {
 
         EntityDamageByEntityEvent.getHandlerList().unregister(listener)
         PlayerJoinEvent.getHandlerList().unregister(listener)
+        PlayerQuitEvent.getHandlerList().unregister(listener)
         PlayerDeathEvent.getHandlerList().unregister(listener)
     }
 

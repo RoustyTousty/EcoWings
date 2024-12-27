@@ -28,17 +28,23 @@ class EventsMenu : Listener {
 
         when (e.rawSlot) {
             11, 13, 15 -> {
-                val eventName = ChatColor.stripColor(clickedItem.itemMeta?.displayName ?: return) ?: return
 
+                if (eventService.isAnyEventActive()) {
+                    p.closeInventory()
+                    MessageUtils.sendMessage(p, "&fYou cannot contribute to an &6&lEVENT &fwhile one is active!")
+                    return
+                }
+
+                val eventName = ChatColor.stripColor(clickedItem.itemMeta?.displayName ?: return) ?: return
                 val playerGold = CacheConfig.getplrVal(p, "gold") as? Int ?: 0
 
                 val donationAmount = if (e.isShiftClick) 100 else 10
                 if (playerGold >= donationAmount) {
-                    CacheConfig.setplrVal(p, "gold", playerGold - donationAmount)
-                    eventService.contributeToEvent(eventName, donationAmount)
-
                     MessageUtils.sendMessage(p, "&fYou contributed &6&l${donationAmount}g &fto &6&l${eventName} &fevent!")
                     p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
+
+                    CacheConfig.setplrVal(p, "gold", playerGold - donationAmount)
+                    eventService.contributeToEvent(eventName, donationAmount)
 
                     openInventory(p)
                 } else {
@@ -81,18 +87,21 @@ class EventsMenu : Listener {
             val eventSlots = intArrayOf(11, 13, 15)
             val events = eventService.getEvents()
             events.forEachIndexed { index, event ->
-                val lore = listOf(
-                    "&7${event.description}",
-                    "",
-                    "&fProgress: &6${event.contributions}&f/&6${event.cost}",
-                    "",
-                    "&7Click to donate 10g!",
-                    "&7Shift-Click to donate 100g!"
-                )
 
                 inv!!.setItem(
                     eventSlots[index],
-                    itemBuilder(event.displayManetial, 1, false, "&e${event.name}", *lore.toTypedArray())
+                    itemBuilder(
+                        event.displayMaterial,
+                        1,
+                        false,
+                        "&e${event.name}",
+                        "&7${event.description}",
+                        "",
+                        "&fProgress: &6${event.contributions}g&f/&6${event.cost}g",
+                        "",
+                        "&7Click to donate 10g!",
+                        "&7Shift-Click to donate 100g!"
+                    )
                 )
             }
 

@@ -16,7 +16,7 @@ import org.bukkit.util.Vector
 class VoidlessEvent : EventIntefrace {
     override val name = "Voidless"
     override val description = "No void, no problem."
-    override val displayManetial = Material.SCULK
+    override val displayMaterial = Material.SCULK
     override val cost = 200
     override var contributions = 0
     override val duration = 5 * 60
@@ -63,13 +63,14 @@ class VoidlessEvent : EventIntefrace {
         particleTask = Bukkit.getScheduler().runTaskTimer(
             ElytraPVP.instance!!,
             Runnable {
-            for (x in min.blockX..max.blockX) {
-                for (z in min.blockZ..max.blockZ) {
-                    val location = Location(world, x.toDouble() + 0.5, min.y, z.toDouble() + 0.5)
-                    world.spawnParticle(Particle.REDSTONE, location, 1, Particle.DustOptions(org.bukkit.Color.ORANGE, 1.0f))
+                for (x in min.blockX..max.blockX) {
+                    for (z in min.blockZ..max.blockZ) {
+                        val location = Location(world, x.toDouble() + 0.5, min.y, z.toDouble() + 0.5)
+                        world.spawnParticle(Particle.REDSTONE, location, 1, Particle.DustOptions(org.bukkit.Color.ORANGE, 1.0f))
+                    }
                 }
-            }
-        }, 0L, 10L)
+            }, 0L, 10L
+        )
     }
 
     private fun removeParticleFloor() {

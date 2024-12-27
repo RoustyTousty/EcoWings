@@ -29,6 +29,7 @@ import me.roustytousty.elytrapvp.services.MapResetService
 import me.roustytousty.elytrapvp.services.ScoreboardService
 import me.roustytousty.elytrapvp.services.event.EventService
 import me.roustytousty.elytrapvp.services.event.events.MoonEvent
+import me.roustytousty.elytrapvp.services.event.events.TNTRainEvent
 import me.roustytousty.elytrapvp.services.event.events.VoidlessEvent
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -62,6 +63,7 @@ class ElytraPVP : JavaPlugin() {
 
         eventService.registerEvent(MoonEvent())
         eventService.registerEvent(VoidlessEvent())
+        eventService.registerEvent(TNTRainEvent())
 
         logger.info("Plugin Setup!")
     }
@@ -95,6 +97,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnInventoryClick(), this)
         pluginmanager.registerEvents(OnPlayerInteractEntity(), this)
         pluginmanager.registerEvents(OnWarTableClick(), this)
+        pluginmanager.registerEvents(OnEntityExplode(), this)
 
         // GUI
         pluginmanager.registerEvents(ShopMenu(), this)
