@@ -41,7 +41,6 @@ class ElytraPVP : JavaPlugin() {
 
     private val pluginmanager = Bukkit.getPluginManager()
 
-    private val scoreboardService = ScoreboardService()
     private val mapResetService = MapResetService()
     private val eventService = EventService()
 
@@ -55,6 +54,8 @@ class ElytraPVP : JavaPlugin() {
     override fun onEnable() {
         instance = this
         dataFolderDir = dataFolder
+
+        val scoreboardService = ScoreboardService()
 
         setupConfigsOnEnable()
         registerEvents()
@@ -161,4 +162,5 @@ class ElytraPVP : JavaPlugin() {
     }
 
     fun getEventService(): EventService = eventService
+    fun getMapResetService(): MapResetService = mapResetService
 }

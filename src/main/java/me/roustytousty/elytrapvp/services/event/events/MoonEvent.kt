@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
+import org.bukkit.scheduler.BukkitTask
 
 class MoonEvent : EventIntefrace {
     override val name = "Moon"
@@ -25,6 +26,8 @@ class MoonEvent : EventIntefrace {
     override val cost = 220
     override var contributions = 0
     override val duration = 5 * 60
+    override var endTime: Long? = null
+    override var task: BukkitTask? = null
     override var isActive = false
 
     private val KNOCKBACK_MULTIPLIER = 2.0

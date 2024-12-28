@@ -16,10 +16,17 @@ class MapResetService {
         ResetTask().runTaskTimer(ElytraPVP.instance!!, 0L, 20L)
     }
 
-    private inner class ResetTask : BukkitRunnable() {
+    private var timeRemainingSeconds = RESET_INTERVAL_SECONDS
 
-        private var timeRemainingSeconds = RESET_INTERVAL_SECONDS
-        private var inFinalCountdown = false
+    fun getFormattedTimeRemaining(): String {
+        if (timeRemainingSeconds <= 0) return "00:00"
+
+        val minutes = timeRemainingSeconds / 60
+        val seconds = timeRemainingSeconds % 60
+        return String.format("%02d:%02d", minutes, seconds)
+    }
+
+    private inner class ResetTask : BukkitRunnable() {
 
         override fun run() {
             when (timeRemainingSeconds) {
@@ -35,7 +42,6 @@ class MapResetService {
 
         private fun resetTask() {
             timeRemainingSeconds = RESET_INTERVAL_SECONDS
-            inFinalCountdown = false
         }
     }
 }

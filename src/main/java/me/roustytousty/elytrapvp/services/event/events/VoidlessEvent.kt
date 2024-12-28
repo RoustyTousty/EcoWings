@@ -20,6 +20,8 @@ class VoidlessEvent : EventIntefrace {
     override val cost = 200
     override var contributions = 0
     override val duration = 5 * 60
+    override var endTime: Long? = null
+    override var task: BukkitTask? = null
     override var isActive = false
 
     private val BOUNCE_VELOCITY = 2.5

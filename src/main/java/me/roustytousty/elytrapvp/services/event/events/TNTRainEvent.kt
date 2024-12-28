@@ -21,6 +21,8 @@ class TNTRainEvent : EventIntefrace {
     override val cost = 450
     override var contributions = 0
     override val duration = 5 * 60
+    override var endTime: Long? = null
+    override var task: BukkitTask? = null
     override var isActive = false
 
     private var rainTask: BukkitTask? = null

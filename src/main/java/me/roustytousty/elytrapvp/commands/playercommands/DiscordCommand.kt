@@ -29,14 +29,14 @@ class DiscordCommand : CommandExecutor {
                     .color(NamedTextColor.DARK_GRAY)
             )
             .append(
-                Component.text("CLICK HERE ")
+                Component.text("CLICK HERE")
                     .color(NamedTextColor.AQUA)
                     .decorate(TextDecoration.BOLD, TextDecoration.UNDERLINED)
                     .hoverEvent(HoverEvent.showText(Component.text("Join our community Discord!").color(NamedTextColor.GREEN)))
                     .clickEvent(ClickEvent.openUrl(discordLink))
             )
             .append(
-                Component.text("to join our community discord server!")
+                Component.text(" to join our community discord server!")
                     .color(NamedTextColor.WHITE)
             )
             .build()

@@ -11,44 +11,41 @@ import org.bukkit.scoreboard.DisplaySlot
 
 class ScoreboardService {
 
+    private val eventService = ElytraPVP.instance!!.getEventService()
+    private val mapResetService = ElytraPVP.instance!!.getMapResetService()
+
     fun create(player: Player) {
         val board = Bukkit.getScoreboardManager().newScoreboard
-        val objective = board.registerNewObjective("test", "dummy", parse("  &6EcoWings &7[1.21.x]  "))
+        val objective = board.registerNewObjective("test", "dummy", parse("  &6&lEcoWings"))
         objective.displaySlot = DisplaySlot.SIDEBAR
 
-        val line1 = objective.getScore(parse("&f&lServer:"))
-        val line2 = objective.getScore(parse(" &7| &fPlayers: " + Bukkit.getOnlinePlayers().size))
-        val line3 = objective.getScore(parse("&f"))
-        val line4 = objective.getScore(parse("&f${player.name}"))
+        objective.getScore(parse("&f")).score = 10
+        objective.getScore(parse(" &fRank: <Member>")).score = 9
+        objective.getScore(parse(" &fGold: ")).also {
+            board.registerNewTeam("gold").addEntry(it.entry)
+        }.score = 8
 
-        val goldEntry = parse(" &7| &6Gold: ")
-        val goldTeam = board.registerNewTeam("gold")
-        goldTeam.addEntry(goldEntry)
-        goldTeam.suffix = parse("&f${formatNumber(CacheConfig.getplrVal(player, "gold") as Int)}")
+        objective.getScore(parse("&e")).score = 7
 
-        val killsEntry = parse(" &7| &6Kills: ")
-        val killsTeam = board.registerNewTeam("kills")
-        killsTeam.addEntry(killsEntry)
-        killsTeam.suffix = parse("&f${formatNumber(CacheConfig.getplrVal(player, "kills") as Int)}")
+        objective.getScore(parse("&n")).also {
+            board.registerNewTeam("dynamic1").addEntry(it.entry)
+        }.score = 6
+        objective.getScore(parse("&l")).also {
+            board.registerNewTeam("dynamic2").addEntry(it.entry)
+        }.score = 5
 
-        val killstreakEntry = parse(" &7| &6Killstreak: ")
-        val killstreakTeam = board.registerNewTeam("killstreak")
-        killstreakTeam.addEntry(killstreakEntry)
-        killstreakTeam.suffix = parse("&f${formatNumber(CacheConfig.getplrVal(player, "killstreak") as Int)} &8(${formatNumber(CacheConfig.getplrVal(player, "topkillstreak") as Int)})")
+        objective.getScore(parse("&a")).score = 4
 
-        line1.score = 9
-        line2.score = 8
-        line3.score = 7
-        line4.score = 6
+        objective.getScore(parse(" &fPlayers: ")).also {
+            board.registerNewTeam("players").addEntry(it.entry)
+        }.score = 3
+        objective.getScore(parse(" &fMap reset: ")).also {
+            board.registerNewTeam("mapReset").addEntry(it.entry)
+        }.score = 2
 
-        objective.getScore(goldEntry).score = 5
-        objective.getScore(killsEntry).score = 4
-        objective.getScore(killstreakEntry).score = 3
+        objective.getScore(parse("&3")).score = 1
 
-        val line8 = objective.getScore(parse("&6"))
-        val line9 = objective.getScore(parse("&7ecowings.minehut.gg"))
-        line8.score = 2
-        line9.score = 1
+        objective.getScore(parse("&fecowings.minehut.gg")).score = 0
 
         player.scoreboard = board
     }
@@ -65,18 +62,34 @@ class ScoreboardService {
         for (player in Bukkit.getOnlinePlayers()) {
             val board = player.scoreboard
             val goldTeam = board.getTeam("gold") ?: continue
-            val killsTeam = board.getTeam("kills") ?: continue
-            val killstreakTeam = board.getTeam("killstreak") ?: continue
+            val playersTeam = board.getTeam("players") ?: continue
+            val mapResetTeam = board.getTeam("mapReset") ?: continue
+            val dynamic1Team = board.getTeam("dynamic1") ?: continue
+            val dynamic2Team = board.getTeam("dynamic2") ?: continue
 
             val gold = CacheConfig.getplrVal(player, "gold") as Int
-            goldTeam.suffix = parse("&f${formatNumber(gold)}")
+            goldTeam.suffix = parse("&6${formatNumber(gold)}")
 
-            val kills = CacheConfig.getplrVal(player, "kills") as Int
-            killsTeam.suffix = parse("&f${formatNumber(kills)}")
+            playersTeam.suffix = parse("&6${Bukkit.getOnlinePlayers().size}")
+            mapResetTeam.suffix = parse("&6${mapResetService.getFormattedTimeRemaining()}")
 
-            val killstreak = CacheConfig.getplrVal(player, "killstreak") as Int
-            val topkillstreak = formatNumber(CacheConfig.getplrVal(player, "killstreak") as Int)
-            killstreakTeam.suffix = parse("&f${formatNumber(killstreak)} &8(${topkillstreak})")
+            if (eventService.isAnyEventActive()) {
+                val activeEvent = eventService.getActiveEvents().first()
+                dynamic1Team.prefix = parse("  &8• &fEvent: ")
+                dynamic1Team.suffix = parse("&6${activeEvent.name}")
+
+                dynamic2Team.prefix = parse("  &8• &fTime: ")
+                dynamic2Team.suffix = parse("&6${eventService.getEventRemainingTime(activeEvent.name)}")
+            } else {
+                val kills = CacheConfig.getplrVal(player, "kills") as Int
+                val killstreak = CacheConfig.getplrVal(player, "killstreak") as Int
+
+                dynamic1Team.prefix = parse("  &8• &fKills: ")
+                dynamic1Team.suffix = parse("&6${formatNumber(kills)}")
+
+                dynamic2Team.prefix = parse("  &8• &fKillstreak: ")
+                dynamic2Team.suffix = parse("&6${formatNumber(killstreak)}")
+            }
         }
     }
 }
