@@ -10,15 +10,19 @@ object RegionUtils {
         Check if a location is inside a region
      */
     fun isLocationInRegion(location: Location, regionName: String): Boolean {
-        val (pos1, pos2) = RegionConfig.getRegionPositions(regionName)!!
+        val (pos1, pos2) = RegionConfig.getRegionPositions(regionName) ?: return false
 
         if (location.world != pos1.world || location.world != pos2.world) return false
 
-        val (minX, maxX) = listOf(pos1.x, pos2.x).sorted()
-        val (minY, maxY) = listOf(pos1.y, pos2.y).sorted()
-        val (minZ, maxZ) = listOf(pos1.z, pos2.z).sorted()
+        val locX = location.blockX
+        val locY = location.blockY
+        val locZ = location.blockZ
 
-        return location.x in minX..maxX && location.y in minY..maxY && location.z in minZ..maxZ
+        val (minX, maxX) = listOf(pos1.blockX, pos2.blockX).sorted()
+        val (minY, maxY) = listOf(pos1.blockY, pos2.blockY).sorted()
+        val (minZ, maxZ) = listOf(pos1.blockZ, pos2.blockZ).sorted()
+
+        return locX in minX..maxX && locY in minY..maxY && locZ in minZ..maxZ
     }
 
 

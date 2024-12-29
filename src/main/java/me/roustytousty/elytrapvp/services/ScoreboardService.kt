@@ -45,7 +45,7 @@ class ScoreboardService {
 
         objective.getScore(parse("&3")).score = 1
 
-        objective.getScore(parse("&fecowings.minehut.gg")).score = 0
+        objective.getScore(parse("&7ecowings.minehut.gg")).score = 0
 
         player.scoreboard = board
     }

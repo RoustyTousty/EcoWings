@@ -8,7 +8,7 @@ import org.bukkit.scheduler.BukkitRunnable
 class MapResetService {
 
     companion object {
-        private const val RESET_INTERVAL_SECONDS = 10 * 60
+        private const val RESET_INTERVAL_SECONDS = 40 * 60
         private const val REGION_NAME = "pvpRegion"
     }
 

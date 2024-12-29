@@ -23,10 +23,10 @@ class OnBlockBreak : Listener {
         }
 
         val blockLocation = event.block.location
-        val isInPVPRegion = RegionUtils.isLocationInRegion(blockLocation, "pvpRegion")
-        val isInPVPBufferRegion = RegionUtils.isLocationInRegion(blockLocation, "pvpBufferRegion")
+        val isInBuildRegion = RegionUtils.isLocationInRegion(blockLocation, "buildRegion")
+        val isInBuildBufferRegion = RegionUtils.isLocationInRegion(blockLocation, "buildBufferRegion")
 
-        if (!isInPVPRegion || isInPVPBufferRegion) {
+        if (!isInBuildRegion || isInBuildBufferRegion) {
             event.isCancelled = true
             MessageUtils.sendMessage(player, "&fYou cant break blocks here!")
             player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)

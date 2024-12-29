@@ -28,6 +28,6 @@ class OnPlayerInteractEntity : Listener {
             return
         }
 
-        PlayerStatsMenu.openInventory(player, clickedPlayer)
+//        PlayerStatsMenu.openInventory(player, clickedPlayer)
     }
 }
