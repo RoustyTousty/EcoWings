@@ -21,7 +21,7 @@ class OnPlayerMove : Listener {
 
         val isInPVPRegion = RegionUtils.isLocationInRegion(playerLocation, "pvpRegion")
         if (!isInPVPRegion) {
-            player.damage(20.0)
+            player.damage(40.0)
         }
     }
 }
