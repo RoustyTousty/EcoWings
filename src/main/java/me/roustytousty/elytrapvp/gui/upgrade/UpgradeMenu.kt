@@ -43,7 +43,7 @@ class UpgradeMenu : Listener {
             13 -> ConfirmUpgradeMenu.openInventory(p, "leggings")
             14 -> ConfirmUpgradeMenu.openInventory(p, "boots")
             15 -> ConfirmUpgradeMenu.openInventory(p, "sword")
-            16 -> ConfirmUpgradeMenu.openInventory(p, "shears")
+            22 -> ConfirmUpgradeMenu.openInventory(p, "shears")
 
             18 -> {
                 p.closeInventory()
