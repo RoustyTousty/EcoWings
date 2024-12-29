@@ -25,7 +25,7 @@ class OnBlockBreak : Listener {
         val blockLocation = event.block.location
         val isInBuildRegion = RegionUtils.isLocationInRegion(blockLocation, "buildRegion")
         val isInBuildBufferRegion = RegionUtils.isLocationInRegion(blockLocation, "buildBufferRegion")
-
+ 
         if (!isInBuildRegion || isInBuildBufferRegion) {
             event.isCancelled = true
             MessageUtils.sendMessage(player, "&fYou cant break blocks here!")
