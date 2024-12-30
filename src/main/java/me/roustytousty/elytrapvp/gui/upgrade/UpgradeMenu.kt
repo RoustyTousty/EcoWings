@@ -22,7 +22,9 @@ class UpgradeMenu : Listener {
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        if (e.inventory != inv) return
+        val inventory = e.view.title
+        if (inventory != "Upgrade") return
+
         e.isCancelled = true
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
@@ -53,26 +55,25 @@ class UpgradeMenu : Listener {
     }
 
     @EventHandler
-    private fun onInventoryClick(e: InventoryDragEvent) {
-        if (e.inventory == inv) {
+    private fun onInventoryDrag(e: InventoryDragEvent) {
+        if (e.view.title == "Upgrade") {
             e.isCancelled = true
         }
     }
 
     companion object {
 
-        var inv: Inventory? = null
         fun openInventory(player: Player) {
-            inv = Bukkit.createInventory(null, 36, "Upgrade")
-            initItems(player)
-            player.openInventory(inv!!)
+            val inventory = Bukkit.createInventory(null, 36, "Upgrade")
+            initItems(inventory, player)
+            player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
-        private fun initItems(player: Player) {
+        private fun initItems(inventory: Inventory, player: Player) {
             val slots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35)
             for (slot in slots) {
-                inv!!.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
             val nextHelmetLevel = ((CacheConfig.getplrVal(player, "helmetLevel") as? Int) ?: 0) + 1
@@ -91,7 +92,7 @@ class UpgradeMenu : Listener {
 
             // Helmet
             if (helmetCost == -1) {
-                inv!!.setItem(11,
+                inventory.setItem(11,
                     itemBuilder(
                         Material.LEATHER_HELMET,
                         1,
@@ -100,7 +101,7 @@ class UpgradeMenu : Listener {
                     )
                 )
             } else {
-                inv!!.setItem(11,
+                inventory.setItem(11,
                     itemBuilder(
                         Material.LEATHER_HELMET,
                         1,
@@ -116,7 +117,7 @@ class UpgradeMenu : Listener {
 
             // Elytra
             if (elytraCost == -1) {
-                inv!!.setItem(12,
+                inventory.setItem(12,
                     itemBuilder(
                         Material.ELYTRA,
                         1,
@@ -125,7 +126,7 @@ class UpgradeMenu : Listener {
                     )
                 )
             } else {
-                inv!!.setItem(12,
+                inventory.setItem(12,
                     itemBuilder(
                         Material.ELYTRA,
                         1,
@@ -141,7 +142,7 @@ class UpgradeMenu : Listener {
 
             // Leggings
             if (leggingsCost == -1) {
-                inv!!.setItem(13,
+                inventory.setItem(13,
                     itemBuilder(
                         Material.LEATHER_LEGGINGS,
                         1,
@@ -150,7 +151,7 @@ class UpgradeMenu : Listener {
                     )
                 )
             } else {
-                inv!!.setItem(13,
+                inventory.setItem(13,
                     itemBuilder(
                         Material.LEATHER_LEGGINGS,
                         1,
@@ -166,7 +167,7 @@ class UpgradeMenu : Listener {
 
             // Boots
             if (bootsCost == -1) {
-                inv!!.setItem(14,
+                inventory.setItem(14,
                     itemBuilder(
                         Material.LEATHER_BOOTS,
                         1,
@@ -175,7 +176,7 @@ class UpgradeMenu : Listener {
                     )
                 )
             } else {
-                inv!!.setItem(
+                inventory.setItem(
                     14,
                     itemBuilder(
                         Material.LEATHER_BOOTS,
@@ -192,7 +193,7 @@ class UpgradeMenu : Listener {
 
             // Swords
             if (swordCost == -1) {
-                inv!!.setItem(
+                inventory.setItem(
                     15,
                     itemBuilder(
                         Material.WOODEN_SWORD,
@@ -202,7 +203,7 @@ class UpgradeMenu : Listener {
                     )
                 )
             } else {
-                inv!!.setItem(
+                inventory.setItem(
                     15,
                     itemBuilder(
                         Material.WOODEN_SWORD,
@@ -219,7 +220,7 @@ class UpgradeMenu : Listener {
 
             // Shears
             if (shearsCost == -1) {
-                inv!!.setItem(
+                inventory.setItem(
                     22,
                     itemBuilder(
                         Material.SHEARS,
@@ -229,7 +230,7 @@ class UpgradeMenu : Listener {
                     )
                 )
             } else {
-                inv!!.setItem(
+                inventory.setItem(
                     22,
                     itemBuilder(
                         Material.SHEARS,
@@ -245,7 +246,7 @@ class UpgradeMenu : Listener {
             }
 
 
-            inv!!.setItem(
+            inventory.setItem(
                 27,
                 itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,

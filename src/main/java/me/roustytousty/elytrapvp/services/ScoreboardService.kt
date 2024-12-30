@@ -8,6 +8,8 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scoreboard.DisplaySlot
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ScoreboardService {
 
@@ -18,6 +20,10 @@ class ScoreboardService {
         val board = Bukkit.getScoreboardManager().newScoreboard
         val objective = board.registerNewObjective("test", "dummy", parse("  &6&lEcoWings"))
         objective.displaySlot = DisplaySlot.SIDEBAR
+
+        objective.getScore(parse("&d")).also {
+            board.registerNewTeam("dateTime").addEntry(it.entry)
+        }.score = 11
 
         objective.getScore(parse("&f")).score = 10
         objective.getScore(parse(" &fRank: <Member>")).score = 9
@@ -59,13 +65,19 @@ class ScoreboardService {
     }
 
     private fun update() {
+        val dateTimeFormat = SimpleDateFormat("dd/MM/yyyy hh:mma")
+        val currentDateTime = dateTimeFormat.format(Date())
+
         for (player in Bukkit.getOnlinePlayers()) {
             val board = player.scoreboard
+            val dateTimeTeam = board.getTeam("dateTime") ?: continue
             val goldTeam = board.getTeam("gold") ?: continue
             val playersTeam = board.getTeam("players") ?: continue
             val mapResetTeam = board.getTeam("mapReset") ?: continue
             val dynamic1Team = board.getTeam("dynamic1") ?: continue
             val dynamic2Team = board.getTeam("dynamic2") ?: continue
+
+            dateTimeTeam.prefix = parse("&7$currentDateTime")
 
             val gold = CacheConfig.getplrVal(player, "gold") as Int
             goldTeam.suffix = parse("&6${formatNumber(gold)}")

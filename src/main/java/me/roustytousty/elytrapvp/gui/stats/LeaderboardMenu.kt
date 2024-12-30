@@ -19,7 +19,9 @@ class LeaderboardMenu : Listener {
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        if (e.inventory != inv) return
+        val inventory = e.view.title
+        if (inventory != "Leaderboard") return
+
         e.isCancelled = true
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
@@ -31,54 +33,53 @@ class LeaderboardMenu : Listener {
     }
 
     @EventHandler
-    private fun onInventoryClick(e: InventoryDragEvent) {
-        if (e.inventory == inv) {
+    private fun onInventoryDrag(e: InventoryDragEvent) {
+        if (e.view.title == "Leaderboard") {
             e.isCancelled = true
         }
     }
 
     companion object {
 
-        var inv: Inventory? = null
         fun openInventory(player: Player, stat: String) {
-            inv = Bukkit.createInventory(null, 36, "Leaderboard - $stat")
-            initItems(player, stat)
-            player.openInventory(inv!!)
+            val inventory = Bukkit.createInventory(null, 36, "Leaderboard")
+            initItems(inventory, player, stat)
+            player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
-        private fun initItems(player: Player, stat: String) {
+        private fun initItems(inventory: Inventory, player: Player, stat: String) {
             val black_glass_slots = intArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 21, 22, 23, 24)
             for (slot in black_glass_slots) {
-                inv!!.setItem(slot,
+                inventory.setItem(slot,
                     ItemUtils.itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f")
                 )
             }
 
             val brown_glass_slots = intArrayOf(6, 24)
             for (slot in brown_glass_slots) {
-                inv!!.setItem(slot,
+                inventory.setItem(slot,
                     ItemUtils.itemBuilder(Material.BROWN_STAINED_GLASS_PANE, 1, false, "&f")
                 )
             }
 
             val white_glass_slots = intArrayOf(7, 25)
             for (slot in white_glass_slots) {
-                inv!!.setItem(slot,
+                inventory.setItem(slot,
                     ItemUtils.itemBuilder(Material.WHITE_STAINED_GLASS_PANE, 1, false, "&f")
                 )
             }
 
             val gold_glass_slots = intArrayOf(8, 26)
             for (slot in gold_glass_slots) {
-                inv!!.setItem(slot,
+                inventory.setItem(slot,
                     ItemUtils.itemBuilder(Material.YELLOW_STAINED_GLASS_PANE, 1, false, "&f")
                 )
             }
 
             val playerStat = CacheConfig.getplrVal(player, stat)
             val playerRank = MongoDB.getPlayerRank(player, stat)
-            inv!!.setItem(35,
+            inventory.setItem(35,
                 ItemUtils.itemBuilder(player, 1, false, "&e${player.name} &6#$playerRank", "&7Value: ${formatNumber(playerStat as Int)}")
             )
 
@@ -91,11 +92,11 @@ class LeaderboardMenu : Listener {
                 if (pStat != null) {
                     val skullItem = ItemUtils.itemBuilder(Bukkit.getOfflinePlayer(pName), 1, false, "&e$pName &6#${index + 1}", "&7Value: ${formatNumber(pStat as Int)}")
 
-                    inv!!.setItem(leaderboardSlots[index], skullItem)
+                    inventory.setItem(leaderboardSlots[index], skullItem)
                 }
             }
 
-            inv!!.setItem(27,
+            inventory.setItem(27,
                 ItemUtils.itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cBack")
             )
         }

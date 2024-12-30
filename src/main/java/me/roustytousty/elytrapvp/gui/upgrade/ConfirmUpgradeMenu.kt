@@ -26,7 +26,9 @@ class ConfirmUpgradeMenu : Listener {
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        if (e.inventory != inv) return
+        val inventory = e.view.title
+        if (inventory != "Confirm upgrade") return
+
         e.isCancelled = true
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
@@ -65,27 +67,26 @@ class ConfirmUpgradeMenu : Listener {
     }
 
     @EventHandler
-    private fun onInventoryClick(e: InventoryDragEvent) {
-        if (e.inventory == inv) {
+    private fun onInventoryDrag(e: InventoryDragEvent) {
+        if (e.view.title == "Confirm upgrade") {
             e.isCancelled = true
         }
     }
 
     companion object {
 
-        var inv: Inventory? = null
         fun openInventory(player: Player, item: String) {
-            inv = Bukkit.createInventory(null, 9, "Confirm upgrade")
-            initItems(player, item)
-            player.openInventory(inv!!)
+            val inventory = Bukkit.createInventory(null, 9, "Confirm upgrade")
+            initItems(inventory, player, item)
+            player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
             player.setMetadata("upgradeItem", FixedMetadataValue(ElytraPVP.instance!!, item))
         }
 
-        private fun initItems(player: Player, item: String) {
+        private fun initItems(inventory: Inventory, player: Player, item: String) {
             val slots = intArrayOf(1, 2, 3, 5, 6, 7)
             for (slot in slots) {
-                inv!!.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
             val itemLevel = CacheConfig.getplrVal(player, "${item}Level") as? Int ?: 0
@@ -94,11 +95,11 @@ class ConfirmUpgradeMenu : Listener {
 
             if (itemConfigSection != null) {
                 val itemStack = ItemUtils.kitItemBuilder(itemConfigSection)
-                inv!!.setItem(4, itemStack)
+                inventory.setItem(4, itemStack)
 
                 val upgradeCost = itemConfigSection.getInt("cost")
-                inv!!.setItem(0, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cCancel"))
-                inv!!.setItem(8, itemBuilder(Material.LIME_STAINED_GLASS_PANE, 1, false, "&aConfirm", "", "&fPrice: &6${upgradeCost}g", "", "&7Click to confirm!"))
+                inventory.setItem(0, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cCancel"))
+                inventory.setItem(8, itemBuilder(Material.LIME_STAINED_GLASS_PANE, 1, false, "&aConfirm", "", "&fPrice: &6${upgradeCost}g", "", "&7Click to confirm!"))
             }
         }
 

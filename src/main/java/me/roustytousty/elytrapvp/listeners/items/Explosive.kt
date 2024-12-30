@@ -1,5 +1,6 @@
 package me.roustytousty.elytrapvp.listeners.items
 
+import me.roustytousty.elytrapvp.utility.RegionUtils
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -18,6 +19,11 @@ class Explosive : Listener {
         val location = block.location
 
         if (block.type == Material.TNT) {
+            val isInBuildRegion = RegionUtils.isLocationInRegion(location, "buildRegion")
+            if (!isInBuildRegion) {
+                return
+            }
+
             block.type = Material.AIR
             val tnt = world.spawnEntity(Location(world, location.x + 0.5, location.y + 0.5, location.z + 0.5), EntityType.PRIMED_TNT) as TNTPrimed
             tnt.fuseTicks = 50

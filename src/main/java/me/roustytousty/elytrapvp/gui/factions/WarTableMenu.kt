@@ -16,7 +16,9 @@ class WarTableMenu : Listener {
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        if (e.inventory != inv) return
+        val inventory = e.view.title
+        if (inventory != "Faction") return
+
         e.isCancelled = true
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
@@ -31,32 +33,31 @@ class WarTableMenu : Listener {
     }
 
     @EventHandler
-    private fun onInventoryClick(e: InventoryDragEvent) {
-        if (e.inventory == inv) {
+    private fun onInventoryDrag(e: InventoryDragEvent) {
+        if (e.view.title == "Faction") {
             e.isCancelled = true
         }
     }
 
     companion object {
 
-        var inv: Inventory? = null
         fun openInventory(player: Player) {
-            inv = Bukkit.createInventory(null, 45, "War Table")
-            initItems(player)
-            player.openInventory(inv!!)
+            val inventory = Bukkit.createInventory(null, 45, "Faction")
+            initItems(inventory, player)
+            player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
-        private fun initItems(player: Player) {
+        private fun initItems(inventory: Inventory, player: Player) {
             val slots = intArrayOf(3, 5, 12, 14, 21, 23, 30, 32, 39, 41)
             for (slot in slots) {
-                inv!!.setItem(slot,
+                inventory.setItem(slot,
                     ItemUtils.itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f")
                 )
             }
 
 
-            inv!!.setItem(
+            inventory.setItem(
                 4,
                 ItemUtils.itemBuilder(
                     Material.BOOK,
@@ -65,7 +66,7 @@ class WarTableMenu : Listener {
                     "&eInfo",
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 4,
                 ItemUtils.itemBuilder(
                     Material.DIAMOND,
@@ -74,7 +75,7 @@ class WarTableMenu : Listener {
                     "&eRewards",
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 31,
                 ItemUtils.itemBuilder(
                     Material.LECTERN,
@@ -85,7 +86,7 @@ class WarTableMenu : Listener {
             )
 
 
-            inv!!.setItem(
+            inventory.setItem(
                 1,
                 ItemUtils.itemBuilder(
                     Material.REINFORCED_DEEPSLATE,
@@ -94,7 +95,7 @@ class WarTableMenu : Listener {
                     "&c&lOUTLAW",
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 7,
                 ItemUtils.itemBuilder(
                     Material.PACKED_ICE,
@@ -104,7 +105,7 @@ class WarTableMenu : Listener {
                 )
             )
 
-            inv!!.setItem(
+            inventory.setItem(
                 28,
                 ItemUtils.itemBuilder(
                     Material.GOLD_BLOCK,
@@ -115,7 +116,7 @@ class WarTableMenu : Listener {
                     "&7faction!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 34,
                 ItemUtils.itemBuilder(
                     Material.GOLD_BLOCK,
@@ -127,7 +128,7 @@ class WarTableMenu : Listener {
                 )
             )
 
-            inv!!.setItem(
+            inventory.setItem(
                 27,
                 ItemUtils.itemBuilder(
                     player,
@@ -139,7 +140,7 @@ class WarTableMenu : Listener {
                     "&7Value: 122 FP",
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 35,
                 ItemUtils.itemBuilder(
                     player,
@@ -154,7 +155,7 @@ class WarTableMenu : Listener {
 
 
 
-            inv!!.setItem(
+            inventory.setItem(
                 40,
                 ItemUtils.itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,

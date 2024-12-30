@@ -15,7 +15,9 @@ class StatsMenu : Listener {
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        if (e.inventory != inv) return
+        val inventory = e.view.title
+        if (inventory != "Stats") return
+
         e.isCancelled = true
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
@@ -33,32 +35,31 @@ class StatsMenu : Listener {
     }
 
     @EventHandler
-    private fun onInventoryClick(e: InventoryDragEvent) {
-        if (e.inventory == inv) {
+    private fun onInventoryDrag(e: InventoryDragEvent) {
+        if (e.view.title == "Stats") {
             e.isCancelled = true
         }
     }
 
     companion object {
 
-        var inv: Inventory? = null
         fun openInventory(player: Player) {
-            inv = Bukkit.createInventory(null, 27, "Stats")
-            initItems(player)
-            player.openInventory(inv!!)
+            val inventory = Bukkit.createInventory(null, 27, "Stats")
+            initItems(inventory, player)
+            player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
-        private fun initItems(player: Player) {
+        private fun initItems(inventory: Inventory, player: Player) {
             val slots = intArrayOf(0, 8, 9, 17, 26)
             for (slot in slots) {
-                inv!!.setItem(slot,
+                inventory.setItem(slot,
                     ItemUtils.itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f")
                 )
             }
 
 
-            inv!!.setItem(
+            inventory.setItem(
                 12,
                 ItemUtils.itemBuilder(
                     player,
@@ -68,7 +69,7 @@ class StatsMenu : Listener {
                     "&7Your personal stats menu!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 14,
                 ItemUtils.itemBuilder(
                     Material.GOLD_BLOCK,
@@ -79,7 +80,7 @@ class StatsMenu : Listener {
                 )
             )
 
-            inv!!.setItem(
+            inventory.setItem(
                 18,
                 ItemUtils.itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,

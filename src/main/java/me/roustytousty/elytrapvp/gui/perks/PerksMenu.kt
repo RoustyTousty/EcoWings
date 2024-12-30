@@ -16,7 +16,9 @@ class PerksMenu : Listener {
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        if (e.inventory != inv) return
+        val inventory = e.view.title
+        if (inventory != "Perks") return
+
         e.isCancelled = true
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
@@ -31,30 +33,29 @@ class PerksMenu : Listener {
     }
 
     @EventHandler
-    private fun onInventoryClick(e: InventoryDragEvent) {
-        if (e.inventory == inv) {
+    private fun onInventoryDrag(e: InventoryDragEvent) {
+        if (e.view.title == "Perks") {
             e.isCancelled = true
         }
     }
 
     companion object {
 
-        var inv: Inventory? = null
         fun openInventory(player: Player) {
-            inv = Bukkit.createInventory(null, 54, "Perks")
-            initItems()
-            player.openInventory(inv!!)
+            val inventory = Bukkit.createInventory(null, 54, "Perks")
+            initItems(inventory)
+            player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
-        private fun initItems() {
+        private fun initItems(inventory: Inventory) {
             val slots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35, 36, 44, 53)
             for (slot in slots) {
-                inv!!.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
 
-            inv!!.setItem(
+            inventory.setItem(
                 13,
                 itemBuilder(
                     Material.BARRIER,
@@ -66,7 +67,7 @@ class PerksMenu : Listener {
             )
 
 
-            inv!!.setItem(
+            inventory.setItem(
                 29,
                 itemBuilder(
                     Material.BARRIER,
@@ -76,7 +77,7 @@ class PerksMenu : Listener {
                     "&7Test!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 30,
                 itemBuilder(
                     Material.BARRIER,
@@ -86,7 +87,7 @@ class PerksMenu : Listener {
                     "&7Test!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 31,
                 itemBuilder(
                     Material.BARRIER,
@@ -96,7 +97,7 @@ class PerksMenu : Listener {
                     "&7Test!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 32,
                 itemBuilder(
                     Material.BARRIER,
@@ -106,7 +107,7 @@ class PerksMenu : Listener {
                     "&7Test!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 33,
                 itemBuilder(
                     Material.BARRIER,
@@ -116,7 +117,7 @@ class PerksMenu : Listener {
                     "&7Test!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 38,
                 itemBuilder(
                     Material.BARRIER,
@@ -126,7 +127,7 @@ class PerksMenu : Listener {
                     "&7Test!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 39,
                 itemBuilder(
                     Material.BARRIER,
@@ -136,7 +137,7 @@ class PerksMenu : Listener {
                     "&7Test!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 40,
                 itemBuilder(
                     Material.BARRIER,
@@ -146,7 +147,7 @@ class PerksMenu : Listener {
                     "&7Test!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 41,
                 itemBuilder(
                     Material.BARRIER,
@@ -156,7 +157,7 @@ class PerksMenu : Listener {
                     "&7Test!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 42,
                 itemBuilder(
                     Material.BARRIER,
@@ -167,7 +168,7 @@ class PerksMenu : Listener {
                 )
             )
 
-            inv!!.setItem(
+            inventory.setItem(
                 45,
                 itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,

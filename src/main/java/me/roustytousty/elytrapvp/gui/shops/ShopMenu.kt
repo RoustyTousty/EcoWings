@@ -17,48 +17,47 @@ class ShopMenu : Listener {
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        if (e.inventory != inv) return
+        val inventory = e.view.title
+        if (inventory != "Shop") return
+
         e.isCancelled = true
-        val clickedItem = e.currentItem
-        if (clickedItem == null || clickedItem.type.isAir) return
-        val p = e.whoClicked as Player
+        val clickedItem = e.currentItem ?: return
+        if (clickedItem.type.isAir) return
 
+        val player = e.whoClicked as Player
         when (e.rawSlot) {
-            11 -> BlockShopMenu.openInventory(p)
-            12 -> UtilityShopMenu.openInventory(p)
-            13 -> ConsumablesShopMenu.openInventory(p)
-
+            11 -> BlockShopMenu.openInventory(player)
+            12 -> UtilityShopMenu.openInventory(player)
+            13 -> ConsumablesShopMenu.openInventory(player)
             18 -> {
-                p.closeInventory()
-                p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+                player.closeInventory()
+                player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
             }
         }
     }
 
     @EventHandler
-    private fun onInventoryClick(e: InventoryDragEvent) {
-        if (e.inventory == inv) {
+    private fun onInventoryDrag(e: InventoryDragEvent) {
+        if (e.view.title == "Shop") {
             e.isCancelled = true
         }
     }
 
     companion object {
-
-        var inv: Inventory? = null
         fun openInventory(player: Player) {
-            inv = Bukkit.createInventory(null, 27, "Shop")
-            initItems()
-            player.openInventory(inv!!)
+            val inventory = Bukkit.createInventory(null, 27, "Shop")
+            initItems(inventory)
+            player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
-        private fun initItems() {
+        private fun initItems(inventory: Inventory) {
             val slots = intArrayOf(0, 8, 9, 17, 18, 26)
             for (slot in slots) {
-                inv!!.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
-            inv!!.setItem(
+            inventory.setItem(
                 11,
                 itemBuilder(
                     Material.WHITE_WOOL,
@@ -68,7 +67,7 @@ class ShopMenu : Listener {
                     "&7Buy different types of blocks!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 12,
                 itemBuilder(
                     Material.FEATHER,
@@ -78,7 +77,7 @@ class ShopMenu : Listener {
                     "&7Usable utility during pvp!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 13,
                 itemBuilder(
                     Material.GLASS_BOTTLE,
@@ -88,7 +87,7 @@ class ShopMenu : Listener {
                     "&7Consumables provide small boosts!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 14,
                 itemBuilder(
                     Material.GUNPOWDER,
@@ -98,7 +97,7 @@ class ShopMenu : Listener {
                     "&7Need to go higher?"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 15,
                 itemBuilder(
                     Material.BARRIER,
@@ -108,9 +107,7 @@ class ShopMenu : Listener {
                     "&7I didn't know what to put here :)"
                 )
             )
-
-
-            inv!!.setItem(
+            inventory.setItem(
                 18,
                 itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,

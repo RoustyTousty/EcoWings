@@ -15,7 +15,9 @@ class LeaderboardSelectMenu : Listener {
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        if (e.inventory != inv) return
+        val inventory = e.view.title
+        if (inventory != "Leaderboards") return
+
         e.isCancelled = true
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
@@ -32,29 +34,28 @@ class LeaderboardSelectMenu : Listener {
     }
 
     @EventHandler
-    private fun onInventoryClick(e: InventoryDragEvent) {
-        if (e.inventory == inv) {
+    private fun onInventoryDrag(e: InventoryDragEvent) {
+        if (e.view.title == "Leaderboards") {
             e.isCancelled = true
         }
     }
 
     companion object {
 
-        var inv: Inventory? = null
         fun openInventory(player: Player) {
-            inv = Bukkit.createInventory(null, 27, "Leaderboards")
-            initItems()
-            player.openInventory(inv!!)
+            val inventory = Bukkit.createInventory(null, 27, "Leaderboards")
+            initItems(inventory)
+            player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
-        private fun initItems() {
+        private fun initItems(inventory: Inventory) {
             val slots = intArrayOf(0, 8, 9, 17, 26)
             for (slot in slots) {
-                inv!!.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+                inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
-            inv!!.setItem(
+            inventory.setItem(
                 11,
                 itemBuilder(
                     Material.IRON_SWORD,
@@ -64,7 +65,7 @@ class LeaderboardSelectMenu : Listener {
                     "&7Top players for kills!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 12,
                 itemBuilder(
                     Material.GOLDEN_SWORD,
@@ -74,7 +75,7 @@ class LeaderboardSelectMenu : Listener {
                     "&7Top players for killstreak!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 13,
                 itemBuilder(
                     Material.GOLD_BLOCK,
@@ -84,7 +85,7 @@ class LeaderboardSelectMenu : Listener {
                     "&7Top players for gold!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 15,
                 itemBuilder(
                     Material.SKELETON_SKULL,
@@ -95,7 +96,7 @@ class LeaderboardSelectMenu : Listener {
                 )
             )
 
-            inv!!.setItem(
+            inventory.setItem(
                 18,
                 itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,

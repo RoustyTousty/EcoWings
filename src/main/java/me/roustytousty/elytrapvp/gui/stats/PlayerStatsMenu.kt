@@ -19,7 +19,9 @@ class PlayerStatsMenu : Listener {
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        if (e.inventory != inv) return
+        val inventory = e.view.title
+        if (inventory != "Player stats") return
+
         e.isCancelled = true
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
@@ -31,26 +33,25 @@ class PlayerStatsMenu : Listener {
     }
 
     @EventHandler
-    private fun onInventoryClick(e: InventoryDragEvent) {
-        if (e.inventory == inv) {
+    private fun onInventoryDrag(e: InventoryDragEvent) {
+        if (e.view.title == "Player stats") {
             e.isCancelled = true
         }
     }
 
     companion object {
 
-        var inv: Inventory? = null
         fun openInventory(player: Player, statPlayer: Player) {
-            inv = Bukkit.createInventory(null, 54, "Stats - ${statPlayer.name}")
-            initItems(statPlayer)
-            player.openInventory(inv!!)
+            val inventory = Bukkit.createInventory(null, 54, "Player stats")
+            initItems(inventory, statPlayer)
+            player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
-        private fun initItems(statPlayer: Player) {
+        private fun initItems(inventory: Inventory, statPlayer: Player) {
             val slots = intArrayOf(8, 9, 17, 18, 26, 27, 35, 36, 44, 53)
             for (slot in slots) {
-                inv!!.setItem(slot,
+                inventory.setItem(slot,
                     ItemUtils.itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f")
                 )
             }
@@ -79,32 +80,32 @@ class PlayerStatsMenu : Listener {
             val swordItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.sword.$swordLevel")!!)
             val shearsItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.shears.$shearsLevel")!!)
 
-            inv!!.setItem(
+            inventory.setItem(
                 11,
                 helmetItem
             )
-            inv!!.setItem(
+            inventory.setItem(
                 20,
                 elytraItem
             )
-            inv!!.setItem(
+            inventory.setItem(
                 29,
                 leggingsItem
             )
-            inv!!.setItem(
+            inventory.setItem(
                 38,
                 bootsItem
             )
-            inv!!.setItem(
+            inventory.setItem(
                 21,
                 swordItem
             )
-            inv!!.setItem(
+            inventory.setItem(
                 30,
                 shearsItem
             )
 
-            inv!!.setItem(
+            inventory.setItem(
                 0,
                 ItemUtils.itemBuilder(
                     statPlayer,
@@ -113,7 +114,7 @@ class PlayerStatsMenu : Listener {
                     "&f"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 24,
                 ItemUtils.itemBuilder(
                     Material.GOLDEN_SWORD,
@@ -123,7 +124,7 @@ class PlayerStatsMenu : Listener {
                     "&7Test!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 23,
                 ItemUtils.itemBuilder(
                     Material.AMETHYST_SHARD,
@@ -133,7 +134,7 @@ class PlayerStatsMenu : Listener {
                     "&7Test!"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 14,
                 ItemUtils.itemBuilder(
                     Material.GOLD_INGOT,
@@ -143,7 +144,7 @@ class PlayerStatsMenu : Listener {
                     "&7Value: ${formatNumber(gold as Int)}"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 15,
                 ItemUtils.itemBuilder(
                     Material.WOODEN_SWORD,
@@ -153,7 +154,7 @@ class PlayerStatsMenu : Listener {
                     "&7Value: ${formatNumber(kills as Int)}"
                 )
             )
-            inv!!.setItem(
+            inventory.setItem(
                 33,
                 ItemUtils.itemBuilder(
                     Material.SKELETON_SKULL,
@@ -164,7 +165,7 @@ class PlayerStatsMenu : Listener {
                 )
             )
 
-            inv!!.setItem(
+            inventory.setItem(
                 45,
                 ItemUtils.itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,
