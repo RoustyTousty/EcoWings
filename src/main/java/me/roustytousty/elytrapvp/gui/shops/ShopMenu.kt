@@ -29,6 +29,7 @@ class ShopMenu : Listener {
             11 -> BlockShopMenu.openInventory(player)
             12 -> UtilityShopMenu.openInventory(player)
             13 -> ConsumablesShopMenu.openInventory(player)
+            14 -> RocketsShopMenu.openInventory(player)
             18 -> {
                 player.closeInventory()
                 player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)

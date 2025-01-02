@@ -13,10 +13,7 @@ import me.roustytousty.elytrapvp.data.UpgradeConfig
 import me.roustytousty.elytrapvp.gui.events.EventsMenu
 import me.roustytousty.elytrapvp.gui.events.WarTableMenu
 import me.roustytousty.elytrapvp.gui.perks.PerksMenu
-import me.roustytousty.elytrapvp.gui.shops.BlockShopMenu
-import me.roustytousty.elytrapvp.gui.shops.ConsumablesShopMenu
-import me.roustytousty.elytrapvp.gui.shops.ShopMenu
-import me.roustytousty.elytrapvp.gui.shops.UtilityShopMenu
+import me.roustytousty.elytrapvp.gui.shops.*
 import me.roustytousty.elytrapvp.gui.stats.LeaderboardMenu
 import me.roustytousty.elytrapvp.gui.stats.LeaderboardSelectMenu
 import me.roustytousty.elytrapvp.gui.stats.PlayerStatsMenu
@@ -109,6 +106,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(BlockShopMenu(), this)
         pluginmanager.registerEvents(UtilityShopMenu(), this)
         pluginmanager.registerEvents(ConsumablesShopMenu(), this)
+        pluginmanager.registerEvents(RocketsShopMenu(), this)
         pluginmanager.registerEvents(UpgradeMenu(), this)
         pluginmanager.registerEvents(ConfirmUpgradeMenu(), this)
         pluginmanager.registerEvents(StatsMenu(), this)

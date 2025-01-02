@@ -11,6 +11,12 @@ import org.bukkit.event.block.BlockBreakEvent
 
 class OnBlockBreak : Listener {
 
+    private val breakableMaterials = setOf(
+        Material.WHITE_WOOL, Material.ORANGE_WOOL, Material.YELLOW_WOOL,
+        Material.WHITE_CONCRETE, Material.YELLOW_CONCRETE,
+        Material.WHITE_CONCRETE_POWDER
+    )
+
     @EventHandler
     fun onBlockBreak(event: BlockBreakEvent) {
         val player = event.player
@@ -33,12 +39,43 @@ class OnBlockBreak : Listener {
             return
         }
 
-        if (event.block.type == Material.ORANGE_WOOL) {
+        if (!breakableMaterials.contains(event.block.type)) {
             event.isCancelled = true
-            event.block.type = Material.YELLOW_WOOL
-        } else if (event.block.type == Material.YELLOW_WOOL) {
-            event.isCancelled = true
-            event.block.type = Material.WHITE_WOOL
+            MessageUtils.sendMessage(player, "&fYou cant break blocks here!")
+            player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
+            return
+        }
+
+        when (event.block.type) {
+            Material.ORANGE_WOOL -> {
+                event.isCancelled = true
+                event.block.type = Material.YELLOW_WOOL
+            }
+            Material.YELLOW_WOOL -> {
+                event.isCancelled = true
+                event.block.type = Material.WHITE_WOOL
+            }
+            Material.WHITE_WOOL -> {
+                event.isCancelled = true
+                player.inventory.addItem(event.block.drops.firstOrNull()!!)
+                event.block.type = Material.AIR
+            }
+            Material.ORANGE_CONCRETE -> {
+                event.isCancelled = true
+                event.block.type = Material.YELLOW_CONCRETE
+            }
+            Material.YELLOW_CONCRETE -> {
+                event.isCancelled = true
+                event.block.type = Material.WHITE_CONCRETE
+            }
+            Material.WHITE_CONCRETE -> {
+                event.isCancelled = true
+                player.inventory.addItem(event.block.drops.firstOrNull()!!)
+                event.block.type = Material.AIR
+            }
+            else -> {
+                return
+            }
         }
     }
 }
