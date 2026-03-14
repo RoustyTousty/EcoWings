@@ -4,7 +4,7 @@ import me.roustytousty.elytrapvp.data.model.PlayerData
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-object PlayerCache {
+class PlayerCache {
 
     private val cache = ConcurrentHashMap<UUID, PlayerData>()
 

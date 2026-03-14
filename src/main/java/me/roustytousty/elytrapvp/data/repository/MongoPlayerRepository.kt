@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.repository
+package me.roustytousty.elytrapvp.data.repository
 
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.model.Filters

@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.services.ScoreboardService
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.services.kit.KitService
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import net.kyori.adventure.text.Component
@@ -20,7 +21,8 @@ class OnPlayerJoin : Listener {
     fun onPlayerJoin(event: PlayerJoinEvent) {
         val player = event.player
 
-        MongoDB.setupPlayerOnJoin(player)
+//        MongoDB.setupPlayerOnJoin(player)
+        Services.playerService.getOrCreatePlayer(player)
 
         player.teleport(Location(Bukkit.getWorld("EcoWings"), 0.0, 137.0, 175.0, -180.0F, 0.0F))
         event.joinMessage(Component.text(parse("&f[&a+&f] ${player.name}")))

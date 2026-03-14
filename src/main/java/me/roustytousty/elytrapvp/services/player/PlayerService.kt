@@ -1,12 +1,34 @@
-package me.roustytousty.elytrapvp.services
+package me.roustytousty.elytrapvp.services.player
 
 import me.roustytousty.elytrapvp.configs.CacheConfig
+import me.roustytousty.elytrapvp.data.cache.PlayerCache
+import me.roustytousty.elytrapvp.data.model.PlayerData
+import me.roustytousty.elytrapvp.data.repository.PlayerRepository
 import me.roustytousty.elytrapvp.services.bounty.BountyService
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 
-class PlayerService {
+class PlayerService(
+    private val repository: PlayerRepository,
+    private val cache: PlayerCache
+) {
+
+    fun getOrCreatePlayer(player: Player): PlayerData {
+        val uuid = player.uniqueId
+
+        cache.get(uuid)?.let { return it }
+
+        val fromDb = repository.loadPlayer(uuid)
+        if (fromDb != null) {
+            cache.put(fromDb)
+            return fromDb
+        }
+
+        val created = repository.createPlayer(uuid, player.name)
+        cache.put(created)
+        return created
+    }
 
     fun handleKillAction(player: Player) {
         val kills = CacheConfig.getplrVal(player, "kills") as? Int ?: 0

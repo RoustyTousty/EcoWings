@@ -10,6 +10,7 @@ import me.roustytousty.elytrapvp.commands.staffcommands.*
 import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.configs.RegionConfig
 import me.roustytousty.elytrapvp.configs.UpgradeConfig
+import me.roustytousty.elytrapvp.data.api.MongoManager
 import me.roustytousty.elytrapvp.gui.events.EventsMenu
 import me.roustytousty.elytrapvp.gui.events.WarTableMenu
 import me.roustytousty.elytrapvp.gui.perks.PerksMenu
@@ -26,6 +27,7 @@ import me.roustytousty.elytrapvp.listeners.items.Explosive
 import me.roustytousty.elytrapvp.listeners.items.RegenApple
 import me.roustytousty.elytrapvp.services.MapResetService
 import me.roustytousty.elytrapvp.services.ScoreboardService
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.services.event.EventService
 import me.roustytousty.elytrapvp.services.event.events.MoonEvent
 import me.roustytousty.elytrapvp.services.event.events.TNTRainEvent
@@ -52,27 +54,34 @@ class ElytraPVP : JavaPlugin() {
         instance = this
         dataFolderDir = dataFolder
 
-        val scoreboardService = ScoreboardService()
+        MongoManager.connect("mongodb+srv://roustytousty:JIEOjRyzV0XxVotF@roustytoustydb.nkqhd.mongodb.net/?retryWrites=true&w=majority&appName=RoustyToustyDB")
 
-        setupConfigsOnEnable()
+        Services.init()
+
         registerEvents()
         registerCommands()
-        MongoDB.setupDbOnEnable()
-        scoreboardService.startUpdateTask()
-        mapResetService.startRegionResetTask()
 
-        eventService.registerEvent(MoonEvent())
-        eventService.registerEvent(VoidlessEvent())
-        eventService.registerEvent(TNTRainEvent())
+//        val scoreboardService = ScoreboardService()
+//
+//        setupConfigsOnEnable()
+//        MongoDB.setupDbOnEnable()
+//        scoreboardService.startUpdateTask()
+//        mapResetService.startRegionResetTask()
+//
+//        eventService.registerEvent(MoonEvent())
+//        eventService.registerEvent(VoidlessEvent())
+//        eventService.registerEvent(TNTRainEvent())
 
         logger.info("Plugin Setup!")
     }
 
     override fun onDisable() {
 
-        MongoDB.saveAllCache()
-        setupConfigsOnDisable()
-        MongoDB.setupDbOnDisable()
+        MongoManager.connect("mongodb+srv://roustytousty:JIEOjRyzV0XxVotF@roustytoustydb.nkqhd.mongodb.net/?retryWrites=true&w=majority&appName=RoustyToustyDB")
+
+//        MongoDB.saveAllCache()
+//        setupConfigsOnDisable()
+//        MongoDB.setupDbOnDisable()
 
         logger.info("Disabled Plugin!")
     }

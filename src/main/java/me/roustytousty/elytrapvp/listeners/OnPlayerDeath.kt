@@ -1,6 +1,7 @@
 package me.roustytousty.elytrapvp.listeners
 
-import me.roustytousty.elytrapvp.services.PlayerService
+import me.roustytousty.elytrapvp.services.Services
+import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
@@ -16,7 +17,7 @@ class OnPlayerDeath : Listener {
         val killer = victim.killer
 
         if (killer is Player) {
-            PlayerService().handleKillAction(killer)
+            Services.playerService.handleKillAction(killer)
             event.deathMessage(
                 Component.text(parse("&6${victim.name} &fwas killed by &6${killer.name}&f!"))
             )
@@ -26,6 +27,6 @@ class OnPlayerDeath : Listener {
             )
         }
 
-        PlayerService().handleDeathAction(victim)
+        Services.playerService.handleDeathAction(victim)
     }
 }
