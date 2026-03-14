@@ -1,8 +1,7 @@
 package me.roustytousty.elytrapvp.gui.stats
 
 import me.roustytousty.elytrapvp.api.MongoDB
-import me.roustytousty.elytrapvp.data.CacheConfig
-import me.roustytousty.elytrapvp.gui.shops.ShopMenu
+import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Bukkit

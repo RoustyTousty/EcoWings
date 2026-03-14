@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.data
+package me.roustytousty.elytrapvp.configs
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import org.bukkit.OfflinePlayer
@@ -16,19 +16,16 @@ object CacheConfig {
 
         if (!file.exists()){
             ElytraPVP.instance?.saveResource("cached.yml", false)
-            ElytraPVP.instance?.logger?.warning("CACHED NOT FOUND")
         }
 
         config = YamlConfiguration()
-        //config.options().parseComments(true)
 
         try{
             config.save(file)
             config.load(file)
             config.set("works", true)
             ElytraPVP.instance?.logger?.info("Cached Config Setup Status : ${config.get("works")}")
-            ElytraPVP.instance?.logger?.info("${config.get("cached.TTortel.discordId")}")
-        }catch (e:Exception){
+        }catch (e: Exception){
             e.printStackTrace()
         }
     }
@@ -38,7 +35,6 @@ object CacheConfig {
 
         if (!file.exists()){
             ElytraPVP.instance?.saveResource("cached.yml", false)
-            ElytraPVP.instance?.logger?.warning("CACHED NOT FOUND")
         }
 
         config = YamlConfiguration()

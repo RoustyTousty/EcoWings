@@ -1,7 +1,6 @@
 package me.roustytousty.elytrapvp.commands.staffcommands
 
-import me.roustytousty.elytrapvp.data.CacheConfig
-import me.roustytousty.elytrapvp.utility.FormatUtils
+import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
 import org.bukkit.command.Command

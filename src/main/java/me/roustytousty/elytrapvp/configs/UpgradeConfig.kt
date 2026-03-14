@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.data
+package me.roustytousty.elytrapvp.configs
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import org.bukkit.configuration.file.YamlConfiguration

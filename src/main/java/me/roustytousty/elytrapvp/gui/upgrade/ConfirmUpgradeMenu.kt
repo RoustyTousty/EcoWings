@@ -1,11 +1,10 @@
 package me.roustytousty.elytrapvp.gui.upgrade
 
 import me.roustytousty.elytrapvp.ElytraPVP
-import me.roustytousty.elytrapvp.data.CacheConfig
-import me.roustytousty.elytrapvp.data.UpgradeConfig
+import me.roustytousty.elytrapvp.configs.CacheConfig
+import me.roustytousty.elytrapvp.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.services.kit.KitService
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
-import me.roustytousty.elytrapvp.utility.FormatUtils
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit

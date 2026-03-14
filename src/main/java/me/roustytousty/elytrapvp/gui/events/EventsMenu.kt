@@ -1,8 +1,7 @@
 package me.roustytousty.elytrapvp.gui.events
 
 import me.roustytousty.elytrapvp.ElytraPVP
-import me.roustytousty.elytrapvp.data.CacheConfig
-import me.roustytousty.elytrapvp.gui.upgrade.ConfirmUpgradeMenu
+import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit

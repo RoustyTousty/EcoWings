@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.services
 
-import me.roustytousty.elytrapvp.data.CacheConfig
+import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import me.roustytousty.elytrapvp.utility.MiscUtils
 import org.bukkit.Material

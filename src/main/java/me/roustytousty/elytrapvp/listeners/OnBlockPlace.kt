@@ -1,8 +1,7 @@
 package me.roustytousty.elytrapvp.listeners
 
-import me.roustytousty.elytrapvp.data.CacheConfig
+import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.utility.RegionUtils
-import me.roustytousty.elytrapvp.utility.FormatUtils
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Material
 import org.bukkit.Sound

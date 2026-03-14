@@ -1,12 +1,8 @@
 package me.roustytousty.elytrapvp.gui.upgrade
 
-import me.roustytousty.elytrapvp.data.CacheConfig
-import me.roustytousty.elytrapvp.data.UpgradeConfig
-import me.roustytousty.elytrapvp.gui.stats.LeaderboardSelectMenu
-import me.roustytousty.elytrapvp.gui.stats.PlayerStatsMenu
+import me.roustytousty.elytrapvp.configs.CacheConfig
+import me.roustytousty.elytrapvp.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
-import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
-import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material

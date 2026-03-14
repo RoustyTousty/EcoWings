@@ -7,9 +7,9 @@ import me.roustytousty.elytrapvp.commands.playercommands.DiscordCommand
 import me.roustytousty.elytrapvp.commands.playercommands.GoldCommand
 import me.roustytousty.elytrapvp.commands.playercommands.StatsCommand
 import me.roustytousty.elytrapvp.commands.staffcommands.*
-import me.roustytousty.elytrapvp.data.CacheConfig
-import me.roustytousty.elytrapvp.data.RegionConfig
-import me.roustytousty.elytrapvp.data.UpgradeConfig
+import me.roustytousty.elytrapvp.configs.CacheConfig
+import me.roustytousty.elytrapvp.configs.RegionConfig
+import me.roustytousty.elytrapvp.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.gui.events.EventsMenu
 import me.roustytousty.elytrapvp.gui.events.WarTableMenu
 import me.roustytousty.elytrapvp.gui.perks.PerksMenu

@@ -7,7 +7,7 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Sorts
 import com.mongodb.client.model.Updates
 import me.roustytousty.elytrapvp.ElytraPVP
-import me.roustytousty.elytrapvp.data.CacheConfig
+import me.roustytousty.elytrapvp.configs.CacheConfig
 import net.kyori.adventure.text.Component
 import org.bson.Document
 import org.bson.conversions.Bson
