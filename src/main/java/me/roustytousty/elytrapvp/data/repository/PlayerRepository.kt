@@ -7,7 +7,7 @@ interface PlayerRepository {
 
     fun loadPlayer(uuid: UUID): PlayerData?
 
-    fun savePlayer(player: PlayerData)
+    fun savePlayer(playerData: PlayerData)
 
     fun createPlayer(uuid: UUID, username: String): PlayerData
 

@@ -1,6 +1,5 @@
 package me.roustytousty.elytrapvp.gui.events
 
-import me.roustytousty.elytrapvp.gui.upgrade.ConfirmUpgradeMenu
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material

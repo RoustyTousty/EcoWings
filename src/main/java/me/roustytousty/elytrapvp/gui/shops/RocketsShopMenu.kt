@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.gui.shops
 
-import me.roustytousty.elytrapvp.services.ShopService
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -14,7 +14,7 @@ import org.bukkit.inventory.Inventory
 
 class RocketsShopMenu : Listener {
 
-    private val shopService = ShopService()
+    private val shopService = Services.shopService
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {

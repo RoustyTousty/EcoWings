@@ -1,6 +1,7 @@
 package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.api.MongoDB
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.FormatUtils
 import net.kyori.adventure.text.Component
 import org.bukkit.event.EventHandler
@@ -13,7 +14,7 @@ class OnPlayerQuit : Listener {
     fun onPlayerQuit(event: PlayerQuitEvent) {
         val player = event.player
 
-        MongoDB.saveCachedData(player)
+        Services.playerService.saveAndUnloadPlayerData(player)
 
         event.quitMessage(Component.text(FormatUtils.parse("&f[&c-&f] ${player.name}")))
     }

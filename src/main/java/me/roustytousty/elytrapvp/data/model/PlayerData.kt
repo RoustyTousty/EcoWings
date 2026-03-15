@@ -15,5 +15,7 @@ data class PlayerData(
     var helmetLevel: Int = 0,
     var elytraLevel: Int = 0,
     var leggingsLevel: Int = 0,
-    var bootsLevel: Int = 0
+    var bootsLevel: Int = 0,
+    var swordLevel: Int = 0,
+    var shearsLevel: Int = 0
 )

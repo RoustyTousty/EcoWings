@@ -1,6 +1,5 @@
 package me.roustytousty.elytrapvp
 
-import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.commands.GuiCommands
 import me.roustytousty.elytrapvp.commands.TestCommand
 import me.roustytousty.elytrapvp.commands.playercommands.DiscordCommand
@@ -25,13 +24,9 @@ import me.roustytousty.elytrapvp.listeners.*
 import me.roustytousty.elytrapvp.listeners.items.Dusty
 import me.roustytousty.elytrapvp.listeners.items.Explosive
 import me.roustytousty.elytrapvp.listeners.items.RegenApple
-import me.roustytousty.elytrapvp.services.MapResetService
-import me.roustytousty.elytrapvp.services.ScoreboardService
+import me.roustytousty.elytrapvp.services.mapreset.MapResetService
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.services.event.EventService
-import me.roustytousty.elytrapvp.services.event.events.MoonEvent
-import me.roustytousty.elytrapvp.services.event.events.TNTRainEvent
-import me.roustytousty.elytrapvp.services.event.events.VoidlessEvent
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
@@ -77,7 +72,8 @@ class ElytraPVP : JavaPlugin() {
 
     override fun onDisable() {
 
-        MongoManager.connect("mongodb+srv://roustytousty:JIEOjRyzV0XxVotF@roustytoustydb.nkqhd.mongodb.net/?retryWrites=true&w=majority&appName=RoustyToustyDB")
+        // TODO: Save all cache before DB closes
+        MongoManager.close()
 
 //        MongoDB.saveAllCache()
 //        setupConfigsOnDisable()
@@ -169,6 +165,6 @@ class ElytraPVP : JavaPlugin() {
         logger.info("Configs Saved! ")
     }
 
+    // TODO: Remove and replace usages
     fun getEventService(): EventService = eventService
-    fun getMapResetService(): MapResetService = mapResetService
 }

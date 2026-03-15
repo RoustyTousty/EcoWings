@@ -5,7 +5,6 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Sorts
 import me.roustytousty.elytrapvp.data.api.MongoManager
 import me.roustytousty.elytrapvp.data.model.PlayerData
-import me.roustytousty.elytrapvp.data.repository.PlayerRepository
 import org.bson.Document
 import java.util.*
 
@@ -24,23 +23,23 @@ class MongoPlayerRepository : PlayerRepository {
 
     override fun createPlayer(uuid: UUID, username: String): PlayerData {
 
-        val player = PlayerData(
+        val playerData = PlayerData(
             uuid = uuid,
             username = username
         )
 
-        val doc = playerDataToDocument(player)
+        val doc = playerDataToDocument(playerData)
         collection.insertOne(doc)
 
-        return player
+        return playerData
     }
 
-    override fun savePlayer(player: PlayerData) {
+    override fun savePlayer(playerData: PlayerData) {
 
-        val doc = playerDataToDocument(player)
+        val doc = playerDataToDocument(playerData)
 
         collection.replaceOne(
-            Filters.eq("_id", player.uuid.toString()),
+            Filters.eq("_id", playerData.uuid.toString()),
             doc
         )
     }
@@ -82,26 +81,30 @@ class MongoPlayerRepository : PlayerRepository {
             helmetLevel = doc.getInteger("helmetLevel", 0),
             elytraLevel = doc.getInteger("elytraLevel", 0),
             leggingsLevel = doc.getInteger("leggingsLevel", 0),
-            bootsLevel = doc.getInteger("bootsLevel", 0)
+            bootsLevel = doc.getInteger("bootsLevel", 0),
+            swordLevel = doc.getInteger("swordLevel", 0),
+            shearsLevel = doc.getInteger("shearsLevel", 0)
         )
     }
 
-    private fun playerDataToDocument(player: PlayerData): Document {
+    private fun playerDataToDocument(playerData: PlayerData): Document {
 
         return Document()
-            .append("_id", player.uuid.toString())
-            .append("username", player.username)
+            .append("_id", playerData.uuid.toString())
+            .append("username", playerData.username)
 
-            .append("gold", player.gold)
+            .append("gold", playerData.gold)
 
-            .append("kills", player.kills)
-            .append("deaths", player.deaths)
-            .append("killstreak", player.killstreak)
-            .append("topKillstreak", player.topKillstreak)
+            .append("kills", playerData.kills)
+            .append("deaths", playerData.deaths)
+            .append("killstreak", playerData.killstreak)
+            .append("topKillstreak", playerData.topKillstreak)
 
-            .append("helmetLevel", player.helmetLevel)
-            .append("elytraLevel", player.elytraLevel)
-            .append("leggingsLevel", player.leggingsLevel)
-            .append("bootsLevel", player.bootsLevel)
+            .append("helmetLevel", playerData.helmetLevel)
+            .append("elytraLevel", playerData.elytraLevel)
+            .append("leggingsLevel", playerData.leggingsLevel)
+            .append("bootsLevel", playerData.bootsLevel)
+            .append("swordLevel", playerData.swordLevel)
+            .append("shearsLevel", playerData.shearsLevel)
     }
 }

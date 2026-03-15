@@ -1,10 +1,8 @@
 package me.roustytousty.elytrapvp.services.player
 
-import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.data.cache.PlayerCache
 import me.roustytousty.elytrapvp.data.model.PlayerData
 import me.roustytousty.elytrapvp.data.repository.PlayerRepository
-import me.roustytousty.elytrapvp.services.bounty.BountyService
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Sound
 import org.bukkit.entity.Player
@@ -14,7 +12,7 @@ class PlayerService(
     private val cache: PlayerCache
 ) {
 
-    fun getOrCreatePlayer(player: Player): PlayerData {
+    fun getOrCreatePlayerData(player: Player): PlayerData {
         val uuid = player.uniqueId
 
         cache.get(uuid)?.let { return it }
@@ -30,33 +28,39 @@ class PlayerService(
         return created
     }
 
+    fun saveAndUnloadPlayerData(player: Player) {
+        val uuid = player.uniqueId
+
+        val data = cache.get(uuid) ?: return
+
+        repository.savePlayer(data)
+
+        cache.remove(uuid)
+    }
+
+
+
+
+
+
+
     fun handleKillAction(player: Player) {
-        val kills = CacheConfig.getplrVal(player, "kills") as? Int ?: 0
-        val killstreak = CacheConfig.getplrVal(player, "killstreak") as? Int ?: 0
-        val gold = CacheConfig.getplrVal(player, "gold") as? Int ?: 0
+        val playerData = getOrCreatePlayerData(player)
 
-        val newKillstreak = killstreak + 1
-
-        CacheConfig.setplrVal(player, "kills", kills + 1)
-        CacheConfig.setplrVal(player, "killstreak", newKillstreak)
-        CacheConfig.setplrVal(player, "gold", gold + 10)
+        playerData.killstreak += 1
+        playerData.kills += 1
+        playerData.gold += 10
 
         player.health = (player.health + 3).coerceAtMost(player.maxHealth)
         MessageUtils.sendActionBar(player, "&6+10g")
         player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
-
-        if (newKillstreak >= 10) {
-            BountyService().applyBounty(player, newKillstreak * 5)
-        }
     }
 
     fun handleDeathAction(player: Player) {
-        val deaths = CacheConfig.getplrVal(player, "deaths") as? Int ?: 0
+        val playerData = getOrCreatePlayerData(player)
 
-        CacheConfig.setplrVal(player, "deaths", deaths + 1)
-        CacheConfig.setplrVal(player, "killstreak", 0)
-
-        BountyService().removeBounty(player)
+        playerData.deaths += 1
+        playerData.killstreak = 0
     }
 
     fun handleRebirthAction(Player: Player) {

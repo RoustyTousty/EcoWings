@@ -1,7 +1,9 @@
-package me.roustytousty.elytrapvp.services
+package me.roustytousty.elytrapvp.services.scoreboard
 
 import me.roustytousty.elytrapvp.ElytraPVP
-import me.roustytousty.elytrapvp.configs.CacheConfig
+import me.roustytousty.elytrapvp.services.mapreset.MapResetService
+import me.roustytousty.elytrapvp.services.event.EventService
+import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import org.bukkit.Bukkit
@@ -11,10 +13,11 @@ import org.bukkit.scoreboard.DisplaySlot
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ScoreboardService {
-
-    private val eventService = ElytraPVP.instance!!.getEventService()
-    private val mapResetService = ElytraPVP.instance!!.getMapResetService()
+class ScoreboardService (
+    private val playerService: PlayerService,
+    private val mapResetService: MapResetService,
+    private val eventService: EventService
+) {
 
     fun create(player: Player) {
         val board = Bukkit.getScoreboardManager().newScoreboard
@@ -69,6 +72,8 @@ class ScoreboardService {
         val currentDateTime = dateTimeFormat.format(Date())
 
         for (player in Bukkit.getOnlinePlayers()) {
+            val playerData = playerService.getOrCreatePlayerData(player)
+
             val board = player.scoreboard
             val dateTimeTeam = board.getTeam("dateTime") ?: continue
             val goldTeam = board.getTeam("gold") ?: continue
@@ -79,28 +84,25 @@ class ScoreboardService {
 
             dateTimeTeam.prefix = parse("&7$currentDateTime")
 
-            val gold = CacheConfig.getplrVal(player, "gold") as Int
-            goldTeam.suffix = parse("&6${formatNumber(gold)}")
+            goldTeam.suffix = parse("&6${formatNumber(playerData.gold)}")
 
             playersTeam.suffix = parse("&6${Bukkit.getOnlinePlayers().size}")
             mapResetTeam.suffix = parse("&6${mapResetService.getFormattedTimeRemaining()}")
 
             if (eventService.isAnyEventActive()) {
                 val activeEvent = eventService.getActiveEvents().first()
+
                 dynamic1Team.prefix = parse("  &8• &fEvent: ")
                 dynamic1Team.suffix = parse("&6${activeEvent.name}")
 
                 dynamic2Team.prefix = parse("  &8• &fTime: ")
                 dynamic2Team.suffix = parse("&6${eventService.getEventRemainingTime(activeEvent.name)}")
             } else {
-                val kills = CacheConfig.getplrVal(player, "kills") as Int
-                val killstreak = CacheConfig.getplrVal(player, "killstreak") as Int
-
                 dynamic1Team.prefix = parse("  &8• &fKills: ")
-                dynamic1Team.suffix = parse("&6${formatNumber(kills)}")
+                dynamic1Team.suffix = parse("&6${formatNumber(playerData.kills)}")
 
                 dynamic2Team.prefix = parse("  &8• &fKillstreak: ")
-                dynamic2Team.suffix = parse("&6${formatNumber(killstreak)}")
+                dynamic2Team.suffix = parse("&6${formatNumber(playerData.killstreak)}")
             }
         }
     }

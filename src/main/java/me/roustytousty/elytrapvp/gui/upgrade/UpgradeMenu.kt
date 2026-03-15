@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.gui.upgrade
 
 import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.configs.UpgradeConfig
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
@@ -72,12 +73,14 @@ class UpgradeMenu : Listener {
                 inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
-            val nextHelmetLevel = ((CacheConfig.getplrVal(player, "helmetLevel") as? Int) ?: 0) + 1
-            val nextElytraLevel = ((CacheConfig.getplrVal(player, "elytraLevel") as? Int) ?: 0) + 1
-            val nextLeggingsLevel = ((CacheConfig.getplrVal(player, "leggingsLevel") as? Int) ?: 0) + 1
-            val nextBootsLevel = ((CacheConfig.getplrVal(player, "bootsLevel") as? Int) ?: 0) + 1
-            val nextSwordLevel = ((CacheConfig.getplrVal(player, "swordLevel") as? Int) ?: 0) + 1
-            val nextShearsLevel = ((CacheConfig.getplrVal(player, "shearsLevel") as? Int) ?: 0) + 1
+            val playerData = Services.playerService.getOrCreatePlayerData(player)
+
+            val nextHelmetLevel = playerData.helmetLevel + 1
+            val nextElytraLevel = playerData.elytraLevel + 1
+            val nextLeggingsLevel = playerData.leggingsLevel + 1
+            val nextBootsLevel = playerData.bootsLevel + 1
+            val nextSwordLevel = playerData.swordLevel + 1
+            val nextShearsLevel = playerData.shearsLevel + 1
 
             val helmetCost = UpgradeConfig.getConfig().getInt("upgrades.helmet.$nextHelmetLevel.cost", -1)
             val elytraCost = UpgradeConfig.getConfig().getInt("upgrades.elytra.$nextElytraLevel.cost", -1)
