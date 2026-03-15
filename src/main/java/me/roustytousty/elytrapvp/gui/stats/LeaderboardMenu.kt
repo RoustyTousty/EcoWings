@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.gui.stats
 
 import me.roustytousty.elytrapvp.api.MongoDB
 import me.roustytousty.elytrapvp.configs.CacheConfig
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Bukkit
@@ -76,23 +77,20 @@ class LeaderboardMenu : Listener {
                 )
             }
 
-            val playerStat = CacheConfig.getplrVal(player, stat)
-            val playerRank = MongoDB.getPlayerRank(player, stat)
+            val playerStat = Services.playerService.getDynamicPlayerData(player, stat)
+            val playerRank = Services.leaderboardService.getRank(stat, player)
             inventory.setItem(35,
                 ItemUtils.itemBuilder(player, 1, false, "&e${player.name} &6#$playerRank", "&7Value: ${formatNumber(playerStat as Int)}")
             )
 
             val leaderboardSlots = intArrayOf(17, 16, 15, 14, 13, 12, 11, 10, 9)
-            val topPlayers = MongoDB.getTopPlayers(stat, 9)
+            val topPlayers = Services.leaderboardService.getTop(stat)
 
-            topPlayers.forEachIndexed { index, playerDoc ->
-                val pName = playerDoc.getString("username")
-                val pStat = playerDoc.getInteger(stat)
-                if (pStat != null) {
-                    val skullItem = ItemUtils.itemBuilder(Bukkit.getOfflinePlayer(pName), 1, false, "&e$pName &6#${index + 1}", "&7Value: ${formatNumber(pStat as Int)}")
-
-                    inventory.setItem(leaderboardSlots[index], skullItem)
-                }
+            topPlayers.forEachIndexed { index, leaderboardEntry ->
+                val pName = leaderboardEntry.username
+                val pStat = leaderboardEntry.value
+                val skullItem = ItemUtils.itemBuilder(Bukkit.getOfflinePlayer(pName), 1, false, "&e$pName &6#${index + 1}", "&7Value: ${formatNumber(pStat)}")
+                inventory.setItem(leaderboardSlots[index], skullItem)
             }
 
             inventory.setItem(27,

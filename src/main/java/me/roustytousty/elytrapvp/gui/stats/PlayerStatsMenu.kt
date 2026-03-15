@@ -1,8 +1,7 @@
 package me.roustytousty.elytrapvp.gui.stats
 
-import me.roustytousty.elytrapvp.api.MongoDB
-import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.configs.UpgradeConfig
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Bukkit
@@ -56,22 +55,24 @@ class PlayerStatsMenu : Listener {
                 )
             }
 
+            val playerData = Services.playerService.getOrCreatePlayerData(statPlayer)
+            val leaderboardService = Services.leaderboardService
             val upgradeConfig = UpgradeConfig.getConfig()
 
-            val gold = CacheConfig.getplrVal(statPlayer, "gold")
-            val kills = CacheConfig.getplrVal(statPlayer, "kills")
-            val deaths = CacheConfig.getplrVal(statPlayer, "deaths")
+            val gold = playerData.gold
+            val kills = playerData.kills
+            val deaths = playerData.deaths
 
-            val goldRank = MongoDB.getPlayerRank(statPlayer, "gold")
-            val killsRank = MongoDB.getPlayerRank(statPlayer, "kills")
-            val deathsRank = MongoDB.getPlayerRank(statPlayer, "deaths")
+            val goldRank = leaderboardService.getRank("gold", statPlayer)
+            val killsRank = leaderboardService.getRank("kills", statPlayer)
+            val deathsRank = leaderboardService.getRank("deaths", statPlayer)
 
-            val helmetLevel = CacheConfig.getplrVal(statPlayer, "helmetLevel") as? Int ?: 0
-            val elytraLevel = CacheConfig.getplrVal(statPlayer, "elytraLevel") as? Int ?: 0
-            val leggingsLevel = CacheConfig.getplrVal(statPlayer, "leggingsLevel") as? Int ?: 0
-            val bootsLevel = CacheConfig.getplrVal(statPlayer, "bootsLevel") as? Int ?: 0
-            val swordLevel = CacheConfig.getplrVal(statPlayer, "swordLevel") as? Int ?: 0
-            val shearsLevel = CacheConfig.getplrVal(statPlayer, "shearsLevel") as? Int ?: 0
+            val helmetLevel = playerData.helmetLevel
+            val elytraLevel = playerData.elytraLevel
+            val leggingsLevel = playerData.leggingsLevel
+            val bootsLevel = playerData.bootsLevel
+            val swordLevel = playerData.swordLevel
+            val shearsLevel = playerData.shearsLevel
 
             val helmetItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.helmet.$helmetLevel")!!)
             val elytraItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.elytra.$elytraLevel")!!)
@@ -141,7 +142,7 @@ class PlayerStatsMenu : Listener {
                     1,
                     false,
                     "&eGold &6#$goldRank",
-                    "&7Value: ${formatNumber(gold as Int)}"
+                    "&7Value: ${formatNumber(gold)}"
                 )
             )
             inventory.setItem(
@@ -151,7 +152,7 @@ class PlayerStatsMenu : Listener {
                     1,
                     false,
                     "&eKills &6#$killsRank",
-                    "&7Value: ${formatNumber(kills as Int)}"
+                    "&7Value: ${formatNumber(kills)}"
                 )
             )
             inventory.setItem(
@@ -161,7 +162,7 @@ class PlayerStatsMenu : Listener {
                     1,
                     false,
                     "&eDeaths &6#$deathsRank",
-                    "&7Value: ${formatNumber(deaths as Int)}"
+                    "&7Value: ${formatNumber(deaths)}"
                 )
             )
 

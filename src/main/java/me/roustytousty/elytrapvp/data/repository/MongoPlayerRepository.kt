@@ -4,6 +4,7 @@ import com.mongodb.client.MongoCollection
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Sorts
 import me.roustytousty.elytrapvp.data.api.MongoManager
+import me.roustytousty.elytrapvp.data.model.LeaderboardEntry
 import me.roustytousty.elytrapvp.data.model.PlayerData
 import org.bson.Document
 import java.util.*
@@ -44,12 +45,12 @@ class MongoPlayerRepository : PlayerRepository {
         )
     }
 
-    override fun getTopPlayers(stat: String, limit: Int): List<PlayerData> {
+    override fun getTopLeaderboard(stat: String, limit: Int): List<LeaderboardEntry> {
 
         return collection.find()
             .sort(Sorts.descending(stat))
             .limit(limit)
-            .map { documentToPlayerData(it) }
+            .map { documentToLeaderboardEntry(stat, it) }
             .toList()
     }
 
@@ -65,11 +66,22 @@ class MongoPlayerRepository : PlayerRepository {
         ).toInt()
     }
 
+    private fun documentToLeaderboardEntry(stat: String, doc: Document): LeaderboardEntry {
+
+        return LeaderboardEntry(
+            uuid = UUID.fromString(doc.getString("_id")),
+            username = doc.getString("username"),
+            value = doc.getInteger(stat, 0)
+        )
+    }
+
     private fun documentToPlayerData(doc: Document): PlayerData {
 
         return PlayerData(
             uuid = UUID.fromString(doc.getString("_id")),
             username = doc.getString("username"),
+
+            isBuildMode = doc.getBoolean("isBuildMode", false),
 
             gold = doc.getInteger("gold", 0),
 
@@ -92,6 +104,8 @@ class MongoPlayerRepository : PlayerRepository {
         return Document()
             .append("_id", playerData.uuid.toString())
             .append("username", playerData.username)
+
+            .append("isBuildMode", playerData.isBuildMode)
 
             .append("gold", playerData.gold)
 

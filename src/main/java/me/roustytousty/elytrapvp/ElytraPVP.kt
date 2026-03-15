@@ -35,9 +35,6 @@ class ElytraPVP : JavaPlugin() {
 
     private val pluginmanager = Bukkit.getPluginManager()
 
-    private val mapResetService = MapResetService()
-    private val eventService = EventService()
-
     companion object {
         var instance: ElytraPVP? = null
             private set
@@ -51,7 +48,7 @@ class ElytraPVP : JavaPlugin() {
 
         MongoManager.connect("mongodb+srv://roustytousty:JIEOjRyzV0XxVotF@roustytoustydb.nkqhd.mongodb.net/?retryWrites=true&w=majority&appName=RoustyToustyDB")
 
-        Services.init()
+        Services.init(instance!!)
 
         registerEvents()
         registerCommands()
@@ -153,18 +150,15 @@ class ElytraPVP : JavaPlugin() {
         config.set("plrcount", 0)
         saveConfig()
 
-        CacheConfig.load()
+//        CacheConfig.load()
         UpgradeConfig.load()
         RegionConfig.load()
 
         logger.info("Configs Setup!")
     }
     private fun setupConfigsOnDisable() {
-        CacheConfig.save()
+//        CacheConfig.save()
 
         logger.info("Configs Saved! ")
     }
-
-    // TODO: Remove and replace usages
-    fun getEventService(): EventService = eventService
 }

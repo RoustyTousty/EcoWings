@@ -6,7 +6,10 @@ data class PlayerData(
     val uuid: UUID,
     var username: String,
 
+    var isBuildMode: Boolean = false,
+
     var gold: Int = 0,
+
     var kills: Int = 0,
     var deaths: Int = 0,
     var killstreak: Int = 0,

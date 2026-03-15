@@ -1,6 +1,7 @@
 package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.ElytraPVP
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.RegionUtils
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -8,7 +9,7 @@ import org.bukkit.event.player.PlayerMoveEvent
 
 class OnPlayerMove : Listener {
 
-    private val eventService = ElytraPVP.instance!!.getEventService()
+    private val eventService = Services.eventService
 
     @EventHandler
     fun onPlayerMove(event: PlayerMoveEvent) {

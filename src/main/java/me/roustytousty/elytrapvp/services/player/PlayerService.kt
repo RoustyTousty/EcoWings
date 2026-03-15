@@ -3,14 +3,34 @@ package me.roustytousty.elytrapvp.services.player
 import me.roustytousty.elytrapvp.data.cache.PlayerCache
 import me.roustytousty.elytrapvp.data.model.PlayerData
 import me.roustytousty.elytrapvp.data.repository.PlayerRepository
-import me.roustytousty.elytrapvp.utility.MessageUtils
-import org.bukkit.Sound
 import org.bukkit.entity.Player
 
 class PlayerService(
     private val repository: PlayerRepository,
     private val cache: PlayerCache
 ) {
+
+    private val statAccessors: Map<String, (PlayerData) -> Any> = mapOf(
+        "uuid" to { it.uuid },
+        "username" to { it.username },
+
+        "isBuildMode" to { it.isBuildMode },
+
+        "gold" to { it.gold },
+
+        "kills" to { it.kills },
+        "deaths" to { it.deaths },
+        "killstreak" to { it.killstreak },
+        "topKillstreak" to { it.topKillstreak },
+
+        "helmetLevel" to { it.helmetLevel },
+        "elytraLevel" to { it.elytraLevel },
+        "leggingsLevel" to { it.leggingsLevel },
+        "bootsLevel" to { it.bootsLevel },
+        "swordLevel" to { it.swordLevel },
+        "shearsLevel" to { it.shearsLevel }
+    )
+
 
     fun getOrCreatePlayerData(player: Player): PlayerData {
         val uuid = player.uniqueId
@@ -28,6 +48,7 @@ class PlayerService(
         return created
     }
 
+
     fun saveAndUnloadPlayerData(player: Player) {
         val uuid = player.uniqueId
 
@@ -38,32 +59,8 @@ class PlayerService(
         cache.remove(uuid)
     }
 
-
-
-
-
-
-
-    fun handleKillAction(player: Player) {
-        val playerData = getOrCreatePlayerData(player)
-
-        playerData.killstreak += 1
-        playerData.kills += 1
-        playerData.gold += 10
-
-        player.health = (player.health + 3).coerceAtMost(player.maxHealth)
-        MessageUtils.sendActionBar(player, "&6+10g")
-        player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
-    }
-
-    fun handleDeathAction(player: Player) {
-        val playerData = getOrCreatePlayerData(player)
-
-        playerData.deaths += 1
-        playerData.killstreak = 0
-    }
-
-    fun handleRebirthAction(Player: Player) {
-
+    fun getDynamicPlayerData(player: Player, stat: String): Any? {
+        val data = getOrCreatePlayerData(player)
+        return statAccessors[stat]?.invoke(data)
     }
 }

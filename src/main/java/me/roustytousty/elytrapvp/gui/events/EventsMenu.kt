@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.gui.events
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.configs.CacheConfig
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
@@ -70,7 +71,7 @@ class EventsMenu : Listener {
 
     companion object {
 
-        private val eventService = ElytraPVP.instance!!.getEventService()
+        private val eventService = Services.eventService
         fun openInventory(player: Player) {
             val inventory = Bukkit.createInventory(null, 27, "Events")
             initItems(inventory)

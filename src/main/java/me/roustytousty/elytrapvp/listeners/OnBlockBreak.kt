@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.listeners
 
-import me.roustytousty.elytrapvp.configs.CacheConfig
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.RegionUtils
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Material
@@ -21,10 +21,12 @@ class OnBlockBreak : Listener {
     fun onBlockBreak(event: BlockBreakEvent) {
         val player = event.player
 
+        val playerData = Services.playerService.getOrCreatePlayerData(player)
+
         event.isDropItems = false
 
-        val buildmode = CacheConfig.getplrVal(player, "isBuildMode")
-        if (buildmode == true) {
+        val buildmode = playerData.isBuildMode
+        if (buildmode) {
             return
         }
 
