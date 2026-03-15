@@ -70,7 +70,7 @@ class MongoPlayerRepository : PlayerRepository {
 
         return LeaderboardEntry(
             uuid = UUID.fromString(doc.getString("_id")),
-            username = doc.getString("username"),
+            username = doc.getString("username") ?: "Unknown",
             value = doc.getInteger(stat, 0)
         )
     }

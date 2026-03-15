@@ -86,10 +86,10 @@ class LeaderboardMenu : Listener {
             val leaderboardSlots = intArrayOf(17, 16, 15, 14, 13, 12, 11, 10, 9)
             val topPlayers = Services.leaderboardService.getTop(stat)
 
-            topPlayers.forEachIndexed { index, leaderboardEntry ->
+            topPlayers.take(9).forEachIndexed { index, leaderboardEntry ->
                 val pName = leaderboardEntry.username
                 val pStat = leaderboardEntry.value
-                val skullItem = ItemUtils.itemBuilder(Bukkit.getOfflinePlayer(pName), 1, false, "&e$pName &6#${index + 1}", "&7Value: ${formatNumber(pStat)}")
+                val skullItem = ItemUtils.itemBuilder(Bukkit.getOfflinePlayer(leaderboardEntry.uuid), 1, false, "&e$pName &6#${index + 1}", "&7Value: ${formatNumber(pStat)}")
                 inventory.setItem(leaderboardSlots[index], skullItem)
             }
 

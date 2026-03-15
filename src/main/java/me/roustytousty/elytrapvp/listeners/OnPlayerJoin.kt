@@ -13,20 +13,15 @@ import org.bukkit.event.player.PlayerJoinEvent
 
 class OnPlayerJoin : Listener {
 
-    private val kitService = KitService()
-    private val scoreboardService = ScoreboardService()
-
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
         val player = event.player
 
-//        MongoDB.setupPlayerOnJoin(player)
         Services.playerService.getOrCreatePlayerData(player)
 
         player.teleport(Location(Bukkit.getWorld("EcoWings"), 0.0, 137.0, 175.0, -180.0F, 0.0F))
         event.joinMessage(Component.text(parse("&f[&a+&f] ${player.name}")))
 
-        scoreboardService.create(player)
-        kitService.giveKit(player)
+        Services.scoreboardService.create(player)
     }
 }

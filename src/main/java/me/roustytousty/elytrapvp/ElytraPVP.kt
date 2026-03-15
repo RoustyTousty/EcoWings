@@ -53,16 +53,7 @@ class ElytraPVP : JavaPlugin() {
         registerEvents()
         registerCommands()
 
-//        val scoreboardService = ScoreboardService()
-//
-//        setupConfigsOnEnable()
-//        MongoDB.setupDbOnEnable()
-//        scoreboardService.startUpdateTask()
-//        mapResetService.startRegionResetTask()
-//
-//        eventService.registerEvent(MoonEvent())
-//        eventService.registerEvent(VoidlessEvent())
-//        eventService.registerEvent(TNTRainEvent())
+        setupConfigsOnEnable()
 
         logger.info("Plugin Setup!")
     }
@@ -71,10 +62,6 @@ class ElytraPVP : JavaPlugin() {
 
         // TODO: Save all cache before DB closes
         MongoManager.close()
-
-//        MongoDB.saveAllCache()
-//        setupConfigsOnDisable()
-//        MongoDB.setupDbOnDisable()
 
         logger.info("Disabled Plugin!")
     }
@@ -147,18 +134,9 @@ class ElytraPVP : JavaPlugin() {
     }
 
     private fun setupConfigsOnEnable() {
-        config.set("plrcount", 0)
-        saveConfig()
-
-//        CacheConfig.load()
         UpgradeConfig.load()
         RegionConfig.load()
 
         logger.info("Configs Setup!")
-    }
-    private fun setupConfigsOnDisable() {
-//        CacheConfig.save()
-
-        logger.info("Configs Saved! ")
     }
 }
