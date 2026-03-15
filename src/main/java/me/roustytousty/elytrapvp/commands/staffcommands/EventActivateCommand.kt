@@ -7,11 +7,9 @@ import org.bukkit.command.CommandSender
 
 class EventActivateCommand : CommandExecutor {
 
-    private val eventService = Services.eventService
-
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
 
-        eventService.activateEvent("Voidless")
+        Services.eventService.activateEvent("Voidless")
 
         return true
     }

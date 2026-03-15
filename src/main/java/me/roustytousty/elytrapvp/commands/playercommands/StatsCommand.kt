@@ -1,7 +1,6 @@
 package me.roustytousty.elytrapvp.commands.playercommands
 
 import me.roustytousty.elytrapvp.gui.stats.PlayerStatsMenu
-import me.roustytousty.elytrapvp.utility.FormatUtils
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
 import org.bukkit.command.Command

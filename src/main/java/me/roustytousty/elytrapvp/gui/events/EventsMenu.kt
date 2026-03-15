@@ -1,7 +1,5 @@
 package me.roustytousty.elytrapvp.gui.events
 
-import me.roustytousty.elytrapvp.ElytraPVP
-import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.MessageUtils
@@ -28,6 +26,8 @@ class EventsMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
+        val playerData = Services.playerService.getOrCreatePlayerData(p)
+
         when (e.rawSlot) {
             11, 13, 15 -> {
 
@@ -38,14 +38,13 @@ class EventsMenu : Listener {
                 }
 
                 val eventName = ChatColor.stripColor(clickedItem.itemMeta?.displayName ?: return) ?: return
-                val playerGold = CacheConfig.getplrVal(p, "gold") as? Int ?: 0
 
                 val donationAmount = if (e.isShiftClick) 100 else 10
-                if (playerGold >= donationAmount) {
+                if (playerData.gold >= donationAmount) {
                     MessageUtils.sendMessage(p, "&fYou contributed &6&l${donationAmount}g &fto &6&l${eventName} &fevent!")
                     p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
 
-                    CacheConfig.setplrVal(p, "gold", playerGold - donationAmount)
+                    playerData.gold -= donationAmount
                     eventService.contributeToEvent(eventName, donationAmount)
 
                     openInventory(p)

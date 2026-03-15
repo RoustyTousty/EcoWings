@@ -1,6 +1,7 @@
 package me.roustytousty.elytrapvp.commands.staffcommands
 
 import me.roustytousty.elytrapvp.configs.CacheConfig
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
@@ -18,10 +19,22 @@ class SetGoldCommand : CommandExecutor {
             return false
         }
 
-        val selectedPlayer = Bukkit.getOfflinePlayer(args[0])
-        val goldAmount = args[1].toInt()
-        CacheConfig.setplrVal(selectedPlayer, "gold", goldAmount)
-        MessageUtils.sendMessage(player, "&fSuccessfully set &6${selectedPlayer.name} &fgold to &6$goldAmount")
+        val selectedPlayerName = args[0]
+        val goldAmount = args[1].toIntOrNull()
+
+        if (goldAmount == null) {
+            MessageUtils.sendError(player, "&fInvalid gold amount provided!")
+            return false
+        }
+
+        val selectedPlayer = Bukkit.getPlayer(selectedPlayerName)
+        if (selectedPlayer != null) {
+            val selectedPlayerData = Services.playerService.getOrCreatePlayerData(selectedPlayer)
+            selectedPlayerData.gold = goldAmount
+            MessageUtils.sendMessage(player, "&fSuccessfully set &6${selectedPlayer.name} &fgold to &6$goldAmount")
+        } else {
+            MessageUtils.sendError(player, "&fYou can't set gold of an offline player.")
+        }
 
         return true
     }
