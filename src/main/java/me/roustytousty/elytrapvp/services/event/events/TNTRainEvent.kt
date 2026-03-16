@@ -1,7 +1,7 @@
 package me.roustytousty.elytrapvp.services.event.events
 
 import me.roustytousty.elytrapvp.ElytraPVP
-import me.roustytousty.elytrapvp.configs.RegionConfig
+import me.roustytousty.elytrapvp.data.configs.RegionConfig
 import me.roustytousty.elytrapvp.services.event.EventIntefrace
 import me.roustytousty.elytrapvp.utility.RegionUtils
 import org.bukkit.Bukkit

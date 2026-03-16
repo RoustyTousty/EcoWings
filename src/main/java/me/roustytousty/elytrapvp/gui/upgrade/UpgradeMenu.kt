@@ -1,7 +1,6 @@
 package me.roustytousty.elytrapvp.gui.upgrade
 
-import me.roustytousty.elytrapvp.configs.CacheConfig
-import me.roustytousty.elytrapvp.configs.UpgradeConfig
+import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.MessageUtils

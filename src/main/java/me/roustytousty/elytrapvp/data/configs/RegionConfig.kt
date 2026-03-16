@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.configs
+package me.roustytousty.elytrapvp.data.configs
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import org.bukkit.Bukkit

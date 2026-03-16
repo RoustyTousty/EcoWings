@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.gui.stats
 
-import me.roustytousty.elytrapvp.configs.UpgradeConfig
+import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.ItemUtils

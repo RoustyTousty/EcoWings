@@ -54,6 +54,8 @@ class PlayerService(
 
         val data = cache.get(uuid) ?: return
 
+        data.username = player.name
+
         repository.savePlayer(data)
 
         cache.remove(uuid)

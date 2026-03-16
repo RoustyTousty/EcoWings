@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.commands.staffcommands
 
-import me.roustytousty.elytrapvp.configs.UpgradeConfig
+import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender

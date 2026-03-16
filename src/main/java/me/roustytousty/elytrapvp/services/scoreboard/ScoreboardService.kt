@@ -19,6 +19,10 @@ class ScoreboardService (
     private val eventService: EventService
 ) {
 
+    init {
+        startUpdateTask()
+    }
+
     fun create(player: Player) {
         val board = Bukkit.getScoreboardManager().newScoreboard
         val objective = board.registerNewObjective("test", "dummy", parse("  &6&lEcoWings"))

@@ -1,7 +1,7 @@
 package me.roustytousty.elytrapvp.services.kit
 
 import me.roustytousty.elytrapvp.configs.CacheConfig
-import me.roustytousty.elytrapvp.configs.UpgradeConfig
+import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Material
 import org.bukkit.entity.Player

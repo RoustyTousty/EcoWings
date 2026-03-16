@@ -6,9 +6,8 @@ import me.roustytousty.elytrapvp.commands.playercommands.DiscordCommand
 import me.roustytousty.elytrapvp.commands.playercommands.GoldCommand
 import me.roustytousty.elytrapvp.commands.playercommands.StatsCommand
 import me.roustytousty.elytrapvp.commands.staffcommands.*
-import me.roustytousty.elytrapvp.configs.CacheConfig
-import me.roustytousty.elytrapvp.configs.RegionConfig
-import me.roustytousty.elytrapvp.configs.UpgradeConfig
+import me.roustytousty.elytrapvp.data.configs.RegionConfig
+import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.data.api.MongoManager
 import me.roustytousty.elytrapvp.gui.events.EventsMenu
 import me.roustytousty.elytrapvp.gui.events.WarTableMenu
@@ -24,9 +23,7 @@ import me.roustytousty.elytrapvp.listeners.*
 import me.roustytousty.elytrapvp.listeners.items.Dusty
 import me.roustytousty.elytrapvp.listeners.items.Explosive
 import me.roustytousty.elytrapvp.listeners.items.RegenApple
-import me.roustytousty.elytrapvp.services.mapreset.MapResetService
 import me.roustytousty.elytrapvp.services.Services
-import me.roustytousty.elytrapvp.services.event.EventService
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File

@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.utility
 
-import me.roustytousty.elytrapvp.configs.RegionConfig
+import me.roustytousty.elytrapvp.data.configs.RegionConfig
 import org.bukkit.Location
 import org.bukkit.Material
 
