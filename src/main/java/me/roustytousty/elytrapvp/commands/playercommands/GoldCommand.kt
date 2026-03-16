@@ -1,6 +1,5 @@
 package me.roustytousty.elytrapvp.commands.playercommands
 
-import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.command.Command

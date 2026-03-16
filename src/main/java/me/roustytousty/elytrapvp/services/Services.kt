@@ -10,6 +10,7 @@ import me.roustytousty.elytrapvp.services.mapreset.MapResetService
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.services.scoreboard.ScoreboardService
 import me.roustytousty.elytrapvp.services.shop.ShopService
+import me.roustytousty.elytrapvp.services.shop.UpgradeService
 import org.bukkit.plugin.java.JavaPlugin
 
 object Services {
@@ -32,6 +33,9 @@ object Services {
         private set
 
     lateinit var shopService: ShopService
+        private set
+
+    lateinit var upgradeService: UpgradeService
         private set
 
     lateinit var scoreboardService: ScoreboardService
@@ -61,6 +65,10 @@ object Services {
         eventService = EventService()
 
         shopService = ShopService(
+            playerService = playerService
+        )
+
+        upgradeService = UpgradeService(
             playerService = playerService
         )
 

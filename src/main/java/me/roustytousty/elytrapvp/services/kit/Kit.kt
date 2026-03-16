@@ -1,6 +1,5 @@
 package me.roustytousty.elytrapvp.services.kit
 
-import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Material
@@ -36,7 +35,7 @@ class Kit(
     }
 
     private fun getItem(item: String): ItemStack? {
-        val level = CacheConfig.getplrVal(player, "${item}Level") as? Int ?: 0
+        val level = 0
         val configSection = UpgradeConfig.getConfig().getConfigurationSection("upgrades.$item.$level") ?: return null
         return ItemUtils.kitItemBuilder(configSection)
     }

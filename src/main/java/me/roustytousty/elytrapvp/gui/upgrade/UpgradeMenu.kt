@@ -2,10 +2,10 @@ package me.roustytousty.elytrapvp.gui.upgrade
 
 import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.services.Services
+import me.roustytousty.elytrapvp.services.shop.UpgradeType
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -35,17 +35,10 @@ class UpgradeMenu : Listener {
             return
         }
 
-        when (e.rawSlot) {
-            11 -> ConfirmUpgradeMenu.openInventory(p, "helmet")
-            12 -> ConfirmUpgradeMenu.openInventory(p, "elytra")
-            13 -> ConfirmUpgradeMenu.openInventory(p, "leggings")
-            14 -> ConfirmUpgradeMenu.openInventory(p, "boots")
-            15 -> ConfirmUpgradeMenu.openInventory(p, "sword")
-            22 -> ConfirmUpgradeMenu.openInventory(p, "shears")
-
-            18 -> {
-                p.closeInventory()
-                p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+        for (type in UpgradeType.values()) {
+            if (e.rawSlot == type.slot) {
+                ConfirmUpgradeMenu.openInventory(p, type)
+                return
             }
         }
     }
@@ -67,192 +60,46 @@ class UpgradeMenu : Listener {
         }
 
         private fun initItems(inventory: Inventory, player: Player) {
-            val slots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35)
-            for (slot in slots) {
-                inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
-            }
 
             val playerData = Services.playerService.getOrCreatePlayerData(player)
 
-            val nextHelmetLevel = playerData.helmetLevel + 1
-            val nextElytraLevel = playerData.elytraLevel + 1
-            val nextLeggingsLevel = playerData.leggingsLevel + 1
-            val nextBootsLevel = playerData.bootsLevel + 1
-            val nextSwordLevel = playerData.swordLevel + 1
-            val nextShearsLevel = playerData.shearsLevel + 1
+            for (type in UpgradeType.values()) {
 
-            val helmetCost = UpgradeConfig.getConfig().getInt("upgrades.helmet.$nextHelmetLevel.cost", -1)
-            val elytraCost = UpgradeConfig.getConfig().getInt("upgrades.elytra.$nextElytraLevel.cost", -1)
-            val leggingsCost = UpgradeConfig.getConfig().getInt("upgrades.leggings.$nextLeggingsLevel.cost", -1)
-            val bootsCost = UpgradeConfig.getConfig().getInt("upgrades.boots.$nextBootsLevel.cost", -1)
-            val swordCost = UpgradeConfig.getConfig().getInt("upgrades.sword.$nextSwordLevel.cost", -1)
-            val shearsCost = UpgradeConfig.getConfig().getInt("upgrades.shears.$nextShearsLevel.cost", -1)
+                val currentLevel = type.getLevel(playerData)
+                val nextLevel = currentLevel + 1
 
-            // Helmet
-            if (helmetCost == -1) {
-                inventory.setItem(11,
-                    itemBuilder(
-                        Material.LEATHER_HELMET,
-                        1,
-                        false,
-                        "&eHelmet &c&lMAXED",
+                val cost = UpgradeConfig.getConfig().getInt("upgrades.${type.configKey}.$nextLevel.cost", -1)
+
+                if (cost == -1) {
+
+                    inventory.setItem(
+                        type.slot,
+                        itemBuilder(
+                            type.material,
+                            1,
+                            false,
+                            "${type.displayName} &c&lMAXED"
+                        )
                     )
-                )
-            } else {
-                inventory.setItem(11,
-                    itemBuilder(
-                        Material.LEATHER_HELMET,
-                        1,
-                        false,
-                        "&eHelmet",
-                        "",
-                        "&fPrice: &6${helmetCost}g",
-                        "",
-                        "&7Click to upgrade!"
+
+                } else {
+
+                    inventory.setItem(
+                        type.slot,
+                        itemBuilder(
+                            type.material,
+                            1,
+                            false,
+                            type.displayName,
+                            "",
+                            "&fPrice: &6${cost}g",
+                            "",
+                            "&7Click to upgrade!"
+                        )
                     )
-                )
+
+                }
             }
-
-            // Elytra
-            if (elytraCost == -1) {
-                inventory.setItem(12,
-                    itemBuilder(
-                        Material.ELYTRA,
-                        1,
-                        false,
-                        "&eElytra &c&lMAXED",
-                    )
-                )
-            } else {
-                inventory.setItem(12,
-                    itemBuilder(
-                        Material.ELYTRA,
-                        1,
-                        false,
-                        "&eElytra",
-                        "",
-                        "&fPrice: &6${elytraCost}g",
-                        "",
-                        "&7Click to upgrade!"
-                    )
-                )
-            }
-
-            // Leggings
-            if (leggingsCost == -1) {
-                inventory.setItem(13,
-                    itemBuilder(
-                        Material.LEATHER_LEGGINGS,
-                        1,
-                        false,
-                        "&eLeggings &c&lMAXED",
-                    )
-                )
-            } else {
-                inventory.setItem(13,
-                    itemBuilder(
-                        Material.LEATHER_LEGGINGS,
-                        1,
-                        false,
-                        "&eLeggings",
-                        "",
-                        "&fPrice: &6${leggingsCost}g",
-                        "",
-                        "&7Click to upgrade!"
-                    )
-                )
-            }
-
-            // Boots
-            if (bootsCost == -1) {
-                inventory.setItem(14,
-                    itemBuilder(
-                        Material.LEATHER_BOOTS,
-                        1,
-                        false,
-                        "&eBoots &c&lMAXED",
-                    )
-                )
-            } else {
-                inventory.setItem(
-                    14,
-                    itemBuilder(
-                        Material.LEATHER_BOOTS,
-                        1,
-                        false,
-                        "&eBoots",
-                        "",
-                        "&fPrice: &6${bootsCost}g",
-                        "",
-                        "&7Click to upgrade!"
-                    )
-                )
-            }
-
-            // Swords
-            if (swordCost == -1) {
-                inventory.setItem(
-                    15,
-                    itemBuilder(
-                        Material.WOODEN_SWORD,
-                        1,
-                        false,
-                        "&eSword &c&lMAXED",
-                    )
-                )
-            } else {
-                inventory.setItem(
-                    15,
-                    itemBuilder(
-                        Material.WOODEN_SWORD,
-                        1,
-                        false,
-                        "&eSword",
-                        "",
-                        "&fPrice: &6${swordCost}g",
-                        "",
-                        "&7Click to upgrade!"
-                    )
-                )
-            }
-
-            // Shears
-            if (shearsCost == -1) {
-                inventory.setItem(
-                    22,
-                    itemBuilder(
-                        Material.SHEARS,
-                        1,
-                        false,
-                        "&eShears &c&lMAXED",
-                    )
-                )
-            } else {
-                inventory.setItem(
-                    22,
-                    itemBuilder(
-                        Material.SHEARS,
-                        1,
-                        false,
-                        "&eShears",
-                        "",
-                        "&fPrice: &6${shearsCost}g",
-                        "",
-                        "&7Click to upgrade!"
-                    )
-                )
-            }
-
-
-            inventory.setItem(
-                27,
-                itemBuilder(
-                    Material.RED_STAINED_GLASS_PANE,
-                    1,
-                    false,
-                    "&cClose"
-                )
-            )
         }
     }
 }

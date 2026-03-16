@@ -1,12 +1,10 @@
 package me.roustytousty.elytrapvp.gui.upgrade
 
-import me.roustytousty.elytrapvp.ElytraPVP
-import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
-import me.roustytousty.elytrapvp.services.kit.KitService
-import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
+import me.roustytousty.elytrapvp.services.Services
+import me.roustytousty.elytrapvp.services.shop.UpgradeType
 import me.roustytousty.elytrapvp.utility.ItemUtils
-import me.roustytousty.elytrapvp.utility.MessageUtils
+import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -16,98 +14,107 @@ import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import org.bukkit.inventory.Inventory
-import org.bukkit.metadata.FixedMetadataValue
-import org.bukkit.metadata.MetadataValue
 
 class ConfirmUpgradeMenu : Listener {
 
-    private val kitService = KitService()
-
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        val inventory = e.view.title
-        if (inventory != "Confirm upgrade") return
+
+        val holder = e.inventory.holder
+
+        if (holder !is ConfirmUpgradeHolder) return
 
         e.isCancelled = true
-        val clickedItem = e.currentItem
-        if (clickedItem == null || clickedItem.type.isAir) return
-        val p = e.whoClicked as Player
 
-        if (e.rawSlot == 0) {
-            UpgradeMenu.openInventory(p)
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
-        } else if (e.rawSlot == 8) {
-            // TODO: Move this to players service
-            val item = getItemFromInventory(p)
-            val itemLevel = CacheConfig.getplrVal(p, "${item}Level") as? Int ?: 0
-            val nextItemLevel = itemLevel + 1
-            val itemConfigSection = UpgradeConfig.getConfig().getConfigurationSection("upgrades.$item.$nextItemLevel")
+        val player = e.whoClicked as Player
+        val type = holder.type
 
-            if (itemConfigSection != null) {
-                val upgradeCost = itemConfigSection.getInt("cost")
-                val currentGold = CacheConfig.getplrVal(p, "gold") as? Int ?: 0
+        when (e.rawSlot) {
 
-                if (currentGold >= upgradeCost) {
-                    CacheConfig.setplrVal(p, "gold", currentGold - upgradeCost)
+            0 -> {
+                UpgradeMenu.openInventory(player)
+                player.playSound(player, Sound.UI_BUTTON_CLICK, 1f, 1f)
+            }
 
-                    CacheConfig.setplrVal(p, "${item}Level", nextItemLevel)
-
-                    kitService.giveKit(p)
-
-                    MessageUtils.sendSuccess(p, "&fUpgrade successful! &6&l${item} &fis now level &6&l${nextItemLevel}&f!")
-                    p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
-                    p.closeInventory()
-                } else {
-                    MessageUtils.sendError(p, "&fNot enough gold! You need &6&l${upgradeCost}g&f!")
-                    p.playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
-                }
+            8 -> {
+                Services.upgradeService.tryUpgradeItem(player, type)
+                player.closeInventory()
             }
         }
     }
 
     @EventHandler
     private fun onInventoryDrag(e: InventoryDragEvent) {
-        if (e.view.title == "Confirm upgrade") {
+        if (e.inventory.holder is ConfirmUpgradeHolder) {
             e.isCancelled = true
         }
     }
 
     companion object {
 
-        fun openInventory(player: Player, item: String) {
-            val inventory = Bukkit.createInventory(null, 9, "Confirm upgrade")
-            initItems(inventory, player, item)
+        fun openInventory(player: Player, type: UpgradeType) {
+
+            val holder = ConfirmUpgradeHolder(type)
+
+            val inventory: Inventory = Bukkit.createInventory(holder, 9, "Confirm upgrade")
+
+            holder.setInventory(inventory)
+
+            initItems(inventory, player, type)
+
             player.openInventory(inventory)
-            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
-            player.setMetadata("upgradeItem", FixedMetadataValue(ElytraPVP.instance!!, item))
+            player.playSound(player, Sound.UI_BUTTON_CLICK, 1f, 1f)
         }
 
-        private fun initItems(inventory: Inventory, player: Player, item: String) {
-            val slots = intArrayOf(1, 2, 3, 5, 6, 7)
-            for (slot in slots) {
-                inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+        private fun initItems(
+            inventory: Inventory,
+            player: Player,
+            type: UpgradeType
+        ) {
+
+            val fillerSlots = intArrayOf(1,2,3,5,6,7)
+
+            for (slot in fillerSlots) {
+                inventory.setItem(
+                    slot,
+                    itemBuilder(Material.BLACK_STAINED_GLASS_PANE,1,false,"&f")
+                )
             }
 
-            val itemLevel = CacheConfig.getplrVal(player, "${item}Level") as? Int ?: 0
-            val nextItemLevel = itemLevel + 1
-            val itemConfigSection = UpgradeConfig.getConfig().getConfigurationSection("upgrades.$item.$nextItemLevel")
+            val playerData = Services.playerService.getOrCreatePlayerData(player)
 
-            if (itemConfigSection != null) {
-                val itemStack = ItemUtils.kitItemBuilder(itemConfigSection)
-                inventory.setItem(4, itemStack)
+            val currentLevel = type.getLevel(playerData)
+            val nextLevel = currentLevel + 1
 
-                val upgradeCost = itemConfigSection.getInt("cost")
-                inventory.setItem(0, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cCancel"))
-                inventory.setItem(8, itemBuilder(Material.LIME_STAINED_GLASS_PANE, 1, false, "&aConfirm", "", "&fPrice: &6${upgradeCost}g", "", "&7Click to confirm!"))
-            }
-        }
+            val section = UpgradeConfig.getConfig()
+                .getConfigurationSection("upgrades.${type.configKey}.$nextLevel")
 
-        private fun getItemFromInventory(player: Player): String {
-            val metadata: List<MetadataValue> = player.getMetadata("upgradeItem")
-            return if (metadata.isNotEmpty()) {
-                metadata[0].asString()
-            } else {
-                "unknown"
+            if (section != null) {
+
+                val previewItem = ItemUtils.kitItemBuilder(section)
+
+                inventory.setItem(4, previewItem)
+
+                val cost = section.getInt("cost")
+
+                inventory.setItem(
+                    0,
+                    itemBuilder(Material.RED_STAINED_GLASS_PANE,1,false,"&cCancel")
+                )
+
+                inventory.setItem(
+                    8,
+                    itemBuilder(
+                        Material.LIME_STAINED_GLASS_PANE,
+                        1,
+                        false,
+                        "&aConfirm",
+                        "",
+                        "&fPrice: &6${cost}g",
+                        "",
+                        "&7Click to confirm!"
+                    )
+                )
             }
         }
     }

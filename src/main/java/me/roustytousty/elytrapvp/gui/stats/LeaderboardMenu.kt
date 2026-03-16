@@ -1,7 +1,5 @@
 package me.roustytousty.elytrapvp.gui.stats
 
-import me.roustytousty.elytrapvp.api.MongoDB
-import me.roustytousty.elytrapvp.configs.CacheConfig
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.ItemUtils
