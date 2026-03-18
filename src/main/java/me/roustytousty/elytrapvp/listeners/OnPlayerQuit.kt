@@ -9,11 +9,13 @@ import org.bukkit.event.player.PlayerQuitEvent
 
 class OnPlayerQuit : Listener {
 
+    private val playerService = Services.playerService
+
     @EventHandler
     fun onPlayerQuit(event: PlayerQuitEvent) {
         val player = event.player
 
-        Services.playerService.saveAndUnloadPlayerData(player)
+        playerService.saveAndUnloadPlayerData(player)
 
         event.quitMessage(Component.text(FormatUtils.parse("&f[&c-&f] ${player.name}")))
     }

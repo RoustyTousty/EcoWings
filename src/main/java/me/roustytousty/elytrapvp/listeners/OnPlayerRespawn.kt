@@ -1,5 +1,6 @@
 package me.roustytousty.elytrapvp.listeners
 
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.services.kit.KitService
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
@@ -10,13 +11,13 @@ import org.bukkit.event.player.PlayerRespawnEvent
 
 class OnPlayerRespawn : Listener {
 
-    private val kitService = KitService()
+    private val kitService = Services.kitService
 
     @EventHandler
     fun onPlayerRespawn(event: PlayerRespawnEvent) {
         val player = event.player
 
-        kitService.giveKit(player)
+        kitService.syncKit(player)
 
         MessageUtils.sendTitle(player, "&c&lDeath", "&7Try harder next time.", 5, 30, 5)
 

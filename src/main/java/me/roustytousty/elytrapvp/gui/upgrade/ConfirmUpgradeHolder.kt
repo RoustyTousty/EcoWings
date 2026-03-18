@@ -1,6 +1,6 @@
 package me.roustytousty.elytrapvp.gui.upgrade
 
-import me.roustytousty.elytrapvp.services.shop.UpgradeType
+import me.roustytousty.elytrapvp.services.upgrade.UpgradeType
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.InventoryHolder
 

@@ -2,7 +2,7 @@ package me.roustytousty.elytrapvp.gui.upgrade
 
 import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.services.Services
-import me.roustytousty.elytrapvp.services.shop.UpgradeType
+import me.roustytousty.elytrapvp.services.upgrade.UpgradeType
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import org.bukkit.Bukkit
@@ -38,6 +38,7 @@ class ConfirmUpgradeMenu : Listener {
 
             8 -> {
                 Services.upgradeService.tryUpgradeItem(player, type)
+                Services.kitService.syncKit(player)
                 player.closeInventory()
             }
         }
@@ -83,39 +84,28 @@ class ConfirmUpgradeMenu : Listener {
 
             val playerData = Services.playerService.getOrCreatePlayerData(player)
 
-            val currentLevel = type.getLevel(playerData)
-            val nextLevel = currentLevel + 1
+            val itemData = Services.upgradeService.getNextUpgradeData(playerData, type)
 
-            val section = UpgradeConfig.getConfig()
-                .getConfigurationSection("upgrades.${type.configKey}.$nextLevel")
+            inventory.setItem(4, itemData.item)
 
-            if (section != null) {
+            inventory.setItem(
+                0,
+                itemBuilder(Material.RED_STAINED_GLASS_PANE,1,false,"&cCancel")
+            )
 
-                val previewItem = ItemUtils.kitItemBuilder(section)
-
-                inventory.setItem(4, previewItem)
-
-                val cost = section.getInt("cost")
-
-                inventory.setItem(
-                    0,
-                    itemBuilder(Material.RED_STAINED_GLASS_PANE,1,false,"&cCancel")
+            inventory.setItem(
+                8,
+                itemBuilder(
+                    Material.LIME_STAINED_GLASS_PANE,
+                    1,
+                    false,
+                    "&aConfirm",
+                    "",
+                    "&fUpgrade: &6${itemData.cost}g",
+                    "",
+                    "&7Click to confirm!"
                 )
-
-                inventory.setItem(
-                    8,
-                    itemBuilder(
-                        Material.LIME_STAINED_GLASS_PANE,
-                        1,
-                        false,
-                        "&aConfirm",
-                        "",
-                        "&fPrice: &6${cost}g",
-                        "",
-                        "&7Click to confirm!"
-                    )
-                )
-            }
+            )
         }
     }
 }

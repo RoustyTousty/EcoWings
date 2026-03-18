@@ -10,7 +10,7 @@ class MapResetService {
     private val RESET_INTERVAL_SECONDS = 40 * 60
     private val REGION_NAME = "pvpRegion"
 
-    fun startRegionResetTask() {
+    init {
         ResetTask().runTaskTimer(ElytraPVP.instance!!, 0L, 20L)
     }
 

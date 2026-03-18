@@ -1,6 +1,8 @@
 package me.roustytousty.elytrapvp.utility
 
+import me.roustytousty.elytrapvp.services.upgrade.UpgradeType
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.OfflinePlayer
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.enchantments.Enchantment
@@ -9,6 +11,8 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.inventory.meta.SkullMeta
+import org.bukkit.persistence.PersistentDataType
+import org.bukkit.plugin.java.JavaPlugin
 
 object ItemUtils {
 
@@ -87,35 +91,63 @@ object ItemUtils {
 
 
 
+    fun itemBuilder(
+        base: ItemStack,
+        name: String? = null,
+        vararg lore: String?
+    ): ItemStack {
+        val item = base.clone()
+        val meta = item.itemMeta ?: return item
+
+        if (name != null) {
+            meta.setDisplayName(FormatUtils.parse(name))
+        }
+
+        if (lore.isNotEmpty()) {
+            val l = lore.mapNotNull { FormatUtils.parse(it) }
+            meta.lore = l
+        }
+
+        item.itemMeta = meta
+        return item
+    }
+
+
+
     /*
         Creates an ItemStack based on a specific UpgradeConfig item
      */
     fun kitItemBuilder(
-        config: ConfigurationSection
+        config: ConfigurationSection,
+        type: UpgradeType,
+        plugin: JavaPlugin
     ): ItemStack {
         val material = Material.getMaterial(config.getString("material", "AIR")!!) ?: Material.AIR
         val itemStack = ItemStack(material)
         val meta: ItemMeta = itemStack.itemMeta ?: return itemStack
 
         meta.isUnbreakable = true
-
-        meta.attributeModifiers = itemStack.type.getDefaultAttributeModifiers(EquipmentSlot.HAND)
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE)
 
         meta.setDisplayName(
-            FormatUtils.parse(
-                config.getString("name", "")
-            )
+            FormatUtils.parse(config.getString("name", ""))
+        )
+
+        val key = NamespacedKey(plugin, "kit-item")
+        meta.persistentDataContainer.set(
+            key,
+            PersistentDataType.STRING,
+            type.name
         )
 
         config.getConfigurationSection("enchants")?.let { enchants ->
-            for (key in enchants.getKeys(false)) {
-                val enchant = Enchantment.getByName(key.uppercase()) ?: continue
-                val level = enchants.getInt(key, 1)
+            for (k in enchants.getKeys(false)) {
+                val enchant = Enchantment.getByName(k.uppercase()) ?: continue
+                val level = enchants.getInt(k, 1)
                 meta.addEnchant(enchant, level, true)
             }
         }
+
         itemStack.itemMeta = meta
         return itemStack
     }

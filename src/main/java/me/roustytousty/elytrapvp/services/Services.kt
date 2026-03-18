@@ -5,15 +5,19 @@ import me.roustytousty.elytrapvp.data.cache.PlayerCache
 import me.roustytousty.elytrapvp.data.repository.PlayerRepository
 import me.roustytousty.elytrapvp.data.repository.MongoPlayerRepository
 import me.roustytousty.elytrapvp.services.event.EventService
+import me.roustytousty.elytrapvp.services.kit.KitService
 import me.roustytousty.elytrapvp.services.leaderboard.LeaderboardService
 import me.roustytousty.elytrapvp.services.mapreset.MapResetService
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.services.scoreboard.ScoreboardService
 import me.roustytousty.elytrapvp.services.shop.ShopService
-import me.roustytousty.elytrapvp.services.shop.UpgradeService
+import me.roustytousty.elytrapvp.services.upgrade.UpgradeService
 import org.bukkit.plugin.java.JavaPlugin
 
 object Services {
+
+    lateinit var plugin: JavaPlugin
+        private set
 
     private lateinit var playerRepository: PlayerRepository
 
@@ -38,12 +42,16 @@ object Services {
     lateinit var upgradeService: UpgradeService
         private set
 
+    lateinit var kitService: KitService
+        private set
+
     lateinit var scoreboardService: ScoreboardService
         private set
 
 
 
-    fun init(plugin: JavaPlugin) {
+    fun init(pluginInstance: JavaPlugin) {
+        plugin = pluginInstance
 
         playerRepository = MongoPlayerRepository()
         playerCache = PlayerCache()
@@ -69,7 +77,14 @@ object Services {
         )
 
         upgradeService = UpgradeService(
-            playerService = playerService
+            playerService = playerService,
+            plugin = plugin
+        )
+
+        kitService = KitService(
+            playerService = playerService,
+            upgradeService = upgradeService,
+            plugin = plugin
         )
 
         scoreboardService = ScoreboardService(

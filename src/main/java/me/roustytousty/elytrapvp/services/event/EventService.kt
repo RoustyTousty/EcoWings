@@ -1,6 +1,9 @@
 package me.roustytousty.elytrapvp.services.event
 
 import me.roustytousty.elytrapvp.ElytraPVP
+import me.roustytousty.elytrapvp.services.event.events.MoonEvent
+import me.roustytousty.elytrapvp.services.event.events.TNTRainEvent
+import me.roustytousty.elytrapvp.services.event.events.VoidlessEvent
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
 import org.bukkit.Sound
@@ -10,6 +13,12 @@ class EventService {
 
     private val events = mutableListOf<EventIntefrace>()
     private val activeEvents = mutableListOf<EventIntefrace>()
+
+    init {
+        registerEvent(MoonEvent())
+        registerEvent(TNTRainEvent())
+        registerEvent(VoidlessEvent())
+    }
 
     fun registerEvent(event: EventIntefrace) {
         println("Registered event named ${event.name}")

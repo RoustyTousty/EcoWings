@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.services.shop
+package me.roustytousty.elytrapvp.services.upgrade
 
 import me.roustytousty.elytrapvp.data.model.PlayerData
 import org.bukkit.Material
@@ -16,7 +16,7 @@ enum class UpgradeType(
         "helmet",
         Material.LEATHER_HELMET,
         "&eHelmet",
-        11,
+        12,
         { it.helmetLevel },
         { data, value -> data.helmetLevel = value }
     ),
@@ -25,7 +25,7 @@ enum class UpgradeType(
         "elytra",
         Material.ELYTRA,
         "&eElytra",
-        12,
+        21,
         { it.elytraLevel },
         { data, value -> data.elytraLevel = value }
     ),
@@ -34,7 +34,7 @@ enum class UpgradeType(
         "leggings",
         Material.LEATHER_LEGGINGS,
         "&eLeggings",
-        13,
+        30,
         { it.leggingsLevel },
         { data, value -> data.leggingsLevel = value }
     ),
@@ -43,7 +43,7 @@ enum class UpgradeType(
         "boots",
         Material.LEATHER_BOOTS,
         "&eBoots",
-        14,
+        39,
         { it.bootsLevel },
         { data, value -> data.bootsLevel = value }
     ),
@@ -52,7 +52,7 @@ enum class UpgradeType(
         "sword",
         Material.WOODEN_SWORD,
         "&eSword",
-        15,
+        14,
         { it.swordLevel },
         { data, value -> data.swordLevel = value }
     ),
@@ -61,7 +61,7 @@ enum class UpgradeType(
         "shears",
         Material.SHEARS,
         "&eShears",
-        22,
+        23,
         { it.shearsLevel },
         { data, value -> data.shearsLevel = value }
     );

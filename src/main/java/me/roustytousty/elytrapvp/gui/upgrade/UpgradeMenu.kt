@@ -2,10 +2,11 @@ package me.roustytousty.elytrapvp.gui.upgrade
 
 import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.services.Services
-import me.roustytousty.elytrapvp.services.shop.UpgradeType
+import me.roustytousty.elytrapvp.services.upgrade.UpgradeType
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -53,7 +54,7 @@ class UpgradeMenu : Listener {
     companion object {
 
         fun openInventory(player: Player) {
-            val inventory = Bukkit.createInventory(null, 36, "Upgrade")
+            val inventory = Bukkit.createInventory(null, 54, "Upgrade")
             initItems(inventory, player)
             player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
@@ -63,22 +64,25 @@ class UpgradeMenu : Listener {
 
             val playerData = Services.playerService.getOrCreatePlayerData(player)
 
+            val slots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35, 36, 44, 53)
+            for (slot in slots) {
+                inventory.setItem(slot,
+                    itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f")
+                )
+            }
+
             for (type in UpgradeType.values()) {
 
-                val currentLevel = type.getLevel(playerData)
-                val nextLevel = currentLevel + 1
+                val current = Services.upgradeService.getCurrentUpgradeData(playerData, type)
+                val next = Services.upgradeService.getNextUpgradeData(playerData, type)
 
-                val cost = UpgradeConfig.getConfig().getInt("upgrades.${type.configKey}.$nextLevel.cost", -1)
-
-                if (cost == -1) {
+                if (current.maxed) {
 
                     inventory.setItem(
                         type.slot,
                         itemBuilder(
-                            type.material,
-                            1,
-                            false,
-                            "${type.displayName} &c&lMAXED"
+                            current.item,
+                            "${current.item.itemMeta?.displayName} &c&lMAXED"
                         )
                     )
 
@@ -87,19 +91,27 @@ class UpgradeMenu : Listener {
                     inventory.setItem(
                         type.slot,
                         itemBuilder(
-                            type.material,
-                            1,
-                            false,
-                            type.displayName,
+                            current.item,
+                            null,
                             "",
-                            "&fPrice: &6${cost}g",
+                            "&fNext Level: &6${next.level}",
+                            "&fCost: &6${next.cost}g",
                             "",
                             "&7Click to upgrade!"
                         )
                     )
-
                 }
             }
+
+            inventory.setItem(
+                45,
+                itemBuilder(
+                    Material.RED_STAINED_GLASS_PANE,
+                    1,
+                    false,
+                    "&cBack"
+                )
+            )
         }
     }
 }

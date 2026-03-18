@@ -1,8 +1,6 @@
 package me.roustytousty.elytrapvp.listeners
 
-import me.roustytousty.elytrapvp.services.scoreboard.ScoreboardService
 import me.roustytousty.elytrapvp.services.Services
-import me.roustytousty.elytrapvp.services.kit.KitService
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
@@ -13,15 +11,20 @@ import org.bukkit.event.player.PlayerJoinEvent
 
 class OnPlayerJoin : Listener {
 
+    private val playerService = Services.playerService
+    private val scoreboardService = Services.scoreboardService
+    private val kitService = Services.kitService
+
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
         val player = event.player
 
-        Services.playerService.getOrCreatePlayerData(player)
+        playerService.getOrCreatePlayerData(player)
 
         player.teleport(Location(Bukkit.getWorld("EcoWings"), 0.0, 137.0, 175.0, -180.0F, 0.0F))
         event.joinMessage(Component.text(parse("&f[&a+&f] ${player.name}")))
 
-        Services.scoreboardService.create(player)
+        kitService.syncKit(player)
+        scoreboardService.create(player)
     }
 }

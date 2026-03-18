@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.gui.stats
 
 import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.services.Services
+import me.roustytousty.elytrapvp.services.upgrade.UpgradeType
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import org.bukkit.Bukkit
@@ -40,6 +41,9 @@ class PlayerStatsMenu : Listener {
 
     companion object {
 
+        private val leaderboardService = Services.leaderboardService
+        private val upgradeService = Services.upgradeService
+
         fun openInventory(player: Player, statPlayer: Player) {
             val inventory = Bukkit.createInventory(null, 54, "Player stats")
             initItems(inventory, statPlayer)
@@ -56,54 +60,47 @@ class PlayerStatsMenu : Listener {
             }
 
             val playerData = Services.playerService.getOrCreatePlayerData(statPlayer)
-            val leaderboardService = Services.leaderboardService
-            val upgradeConfig = UpgradeConfig.getConfig()
 
             val gold = playerData.gold
             val kills = playerData.kills
+            val topKillstreak = playerData.topKillstreak
             val deaths = playerData.deaths
 
             val goldRank = leaderboardService.getRank("gold", statPlayer)
             val killsRank = leaderboardService.getRank("kills", statPlayer)
+            val topKillstreakRank = leaderboardService.getRank("topKillstreak", statPlayer)
             val deathsRank = leaderboardService.getRank("deaths", statPlayer)
 
-            val helmetLevel = playerData.helmetLevel
-            val elytraLevel = playerData.elytraLevel
-            val leggingsLevel = playerData.leggingsLevel
-            val bootsLevel = playerData.bootsLevel
-            val swordLevel = playerData.swordLevel
-            val shearsLevel = playerData.shearsLevel
-
-            val helmetItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.helmet.$helmetLevel")!!)
-            val elytraItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.elytra.$elytraLevel")!!)
-            val leggingsItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.leggings.$leggingsLevel")!!)
-            val bootsItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.boots.$bootsLevel")!!)
-            val swordItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.sword.$swordLevel")!!)
-            val shearsItem = ItemUtils.kitItemBuilder(upgradeConfig.getConfigurationSection("upgrades.shears.$shearsLevel")!!)
+            val helmetData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.HELMET)
+            val elytraData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.ELYTRA)
+            val leggingsData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.LEGGINGS)
+            val bootsData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.BOOTS)
+            val swordData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.SWORD)
+            val shearsData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.SHEARS)
 
             inventory.setItem(
                 11,
-                helmetItem
+                helmetData.item
             )
             inventory.setItem(
                 20,
-                elytraItem
+                elytraData.item
             )
             inventory.setItem(
                 29,
-                leggingsItem
+                leggingsData.item
             )
             inventory.setItem(
                 38,
-                bootsItem
+                bootsData.item
             )
             inventory.setItem(
                 21,
-                swordItem
+                swordData.item
             )
             inventory.setItem(
                 30,
-                shearsItem
+                shearsData.item
             )
 
             inventory.setItem(
@@ -121,8 +118,8 @@ class PlayerStatsMenu : Listener {
                     Material.GOLDEN_SWORD,
                     1,
                     false,
-                    "&eTop Killstreak",
-                    "&7Test!"
+                    "&eGold &6#$topKillstreakRank",
+                    "&7Value: ${formatNumber(topKillstreak)}"
                 )
             )
             inventory.setItem(

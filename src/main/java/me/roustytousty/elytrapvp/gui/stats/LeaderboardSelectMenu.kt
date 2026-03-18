@@ -25,7 +25,7 @@ class LeaderboardSelectMenu : Listener {
 
         when (e.rawSlot) {
             11 -> LeaderboardMenu.openInventory(p, "kills")
-            12 -> LeaderboardMenu.openInventory(p, "topkillstreak")
+            12 -> LeaderboardMenu.openInventory(p, "topKillstreak")
             13 -> LeaderboardMenu.openInventory(p, "gold")
             15 -> LeaderboardMenu.openInventory(p, "deaths")
 
