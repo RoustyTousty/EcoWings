@@ -106,7 +106,7 @@ class ScoreboardService (
                 dynamic1Team.suffix = parse("&6${formatNumber(playerData.kills)}")
 
                 dynamic2Team.prefix = parse("  &8• &fKillstreak: ")
-                dynamic2Team.suffix = parse("&6${formatNumber(playerData.killstreak)}")
+                dynamic2Team.suffix = parse("&6${formatNumber(playerData.killstreak)} &8{${formatNumber(playerData.recordKillstreak)}}")
             }
         }
     }

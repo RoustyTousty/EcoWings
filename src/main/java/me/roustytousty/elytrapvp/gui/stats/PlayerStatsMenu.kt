@@ -62,12 +62,12 @@ class PlayerStatsMenu : Listener {
 
             val gold = playerData.gold
             val kills = playerData.kills
-            val topKillstreak = playerData.topKillstreak
+            val recordKillstreak = playerData.recordKillstreak
             val deaths = playerData.deaths
 
             val goldRank = leaderboardService.getRank("gold", statPlayer)
             val killsRank = leaderboardService.getRank("kills", statPlayer)
-            val topKillstreakRank = leaderboardService.getRank("topKillstreak", statPlayer)
+            val recordKillstreakRank = leaderboardService.getRank("recordKillstreak", statPlayer)
             val deathsRank = leaderboardService.getRank("deaths", statPlayer)
 
             val helmetData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.HELMET)
@@ -117,8 +117,8 @@ class PlayerStatsMenu : Listener {
                     Material.GOLDEN_SWORD,
                     1,
                     false,
-                    "&eGold &6#$topKillstreakRank",
-                    "&7Value: ${formatNumber(topKillstreak)}"
+                    "&eGold &6#$recordKillstreakRank",
+                    "&7Value: ${formatNumber(recordKillstreak)}"
                 )
             )
             inventory.setItem(

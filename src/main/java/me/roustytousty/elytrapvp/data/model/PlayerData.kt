@@ -13,7 +13,7 @@ data class PlayerData(
     var kills: Int = 0,
     var deaths: Int = 0,
     var killstreak: Int = 0,
-    var topKillstreak: Int = 0,
+    var recordKillstreak: Int = 0,
 
     var helmetLevel: Int = 0,
     var elytraLevel: Int = 0,

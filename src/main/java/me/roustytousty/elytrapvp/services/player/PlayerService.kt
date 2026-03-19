@@ -21,7 +21,7 @@ class PlayerService(
         "kills" to { it.kills },
         "deaths" to { it.deaths },
         "killstreak" to { it.killstreak },
-        "topKillstreak" to { it.topKillstreak },
+        "recordKillstreak" to { it.recordKillstreak },
 
         "helmetLevel" to { it.helmetLevel },
         "elytraLevel" to { it.elytraLevel },

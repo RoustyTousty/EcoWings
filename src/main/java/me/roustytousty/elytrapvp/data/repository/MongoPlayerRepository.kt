@@ -88,7 +88,7 @@ class MongoPlayerRepository : PlayerRepository {
             kills = doc.getInteger("kills", 0),
             deaths = doc.getInteger("deaths", 0),
             killstreak = doc.getInteger("killstreak", 0),
-            topKillstreak = doc.getInteger("topKillstreak", 0),
+            recordKillstreak = doc.getInteger("recordKillstreak", 0),
 
             helmetLevel = doc.getInteger("helmetLevel", 0),
             elytraLevel = doc.getInteger("elytraLevel", 0),
@@ -114,7 +114,7 @@ class MongoPlayerRepository : PlayerRepository {
             .append("kills", playerData.kills)
             .append("deaths", playerData.deaths)
             .append("killstreak", playerData.killstreak)
-            .append("topKillstreak", playerData.topKillstreak)
+            .append("recordKillstreak", playerData.recordKillstreak)
 
             .append("helmetLevel", playerData.helmetLevel)
             .append("elytraLevel", playerData.elytraLevel)
