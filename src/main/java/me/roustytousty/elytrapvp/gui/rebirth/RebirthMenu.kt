@@ -1,5 +1,7 @@
 package me.roustytousty.elytrapvp.gui.rebirth
 
+import me.roustytousty.elytrapvp.services.Services
+import me.roustytousty.elytrapvp.services.upgrade.UpgradeType
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -24,6 +26,10 @@ class RebirthMenu : Listener {
         val p = e.whoClicked as Player
 
         when (e.rawSlot) {
+            13 -> {
+                Services.rebirthService.tryPlayerRebirth(p)
+                p.closeInventory()
+            }
             18 -> {
                 p.closeInventory()
                 p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
@@ -42,16 +48,27 @@ class RebirthMenu : Listener {
 
         fun openInventory(player: Player) {
             val inventory = Bukkit.createInventory(null, 27, "Rebirth")
-            initItems(inventory)
+            initItems(player, inventory)
             player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
-        private fun initItems(inventory: Inventory) {
+        private fun initItems(player: Player, inventory: Inventory) {
             val slots = intArrayOf(0, 8, 9, 17, 26)
             for (slot in slots) {
                 inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
+
+            val playerData = Services.playerService.getOrCreatePlayerData(player)
+
+            val upgradeLines = UpgradeType.values().map { type ->
+                val maxed = Services.upgradeService.getNextUpgradeData(playerData, type).maxed
+                val icon = if (maxed) "&a✔" else "&c✘"
+                "$icon &7${type.name.lowercase().replace("_", " ")} maxed"
+            }
+
+            val maxedCount = upgradeLines.count { it.startsWith("&a") }
+            val total = UpgradeType.values().size
 
             inventory.setItem(
                 13,
@@ -60,11 +77,22 @@ class RebirthMenu : Listener {
                     1,
                     false,
                     "&eRebirth",
-                    "&7Reset your account and get",
-                    "&7extra 5 coins per kill.",
-                    "&7And a rebirth token.",
+
+                    "&fReset your progress and gain:",
+                    "&7+1 Rebirth token",
+                    "&7+x1 Coins multiplier",
                     "",
-                    "&7Click to rebirth!",
+                    "&fYou will lose:",
+                    "&7All upgrades",
+                    "&7All gold",
+                    "",
+                    "&fRequirements:",
+                    "&fProgress: &6$maxedCount&f/&6$total",
+
+                    *upgradeLines.toTypedArray(),
+
+                    "",
+                    "&7Click to rebirth!"
                 )
             )
 

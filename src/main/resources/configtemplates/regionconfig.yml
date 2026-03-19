@@ -1,25 +1,89 @@
 regions:
-
   pvpRegion:
     pos1:
-      world: "EcoWings"
+      world: EcoWings
       x: -22
       y: 180
       z: 127
     pos2:
-      world: "EcoWings"
+      world: EcoWings
+      x: 21
+      y: 82
+      z: 170
+  buildRegion:
+    pos1:
+      world: EcoWings
+      x: -28
+      y: 180
+      z: 105
+    pos2:
+      world: EcoWings
+      x: 27
+      y: 85
+      z: 170
+  buildBufferRegion:
+    pos1:
+      world: EcoWings
+      x: -5
+      y: 136
+      z: 167
+    pos2:
+      world: EcoWings
+      x: 4
+      y: 144
+      z: 170
+  spawnRegion:
+    pos1:
+      world: EcoWings
+      x: -10
+      y: 148
+      z: 171
+    pos2:
+      world: EcoWings
+      x: 18
+      y: 132
+      z: 205
+  warTableRegion:
+    pos1:
+      world: EcoWings
+      x: 14
+      y: 138
+      z: 187
+    pos2:
+      world: EcoWings
+      x: 10
+      y: 137
+      z: 188
+  voidlessBlock:
+    pos1:
+      world: EcoWings
+      x: -22
+      y: 85
+      z: 127
+    pos2:
+      world: EcoWings
       x: 21
       y: 85
       z: 170
-
-  warTableRegion:
+  PVPAreaCeiling:
     pos1:
-      world: "EcoWings"
-      x: 10
-      y: 137
-      z: 187
+      world: EcoWings
+      x: -22
+      y: 161
+      z: 127
     pos2:
-      world: "EcoWings"
-      x: 14
+      world: EcoWings
+      x: 21
+      y: 161
+      z: 170
+  secretEntrance:
+    pos1:
+      world: EcoWings
+      x: 4
+      y: 137
+      z: 191
+    pos2:
+      world: EcoWings
+      x: 5
       y: 138
-      z: 188
+      z: 192

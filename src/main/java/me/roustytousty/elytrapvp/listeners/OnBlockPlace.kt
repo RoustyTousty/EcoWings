@@ -12,8 +12,8 @@ import org.bukkit.event.block.BlockPlaceEvent
 class OnBlockPlace : Listener {
 
     private val placableMaterials = setOf(
-        Material.WHITE_WOOL, Material.ORANGE_WOOL, Material.YELLOW_WOOL,
-        Material.WHITE_CONCRETE, Material.YELLOW_CONCRETE,
+        Material.WHITE_WOOL, Material.LIGHT_GRAY_WOOL, Material.OAK_PLANKS,
+        Material.STONE_BRICKS, Material.DEEPSLATE_BRICKS,
         Material.TNT
     )
 

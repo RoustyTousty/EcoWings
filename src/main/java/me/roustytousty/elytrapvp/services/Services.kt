@@ -8,7 +8,9 @@ import me.roustytousty.elytrapvp.services.event.EventService
 import me.roustytousty.elytrapvp.services.kit.KitService
 import me.roustytousty.elytrapvp.services.leaderboard.LeaderboardService
 import me.roustytousty.elytrapvp.services.mapreset.MapResetService
+import me.roustytousty.elytrapvp.services.perk.PerkService
 import me.roustytousty.elytrapvp.services.player.PlayerService
+import me.roustytousty.elytrapvp.services.rebirth.RebirthService
 import me.roustytousty.elytrapvp.services.scoreboard.ScoreboardService
 import me.roustytousty.elytrapvp.services.shop.ShopService
 import me.roustytousty.elytrapvp.services.upgrade.UpgradeService
@@ -40,6 +42,12 @@ object Services {
         private set
 
     lateinit var upgradeService: UpgradeService
+        private set
+
+    lateinit var perkService: PerkService
+        private set
+
+    lateinit var rebirthService: RebirthService
         private set
 
     lateinit var kitService: KitService
@@ -81,10 +89,20 @@ object Services {
             plugin = plugin
         )
 
+        perkService = PerkService(
+            playerService = playerService
+        )
+
         kitService = KitService(
             playerService = playerService,
             upgradeService = upgradeService,
             plugin = plugin
+        )
+
+        rebirthService = RebirthService(
+            playerService = playerService,
+            upgradeService = upgradeService,
+            kitService = kitService
         )
 
         scoreboardService = ScoreboardService(

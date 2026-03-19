@@ -5,6 +5,7 @@ import me.roustytousty.elytrapvp.data.model.PlayerData
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import me.roustytousty.elytrapvp.utility.MessageUtils
+import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack

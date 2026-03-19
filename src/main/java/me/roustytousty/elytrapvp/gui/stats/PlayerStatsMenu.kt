@@ -1,5 +1,6 @@
 package me.roustytousty.elytrapvp.gui.stats
 
+import me.roustytousty.elytrapvp.data.model.PlayerData
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.services.upgrade.UpgradeType
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
@@ -13,6 +14,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.ItemStack
 
 class PlayerStatsMenu : Listener {
 
@@ -72,36 +74,37 @@ class PlayerStatsMenu : Listener {
             val recordKillstreakRank = leaderboardService.getRank("recordKillstreak", statPlayer)
             val deathsRank = leaderboardService.getRank("deaths", statPlayer)
 
-            val helmetData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.HELMET)
-            val elytraData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.ELYTRA)
-            val leggingsData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.LEGGINGS)
-            val bootsData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.BOOTS)
-            val swordData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.SWORD)
-            val shearsData = upgradeService.getCurrentUpgradeData(playerData, UpgradeType.SHEARS)
-
             inventory.setItem(
                 11,
-                helmetData.item
+                getDisplayItem(playerData, UpgradeType.HELMET)
             )
             inventory.setItem(
                 20,
-                elytraData.item
+                getDisplayItem(playerData, UpgradeType.ELYTRA)
             )
             inventory.setItem(
                 29,
-                leggingsData.item
+                getDisplayItem(playerData, UpgradeType.LEGGINGS)
             )
             inventory.setItem(
                 38,
-                bootsData.item
+                getDisplayItem(playerData, UpgradeType.BOOTS)
+            )
+            inventory.setItem(
+                12,
+                getDisplayItem(playerData, UpgradeType.SWORD)
             )
             inventory.setItem(
                 21,
-                swordData.item
+                getDisplayItem(playerData, UpgradeType.SHEARS)
             )
             inventory.setItem(
                 30,
-                shearsData.item
+                getDisplayItem(playerData, UpgradeType.PICKAXE)
+            )
+            inventory.setItem(
+                39,
+                getDisplayItem(playerData, UpgradeType.AXE)
             )
 
             inventory.setItem(
@@ -172,6 +175,25 @@ class PlayerStatsMenu : Listener {
                     false,
                     "&cBack"
                 )
+            )
+        }
+
+        private fun getDisplayItem(playerData: PlayerData, type: UpgradeType): ItemStack {
+            val level = type.getLevel(playerData)
+
+            if (level <= 0) {
+                return ItemUtils.itemBuilder(
+                    Material.GRAY_STAINED_GLASS_PANE,
+                    1,
+                    false,
+                    "&f${type.displayName} &6[&fT0&6]",
+                )
+            }
+
+            val data = upgradeService.getCurrentUpgradeData(playerData, type)
+
+            return ItemUtils.itemBuilder(
+                data.item
             )
         }
     }

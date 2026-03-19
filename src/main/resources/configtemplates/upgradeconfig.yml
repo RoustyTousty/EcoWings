@@ -204,6 +204,30 @@ upgrades:
       material: WOODEN_PICKAXE
       name: "&fPickaxe &6[&fT1&6]"
       cost: 100
+    2:
+      material: WOODEN_PICKAXE
+      name: "&fPickaxe &6[&fT2&6]"
+      enchants:
+        EFFICIENCY: 1
+      cost: 100
+    3:
+      material: WOODEN_PICKAXE
+      name: "&fPickaxe &6[&fT3&6]"
+      enchants:
+        EFFICIENCY: 2
+      cost: 250
+    4:
+      material: WOODEN_PICKAXE
+      name: "&fPickaxe &6[&fT4&6]"
+      enchants:
+        EFFICIENCY: 3
+      cost: 500
+    5:
+      material: WOODEN_PICKAXE
+      name: "&fPickaxe &6[&fT5&6]"
+      enchants:
+        EFFICIENCY: 4
+      cost: 850
 
   axe:
     0:
@@ -213,3 +237,27 @@ upgrades:
       material: WOODEN_AXE
       name: "&fAxe &6[&fT1&6]"
       cost: 100
+    2:
+      material: WOODEN_AXE
+      name: "&fAxe &6[&fT2&6]"
+      enchants:
+        EFFICIENCY: 1
+      cost: 100
+    3:
+      material: WOODEN_AXE
+      name: "&fAxe &6[&fT3&6]"
+      enchants:
+        EFFICIENCY: 2
+      cost: 250
+    4:
+      material: WOODEN_AXE
+      name: "&fAxe &6[&fT4&6]"
+      enchants:
+        EFFICIENCY: 3
+      cost: 500
+    5:
+      material: WOODEN_AXE
+      name: "&fAxe &6[&fT5&6]"
+      enchants:
+        EFFICIENCY: 4
+      cost: 850

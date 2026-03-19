@@ -71,6 +71,7 @@ class EventsMenu : Listener {
     companion object {
 
         private val eventService = Services.eventService
+
         fun openInventory(player: Player) {
             val inventory = Bukkit.createInventory(null, 27, "Events")
             initItems(inventory)

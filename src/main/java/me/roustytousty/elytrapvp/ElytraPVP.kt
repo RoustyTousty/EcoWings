@@ -12,6 +12,7 @@ import me.roustytousty.elytrapvp.data.api.MongoManager
 import me.roustytousty.elytrapvp.gui.events.EventsMenu
 import me.roustytousty.elytrapvp.gui.events.WarTableMenu
 import me.roustytousty.elytrapvp.gui.perks.PerksMenu
+import me.roustytousty.elytrapvp.gui.rebirth.RebirthMenu
 import me.roustytousty.elytrapvp.gui.shops.*
 import me.roustytousty.elytrapvp.gui.stats.LeaderboardMenu
 import me.roustytousty.elytrapvp.gui.stats.LeaderboardSelectMenu
@@ -101,6 +102,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(PerksMenu(), this)
         pluginmanager.registerEvents(EventsMenu(), this)
         pluginmanager.registerEvents(WarTableMenu(), this)
+        pluginmanager.registerEvents(RebirthMenu(), this)
     }
 
     private fun registerCommands(){
