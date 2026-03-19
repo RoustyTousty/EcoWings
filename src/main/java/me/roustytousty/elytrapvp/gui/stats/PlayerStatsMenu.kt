@@ -61,11 +61,13 @@ class PlayerStatsMenu : Listener {
             val playerData = Services.playerService.getOrCreatePlayerData(statPlayer)
 
             val gold = playerData.gold
+            val rebirths = playerData.rebirths
             val kills = playerData.kills
             val recordKillstreak = playerData.recordKillstreak
             val deaths = playerData.deaths
 
             val goldRank = leaderboardService.getRank("gold", statPlayer)
+            val rebirthsRank = leaderboardService.getRank("rebirths", statPlayer)
             val killsRank = leaderboardService.getRank("kills", statPlayer)
             val recordKillstreakRank = leaderboardService.getRank("recordKillstreak", statPlayer)
             val deathsRank = leaderboardService.getRank("deaths", statPlayer)
@@ -117,18 +119,18 @@ class PlayerStatsMenu : Listener {
                     Material.GOLDEN_SWORD,
                     1,
                     false,
-                    "&eGold &6#$recordKillstreakRank",
+                    "&eRecord killstreak &6#$recordKillstreakRank",
                     "&7Value: ${formatNumber(recordKillstreak)}"
                 )
             )
             inventory.setItem(
                 23,
                 ItemUtils.itemBuilder(
-                    Material.AMETHYST_SHARD,
+                    Material.CHERRY_SAPLING,
                     1,
                     false,
-                    "&eRebirths",
-                    "&7Test!"
+                    "&eRebirths &6#$rebirthsRank",
+                    "&7Value: ${formatNumber(rebirths)}"
                 )
             )
             inventory.setItem(

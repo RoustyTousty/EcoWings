@@ -9,7 +9,9 @@ data class PlayerData(
     var isBuildMode: Boolean = false,
 
     var gold: Int = 0,
+    var rebirthTokens: Int = 0,
 
+    var rebirths: Int = 0,
     var kills: Int = 0,
     var deaths: Int = 0,
     var killstreak: Int = 0,

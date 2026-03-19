@@ -17,7 +17,8 @@ class LeaderboardService(
         "kills",
         "gold",
         "deaths",
-        "recordKillstreak"
+        "recordKillstreak",
+        "rebirths"
     )
 
     init {

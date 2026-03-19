@@ -84,7 +84,9 @@ class MongoPlayerRepository : PlayerRepository {
             isBuildMode = doc.getBoolean("isBuildMode", false),
 
             gold = doc.getInteger("gold", 0),
+            rebirthTokens = doc.getInteger("rebirthTokens", 0),
 
+            rebirths = doc.getInteger("rebirths", 0),
             kills = doc.getInteger("kills", 0),
             deaths = doc.getInteger("deaths", 0),
             killstreak = doc.getInteger("killstreak", 0),
@@ -110,7 +112,9 @@ class MongoPlayerRepository : PlayerRepository {
             .append("isBuildMode", playerData.isBuildMode)
 
             .append("gold", playerData.gold)
+            .append("rebirthTokens", playerData.rebirthTokens)
 
+            .append("rebirths", playerData.rebirths)
             .append("kills", playerData.kills)
             .append("deaths", playerData.deaths)
             .append("killstreak", playerData.killstreak)

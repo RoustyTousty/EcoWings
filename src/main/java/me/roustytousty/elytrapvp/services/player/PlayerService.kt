@@ -17,7 +17,9 @@ class PlayerService(
         "isBuildMode" to { it.isBuildMode },
 
         "gold" to { it.gold },
+        "rebirthTokens" to { it.rebirthTokens },
 
+        "rebirths" to { it.rebirths },
         "kills" to { it.kills },
         "deaths" to { it.deaths },
         "killstreak" to { it.killstreak },

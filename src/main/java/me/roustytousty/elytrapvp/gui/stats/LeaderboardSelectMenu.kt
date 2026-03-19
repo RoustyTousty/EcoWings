@@ -25,9 +25,10 @@ class LeaderboardSelectMenu : Listener {
 
         when (e.rawSlot) {
             11 -> LeaderboardMenu.openInventory(p, "kills")
-            12 -> LeaderboardMenu.openInventory(p, "topKillstreak")
-            13 -> LeaderboardMenu.openInventory(p, "gold")
-            15 -> LeaderboardMenu.openInventory(p, "deaths")
+            12 -> LeaderboardMenu.openInventory(p, "recordKillstreak")
+            13 -> LeaderboardMenu.openInventory(p, "deaths")
+            14 -> LeaderboardMenu.openInventory(p, "rebirths")
+            15 -> LeaderboardMenu.openInventory(p, "gold")
 
             18 -> StatsMenu.openInventory(p)
         }
@@ -58,7 +59,7 @@ class LeaderboardSelectMenu : Listener {
             inventory.setItem(
                 11,
                 itemBuilder(
-                    Material.IRON_SWORD,
+                    Material.WOODEN_SWORD,
                     1,
                     false,
                     "&eKills",
@@ -71,28 +72,38 @@ class LeaderboardSelectMenu : Listener {
                     Material.GOLDEN_SWORD,
                     1,
                     false,
-                    "&eKillstreak",
-                    "&7Top players for killstreak!"
+                    "&eRecord killstreak",
+                    "&7Top players for record killstreak!"
                 )
             )
             inventory.setItem(
                 13,
-                itemBuilder(
-                    Material.GOLD_BLOCK,
-                    1,
-                    false,
-                    "&eGold",
-                    "&7Top players for gold!"
-                )
-            )
-            inventory.setItem(
-                15,
                 itemBuilder(
                     Material.SKELETON_SKULL,
                     1,
                     false,
                     "&eDeaths",
                     "&7Top players for deaths!"
+                )
+            )
+            inventory.setItem(
+                14,
+                itemBuilder(
+                    Material.CHERRY_SAPLING,
+                    1,
+                    false,
+                    "&eRebirths",
+                    "&7Top players for rebirths!"
+                )
+            )
+            inventory.setItem(
+                15,
+                itemBuilder(
+                    Material.GOLD_BLOCK,
+                    1,
+                    false,
+                    "&eGold",
+                    "&7Top players for gold!"
                 )
             )
 
