@@ -95,7 +95,9 @@ class MongoPlayerRepository : PlayerRepository {
             leggingsLevel = doc.getInteger("leggingsLevel", 0),
             bootsLevel = doc.getInteger("bootsLevel", 0),
             swordLevel = doc.getInteger("swordLevel", 0),
-            shearsLevel = doc.getInteger("shearsLevel", 0)
+            shearsLevel = doc.getInteger("shearsLevel", 0),
+            pickaxeLevel = doc.getInteger("pickaxeLevel", 0),
+            axeLevel = doc.getInteger("axeLevel", 0)
         )
     }
 
@@ -120,5 +122,7 @@ class MongoPlayerRepository : PlayerRepository {
             .append("bootsLevel", playerData.bootsLevel)
             .append("swordLevel", playerData.swordLevel)
             .append("shearsLevel", playerData.shearsLevel)
+            .append("pickaxeLevel", playerData.pickaxeLevel)
+            .append("axeLevel", playerData.axeLevel)
     }
 }

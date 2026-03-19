@@ -25,6 +25,8 @@ class KitService(
         applyArmor(player, data)
         applyItem(player, data, UpgradeType.SWORD)
         applyItem(player, data, UpgradeType.SHEARS)
+        applyItem(player, data, UpgradeType.PICKAXE)
+        applyItem(player, data, UpgradeType.AXE)
 
         ensureBlocks(player)
     }

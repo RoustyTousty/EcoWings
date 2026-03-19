@@ -25,14 +25,14 @@ class UpgradeService(
         val section = UpgradeConfig.getConfig().getConfigurationSection("upgrades.${type.configKey}.$nextLevel")
 
         if (section == null) {
-            MessageUtils.sendError(player, "&cThis item is already maxed!")
+            MessageUtils.sendError(player, "&fThis item is already &c&lMAXED &fand cannot be upgraded further.")
             return
         }
 
         val cost = section.getInt("cost")
 
         if (playerData.gold < cost) {
-            MessageUtils.sendError(player, "&fNot enough gold! You need &6${cost}g")
+            MessageUtils.sendError(player, "&fNot enough gold! You need &6&l${cost}g &fto upgrade!")
             player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
             return
         }
@@ -41,7 +41,7 @@ class UpgradeService(
 
         type.setLevel(playerData, nextLevel)
 
-        MessageUtils.sendSuccess(player, "&fUpgrade successful! ${type.displayName} &fis now level &6$nextLevel")
+        MessageUtils.sendSuccess(player, "&fUpgrade &a&lsuccessful&f! &6&l${type.displayName} &fis now upgraded!")
         player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f)
     }
 

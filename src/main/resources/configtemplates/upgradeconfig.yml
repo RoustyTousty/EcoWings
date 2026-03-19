@@ -3,7 +3,7 @@ upgrades:
   helmet:
     0:
       material: AIR
-      name: "&f"
+      name: "&fHelmet"
     1:
       material: LEATHER_HELMET
       name: "&fHelmet &6[&fT1&6]"
@@ -67,7 +67,7 @@ upgrades:
   leggings:
     0:
       material: AIR
-      name: "&f"
+      name: "&fHelmet"
     1:
       material: LEATHER_LEGGINGS
       name: "&fLeggings &6[&fT1&6]"
@@ -101,7 +101,7 @@ upgrades:
   boots:
     0:
       material: AIR
-      name: "&f"
+      name: "&fHelmet"
     1:
       material: LEATHER_BOOTS
       name: "&fBoots &6[&fT1&6]"
@@ -164,29 +164,52 @@ upgrades:
 
   shears:
     0:
+      material: AIR
+      name: "&fShears"
+    1:
       material: SHEARS
       name: "&fShears &6[&fT1&6]"
-    1:
+      cost: 100
+    2:
       material: SHEARS
       name: "&fShears &6[&fT2&6]"
       enchants:
         EFFICIENCY: 1
       cost: 100
-    2:
+    3:
       material: SHEARS
       name: "&fShears &6[&fT3&6]"
       enchants:
         EFFICIENCY: 2
       cost: 250
-    3:
+    4:
       material: SHEARS
       name: "&fShears &6[&fT4&6]"
       enchants:
         EFFICIENCY: 3
       cost: 500
-    4:
+    5:
       material: SHEARS
       name: "&fShears &6[&fT5&6]"
       enchants:
         EFFICIENCY: 4
       cost: 850
+
+
+  pickaxe:
+    0:
+      material: AIR
+      name: "&fPickaxe"
+    1:
+      material: WOODEN_PICKAXE
+      name: "&fPickaxe &6[&fT1&6]"
+      cost: 100
+
+  axe:
+    0:
+      material: AIR
+      name: "&fAxe"
+    1:
+      material: WOODEN_AXE
+      name: "&fAxe &6[&fT1&6]"
+      cost: 100

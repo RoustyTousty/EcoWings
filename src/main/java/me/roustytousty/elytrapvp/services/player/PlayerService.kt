@@ -28,7 +28,9 @@ class PlayerService(
         "leggingsLevel" to { it.leggingsLevel },
         "bootsLevel" to { it.bootsLevel },
         "swordLevel" to { it.swordLevel },
-        "shearsLevel" to { it.shearsLevel }
+        "shearsLevel" to { it.shearsLevel },
+        "pickaxeLevel" to { it.pickaxeLevel },
+        "axeLevel" to { it.axeLevel }
     )
 
 

@@ -27,21 +27,18 @@ class UpgradeMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        val itemMeta = clickedItem.itemMeta ?: return
-        val itemName = itemMeta.displayName
+        val type = UpgradeType.values().firstOrNull { it.slot == e.rawSlot } ?: return
 
-        if (itemName.contains("MAXED", ignoreCase = true)) {
+        val playerData = Services.playerService.getOrCreatePlayerData(p)
+        val next = Services.upgradeService.getNextUpgradeData(playerData, type)
+
+        if (next.maxed) {
             MessageUtils.sendError(p, "&fThis item is already &c&lMAXED &fand cannot be upgraded further.")
             p.playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
             return
         }
 
-        for (type in UpgradeType.values()) {
-            if (e.rawSlot == type.slot) {
-                ConfirmUpgradeMenu.openInventory(p, type)
-                return
-            }
-        }
+        ConfirmUpgradeMenu.openInventory(p, type)
     }
 
     @EventHandler
@@ -76,13 +73,29 @@ class UpgradeMenu : Listener {
                 val current = Services.upgradeService.getCurrentUpgradeData(playerData, type)
                 val next = Services.upgradeService.getNextUpgradeData(playerData, type)
 
-                if (current.maxed) {
+                if (next.maxed) {
 
                     inventory.setItem(
                         type.slot,
                         itemBuilder(
                             current.item,
                             "${current.item.itemMeta?.displayName} &c&lMAXED"
+                        )
+                    )
+
+                } else if (current.item.type == Material.AIR) {
+
+                    inventory.setItem(
+                        type.slot,
+                        itemBuilder(
+                            Material.GRAY_STAINED_GLASS_PANE,
+                            1,
+                            false,
+                            "&f${type.displayName} &6[&fT0&6]",
+                            "",
+                            "&fUpgrade: &6${next.cost}g",
+                            "",
+                            "&7Click to upgrade!"
                         )
                     )
 
@@ -94,8 +107,7 @@ class UpgradeMenu : Listener {
                             current.item,
                             null,
                             "",
-                            "&fNext Level: &6${next.level}",
-                            "&fCost: &6${next.cost}g",
+                            "&fUpgrade: &6${next.cost}g",
                             "",
                             "&7Click to upgrade!"
                         )

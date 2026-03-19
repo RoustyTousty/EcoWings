@@ -20,5 +20,7 @@ data class PlayerData(
     var leggingsLevel: Int = 0,
     var bootsLevel: Int = 0,
     var swordLevel: Int = 0,
-    var shearsLevel: Int = 0
+    var shearsLevel: Int = 0,
+    var pickaxeLevel: Int = 0,
+    var axeLevel: Int = 0
 )

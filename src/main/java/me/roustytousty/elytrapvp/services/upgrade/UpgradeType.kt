@@ -15,7 +15,7 @@ enum class UpgradeType(
     HELMET(
         "helmet",
         Material.LEATHER_HELMET,
-        "&eHelmet",
+        "Helmet",
         12,
         { it.helmetLevel },
         { data, value -> data.helmetLevel = value }
@@ -24,7 +24,7 @@ enum class UpgradeType(
     ELYTRA(
         "elytra",
         Material.ELYTRA,
-        "&eElytra",
+        "Elytra",
         21,
         { it.elytraLevel },
         { data, value -> data.elytraLevel = value }
@@ -33,7 +33,7 @@ enum class UpgradeType(
     LEGGINGS(
         "leggings",
         Material.LEATHER_LEGGINGS,
-        "&eLeggings",
+        "Leggings",
         30,
         { it.leggingsLevel },
         { data, value -> data.leggingsLevel = value }
@@ -42,7 +42,7 @@ enum class UpgradeType(
     BOOTS(
         "boots",
         Material.LEATHER_BOOTS,
-        "&eBoots",
+        "Boots",
         39,
         { it.bootsLevel },
         { data, value -> data.bootsLevel = value }
@@ -51,7 +51,7 @@ enum class UpgradeType(
     SWORD(
         "sword",
         Material.WOODEN_SWORD,
-        "&eSword",
+        "Sword",
         14,
         { it.swordLevel },
         { data, value -> data.swordLevel = value }
@@ -60,10 +60,28 @@ enum class UpgradeType(
     SHEARS(
         "shears",
         Material.SHEARS,
-        "&eShears",
+        "Shears",
         23,
         { it.shearsLevel },
         { data, value -> data.shearsLevel = value }
+    ),
+
+    PICKAXE(
+        "pickaxe",
+        Material.WOODEN_PICKAXE,
+        "Pickaxe",
+        32,
+        { it.pickaxeLevel },
+        { data, value -> data.pickaxeLevel = value }
+    ),
+
+    AXE(
+        "axe",
+        Material.WOODEN_AXE,
+        "Axe",
+        41,
+        { it.axeLevel },
+        { data, value -> data.axeLevel = value }
     );
 
     fun getLevel(data: PlayerData): Int {

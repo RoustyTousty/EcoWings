@@ -56,10 +56,8 @@ class ElytraPVP : JavaPlugin() {
     }
 
     override fun onDisable() {
-
-        // TODO: Save all cache before DB closes
+        // TODO: LOOP ALL PLAYERS AND SAVE DATA
         MongoManager.close()
-
         logger.info("Disabled Plugin!")
     }
 
@@ -84,6 +82,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnPlayerDrop(), this)
         pluginmanager.registerEvents(OnInventoryClick(), this)
         pluginmanager.registerEvents(OnPlayerInteractEntity(), this)
+        pluginmanager.registerEvents(OnPlayerInteract(), this)
         pluginmanager.registerEvents(OnWarTableClick(), this)
         pluginmanager.registerEvents(OnEntityExplode(), this)
 
@@ -127,6 +126,7 @@ class ElytraPVP : JavaPlugin() {
         getCommand("feed")?.setExecutor(FeedCommand())
         getCommand("buildmode")?.setExecutor(BuildModeCommand())
         getCommand("setgold")?.setExecutor(SetGoldCommand())
+        getCommand("setkitlevel")?.setExecutor(SetKitLevelCommand())
         getCommand("eventactivate")?.setExecutor(EventActivateCommand())
     }
 

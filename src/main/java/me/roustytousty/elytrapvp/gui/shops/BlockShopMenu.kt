@@ -76,11 +76,11 @@ class BlockShopMenu : Listener {
             inventory.setItem(
                 12,
                 itemBuilder(
-                    Material.YELLOW_WOOL,
+                    Material.LIGHT_GRAY_WOOL,
                     1,
                     false,
-                    "&eYellow wool &6x16",
-                    "&7Has to be broken 2x times!",
+                    "&eLight gray wool &6x16",
+                    "&7Can't turn to dust!",
                     "",
                     "&fPrice: &63g",
                     "",
@@ -90,11 +90,11 @@ class BlockShopMenu : Listener {
             inventory.setItem(
                 13,
                 itemBuilder(
-                    Material.ORANGE_WOOL,
+                    Material.OAK_PLANKS,
                     1,
                     false,
-                    "&eOrange wool &6x16",
-                    "&7Strongest type of wool!",
+                    "&eOak planks &6x16",
+                    "&7Simple wood planks!",
                     "",
                     "&fPrice: &610g",
                     "",
@@ -104,11 +104,11 @@ class BlockShopMenu : Listener {
             inventory.setItem(
                 14,
                 itemBuilder(
-                    Material.WHITE_CONCRETE,
+                    Material.STONE_BRICKS,
                     1,
                     false,
-                    "&eWhite concrete &6x16",
-                    "&7Lasts for 30 seconds!",
+                    "&eStone bricks &6x16",
+                    "&7Simple stone bricks!",
                     "",
                     "&fPrice: &66g",
                     "",
@@ -118,10 +118,10 @@ class BlockShopMenu : Listener {
             inventory.setItem(
                 15,
                 itemBuilder(
-                    Material.YELLOW_CONCRETE,
+                    Material.DEEPSLATE_BRICKS,
                     1,
                     false,
-                    "&eYellow concrete &6x16",
+                    "&eStronger stone bricks &6x16",
                     "&7Lasts for 1 minute!",
                     "",
                     "&fPrice: &612g",
