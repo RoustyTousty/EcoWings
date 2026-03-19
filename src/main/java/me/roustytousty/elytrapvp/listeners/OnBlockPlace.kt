@@ -24,18 +24,17 @@ class OnBlockPlace : Listener {
         val playerData = Services.playerService.getOrCreatePlayerData(player)
 
         val buildmode = playerData.isBuildMode
-        if (buildmode) {
-            return
-        }
+        if (buildmode) return
+
 
         val blockLocation = event.block.location
-        val isInBuildRegion = RegionUtils.isLocationInRegion(blockLocation, "buildRegion")
+        val isInSpawn = RegionUtils.isLocationInRegion(blockLocation, "spawnRegion")
         val isInBuildBufferRegion = RegionUtils.isLocationInRegion(blockLocation, "buildBufferRegion")
 
-        if (!isInBuildRegion || isInBuildBufferRegion) {
+        if (isInSpawn || isInBuildBufferRegion) {
             event.isCancelled = true
-            MessageUtils.sendMessage(player, "&fYou can't place blocks here!")
-            player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
+            MessageUtils.sendError(player, "&fYou can't place blocks in spawn!")
+            player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
             return
         }
 

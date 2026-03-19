@@ -123,13 +123,13 @@ class ElytraPVP : JavaPlugin() {
         getCommand("discord")?.setExecutor(DiscordCommand())
 
         // Staff commands
-        getCommand("reloadcache")?.setExecutor(ReloadCacheCommand())
         getCommand("reloadupgradeconfig")?.setExecutor(ReloadUpgradeConfigCommand())
         getCommand("feed")?.setExecutor(FeedCommand())
         getCommand("buildmode")?.setExecutor(BuildModeCommand())
         getCommand("setgold")?.setExecutor(SetGoldCommand())
         getCommand("setkitlevel")?.setExecutor(SetKitLevelCommand())
         getCommand("eventactivate")?.setExecutor(EventActivateCommand())
+        getCommand("mapreset")?.setExecutor(MapResetCommand())
     }
 
     private fun setupConfigsOnEnable() {

@@ -24,6 +24,10 @@ class MapResetService {
         return String.format("%02d:%02d", minutes, seconds)
     }
 
+    fun resetMapRegion() {
+        RegionUtils.resetRegion(REGION_NAME)
+    }
+
     private inner class ResetTask : BukkitRunnable() {
 
         override fun run() {

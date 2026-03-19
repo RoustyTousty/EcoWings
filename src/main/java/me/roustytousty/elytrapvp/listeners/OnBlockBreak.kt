@@ -31,13 +31,13 @@ class OnBlockBreak : Listener {
         }
 
         val blockLocation = event.block.location
-        val isInBuildRegion = RegionUtils.isLocationInRegion(blockLocation, "buildRegion")
+        val isInSpawn = RegionUtils.isLocationInRegion(blockLocation, "spawnRegion")
         val isInBuildBufferRegion = RegionUtils.isLocationInRegion(blockLocation, "buildBufferRegion")
 
-        if (!isInBuildRegion || isInBuildBufferRegion) {
+        if (isInSpawn || isInBuildBufferRegion) {
             event.isCancelled = true
-            MessageUtils.sendMessage(player, "&fYou cant break blocks here!")
-            player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
+            MessageUtils.sendError(player, "&fYou can't break blocks in spawn!")
+            player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
             return
         }
 

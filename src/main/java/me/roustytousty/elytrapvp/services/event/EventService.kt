@@ -44,9 +44,6 @@ class EventService {
         }
 
         val event = findEventInstance(eventName)
-        println(event)
-        println(events)
-        println(activeEvents)
         if (event != null) {
             event.activate()
             event.endTime = System.currentTimeMillis() + (event.duration * 1000L)
