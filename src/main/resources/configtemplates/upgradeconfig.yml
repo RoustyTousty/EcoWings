@@ -7,31 +7,31 @@ upgrades:
     1:
       material: LEATHER_HELMET
       name: "&fHelmet &6[&fT1&6]"
-      cost: 100
+      cost: 50
     2:
       material: LEATHER_HELMET
       name: "&fHelmet &6[&fT2&6]"
       enchants:
         PROTECTION: 1
-      cost: 250
+      cost: 150
     3:
       material: LEATHER_HELMET
       name: "&fHelmet &6[&fT3&6]"
       enchants:
         PROTECTION: 2
-      cost: 500
+      cost: 300
     4:
       material: LEATHER_HELMET
       name: "&fHelmet &6[&fT4&6]"
       enchants:
         PROTECTION: 3
-      cost: 1000
+      cost: 600
     5:
       material: LEATHER_HELMET
       name: "&fHelmet &6[&fT5&6]"
       enchants:
         PROTECTION: 4
-      cost: 1500
+      cost: 1200
 
 
   elytra:
@@ -43,25 +43,25 @@ upgrades:
       name: "&fElytra &6[&fT2&6]"
       enchants:
         PROTECTION: 1
-      cost: 200
+      cost: 150
     2:
       material: ELYTRA
       name: "&fElytra &6[&fT3&6]"
       enchants:
         PROTECTION: 2
-      cost: 500
+      cost: 400
     3:
       material: ELYTRA
       name: "&fElytra &6[&fT4&6]"
       enchants:
         PROTECTION: 3
-      cost: 1000
+      cost: 800
     4:
       material: ELYTRA
       name: "&fElytra &6[&fT5&6]"
       enchants:
         PROTECTION: 4
-      cost: 1500
+      cost: 1400
 
 
   leggings:
@@ -77,25 +77,25 @@ upgrades:
       name: "&fLeggings &6[&fT2&6]"
       enchants:
         PROTECTION: 1
-      cost: 250
+      cost: 200
     3:
       material: LEATHER_LEGGINGS
       name: "&fLeggings &6[&fT3&6]"
       enchants:
         PROTECTION: 2
-      cost: 500
+      cost: 400
     4:
       material: LEATHER_LEGGINGS
       name: "&fLeggings &6[&fT4&6]"
       enchants:
         PROTECTION: 3
-      cost: 1000
+      cost: 800
     5:
       material: LEATHER_LEGGINGS
       name: "&fLeggings &6[&fT5&6]"
       enchants:
         PROTECTION: 4
-      cost: 1500
+      cost: 1200
 
 
   boots:
@@ -105,31 +105,31 @@ upgrades:
     1:
       material: LEATHER_BOOTS
       name: "&fBoots &6[&fT1&6]"
-      cost: 100
+      cost: 50
     2:
       material: LEATHER_BOOTS
       name: "&fBoots &6[&fT2&6]"
       enchants:
         PROTECTION: 1
-      cost: 250
+      cost: 150
     3:
       material: LEATHER_BOOTS
       name: "&fBoots &6[&fT3&6]"
       enchants:
         PROTECTION: 2
-      cost: 500
+      cost: 300
     4:
       material: LEATHER_BOOTS
       name: "&fBoots &6[&fT4&6]"
       enchants:
         PROTECTION: 3
-      cost: 1000
+      cost: 600
     5:
       material: LEATHER_BOOTS
       name: "&fBoots &6[&fT5&6]"
       enchants:
         PROTECTION: 4
-      cost: 1500
+      cost: 1200
 
 
   sword:
@@ -159,7 +159,7 @@ upgrades:
       name: "&fSword &6[&fT5&6]"
       enchants:
         SHARPNESS: 4
-      cost: 1300
+      cost: 1400
 
 
   shears:
@@ -175,25 +175,25 @@ upgrades:
       name: "&fShears &6[&fT2&6]"
       enchants:
         EFFICIENCY: 1
-      cost: 100
+      cost: 200
     3:
       material: SHEARS
       name: "&fShears &6[&fT3&6]"
       enchants:
         EFFICIENCY: 2
-      cost: 250
+      cost: 400
     4:
       material: SHEARS
       name: "&fShears &6[&fT4&6]"
       enchants:
         EFFICIENCY: 3
-      cost: 500
+      cost: 800
     5:
       material: SHEARS
       name: "&fShears &6[&fT5&6]"
       enchants:
         EFFICIENCY: 4
-      cost: 850
+      cost: 1400
 
 
   pickaxe:
@@ -203,31 +203,31 @@ upgrades:
     1:
       material: WOODEN_PICKAXE
       name: "&fPickaxe &6[&fT1&6]"
-      cost: 100
+      cost: 50
     2:
       material: WOODEN_PICKAXE
       name: "&fPickaxe &6[&fT2&6]"
       enchants:
         EFFICIENCY: 1
-      cost: 100
+      cost: 150
     3:
       material: WOODEN_PICKAXE
       name: "&fPickaxe &6[&fT3&6]"
       enchants:
         EFFICIENCY: 2
-      cost: 250
+      cost: 300
     4:
       material: WOODEN_PICKAXE
       name: "&fPickaxe &6[&fT4&6]"
       enchants:
         EFFICIENCY: 3
-      cost: 500
+      cost: 600
     5:
       material: WOODEN_PICKAXE
       name: "&fPickaxe &6[&fT5&6]"
       enchants:
         EFFICIENCY: 4
-      cost: 850
+      cost: 1200
 
   axe:
     0:
@@ -236,28 +236,28 @@ upgrades:
     1:
       material: WOODEN_AXE
       name: "&fAxe &6[&fT1&6]"
-      cost: 100
+      cost: 50
     2:
       material: WOODEN_AXE
       name: "&fAxe &6[&fT2&6]"
       enchants:
         EFFICIENCY: 1
-      cost: 100
+      cost: 150
     3:
       material: WOODEN_AXE
       name: "&fAxe &6[&fT3&6]"
       enchants:
         EFFICIENCY: 2
-      cost: 250
+      cost: 300
     4:
       material: WOODEN_AXE
       name: "&fAxe &6[&fT4&6]"
       enchants:
         EFFICIENCY: 3
-      cost: 500
+      cost: 600
     5:
       material: WOODEN_AXE
       name: "&fAxe &6[&fT5&6]"
       enchants:
         EFFICIENCY: 4
-      cost: 850
+      cost: 1200

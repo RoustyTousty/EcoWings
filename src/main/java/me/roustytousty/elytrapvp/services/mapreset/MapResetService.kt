@@ -7,7 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable
 
 class MapResetService {
 
-    private val RESET_INTERVAL_SECONDS = 40 * 60
+    private val RESET_INTERVAL_SECONDS = 60 * 60
     private val REGION_NAME = "pvpRegion"
 
     init {

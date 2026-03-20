@@ -22,6 +22,8 @@ class KitService(
     fun syncKit(player: Player) {
         val data = playerService.getOrCreatePlayerData(player)
 
+        purgeInvalidItems(player)
+
         applyArmor(player, data)
         applyItem(player, data, UpgradeType.SWORD)
         applyItem(player, data, UpgradeType.SHEARS)
@@ -64,10 +66,21 @@ class KitService(
 
         if (existingSlot != -1) {
             inv.setItem(existingSlot, item)
-        } else {
-            val empty = inv.firstEmpty()
-            if (empty != -1) {
-                inv.setItem(empty, item)
+            return
+        }
+
+        val empty = inv.firstEmpty()
+        if (empty != -1) {
+            inv.setItem(empty, item)
+            return
+        }
+
+        for ((index, stack) in inv.contents.withIndex()) {
+            if (stack == null) continue
+
+            if (!isKitItem(stack)) {
+                inv.setItem(index, item)
+                return
             }
         }
     }
@@ -76,22 +89,41 @@ class KitService(
     private fun ensureBlocks(player: Player) {
         val buildingBlocks = setOf(
             Material.WHITE_WOOL,
-            Material.YELLOW_WOOL,
-            Material.ORANGE_WOOL,
-            Material.WHITE_CONCRETE,
-            Material.YELLOW_CONCRETE
+            Material.OAK_PLANKS,
+            Material.LIGHT_GRAY_WOOL,
+            Material.STONE_BRICKS,
+            Material.DEEPSLATE_BRICKS
         )
 
         val hasBlocks = player.inventory.contents.any { it?.type in buildingBlocks }
 
         if (!hasBlocks) {
-            val stack = ItemStack(Material.WHITE_WOOL, 16)
+            val stack = ItemStack(Material.WHITE_WOOL, 32)
             val slot = player.inventory.firstEmpty()
 
             if (slot != -1) {
                 player.inventory.setItem(slot, stack)
             } else {
                 player.world.dropItem(player.location, stack)
+            }
+        }
+    }
+
+    private fun purgeInvalidItems(player: Player) {
+        val inv = player.inventory
+
+        val kitMaterials = setOf(
+            Material.WOODEN_SWORD, Material.WOODEN_PICKAXE, Material.WOODEN_AXE, Material.SHEARS,
+            Material.LEATHER_HELMET, Material.ELYTRA, Material.LEATHER_LEGGINGS, Material.LEATHER_BOOTS
+        )
+
+        inv.contents.forEachIndexed { index, item ->
+            if (item == null) return@forEachIndexed
+
+            val isKitMaterial = item.type in kitMaterials
+
+            if (isKitMaterial && !isKitItem(item)) {
+                inv.setItem(index, null)
             }
         }
     }

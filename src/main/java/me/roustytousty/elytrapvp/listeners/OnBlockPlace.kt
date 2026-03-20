@@ -31,7 +31,7 @@ class OnBlockPlace : Listener {
         val isInSpawn = RegionUtils.isLocationInRegion(blockLocation, "spawnRegion")
         val isInBuildBufferRegion = RegionUtils.isLocationInRegion(blockLocation, "buildBufferRegion")
 
-        if (isInSpawn || isInBuildBufferRegion) {
+        if (isInSpawn || isInBuildBufferRegion || blockLocation.y < 85) {
             event.isCancelled = true
             MessageUtils.sendError(player, "&fYou can't place blocks in spawn!")
             player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1f, 1f)

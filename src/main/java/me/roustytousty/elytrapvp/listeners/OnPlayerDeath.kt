@@ -14,18 +14,18 @@ import org.bukkit.event.entity.PlayerDeathEvent
 class OnPlayerDeath : Listener {
 
     private val playerService = Services.playerService
+    private val combatService = Services.combatService
 
     @EventHandler
     fun onPlayerDeath(event: PlayerDeathEvent) {
         val victim = event.entity
-        val killer = victim.killer
 
-        if (killer is Player) {
+        val killer = combatService.getLastAttacker(victim)
 
+        if (killer != null) {
             calculateKillerStats(killer)
 
             killer.health = (killer.health + 3).coerceAtMost(killer.maxHealth)
-
             killer.playSound(killer, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
 
             event.deathMessage(
@@ -37,6 +37,7 @@ class OnPlayerDeath : Listener {
             )
         }
 
+        combatService.clear(victim)
         calculateVictimStats(victim)
     }
 

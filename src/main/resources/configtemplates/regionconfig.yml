@@ -25,7 +25,7 @@ regions:
     pos1:
       world: EcoWings
       x: -5
-      y: 136
+      y: 135
       z: 167
     pos2:
       world: EcoWings
@@ -87,3 +87,14 @@ regions:
       x: 5
       y: 138
       z: 192
+  spawnEntrance:
+    pos1:
+      world: EcoWings
+      x: -3
+      y: 142
+      z: 171
+    pos2:
+      world: EcoWings
+      x: 2
+      y: 137
+      z: 171

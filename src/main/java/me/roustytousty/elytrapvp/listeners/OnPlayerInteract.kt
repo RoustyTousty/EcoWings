@@ -11,24 +11,6 @@ import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 
 class OnPlayerInteract : Listener {
-    private val blockedInteractables = setOf(
-        Material.CHEST,
-        Material.TRAPPED_CHEST,
-        Material.BARREL,
-        Material.FURNACE,
-        Material.BLAST_FURNACE,
-        Material.SMOKER,
-        Material.HOPPER,
-        Material.DROPPER,
-        Material.DISPENSER,
-
-        Material.SPRUCE_DOOR,
-        Material.SPRUCE_TRAPDOOR,
-        Material.SPRUCE_FENCE_GATE,
-        Material.SPRUCE_SIGN,
-        Material.SPRUCE_BUTTON,
-        Material.LEVER
-    )
 
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
@@ -44,7 +26,7 @@ class OnPlayerInteract : Listener {
 
         if (event.action != Action.RIGHT_CLICK_BLOCK) return
 
-        if (block.type.isInteractable) {
+        if (block.type.isInteractable && block.type != Material.TNT) {
             event.isCancelled = true
         }
     }

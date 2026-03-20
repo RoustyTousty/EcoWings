@@ -4,6 +4,7 @@ import me.roustytousty.elytrapvp.data.cache.LeaderboardCache
 import me.roustytousty.elytrapvp.data.cache.PlayerCache
 import me.roustytousty.elytrapvp.data.repository.PlayerRepository
 import me.roustytousty.elytrapvp.data.repository.MongoPlayerRepository
+import me.roustytousty.elytrapvp.services.combat.CombatService
 import me.roustytousty.elytrapvp.services.event.EventService
 import me.roustytousty.elytrapvp.services.kit.KitService
 import me.roustytousty.elytrapvp.services.leaderboard.LeaderboardService
@@ -51,6 +52,9 @@ object Services {
         private set
 
     lateinit var kitService: KitService
+        private set
+
+    lateinit var combatService: CombatService
         private set
 
     lateinit var scoreboardService: ScoreboardService
@@ -110,5 +114,7 @@ object Services {
             mapResetService = mapResetService,
             eventService = eventService
         )
+
+        combatService = CombatService()
     }
 }

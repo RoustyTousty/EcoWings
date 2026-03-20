@@ -1,5 +1,6 @@
 package me.roustytousty.elytrapvp.listeners
 
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.RegionUtils
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -8,15 +9,27 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 class OnPlayerDamage : Listener {
 
+    private val combatService = Services.combatService
+
     @EventHandler
     fun onPlayerDamage(event: EntityDamageByEntityEvent) {
-        val attacker = event.damager as? Player ?: return
         val victim = event.entity as? Player ?: return
 
-        if (!RegionUtils.isLocationInRegion(attacker.location, "spawnRegion") && !RegionUtils.isLocationInRegion(victim.location, "spawnRegion")) {
+        val attacker = when (val damager = event.damager) {
+            is Player -> damager
+            is org.bukkit.entity.Projectile -> damager.shooter as? Player
+            is org.bukkit.entity.TNTPrimed -> damager.source as? Player
+            else -> null
+        } ?: return
+
+        val attackerInSpawn = RegionUtils.isLocationInRegion(attacker.location, "spawnRegion")
+        val victimInSpawn = RegionUtils.isLocationInRegion(victim.location, "spawnRegion")
+
+        if (attackerInSpawn || victimInSpawn) {
+            event.isCancelled = true
             return
         }
 
-        event.isCancelled = true
+        combatService.tag(victim, attacker)
     }
 }
