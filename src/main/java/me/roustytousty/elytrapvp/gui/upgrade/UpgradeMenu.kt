@@ -27,6 +27,12 @@ class UpgradeMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
+        if (e.rawSlot == 45) {
+            p.closeInventory()
+            p.playSound(p, Sound.UI_BUTTON_CLICK, 1f, 1f)
+            return
+        }
+
         val type = UpgradeType.values().firstOrNull { it.slot == e.rawSlot } ?: return
 
         val playerData = Services.playerService.getOrCreatePlayerData(p)
@@ -121,7 +127,7 @@ class UpgradeMenu : Listener {
                     Material.RED_STAINED_GLASS_PANE,
                     1,
                     false,
-                    "&cBack"
+                    "&cClose"
                 )
             )
         }

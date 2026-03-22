@@ -14,6 +14,7 @@ import org.bukkit.event.entity.PlayerDeathEvent
 class OnPlayerDeath : Listener {
 
     private val playerService = Services.playerService
+    private val currencyService = Services.currencyService
     private val combatService = Services.combatService
 
     @EventHandler
@@ -54,8 +55,7 @@ class OnPlayerDeath : Listener {
         killerData.kills += 1
 
         // GOLD
-        killerData.gold += 10
-        MessageUtils.sendActionBar(player, "&6+10g")
+        currencyService.giveGold(player, 10, "KILL")
     }
 
     private fun calculateVictimStats(player: Player) {

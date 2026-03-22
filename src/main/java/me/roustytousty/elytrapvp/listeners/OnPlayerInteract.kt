@@ -12,17 +12,20 @@ import org.bukkit.event.player.PlayerInteractEvent
 
 class OnPlayerInteract : Listener {
 
+    private val playerService = Services.playerService
+    private val regionService = Services.regionService
+
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val player = event.player
-        val playerData = Services.playerService.getOrCreatePlayerData(player)
+        val playerData = playerService.getOrCreatePlayerData(player)
 
         if (playerData.isBuildMode) return
 
         val block = event.clickedBlock ?: return
         val location = block.location
 
-        if (RegionUtils.isLocationInRegion(location, "secretEntrance")) return
+        if (regionService.isInRegion(location, "secretEntrance")) return
 
         if (event.action != Action.RIGHT_CLICK_BLOCK) return
 

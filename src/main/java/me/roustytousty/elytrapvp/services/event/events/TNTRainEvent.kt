@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.services.event.events
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.data.configs.RegionConfig
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.services.event.EventIntefrace
 import me.roustytousty.elytrapvp.utility.RegionUtils
 import org.bukkit.Bukkit
@@ -59,7 +60,7 @@ class TNTRainEvent : EventIntefrace {
 
     private fun targetPlayerInRegion(world: World, min: Location, max: Location) {
         val playersInRegion = Bukkit.getOnlinePlayers().filter { player ->
-            RegionUtils.isLocationInRegion(player.location, pvpRegionName)
+            Services.regionService.isInRegion(player.location, pvpRegionName)
         }
 
         if (playersInRegion.isNotEmpty()) {

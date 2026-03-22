@@ -12,20 +12,20 @@ class OnPlayerInteractEntity : Listener {
     @EventHandler
     fun onPlayerRightClick(event: PlayerInteractEntityEvent) {
 
-        if (event.rightClicked !is Player) {
-            return
-        }
+//        if (event.rightClicked !is Player) {
+//            return
+//        }
+//
+//        val clickedPlayer = event.rightClicked as Player
+//        val player = event.player
+//
+//        if (CitizensAPI.getNPCRegistry().isNPC(clickedPlayer)) {
+//            return
+//        }
 
-        val clickedPlayer = event.rightClicked as Player
-        val player = event.player
-
-        if (CitizensAPI.getNPCRegistry().isNPC(clickedPlayer)) {
-            return
-        }
-
-        if (!RegionUtils.isLocationInRegion(clickedPlayer.location, "spawnRegion") && !RegionUtils.isLocationInRegion(player.location, "spawnRegion")) {
-            return
-        }
+//        if (!RegionUtils.isLocationInRegion(clickedPlayer.location, "spawnRegion") && !RegionUtils.isLocationInRegion(player.location, "spawnRegion")) {
+//            return
+//        }
 
 //        PlayerStatsMenu.openInventory(player, clickedPlayer)
     }

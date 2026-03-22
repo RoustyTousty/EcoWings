@@ -46,17 +46,19 @@ class ElytraPVP : JavaPlugin() {
 
         MongoManager.connect("mongodb+srv://roustytousty:JIEOjRyzV0XxVotF@roustytoustydb.nkqhd.mongodb.net/?retryWrites=true&w=majority&appName=RoustyToustyDB")
 
+        setupConfigsOnEnable()
+
         Services.init(instance!!)
 
         registerEvents()
         registerCommands()
 
-        setupConfigsOnEnable()
-
         logger.info("Plugin Setup!")
     }
 
     override fun onDisable() {
+        Services.goldSpawnService.shutdown()
+
         // TODO: LOOP ALL PLAYERS AND SAVE DATA
         MongoManager.close()
         logger.info("Disabled Plugin!")
@@ -66,7 +68,7 @@ class ElytraPVP : JavaPlugin() {
         // Special items
         pluginmanager.registerEvents(Dusty(), this)
         pluginmanager.registerEvents(RegenApple(), this)
-        pluginmanager.registerEvents(Explosive(), this)
+        pluginmanager.registerEvents(Explosive(this), this)
 
         // Listeners
         pluginmanager.registerEvents(OnPlayerJoin(), this)
@@ -85,7 +87,6 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnPlayerInteractEntity(), this)
         pluginmanager.registerEvents(OnPlayerInteract(), this)
         pluginmanager.registerEvents(OnWarTableClick(), this)
-        pluginmanager.registerEvents(OnEntityExplode(), this)
 
         // GUI
         pluginmanager.registerEvents(ShopMenu(), this)

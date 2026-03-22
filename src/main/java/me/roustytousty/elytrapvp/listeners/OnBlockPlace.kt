@@ -11,29 +11,32 @@ import org.bukkit.event.block.BlockPlaceEvent
 
 class OnBlockPlace : Listener {
 
+    private val playerService = Services.playerService
+    private val regionService = Services.regionService
+
     private val placableMaterials = setOf(
         Material.WHITE_WOOL, Material.LIGHT_GRAY_WOOL, Material.OAK_PLANKS,
-        Material.STONE_BRICKS, Material.DEEPSLATE_BRICKS,
-        Material.TNT
+        Material.STONE_BRICKS, Material.DEEPSLATE_BRICKS, Material.POLISHED_DEEPSLATE,
+        Material.TNT, Material.AIR
     )
 
     @EventHandler
     fun onBlockPlace(event: BlockPlaceEvent) {
         val player = event.player
 
-        val playerData = Services.playerService.getOrCreatePlayerData(player)
+        val playerData = playerService.getOrCreatePlayerData(player)
 
         val buildmode = playerData.isBuildMode
         if (buildmode) return
 
 
         val blockLocation = event.block.location
-        val isInSpawn = RegionUtils.isLocationInRegion(blockLocation, "spawnRegion")
-        val isInBuildBufferRegion = RegionUtils.isLocationInRegion(blockLocation, "buildBufferRegion")
+        val isInSpawn = regionService.isInRegion(blockLocation, "spawnRegion")
+        val isInBuildBufferRegion = regionService.isInRegion(blockLocation, "buildBufferRegion")
 
         if (isInSpawn || isInBuildBufferRegion || blockLocation.y < 85) {
             event.isCancelled = true
-            MessageUtils.sendError(player, "&fYou can't place blocks in spawn!")
+            MessageUtils.sendError(player, "&fYou can't place blocks here!")
             player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
             return
         }

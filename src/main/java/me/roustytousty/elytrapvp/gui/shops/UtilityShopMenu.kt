@@ -31,8 +31,8 @@ class UtilityShopMenu : Listener {
         }
 
         when (e.rawSlot) {
-            11 -> shopService.shopPurchaseItem(p, 20, clickedItem.type, 1)
-            12 -> shopService.shopPurchaseItem(p, 50, clickedItem.type, 1)
+            11 -> shopService.shopPurchaseItem(p, 15, clickedItem.type, 1)
+            12 -> shopService.shopPurchaseItem(p, 30, clickedItem.type, 1)
 
             18 -> ShopMenu.openInventory(p)
         }
@@ -70,7 +70,7 @@ class UtilityShopMenu : Listener {
                     "&7Blocks in 10 block radius",
                     "&7get turned into dust!",
                     "",
-                    "&fCost: &620g",
+                    "&fCost: &615g",
                     "",
                     "&7Click to buy!"
                 )
@@ -85,7 +85,7 @@ class UtilityShopMenu : Listener {
                     "&7Blows up blocks and deals",
                     "&7damage to anyone near by!",
                     "",
-                    "&fCost: &650g",
+                    "&fCost: &630g",
                     "",
                     "&7Click to buy!"
                 )

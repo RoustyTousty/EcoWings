@@ -10,15 +10,15 @@ regions:
       x: 21
       y: 82
       z: 170
-  buildRegion:
+  goldSpawnRegion:
     pos1:
       world: EcoWings
-      x: -28
+      x: -22
       y: 180
-      z: 105
+      z: 127
     pos2:
       world: EcoWings
-      x: 27
+      x: 21
       y: 85
       z: 170
   buildBufferRegion:

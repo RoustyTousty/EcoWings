@@ -28,10 +28,11 @@ class BlockShopMenu : Listener {
 
         when (e.rawSlot) {
             11 -> shopService.shopPurchaseItem(p, 1, clickedItem.type, 16)
-            12 -> shopService.shopPurchaseItem(p, 3, clickedItem.type, 16)
-            13 -> shopService.shopPurchaseItem(p, 10, clickedItem.type, 16)
-            14 -> shopService.shopPurchaseItem(p, 6, clickedItem.type, 16)
-            15 -> shopService.shopPurchaseItem(p, 12, clickedItem.type, 16)
+            12 -> shopService.shopPurchaseItem(p, 2, clickedItem.type, 16)
+            13 -> shopService.shopPurchaseItem(p, 5, clickedItem.type, 16)
+            14 -> shopService.shopPurchaseItem(p, 10, clickedItem.type, 16)
+            15 -> shopService.shopPurchaseItem(p, 16, clickedItem.type, 16)
+            22 -> shopService.shopPurchaseItem(p, 32, clickedItem.type, 16)
 
             18 -> ShopMenu.openInventory(p)
         }
@@ -47,14 +48,14 @@ class BlockShopMenu : Listener {
     companion object {
 
         fun openInventory(player: Player) {
-            val inventory = Bukkit.createInventory(null, 27, "Blocks")
+            val inventory = Bukkit.createInventory(null, 36, "Blocks")
             initItems(inventory)
             player.openInventory(inventory)
             player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
         }
 
         private fun initItems(inventory: Inventory) {
-            val slots = intArrayOf(0, 8, 9, 17, 18, 26)
+            val slots = intArrayOf(0, 8, 9, 17, 18, 26, 35)
             for (slot in slots) {
                 inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
@@ -68,7 +69,7 @@ class BlockShopMenu : Listener {
                     "&eWhite wool &6x16",
                     "&7Just the usual!",
                     "",
-                    "&fPrice: &61g",
+                    "&fCost: &61g",
                     "",
                     "&7Click to buy!"
                 )
@@ -82,7 +83,7 @@ class BlockShopMenu : Listener {
                     "&eLight gray wool &6x16",
                     "&7Can't turn to dust!",
                     "",
-                    "&fPrice: &63g",
+                    "&fCost: &62g",
                     "",
                     "&7Click to buy!"
                 )
@@ -96,7 +97,7 @@ class BlockShopMenu : Listener {
                     "&eOak planks &6x16",
                     "&7Simple wood planks!",
                     "",
-                    "&fPrice: &610g",
+                    "&fCost: &65g",
                     "",
                     "&7Click to buy!"
                 )
@@ -110,7 +111,7 @@ class BlockShopMenu : Listener {
                     "&eStone bricks &6x16",
                     "&7Simple stone bricks!",
                     "",
-                    "&fPrice: &66g",
+                    "&fCost: &610g",
                     "",
                     "&7Click to buy!"
                 )
@@ -121,10 +122,24 @@ class BlockShopMenu : Listener {
                     Material.DEEPSLATE_BRICKS,
                     1,
                     false,
-                    "&eStronger stone bricks &6x16",
-                    "&7Lasts for 1 minute!",
+                    "&eDeepslate bricks &6x16",
+                    "&7Stronger than stone!",
                     "",
-                    "&fPrice: &612g",
+                    "&fCost: &616g",
+                    "",
+                    "&7Click to buy!"
+                )
+            )
+            inventory.setItem(
+                22,
+                itemBuilder(
+                    Material.POLISHED_DEEPSLATE,
+                    1,
+                    false,
+                    "&ePolished deepslate &6x16",
+                    "&7Immune to TNT!",
+                    "",
+                    "&fCost: &632g",
                     "",
                     "&7Click to buy!"
                 )
@@ -132,7 +147,7 @@ class BlockShopMenu : Listener {
 
 
             inventory.setItem(
-                18,
+                27,
                 itemBuilder(
                     Material.RED_STAINED_GLASS_PANE,
                     1,

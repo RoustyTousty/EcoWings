@@ -10,6 +10,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 class OnPlayerDamage : Listener {
 
     private val combatService = Services.combatService
+    private val regionService = Services.regionService
 
     @EventHandler
     fun onPlayerDamage(event: EntityDamageByEntityEvent) {
@@ -22,8 +23,8 @@ class OnPlayerDamage : Listener {
             else -> null
         } ?: return
 
-        val attackerInSpawn = RegionUtils.isLocationInRegion(attacker.location, "spawnRegion")
-        val victimInSpawn = RegionUtils.isLocationInRegion(victim.location, "spawnRegion")
+        val attackerInSpawn = regionService.isInRegion(attacker.location, "spawnRegion")
+        val victimInSpawn = regionService.isInRegion(victim.location, "spawnRegion")
 
         if (attackerInSpawn || victimInSpawn) {
             event.isCancelled = true

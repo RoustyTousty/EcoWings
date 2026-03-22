@@ -27,7 +27,7 @@ class ConsumablesShopMenu : Listener {
         val p = e.whoClicked as Player
 
         when (e.rawSlot) {
-            11 -> shopService.shopPurchaseItem(p, 20, clickedItem.type, 1)
+            11 -> shopService.shopPurchaseItem(p, 5, clickedItem.type, 1)
 
             18 -> ShopMenu.openInventory(p)
         }
@@ -65,7 +65,7 @@ class ConsumablesShopMenu : Listener {
                     "&7Gives regeneration I for",
                     "&730 seconds once consumed!",
                     "",
-                    "&fPrice: &620g",
+                    "&fCost: &65g",
                     "",
                     "&7Click to buy!"
                 )

@@ -31,7 +31,7 @@ class LeaderboardService(
             plugin,
             Runnable { refreshLeaderboards() },
             0L,
-            20L * 30
+            20L * 60
         )
     }
 

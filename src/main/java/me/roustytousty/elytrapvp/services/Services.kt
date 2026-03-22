@@ -5,13 +5,16 @@ import me.roustytousty.elytrapvp.data.cache.PlayerCache
 import me.roustytousty.elytrapvp.data.repository.PlayerRepository
 import me.roustytousty.elytrapvp.data.repository.MongoPlayerRepository
 import me.roustytousty.elytrapvp.services.combat.CombatService
+import me.roustytousty.elytrapvp.services.currency.CurrencyService
 import me.roustytousty.elytrapvp.services.event.EventService
+import me.roustytousty.elytrapvp.services.gold.GoldSpawnService
 import me.roustytousty.elytrapvp.services.kit.KitService
 import me.roustytousty.elytrapvp.services.leaderboard.LeaderboardService
 import me.roustytousty.elytrapvp.services.mapreset.MapResetService
 import me.roustytousty.elytrapvp.services.perk.PerkService
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.services.rebirth.RebirthService
+import me.roustytousty.elytrapvp.services.region.RegionService
 import me.roustytousty.elytrapvp.services.scoreboard.ScoreboardService
 import me.roustytousty.elytrapvp.services.shop.ShopService
 import me.roustytousty.elytrapvp.services.upgrade.UpgradeService
@@ -42,6 +45,12 @@ object Services {
     lateinit var shopService: ShopService
         private set
 
+    lateinit var goldSpawnService: GoldSpawnService
+        private set
+
+    lateinit var currencyService: CurrencyService
+        private set
+
     lateinit var upgradeService: UpgradeService
         private set
 
@@ -52,6 +61,9 @@ object Services {
         private set
 
     lateinit var kitService: KitService
+        private set
+
+    lateinit var regionService: RegionService
         private set
 
     lateinit var combatService: CombatService
@@ -69,9 +81,24 @@ object Services {
         playerCache = PlayerCache()
         leaderboardCache = LeaderboardCache()
 
+
+
+        regionService = RegionService()
+        mapResetService = MapResetService()
+        eventService = EventService()
+
+        goldSpawnService = GoldSpawnService(
+            regionService = regionService,
+            plugin = plugin
+        )
+
         playerService = PlayerService(
             repository = playerRepository,
             cache = playerCache
+        )
+
+        currencyService = CurrencyService(
+            playerService = playerService
         )
 
         leaderboardService = LeaderboardService(
@@ -79,10 +106,6 @@ object Services {
             leaderboardCache = leaderboardCache,
             plugin = plugin
         )
-
-        mapResetService = MapResetService()
-
-        eventService = EventService()
 
         shopService = ShopService(
             playerService = playerService
@@ -115,6 +138,9 @@ object Services {
             eventService = eventService
         )
 
-        combatService = CombatService()
+        combatService = CombatService(
+            regionService = regionService,
+            plugin = plugin
+        )
     }
 }

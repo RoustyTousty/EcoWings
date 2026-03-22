@@ -31,7 +31,7 @@ class RocketsShopMenu : Listener {
         }
 
         when (e.rawSlot) {
-            11 -> shopService.shopPurchaseItem(p, 70, clickedItem.type, 1)
+            11 -> shopService.shopPurchaseItem(p, 40, clickedItem.type, 1)
 
             18 -> ShopMenu.openInventory(p)
         }
@@ -68,7 +68,7 @@ class RocketsShopMenu : Listener {
                     "&eTest rocket &6x1",
                     "&7Makes you go boom!",
                     "",
-                    "&fCost: &670g",
+                    "&fCost: &640g",
                     "",
                     "&7Click to buy!"
                 )
