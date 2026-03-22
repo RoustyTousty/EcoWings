@@ -33,11 +33,13 @@ commands:
   # Player commands
   gold:
     aliases: [money, bal, balance]
-    description: "Check how much gold you have"
+    description: "Check how much gold you have!"
   stats:
-    description: "Opens specific players stats"
+    description: "Opens specific players stats!"
   discord:
-    description: "Sends an invite link to discord"
+    description: "Sends an invite link to discord!"
+  spawn:
+    description: "Teleports you to spawn!"
 
   # Staff commands
   reloadupgradeconfig:

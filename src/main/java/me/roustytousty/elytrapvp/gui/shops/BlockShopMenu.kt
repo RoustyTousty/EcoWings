@@ -34,7 +34,7 @@ class BlockShopMenu : Listener {
             15 -> shopService.shopPurchaseItem(p, 16, clickedItem.type, 16)
             22 -> shopService.shopPurchaseItem(p, 32, clickedItem.type, 16)
 
-            18 -> ShopMenu.openInventory(p)
+            27 -> ShopMenu.openInventory(p)
         }
     }
 

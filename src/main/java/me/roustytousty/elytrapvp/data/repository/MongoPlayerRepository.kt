@@ -83,7 +83,7 @@ class MongoPlayerRepository : PlayerRepository {
 
             isBuildMode = doc.getBoolean("isBuildMode", false),
 
-            gold = doc.getInteger("gold", 0),
+            gold = doc.getInteger("gold", 50),
             rebirthTokens = doc.getInteger("rebirthTokens", 0),
 
             rebirths = doc.getInteger("rebirths", 0),

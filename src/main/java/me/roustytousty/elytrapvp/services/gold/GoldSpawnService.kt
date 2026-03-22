@@ -113,7 +113,7 @@ class GoldSpawnService(
                     world.playSound(
                         loc,
                         Sound.BLOCK_BEACON_AMBIENT,
-                        1.2f,
+                        1.5f,
                         1.5f
                     )
                 }

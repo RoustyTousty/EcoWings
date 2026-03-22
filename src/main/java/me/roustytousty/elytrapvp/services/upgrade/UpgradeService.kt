@@ -42,7 +42,7 @@ class UpgradeService(
 
         type.setLevel(playerData, nextLevel)
 
-        MessageUtils.sendSuccess(player, "&fUpgrade &a&lsuccessful&f! &6&l${type.displayName} &fis now upgraded!")
+        MessageUtils.sendSuccess(player, "&fUpgrade successful! &6&l${type.displayName} &fis now upgraded!")
         player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f)
     }
 

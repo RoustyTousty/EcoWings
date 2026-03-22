@@ -4,6 +4,7 @@ import me.roustytousty.elytrapvp.commands.GuiCommands
 import me.roustytousty.elytrapvp.commands.TestCommand
 import me.roustytousty.elytrapvp.commands.playercommands.DiscordCommand
 import me.roustytousty.elytrapvp.commands.playercommands.GoldCommand
+import me.roustytousty.elytrapvp.commands.playercommands.SpawnCommand
 import me.roustytousty.elytrapvp.commands.playercommands.StatsCommand
 import me.roustytousty.elytrapvp.commands.staffcommands.*
 import me.roustytousty.elytrapvp.data.configs.RegionConfig
@@ -122,6 +123,7 @@ class ElytraPVP : JavaPlugin() {
         getCommand("gold")?.setExecutor(GoldCommand())
         getCommand("stats")?.setExecutor(StatsCommand())
         getCommand("discord")?.setExecutor(DiscordCommand())
+        getCommand("spawn")?.setExecutor(SpawnCommand())
 
         // Staff commands
         getCommand("reloadupgradeconfig")?.setExecutor(ReloadUpgradeConfigCommand())
