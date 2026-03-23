@@ -8,7 +8,7 @@ data class PlayerData(
 
     var isBuildMode: Boolean = false,
 
-    var gold: Int = 0,
+    var gold: Int = 50,
     var rebirthTokens: Int = 0,
 
     var rebirths: Int = 0,
