@@ -23,12 +23,20 @@ commands:
     description: "Opens the shop GUI"
   statsmenu:
     description: "Opens the stats GUI"
+    permission: op
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   perksmenu:
     description: "Opens the perks GUI"
+    permission: op
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   eventsmenu:
     description: "Opens the events GUI"
+    permission: op
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   rebirthmenu:
     description: "Opens the rebirth GUI"
+    permission: op
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
 
   # Player commands
   gold:
@@ -37,8 +45,10 @@ commands:
   stats:
     description: "Opens specific players stats!"
   discord:
+    aliases: [dc]
     description: "Sends an invite link to discord!"
   spawn:
+    aliases: [hub, lobby, s]
     description: "Teleports you to spawn!"
 
   # Staff commands

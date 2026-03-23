@@ -1,10 +1,9 @@
 package me.roustytousty.elytrapvp.services.event.events
 
 import me.roustytousty.elytrapvp.ElytraPVP
-import me.roustytousty.elytrapvp.data.configs.RegionConfig
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.services.event.EventIntefrace
-import me.roustytousty.elytrapvp.utility.RegionUtils
+import me.roustytousty.elytrapvp.services.region.Region
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
@@ -26,29 +25,29 @@ class TNTRainEvent : EventIntefrace {
     override var isActive = false
 
     private var rainTask: BukkitTask? = null
+
     private val ceilingRegionName = "PVPAreaCeiling"
     private val pvpRegionName = "pvpRegion"
 
     override fun activate() {
         isActive = true
 
-        val ceilingRegion = RegionConfig.getRegionPositions(ceilingRegionName) ?: return
-        val min = ceilingRegion.first
-        val max = ceilingRegion.second
-
-        val world = min.world ?: return
+        val region = Services.regionService.get(ceilingRegionName) ?: return
+        val y = region.getMinY().toDouble()
 
         rainTask = Bukkit.getScheduler().runTaskTimer(
             ElytraPVP.instance!!,
             Runnable {
                 repeat(2) {
                     if (Random.nextInt(100) < 2) {
-                        targetPlayerInRegion(world, min, max)
+                        targetPlayer(region, y)
                     } else {
-                        spawnRandomTNT(world, min, max)
+                        spawnRandom(region, y)
                     }
                 }
-            }, 0L, 20L
+            },
+            0L,
+            20L
         )
     }
 
@@ -58,30 +57,32 @@ class TNTRainEvent : EventIntefrace {
         rainTask = null
     }
 
-    private fun targetPlayerInRegion(world: World, min: Location, max: Location) {
-        val playersInRegion = Bukkit.getOnlinePlayers().filter { player ->
-            Services.regionService.isInRegion(player.location, pvpRegionName)
+    private fun targetPlayer(region: Region, y: Double) {
+        val players = Bukkit.getOnlinePlayers().filter {
+            Services.regionService.isInRegion(it.location, pvpRegionName)
         }
 
-        if (playersInRegion.isNotEmpty()) {
-            val targetPlayer = playersInRegion.random()
-            val playerLocation = targetPlayer.location
+        if (players.isEmpty()) return
 
-            val x = playerLocation.x.coerceIn(min.blockX.toDouble() + 0.5, max.blockX.toDouble() + 0.5)
-            val z = playerLocation.z.coerceIn(min.blockZ.toDouble() + 0.5, max.blockZ.toDouble() + 0.5)
-            val targetLocation = Location(world, x, min.y, z)
+        val target = players.random()
+        val loc = target.location
 
-            spawnTNT(world, targetLocation)
-        }
+        val x = loc.x.coerceIn(
+            region.getMinX().toDouble() + 0.5,
+            region.getMaxX().toDouble() + 0.5
+        )
+
+        val z = loc.z.coerceIn(
+            region.getMinZ().toDouble() + 0.5,
+            region.getMaxZ().toDouble() + 0.5
+        )
+
+        spawnTNT(region.world, Location(region.world, x, y, z))
     }
 
-    private fun spawnRandomTNT(world: World, min: Location, max: Location) {
-        val x = Random.nextDouble(min.blockX.toDouble() + 0.5, max.blockX + 0.5).coerceIn(min.blockX.toDouble() + 0.5, max.blockX.toDouble() + 0.5)
-        val z = Random.nextDouble(min.blockZ.toDouble() + 0.5, max.blockZ + 0.5).coerceIn(min.blockZ.toDouble() + 0.5, max.blockZ.toDouble() + 0.5)
-        val y = min.y
-
-        val spawnLocation = Location(world, x, y, z)
-        spawnTNT(world, spawnLocation)
+    private fun spawnRandom(region: Region, y: Double) {
+        val loc = region.getRandomLocation()
+        spawnTNT(region.world, Location(region.world, loc.x, y, loc.z))
     }
 
     private fun spawnTNT(world: World, location: Location) {

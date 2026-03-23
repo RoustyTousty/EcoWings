@@ -2,7 +2,6 @@ package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.data.configs.RegionConfig
 import me.roustytousty.elytrapvp.services.Services
-import me.roustytousty.elytrapvp.utility.RegionUtils
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler

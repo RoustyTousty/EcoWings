@@ -2,7 +2,6 @@ package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.gui.events.WarTableMenu
 import me.roustytousty.elytrapvp.services.Services
-import me.roustytousty.elytrapvp.utility.RegionUtils
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action

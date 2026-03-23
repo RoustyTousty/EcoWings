@@ -1,7 +1,6 @@
 package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.services.Services
-import me.roustytousty.elytrapvp.utility.RegionUtils
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Material
 import org.bukkit.Sound

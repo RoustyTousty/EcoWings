@@ -1,6 +1,5 @@
 package me.roustytousty.elytrapvp.listeners
 
-import me.roustytousty.elytrapvp.utility.RegionUtils
 import net.citizensnpcs.api.CitizensAPI
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler

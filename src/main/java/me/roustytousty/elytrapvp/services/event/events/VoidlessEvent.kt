@@ -1,10 +1,9 @@
 package me.roustytousty.elytrapvp.services.event.events
 
 import me.roustytousty.elytrapvp.ElytraPVP
-import me.roustytousty.elytrapvp.data.configs.RegionConfig
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.services.event.EventIntefrace
 import org.bukkit.Bukkit
-import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.event.EventHandler
@@ -25,17 +24,16 @@ class VoidlessEvent : EventIntefrace {
     override var isActive = false
 
     private val BOUNCE_VELOCITY = 2.5
+    private val regionName = "voidlessBlock"
 
     private val listener = object : Listener {
         @EventHandler
         fun onPlayerMove(event: PlayerMoveEvent) {
+            val region = Services.regionService.get(regionName) ?: return
             val player = event.player
-            val voidlessRegion = RegionConfig.getRegionPositions("voidlessBlock") ?: return
-            val minY = voidlessRegion.first.y
 
-            if (player.location.y < minY) {
-                val bounceVelocity = Vector(0.0, BOUNCE_VELOCITY, 0.0)
-                player.velocity = bounceVelocity
+            if (player.location.y < region.getMinY()) {
+                player.velocity = Vector(0.0, BOUNCE_VELOCITY, 0.0)
             }
         }
     }
@@ -54,24 +52,27 @@ class VoidlessEvent : EventIntefrace {
         removeParticleFloor()
     }
 
-
     private fun createParticleFloor() {
-        val voidlessRegion = RegionConfig.getRegionPositions("voidlessBlock") ?: return
-        val min = voidlessRegion.first
-        val max = voidlessRegion.second
-
-        val world = min.world ?: return
+        val region = Services.regionService.get(regionName) ?: return
+        val world = region.world
+        val y = region.getMinY().toDouble()
 
         particleTask = Bukkit.getScheduler().runTaskTimer(
             ElytraPVP.instance!!,
             Runnable {
-                for (x in min.blockX..max.blockX) {
-                    for (z in min.blockZ..max.blockZ) {
-                        val location = Location(world, x.toDouble() + 0.5, min.y, z.toDouble() + 0.5)
-                        world.spawnParticle(Particle.REDSTONE, location, 1, Particle.DustOptions(org.bukkit.Color.ORANGE, 1.0f))
+                region.forEachBlock {
+                    if (it.y == y.toInt()) {
+                        world.spawnParticle(
+                            Particle.REDSTONE,
+                            it.location.clone().add(0.5, 0.0, 0.5),
+                            1,
+                            Particle.DustOptions(org.bukkit.Color.ORANGE, 1.0f)
+                        )
                     }
                 }
-            }, 0L, 10L
+            },
+            0L,
+            10L
         )
     }
 

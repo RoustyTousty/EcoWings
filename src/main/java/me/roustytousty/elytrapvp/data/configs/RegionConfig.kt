@@ -37,27 +37,4 @@ object RegionConfig {
     fun getConfig(): YamlConfiguration {
         return config
     }
-
-    fun getRegionPositions(regionName: String): Pair<Location, Location>? {
-        val regionSection = config.getConfigurationSection("regions.$regionName") ?: return null
-
-        val worldName = regionSection.getString("pos1.world") ?: return null
-        val world = Bukkit.getWorld(worldName) ?: return null
-
-        val pos1 = Location(
-            world,
-            regionSection.getDouble("pos1.x"),
-            regionSection.getDouble("pos1.y"),
-            regionSection.getDouble("pos1.z")
-        )
-
-        val pos2 = Location(
-            world,
-            regionSection.getDouble("pos2.x"),
-            regionSection.getDouble("pos2.y"),
-            regionSection.getDouble("pos2.z")
-        )
-
-        return Pair(pos1, pos2)
-    }
 }

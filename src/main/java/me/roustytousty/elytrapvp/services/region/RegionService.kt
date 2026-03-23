@@ -1,11 +1,13 @@
 package me.roustytousty.elytrapvp.services.region
 
 import me.roustytousty.elytrapvp.data.configs.RegionConfig
+import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.block.Block
 
 class RegionService {
 
-    private val regions = mutableMapOf<String, Pair<Location, Location>>()
+    private val regions = mutableMapOf<String, Region>()
 
     init {
         load()
@@ -13,30 +15,51 @@ class RegionService {
 
     fun load() {
         val config = RegionConfig.getConfig()
-
         val section = config.getConfigurationSection("regions") ?: return
 
         for (key in section.getKeys(false)) {
-            val region = RegionConfig.getRegionPositions(key) ?: continue
-            regions[key] = region
+            val base = "regions.$key"
+
+            val worldName = config.getString("$base.pos1.world") ?: continue
+            val world = Bukkit.getWorld(worldName) ?: continue
+
+            val x1 = config.getInt("$base.pos1.x")
+            val y1 = config.getInt("$base.pos1.y")
+            val z1 = config.getInt("$base.pos1.z")
+
+            val x2 = config.getInt("$base.pos2.x")
+            val y2 = config.getInt("$base.pos2.y")
+            val z2 = config.getInt("$base.pos2.z")
+
+            val minX = minOf(x1, x2)
+            val maxX = maxOf(x1, x2)
+            val minY = minOf(y1, y2)
+            val maxY = maxOf(y1, y2)
+            val minZ = minOf(z1, z2)
+            val maxZ = maxOf(z1, z2)
+
+            regions[key] = Region(world, minX, maxX, minY, maxY, minZ, maxZ)
         }
     }
 
-    fun get(region: String): Pair<Location, Location>? {
-        return regions[region]
+    fun get(name: String): Region? = regions[name]
+
+    fun isInRegion(loc: Location, name: String): Boolean {
+        return regions[name]?.contains(loc) ?: false
     }
 
-    fun isInRegion(loc: Location, region: String): Boolean {
-        val (pos1, pos2) = regions[region] ?: return false
+    fun forEachBlock(name: String, action: (Block) -> Unit) {
+        regions[name]?.forEachBlock(action)
+    }
 
-        if (loc.world != pos1.world) return false
+    fun clearRegion(name: String) {
+        regions[name]?.clear()
+    }
 
-        val (minX, maxX) = listOf(pos1.blockX, pos2.blockX).sorted()
-        val (minY, maxY) = listOf(pos1.blockY, pos2.blockY).sorted()
-        val (minZ, maxZ) = listOf(pos1.blockZ, pos2.blockZ).sorted()
-
-        return loc.blockX in minX..maxX &&
-                loc.blockY in minY..maxY &&
-                loc.blockZ in minZ..maxZ
+    fun getBlocks(
+        name: String,
+        filter: (Block) -> Boolean
+    ): List<Block> {
+        return regions[name]?.getBlocks(filter) ?: emptyList()
     }
 }

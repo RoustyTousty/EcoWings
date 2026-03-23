@@ -84,8 +84,11 @@ object Services {
 
 
         regionService = RegionService()
-        mapResetService = MapResetService()
         eventService = EventService()
+
+        mapResetService = MapResetService(
+            regionService = regionService
+        )
 
         goldSpawnService = GoldSpawnService(
             regionService = regionService,

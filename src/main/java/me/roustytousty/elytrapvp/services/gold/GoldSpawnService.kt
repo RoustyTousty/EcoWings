@@ -57,17 +57,10 @@ class GoldSpawnService(
     }
 
     private fun attemptSpawn() {
-        val region = regionService.get(region) ?: return
-        val (pos1, pos2) = region
-
-        val world = pos1.world ?: return
+        val regionObj = regionService.get(region) ?: return
 
         repeat(10) {
-            val x = Random.nextInt(minOf(pos1.blockX, pos2.blockX), maxOf(pos1.blockX, pos2.blockX) + 1)
-            val y = Random.nextInt(minOf(pos1.blockY, pos2.blockY), maxOf(pos1.blockY, pos2.blockY) + 1)
-            val z = Random.nextInt(minOf(pos1.blockZ, pos2.blockZ), maxOf(pos1.blockZ, pos2.blockZ) + 1)
-
-            val loc = Location(world, x.toDouble(), y.toDouble(), z.toDouble())
+            val loc = regionObj.getRandomLocation()
             val block = loc.block
 
             if (!block.type.isAir) return@repeat
@@ -122,29 +115,9 @@ class GoldSpawnService(
     }
 
     private fun cleanupRegion() {
-        val regionPair = regionService.get(region) ?: return
-        val (pos1, pos2) = regionPair
-
-        val world = pos1.world ?: return
-
-        val minX = minOf(pos1.blockX, pos2.blockX)
-        val maxX = maxOf(pos1.blockX, pos2.blockX)
-
-        val minY = minOf(pos1.blockY, pos2.blockY)
-        val maxY = maxOf(pos1.blockY, pos2.blockY)
-
-        val minZ = minOf(pos1.blockZ, pos2.blockZ)
-        val maxZ = maxOf(pos1.blockZ, pos2.blockZ)
-
-        for (x in minX..maxX) {
-            for (y in minY..maxY) {
-                for (z in minZ..maxZ) {
-                    val block = world.getBlockAt(x, y, z)
-
-                    if (block.type == Material.RAW_GOLD_BLOCK) {
-                        block.type = Material.AIR
-                    }
-                }
+        regionService.forEachBlock(region) {
+            if (it.type == Material.RAW_GOLD_BLOCK) {
+                it.type = Material.AIR
             }
         }
     }
