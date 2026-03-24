@@ -59,8 +59,8 @@ class ElytraPVP : JavaPlugin() {
 
     override fun onDisable() {
         Services.goldSpawnService.shutdown()
+        Services.playerService.saveAndUnloadAllPlayerData()
 
-        // TODO: LOOP ALL PLAYERS AND SAVE DATA
         MongoManager.close()
         logger.info("Disabled Plugin!")
     }

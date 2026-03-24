@@ -4,7 +4,6 @@ import me.roustytousty.elytrapvp.services.region.RegionService
 import org.bukkit.*
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
-import kotlin.random.Random
 
 class GoldSpawnService(
     private val regionService: RegionService,
@@ -13,8 +12,12 @@ class GoldSpawnService(
 
     private val activeGoldBlocks = mutableSetOf<Location>()
 
-    private val maxBlocks = 3
-    private val region = "goldSpawnRegion"
+    private val MAX_BLOCKS = 6
+    private val MIN_BLOCKS = 3
+    private val PLAYER_COUNT_INTERVAL = 5
+    private val SPAWN_DELAY_SECONDS = 30
+    private val SPAWN_ATTEMPTS = 10
+    private val REGION = "goldSpawnRegion"
 
     init {
         cleanupRegion()
@@ -47,27 +50,28 @@ class GoldSpawnService(
     private fun startSpawner() {
         object : BukkitRunnable() {
             override fun run() {
-                if (activeGoldBlocks.size >= maxBlocks) return
+                val currentPlayers = Bukkit.getOnlinePlayers().size
+                val targetBlocks = minOf(MIN_BLOCKS + (currentPlayers / PLAYER_COUNT_INTERVAL), MAX_BLOCKS)
 
-                repeat(maxBlocks - activeGoldBlocks.size) {
+                if (activeGoldBlocks.size < targetBlocks) {
                     attemptSpawn()
                 }
             }
-        }.runTaskTimer(plugin, 0L, 20L * 30)
+        }.runTaskTimer(plugin, 0L, 20L * SPAWN_DELAY_SECONDS)
     }
 
     private fun attemptSpawn() {
-        val regionObj = regionService.get(region) ?: return
+        val regionObj = regionService.get(REGION) ?: return
 
-        repeat(10) {
+        repeat(SPAWN_ATTEMPTS) {
             val loc = regionObj.getRandomLocation()
             val block = loc.block
 
-            if (!block.type.isAir) return@repeat
-
-            block.type = Material.RAW_GOLD_BLOCK
-            activeGoldBlocks.add(loc)
-            return
+            if (block.type.isAir) {
+                block.type = Material.RAW_GOLD_BLOCK
+                activeGoldBlocks.add(loc)
+                return
+            }
         }
     }
 
@@ -115,7 +119,7 @@ class GoldSpawnService(
     }
 
     private fun cleanupRegion() {
-        regionService.forEachBlock(region) {
+        regionService.forEachBlock(REGION) {
             if (it.type == Material.RAW_GOLD_BLOCK) {
                 it.type = Material.AIR
             }

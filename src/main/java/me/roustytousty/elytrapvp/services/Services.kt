@@ -17,6 +17,7 @@ import me.roustytousty.elytrapvp.services.rebirth.RebirthService
 import me.roustytousty.elytrapvp.services.region.RegionService
 import me.roustytousty.elytrapvp.services.scoreboard.ScoreboardService
 import me.roustytousty.elytrapvp.services.shop.ShopService
+import me.roustytousty.elytrapvp.services.tablist.TablistService
 import me.roustytousty.elytrapvp.services.upgrade.UpgradeService
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -72,6 +73,9 @@ object Services {
     lateinit var scoreboardService: ScoreboardService
         private set
 
+    lateinit var tablistService: TablistService
+        private set
+
 
 
     fun init(pluginInstance: JavaPlugin) {
@@ -82,7 +86,7 @@ object Services {
         leaderboardCache = LeaderboardCache()
 
 
-
+        tablistService = TablistService()
         regionService = RegionService()
         eventService = EventService()
 

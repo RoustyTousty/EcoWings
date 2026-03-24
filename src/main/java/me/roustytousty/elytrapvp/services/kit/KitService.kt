@@ -87,26 +87,26 @@ class KitService(
 
 
     private fun ensureBlocks(player: Player) {
-        val buildingBlocks = setOf(
-            Material.WHITE_WOOL,
-            Material.OAK_PLANKS,
-            Material.LIGHT_GRAY_WOOL,
-            Material.STONE_BRICKS,
-            Material.DEEPSLATE_BRICKS
-        )
+        val inv = player.inventory
 
-        val hasBlocks = player.inventory.contents.any { it?.type in buildingBlocks }
+        val woolSlot = inv.contents.indexOfFirst { it?.type == Material.WHITE_WOOL }
 
-        if (!hasBlocks) {
-            val stack = ItemStack(Material.WHITE_WOOL, 32)
-            val slot = player.inventory.firstEmpty()
-
-            if (slot != -1) {
-                player.inventory.setItem(slot, stack)
-            } else {
-                player.world.dropItem(player.location, stack)
+        if (woolSlot == -1) {
+            val empty = inv.firstEmpty()
+            if (empty != -1) {
+                inv.setItem(empty, ItemStack(Material.WHITE_WOOL, 32))
             }
+            return
         }
+
+        val stack = inv.getItem(woolSlot) ?: return
+        val current = stack.amount
+
+        if (current >= 32) return
+
+        val needed = 32 - current
+        stack.amount = current + needed
+        inv.setItem(woolSlot, stack)
     }
 
     private fun purgeInvalidItems(player: Player) {

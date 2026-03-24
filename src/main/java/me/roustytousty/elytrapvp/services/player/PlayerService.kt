@@ -3,6 +3,7 @@ package me.roustytousty.elytrapvp.services.player
 import me.roustytousty.elytrapvp.data.cache.PlayerCache
 import me.roustytousty.elytrapvp.data.model.PlayerData
 import me.roustytousty.elytrapvp.data.repository.PlayerRepository
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
 class PlayerService(
@@ -63,6 +64,12 @@ class PlayerService(
         repository.savePlayer(data)
 
         cache.remove(uuid)
+    }
+
+    fun saveAndUnloadAllPlayerData() {
+        for (player in Bukkit.getOnlinePlayers()) {
+            saveAndUnloadPlayerData(player)
+        }
     }
 
     fun getDynamicPlayerData(player: Player, stat: String): Any? {
