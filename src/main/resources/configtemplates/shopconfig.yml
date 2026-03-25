@@ -5,7 +5,7 @@ shops:
       material: WHITE_WOOL
       amount: 16
       cost: 1
-      display_name: "White wool"
+      display_name: "White Wool"
       description:
         - "&7Just the usual!"
     light_gray_wool:
@@ -13,7 +13,7 @@ shops:
       material: LIGHT_GRAY_WOOL
       amount: 16
       cost: 2
-      display_name: "Light gray wool"
+      display_name: "Light Gray Wool"
       description:
         - "&7Can't turn to dust!"
     oak_planks:
@@ -21,7 +21,7 @@ shops:
       material: OAK_PLANKS
       amount: 16
       cost: 5
-      display_name: "Oak planks"
+      display_name: "Oak Planks"
       description:
         - "&7Regular wood!"
     stone_bricks:
@@ -29,7 +29,7 @@ shops:
       material: STONE_BRICKS
       amount: 16
       cost: 10
-      display_name: "Stone bricks"
+      display_name: "Stone Bricks"
       description:
         - "&7Regular stone!"
     deepslate_bricks:
@@ -37,7 +37,7 @@ shops:
       material: DEEPSLATE_BRICKS
       amount: 16
       cost: 16
-      display_name: "Deepslate bricks"
+      display_name: "Deepslate Bricks"
       description:
         - "&7Stronger than stone!"
     polished_deepslate:
@@ -45,7 +45,7 @@ shops:
       material: POLISHED_DEEPSLATE
       amount: 16
       cost: 32
-      display_name: "Polished deepslate"
+      display_name: "Polished Deepslate"
       description:
         - "&7Immune to TNT!"
   Consumables:
@@ -54,7 +54,7 @@ shops:
       material: APPLE
       amount: 1
       cost: 5
-      display_name: "Regen apple"
+      display_name: "Regen Apple"
       description:
         - "&7Gives regeneration I for"
         - "&730 seconds once consumed!"

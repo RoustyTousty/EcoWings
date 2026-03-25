@@ -129,6 +129,7 @@ class ElytraPVP : JavaPlugin() {
 
         // Staff commands
         getCommand("reloadupgradeconfig")?.setExecutor(ReloadUpgradeConfigCommand())
+        getCommand("reloadshopconfig")?.setExecutor(ReloadShopConfigCommand())
         getCommand("feed")?.setExecutor(FeedCommand())
         getCommand("buildmode")?.setExecutor(BuildModeCommand())
         getCommand("setgold")?.setExecutor(SetGoldCommand())

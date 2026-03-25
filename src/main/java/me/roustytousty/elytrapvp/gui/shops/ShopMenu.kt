@@ -29,7 +29,6 @@ class ShopMenu : Listener {
             11 -> BlockShopMenu.openInventory(player)
             12 -> UtilityShopMenu.openInventory(player)
             13 -> ConsumablesShopMenu.openInventory(player)
-//            14 -> RocketsShopMenu.openInventory(player)
             18 -> {
                 player.closeInventory()
                 player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
@@ -91,11 +90,11 @@ class ShopMenu : Listener {
             inventory.setItem(
                 14,
                 itemBuilder(
-                    Material.GUNPOWDER,
+                    Material.BARRIER,
                     1,
                     false,
-                    "&eRockets",
-                    "&7Need to go higher?"
+                    "&cComing soon",
+                    "&7I didn't know what to put here :)"
                 )
             )
             inventory.setItem(

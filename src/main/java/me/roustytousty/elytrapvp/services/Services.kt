@@ -4,6 +4,7 @@ import me.roustytousty.elytrapvp.data.cache.LeaderboardCache
 import me.roustytousty.elytrapvp.data.cache.PlayerCache
 import me.roustytousty.elytrapvp.data.repository.PlayerRepository
 import me.roustytousty.elytrapvp.data.repository.MongoPlayerRepository
+import me.roustytousty.elytrapvp.services.announcement.AnnouncementService
 import me.roustytousty.elytrapvp.services.combat.CombatService
 import me.roustytousty.elytrapvp.services.currency.CurrencyService
 import me.roustytousty.elytrapvp.services.event.EventService
@@ -76,6 +77,9 @@ object Services {
     lateinit var tablistService: TablistService
         private set
 
+    lateinit var announcementService: AnnouncementService
+        private set
+
 
 
     fun init(pluginInstance: JavaPlugin) {
@@ -106,6 +110,10 @@ object Services {
 
         currencyService = CurrencyService(
             playerService = playerService
+        )
+
+        announcementService = AnnouncementService(
+            plugin = plugin
         )
 
         leaderboardService = LeaderboardService(
