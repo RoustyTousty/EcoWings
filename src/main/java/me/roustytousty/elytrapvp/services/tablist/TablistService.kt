@@ -31,7 +31,7 @@ class TablistService {
                             "&fDiscord: &6/discord\n" +
                             "&fStore: &6/store\n" +
                             "\n" +
-                            "&7ecowingstest.minehut.gg\n"
+                            "&7ecowings.minehut.gg\n"
                 )
 
                 for (player in Bukkit.getOnlinePlayers()) {

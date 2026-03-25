@@ -10,6 +10,7 @@ import me.roustytousty.elytrapvp.commands.staffcommands.*
 import me.roustytousty.elytrapvp.data.configs.RegionConfig
 import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.data.api.MongoManager
+import me.roustytousty.elytrapvp.data.configs.ShopConfig
 import me.roustytousty.elytrapvp.gui.events.EventsMenu
 import me.roustytousty.elytrapvp.gui.events.WarTableMenu
 import me.roustytousty.elytrapvp.gui.perks.PerksMenu
@@ -88,6 +89,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnPlayerInteractEntity(), this)
         pluginmanager.registerEvents(OnPlayerInteract(), this)
         pluginmanager.registerEvents(OnWarTableClick(), this)
+        pluginmanager.registerEvents(OnEntityExplode(), this)
 
         // GUI
         pluginmanager.registerEvents(ShopMenu(), this)
@@ -136,6 +138,7 @@ class ElytraPVP : JavaPlugin() {
     }
 
     private fun setupConfigsOnEnable() {
+        ShopConfig.load()
         UpgradeConfig.load()
         RegionConfig.load()
 

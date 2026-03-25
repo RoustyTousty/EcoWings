@@ -26,14 +26,6 @@ class Explosive(
 
     private val TNT_OWNER_KEY = "tnt_owner"
 
-    private val blockWhitelist = setOf(
-        Material.WHITE_WOOL,
-        Material.LIGHT_GRAY_WOOL,
-        Material.OAK_PLANKS,
-        Material.STONE_BRICKS,
-        Material.DEEPSLATE_BRICKS
-    )
-
     @EventHandler
     fun onPlace(event: BlockPlaceEvent) {
         val player = event.player
@@ -68,42 +60,30 @@ class Explosive(
     }
 
     @EventHandler
-    fun onExplode(event: EntityExplodeEvent) {
-        val tnt = event.entity as? TNTPrimed ?: return
+    fun onDamage(event: EntityDamageEvent) {
+        val victim = event.entity as? Player ?: return
+
+        if (event.cause != EntityDamageEvent.DamageCause.BLOCK_EXPLOSION &&
+            event.cause != EntityDamageEvent.DamageCause.ENTITY_EXPLOSION) {
+            return
+        }
+
+        val inSpawn = regionService.isInRegion(victim.location, "spawnRegion")
+        if (inSpawn) {
+            event.isCancelled = true
+            return
+        }
+
+        val tnt = event.entity.lastDamageCause?.entity as? TNTPrimed
+            ?: return
 
         if (!tnt.hasMetadata(TNT_OWNER_KEY)) return
 
         val ownerUUID = tnt.getMetadata(TNT_OWNER_KEY)[0].asString()
         val owner = Bukkit.getPlayer(UUID.fromString(ownerUUID)) ?: return
 
-        val nearbyEntities = tnt.getNearbyEntities(5.0, 5.0, 5.0)
-
-        for (entity in nearbyEntities) {
-            val victim = entity as? Player ?: continue
-            if (victim == owner) continue
-
-            val victimInSpawn = regionService.isInRegion(victim.location, "spawnRegion")
-            if (victimInSpawn) continue
-
+        if (owner != victim) {
             combatService.tag(victim, owner)
-        }
-
-        event.blockList().removeIf { block ->
-            block.type !in blockWhitelist
-        }
-    }
-
-    @EventHandler
-    fun onDamage(event: EntityDamageEvent) {
-        val player = event.entity as? Player ?: return
-
-        if (event.cause != EntityDamageEvent.DamageCause.BLOCK_EXPLOSION &&
-            event.cause != EntityDamageEvent.DamageCause.ENTITY_EXPLOSION
-        ) return
-
-        val inSpawn = regionService.isInRegion(player.location, "spawnRegion")
-        if (inSpawn) {
-            event.isCancelled = true
         }
     }
 }

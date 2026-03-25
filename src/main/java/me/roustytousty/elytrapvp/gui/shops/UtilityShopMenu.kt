@@ -15,11 +15,11 @@ import org.bukkit.inventory.Inventory
 class UtilityShopMenu : Listener {
 
     private val shopService = Services.shopService
+    private val SHOP_TITLE = "Utility"
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        val inventory = e.view.title
-        if (inventory != "Utility") return
+        if (e.view.title != SHOP_TITLE) return
 
         e.isCancelled = true
         val clickedItem = e.currentItem
@@ -28,19 +28,18 @@ class UtilityShopMenu : Listener {
 
         if (e.rawSlot == 18) {
             ShopMenu.openInventory(p)
+            return
         }
 
-        when (e.rawSlot) {
-            11 -> shopService.shopPurchaseItem(p, 15, clickedItem.type, 1)
-            12 -> shopService.shopPurchaseItem(p, 30, clickedItem.type, 1)
-
-            18 -> ShopMenu.openInventory(p)
+        val shopItem = shopService.getItemBySlot(SHOP_TITLE, e.rawSlot)
+        if (shopItem != null) {
+            shopService.shopPurchaseItem(p, shopItem)
         }
     }
 
     @EventHandler
     private fun onInventoryDrag(e: InventoryDragEvent) {
-        if (e.view.title == "Utility") {
+        if (e.view.title == SHOP_TITLE) {
             e.isCancelled = true
         }
     }
@@ -60,47 +59,28 @@ class UtilityShopMenu : Listener {
                 inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
-            inventory.setItem(
-                11,
-                itemBuilder(
-                    Material.SUGAR,
-                    1,
-                    false,
-                    "&eDusty &6x1",
-                    "&7Blocks in 10 block radius",
-                    "&7get turned into dust!",
-                    "",
-                    "&fCost: &615g",
-                    "",
-                    "&7Click to buy!"
-                )
-            )
-            inventory.setItem(
-                12,
-                itemBuilder(
-                    Material.TNT,
-                    1,
-                    false,
-                    "&eExplosive &6x1",
-                    "&7Blows up blocks and deals",
-                    "&7damage to anyone near by!",
-                    "",
-                    "&fCost: &630g",
-                    "",
-                    "&7Click to buy!"
-                )
-            )
+            inventory.setItem(18, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cBack"))
 
+            val items = Services.shopService.getItems("Utility")
+            for (item in items) {
+                val lore = mutableListOf<String>()
+                lore.addAll(item.description)
+                lore.add("")
+                lore.add("&fCost: &6${item.cost}g")
+                lore.add("")
+                lore.add("&7Click to buy!")
 
-            inventory.setItem(
-                18,
-                itemBuilder(
-                    Material.RED_STAINED_GLASS_PANE,
-                    1,
-                    false,
-                    "&cBack"
+                inventory.setItem(
+                    item.slot,
+                    itemBuilder(
+                        item.material,
+                        1,
+                        false,
+                        "&e${item.displayName} &6x${item.amount}",
+                        *lore.toTypedArray()
+                    )
                 )
-            )
+            }
         }
     }
 }

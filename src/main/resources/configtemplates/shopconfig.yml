@@ -1,0 +1,86 @@
+shops:
+  Blocks:
+    white_wool:
+      slot: 11
+      material: WHITE_WOOL
+      amount: 16
+      cost: 1
+      display_name: "White wool"
+      description:
+        - "&7Just the usual!"
+    light_gray_wool:
+      slot: 12
+      material: LIGHT_GRAY_WOOL
+      amount: 16
+      cost: 2
+      display_name: "Light gray wool"
+      description:
+        - "&7Can't turn to dust!"
+    oak_planks:
+      slot: 13
+      material: OAK_PLANKS
+      amount: 16
+      cost: 5
+      display_name: "Oak planks"
+      description:
+        - "&7Regular wood!"
+    stone_bricks:
+      slot: 14
+      material: STONE_BRICKS
+      amount: 16
+      cost: 10
+      display_name: "Stone bricks"
+      description:
+        - "&7Regular stone!"
+    deepslate_bricks:
+      slot: 15
+      material: DEEPSLATE_BRICKS
+      amount: 16
+      cost: 16
+      display_name: "Deepslate bricks"
+      description:
+        - "&7Stronger than stone!"
+    polished_deepslate:
+      slot: 22
+      material: POLISHED_DEEPSLATE
+      amount: 16
+      cost: 32
+      display_name: "Polished deepslate"
+      description:
+        - "&7Immune to TNT!"
+  Consumables:
+    regen_apple:
+      slot: 11
+      material: APPLE
+      amount: 1
+      cost: 5
+      display_name: "Regen apple"
+      description:
+        - "&7Gives regeneration I for"
+        - "&730 seconds once consumed!"
+  Utility:
+    dusty:
+      slot: 11
+      material: SUGAR
+      amount: 1
+      cost: 15
+      display_name: "Dusty"
+      description:
+        - "&7Blocks in 10 block radius"
+        - "&7get turned into dust!"
+    explosive:
+      slot: 12
+      material: TNT
+      amount: 1
+      cost: 30
+      display_name: "Explosive"
+      description:
+        - "&7Goes KABOOM!"
+    rockets:
+      slot: 13
+      material: FIREWORK_ROCKET
+      amount: 1
+      cost: 40
+      display_name: "Rocket"
+      description:
+        - "&7Makes you fly!"

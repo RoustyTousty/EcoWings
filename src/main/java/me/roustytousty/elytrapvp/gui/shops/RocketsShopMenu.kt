@@ -15,11 +15,11 @@ import org.bukkit.inventory.Inventory
 class RocketsShopMenu : Listener {
 
     private val shopService = Services.shopService
+    private val SHOP_TITLE = "Rockets"
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        val inventory = e.view.title
-        if (inventory != "Rockets") return
+        if (e.view.title != SHOP_TITLE) return
 
         e.isCancelled = true
         val clickedItem = e.currentItem
@@ -28,18 +28,18 @@ class RocketsShopMenu : Listener {
 
         if (e.rawSlot == 18) {
             ShopMenu.openInventory(p)
+            return
         }
 
-        when (e.rawSlot) {
-            11 -> shopService.shopPurchaseItem(p, 40, clickedItem.type, 1)
-
-            18 -> ShopMenu.openInventory(p)
+        val shopItem = shopService.getItemBySlot(SHOP_TITLE, e.rawSlot)
+        if (shopItem != null) {
+            shopService.shopPurchaseItem(p, shopItem)
         }
     }
 
     @EventHandler
     private fun onInventoryDrag(e: InventoryDragEvent) {
-        if (e.view.title == "Rockets") {
+        if (e.view.title == SHOP_TITLE) {
             e.isCancelled = true
         }
     }
@@ -59,31 +59,28 @@ class RocketsShopMenu : Listener {
                 inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
-            inventory.setItem(
-                11,
-                itemBuilder(
-                    Material.FIREWORK_ROCKET,
-                    1,
-                    false,
-                    "&eTest rocket &6x1",
-                    "&7Makes you go boom!",
-                    "",
-                    "&fCost: &640g",
-                    "",
-                    "&7Click to buy!"
-                )
-            )
+            inventory.setItem(18, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cBack"))
 
+            val items = Services.shopService.getItems("Rockets")
+            for (item in items) {
+                val lore = mutableListOf<String>()
+                lore.addAll(item.description)
+                lore.add("")
+                lore.add("&fCost: &6${item.cost}g")
+                lore.add("")
+                lore.add("&7Click to buy!")
 
-            inventory.setItem(
-                18,
-                itemBuilder(
-                    Material.RED_STAINED_GLASS_PANE,
-                    1,
-                    false,
-                    "&cBack"
+                inventory.setItem(
+                    item.slot,
+                    itemBuilder(
+                        item.material,
+                        1,
+                        false,
+                        "&e${item.displayName} &6x${item.amount}",
+                        *lore.toTypedArray()
+                    )
                 )
-            )
+            }
         }
     }
 }

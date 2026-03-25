@@ -10,10 +10,10 @@ class RegionService {
     private val regions = mutableMapOf<String, Region>()
 
     init {
-        load()
+        loadRegions()
     }
 
-    fun load() {
+    fun loadRegions() {
         val config = RegionConfig.getConfig()
         val section = config.getConfigurationSection("regions") ?: return
 

@@ -15,27 +15,31 @@ import org.bukkit.inventory.Inventory
 class ConsumablesShopMenu : Listener {
 
     private val shopService = Services.shopService
+    private val SHOP_TITLE = "Consumables"
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        val inventory = e.view.title
-        if (inventory != "Consumables") return
+        if (e.view.title != SHOP_TITLE) return
 
         e.isCancelled = true
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        when (e.rawSlot) {
-            11 -> shopService.shopPurchaseItem(p, 5, clickedItem.type, 1)
+        if (e.rawSlot == 18) {
+            ShopMenu.openInventory(p)
+            return
+        }
 
-            18 -> ShopMenu.openInventory(p)
+        val shopItem = shopService.getItemBySlot(SHOP_TITLE, e.rawSlot)
+        if (shopItem != null) {
+            shopService.shopPurchaseItem(p, shopItem)
         }
     }
 
     @EventHandler
     private fun onInventoryDrag(e: InventoryDragEvent) {
-        if (e.view.title == "Consumables") {
+        if (e.view.title == SHOP_TITLE) {
             e.isCancelled = true
         }
     }
@@ -55,32 +59,28 @@ class ConsumablesShopMenu : Listener {
                 inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
 
-            inventory.setItem(
-                11,
-                itemBuilder(
-                    Material.APPLE,
-                    1,
-                    false,
-                    "&eRegen apple &6x1",
-                    "&7Gives regeneration I for",
-                    "&730 seconds once consumed!",
-                    "",
-                    "&fCost: &65g",
-                    "",
-                    "&7Click to buy!"
-                )
-            )
+            inventory.setItem(18, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cBack"))
 
+            val items = Services.shopService.getItems("Consumables")
+            for (item in items) {
+                val lore = mutableListOf<String>()
+                lore.addAll(item.description)
+                lore.add("")
+                lore.add("&fCost: &6${item.cost}g")
+                lore.add("")
+                lore.add("&7Click to buy!")
 
-            inventory.setItem(
-                18,
-                itemBuilder(
-                    Material.RED_STAINED_GLASS_PANE,
-                    1,
-                    false,
-                    "&cBack"
+                inventory.setItem(
+                    item.slot,
+                    itemBuilder(
+                        item.material,
+                        1,
+                        false,
+                        "&e${item.displayName} &6x${item.amount}",
+                        *lore.toTypedArray()
+                    )
                 )
-            )
+            }
         }
     }
 }

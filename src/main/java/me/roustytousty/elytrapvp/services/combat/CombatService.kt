@@ -21,10 +21,22 @@ class CombatService(
         ).start()
     }
 
-    fun tag(victim: Player, attacker: Player) {
+    fun tag(victim: Player, attacker: Player?) {
         val now = System.currentTimeMillis()
-        combatMap[victim.uniqueId] = CombatData(attacker, now)
-        combatMap[attacker.uniqueId] = CombatData(victim, now)
+
+        combatMap[victim.uniqueId] = CombatData(
+            lastAttacker = attacker,
+            lastHitTime = now
+        )
+
+        if (attacker != null) {
+            val previous = combatMap[attacker.uniqueId]
+
+            combatMap[attacker.uniqueId] = CombatData(
+                lastAttacker = previous?.lastAttacker, // KEEP EXISTING attacker
+                lastHitTime = now
+            )
+        }
     }
 
     fun isInCombat(player: Player): Boolean {

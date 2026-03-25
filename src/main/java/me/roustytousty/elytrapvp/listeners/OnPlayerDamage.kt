@@ -17,8 +17,6 @@ class OnPlayerDamage : Listener {
 
         val attacker = when (val damager = event.damager) {
             is Player -> damager
-            is org.bukkit.entity.Projectile -> damager.shooter as? Player
-            is org.bukkit.entity.TNTPrimed -> damager.source as? Player
             else -> null
         } ?: return
 
