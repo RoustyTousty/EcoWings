@@ -25,8 +25,6 @@ commands:
     description: "Opens the shop GUI"
   statsmenu:
     description: "Opens the stats GUI"
-    permission: op
-    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   perksmenu:
     description: "Opens the perks GUI"
     permission: op
