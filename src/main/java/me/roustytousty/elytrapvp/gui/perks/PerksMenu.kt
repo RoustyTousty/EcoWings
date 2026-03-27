@@ -1,6 +1,7 @@
 package me.roustytousty.elytrapvp.gui.perks
 
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -26,7 +27,7 @@ class PerksMenu : Listener {
         when (e.rawSlot) {
             45 -> {
                 p.closeInventory()
-                p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+                SoundUtils.playGuiClick(p)
             }
         }
     }
@@ -44,7 +45,7 @@ class PerksMenu : Listener {
             val inventory = Bukkit.createInventory(null, 54, "Perks")
             initItems(inventory)
             player.openInventory(inventory)
-            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+            SoundUtils.playGuiClick(player)
         }
 
         private fun initItems(inventory: Inventory) {

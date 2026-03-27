@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.services.kit
 
 import me.roustytousty.elytrapvp.data.model.PlayerData
 import me.roustytousty.elytrapvp.services.player.PlayerService
+import me.roustytousty.elytrapvp.services.shop.ShopService
 import me.roustytousty.elytrapvp.services.upgrade.UpgradeService
 import me.roustytousty.elytrapvp.services.upgrade.UpgradeType
 import org.bukkit.Material
@@ -14,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin
 class KitService(
     private val playerService: PlayerService,
     private val upgradeService: UpgradeService,
+    private val shopService: ShopService,
     private val plugin: JavaPlugin
 ) {
 
@@ -88,20 +90,26 @@ class KitService(
 
     private fun ensureBlocks(player: Player) {
         val inv = player.inventory
+        val woolMaterial = Material.WHITE_WOOL
 
-        val woolSlot = inv.contents.indexOfFirst { it?.type == Material.WHITE_WOOL }
+        val woolSlot = inv.contents.indexOfFirst { it?.type == woolMaterial }
 
         if (woolSlot == -1) {
             val empty = inv.firstEmpty()
             if (empty != -1) {
-                inv.setItem(empty, ItemStack(Material.WHITE_WOOL, 32))
+                inv.setItem(empty, shopService.getFormattedItem(woolMaterial, 32))
             }
             return
         }
 
         val stack = inv.getItem(woolSlot) ?: return
-        val current = stack.amount
 
+        val shopVersion = shopService.getFormattedItem(woolMaterial, 1)
+        if (stack.itemMeta?.displayName != shopVersion.itemMeta?.displayName) {
+            stack.itemMeta = shopVersion.itemMeta
+        }
+
+        val current = stack.amount
         if (current >= 32) return
 
         val needed = 32 - current

@@ -1,6 +1,7 @@
 package me.roustytousty.elytrapvp.gui.events
 
 import me.roustytousty.elytrapvp.utility.ItemUtils
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -26,7 +27,7 @@ class WarTableMenu : Listener {
         when (e.rawSlot) {
             40 -> {
                 p.closeInventory()
-                p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+                SoundUtils.playGuiClick(p)
             }
         }
     }
@@ -44,7 +45,7 @@ class WarTableMenu : Listener {
             val inventory = Bukkit.createInventory(null, 45, "Faction")
             initItems(inventory, player)
             player.openInventory(inventory)
-            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+            SoundUtils.playGuiClick(player)
         }
 
         private fun initItems(inventory: Inventory, player: Player) {

@@ -5,6 +5,7 @@ import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.services.upgrade.UpgradeType
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.MessageUtils
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -29,7 +30,7 @@ class UpgradeMenu : Listener {
 
         if (e.rawSlot == 45) {
             p.closeInventory()
-            p.playSound(p, Sound.UI_BUTTON_CLICK, 1f, 1f)
+            SoundUtils.playGuiClick(p)
             return
         }
 
@@ -40,7 +41,7 @@ class UpgradeMenu : Listener {
 
         if (next.maxed) {
             MessageUtils.sendError(p, "&fThis item is already &c&lMAXED &fand cannot be upgraded further.")
-            p.playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
+            SoundUtils.playFailure(p)
             return
         }
 

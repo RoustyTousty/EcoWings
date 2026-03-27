@@ -3,6 +3,7 @@ package me.roustytousty.elytrapvp.gui.events
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.MessageUtils
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
@@ -34,6 +35,7 @@ class EventsMenu : Listener {
                 if (eventService.isAnyEventActive()) {
                     p.closeInventory()
                     MessageUtils.sendMessage(p, "&fYou cannot contribute to an &6&lEVENT &fwhile one is active!")
+                    SoundUtils.playFailure(p)
                     return
                 }
 
@@ -42,7 +44,7 @@ class EventsMenu : Listener {
                 val donationAmount = if (e.isShiftClick) 100 else 10
                 if (playerData.gold >= donationAmount) {
                     MessageUtils.sendMessage(p, "&fYou contributed &6&l${donationAmount}g &fto &6&l${eventName} &fevent!")
-                    p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
+                    SoundUtils.playSuccess(p)
 
                     playerData.gold -= donationAmount
                     eventService.contributeToEvent(eventName, donationAmount)
@@ -50,13 +52,13 @@ class EventsMenu : Listener {
                     openInventory(p)
                 } else {
                     MessageUtils.sendError(p, "&fYou don't have enough gold!")
-                    p.playSound(p, Sound.BLOCK_NOTE_BLOCK_BASS, 1.0f, 1.0f)
+                    SoundUtils.playFailure(p)
                 }
             }
 
             18 -> {
                 p.closeInventory()
-                p.playSound(p, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+                SoundUtils.playGuiClick(p)
             }
         }
     }
@@ -76,7 +78,7 @@ class EventsMenu : Listener {
             val inventory = Bukkit.createInventory(null, 27, "Events")
             initItems(inventory)
             player.openInventory(inventory)
-            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+            SoundUtils.playGuiClick(player)
         }
 
         private fun initItems(inventory: Inventory) {

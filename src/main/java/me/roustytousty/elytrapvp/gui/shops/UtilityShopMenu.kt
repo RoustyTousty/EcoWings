@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.gui.shops
 
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -31,9 +32,9 @@ class UtilityShopMenu : Listener {
             return
         }
 
-        val shopItem = shopService.getItemBySlot(SHOP_TITLE, e.rawSlot)
+        val shopItem = shopService.getShopItemBySlot(SHOP_TITLE, e.rawSlot)
         if (shopItem != null) {
-            shopService.shopPurchaseItem(p, shopItem)
+            shopService.tryPlayerPurchaseItem(p, shopItem)
         }
     }
 
@@ -50,7 +51,7 @@ class UtilityShopMenu : Listener {
             val inventory = Bukkit.createInventory(null, 27, "Utility")
             initItems(inventory)
             player.openInventory(inventory)
-            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+            SoundUtils.playGuiClick(player)
         }
 
         private fun initItems(inventory: Inventory) {
@@ -61,7 +62,7 @@ class UtilityShopMenu : Listener {
 
             inventory.setItem(18, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cBack"))
 
-            val items = Services.shopService.getItems("Utility")
+            val items = Services.shopService.getShopItems("Utility")
             for (item in items) {
                 val lore = mutableListOf<String>()
                 lore.addAll(item.description)

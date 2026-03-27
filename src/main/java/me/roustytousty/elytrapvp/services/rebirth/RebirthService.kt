@@ -7,6 +7,7 @@ import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.services.upgrade.UpgradeService
 import me.roustytousty.elytrapvp.services.upgrade.UpgradeType
 import me.roustytousty.elytrapvp.utility.MessageUtils
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 
@@ -21,7 +22,7 @@ class RebirthService(
 
         if (!isRebirthAllowed(playerData)) {
             MessageUtils.sendError(player, "&fYou can't &c&lREBIRTH &fbecause you don't meet all the criteria!")
-            player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
+            SoundUtils.playFailure(player)
             return
         }
 
@@ -30,8 +31,8 @@ class RebirthService(
         kitService.syncKit(player)
 
         MessageUtils.sendSuccess(player, "&fSuccessfully &6&lRE-BIRTHED&f! You are now on re-birth nr&6&l${playerData.rebirths}")
-        MessageUtils.sendSuccess("&fCongratulate &6&l${player.name} &fon &6&lRE-BIRTHING&f! They are now on re-birth nr&6&l${playerData.rebirths}&f!")
-        player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
+        MessageUtils.sendAnnouncement("&fCongratulate &6&l${player.name} &fon &6&lRE-BIRTHING&f! They are now on re-birth nr&6&l${playerData.rebirths}&f!")
+        SoundUtils.playSuccess(player)
     }
 
     private fun setupPlayerDataOnRebirth(playerData: PlayerData) {

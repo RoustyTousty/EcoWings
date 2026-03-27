@@ -50,7 +50,7 @@ class EventService {
             event.task = startDeactivateTask(event)
             activeEvents.add(event)
             playActivationSound()
-            MessageUtils.sendMessage("&fGlobal event activated: &6&l${eventName}&f!")
+            MessageUtils.sendAnnouncement("&fGlobal event activated: &6&l${eventName}&f!")
         } else {
             println("Event $eventName not found!")
         }
@@ -63,7 +63,7 @@ class EventService {
             event.task!!.cancel()
             activeEvents.remove(event)
             playActivationSound()
-            MessageUtils.sendMessage("&fGlobal event deactivated: &6&l${eventName}&f!")
+            MessageUtils.sendAnnouncement("&fGlobal event deactivated: &6&l${eventName}&f!")
         } else {
             println("Event $eventName not found or not active!")
         }

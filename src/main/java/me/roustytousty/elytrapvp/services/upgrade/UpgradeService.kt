@@ -5,6 +5,7 @@ import me.roustytousty.elytrapvp.data.model.PlayerData
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.utility.ItemUtils
 import me.roustytousty.elytrapvp.utility.MessageUtils
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
@@ -27,6 +28,7 @@ class UpgradeService(
 
         if (section == null) {
             MessageUtils.sendError(player, "&fThis item is already &c&lMAXED &fand cannot be upgraded further.")
+            SoundUtils.playFailure(player)
             return
         }
 
@@ -34,7 +36,7 @@ class UpgradeService(
 
         if (playerData.gold < cost) {
             MessageUtils.sendError(player, "&fNot enough gold! You need &6&l${cost}g &fto upgrade!")
-            player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
+            SoundUtils.playFailure(player)
             return
         }
 
@@ -43,7 +45,7 @@ class UpgradeService(
         type.setLevel(playerData, nextLevel)
 
         MessageUtils.sendSuccess(player, "&fUpgrade successful! &6&l${type.displayName} &fis now upgraded!")
-        player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f)
+        SoundUtils.playSuccess(player)
     }
 
     fun getItem(playerData: PlayerData, type: UpgradeType): ItemStack? {

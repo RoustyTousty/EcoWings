@@ -1,6 +1,7 @@
 package me.roustytousty.elytrapvp.utility
 
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
+import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
@@ -63,6 +64,19 @@ object MessageUtils {
     fun sendMessage(message: String) {
         for (player: Player in Bukkit.getOnlinePlayers()) {
             player.sendMessage(parse("&6&lEcoWings &8| $message"))
+        }
+    }
+
+
+
+    /*
+        Sends a formatted announcement [message] to all players.
+    */
+    fun sendAnnouncement(message: String) {
+        for (player: Player in Bukkit.getOnlinePlayers()) {
+            player.sendMessage(Component.text("§r "))
+            player.sendMessage(parse("&6&lEcoWings &8| $message"))
+            player.sendMessage(Component.text("§r "))
         }
     }
 

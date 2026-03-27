@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.MessageUtils
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
@@ -36,14 +37,14 @@ class OnBlockPlace : Listener {
         if (isInSpawn || isInBuildBufferRegion || blockLocation.y < 85) {
             event.isCancelled = true
             MessageUtils.sendError(player, "&fYou can't place blocks here!")
-            player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
+            SoundUtils.playFailure(player)
             return
         }
 
         if (!placableMaterials.contains(event.block.type)) {
             event.isCancelled = true
             MessageUtils.sendMessage(player, "&fYou can only place specific blocks here!")
-            player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
+            SoundUtils.playFailure(player)
         }
     }
 }

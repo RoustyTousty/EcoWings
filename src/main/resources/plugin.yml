@@ -18,8 +18,10 @@ commands:
 
   # Gui commands
   upgrademenu:
+    aliases: [upgrade]
     description: "Opens the upgrade GUI"
   shopmenu:
+    aliases: [shop]
     description: "Opens the shop GUI"
   statsmenu:
     description: "Opens the stats GUI"

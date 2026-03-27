@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.MessageUtils
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
@@ -44,14 +45,14 @@ class OnBlockBreak : Listener {
         if (isInSpawn || isInBuildBufferRegion) {
             event.isCancelled = true
             MessageUtils.sendError(player, "&fYou can't break blocks here!")
-            player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
+            SoundUtils.playFailure(player)
             return
         }
 
         if (!breakableMaterials.contains(block.type)) {
             event.isCancelled = true
             MessageUtils.sendMessage(player, "&fYou can only break specific blocks here!")
-            player.playSound(player, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f)
+            SoundUtils.playFailure(player)
             return
         }
 

@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.gui.shops
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -31,7 +32,7 @@ class ShopMenu : Listener {
             13 -> ConsumablesShopMenu.openInventory(player)
             18 -> {
                 player.closeInventory()
-                player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+                SoundUtils.playGuiClick(player)
             }
         }
     }
@@ -48,7 +49,7 @@ class ShopMenu : Listener {
             val inventory = Bukkit.createInventory(null, 27, "Shop")
             initItems(inventory)
             player.openInventory(inventory)
-            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+            SoundUtils.playGuiClick(player)
         }
 
         private fun initItems(inventory: Inventory) {

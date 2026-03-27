@@ -4,6 +4,7 @@ import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import me.roustytousty.elytrapvp.utility.MessageUtils
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import net.kyori.adventure.text.Component
 import org.bukkit.Sound
 import org.bukkit.entity.Player
@@ -27,7 +28,7 @@ class OnPlayerDeath : Listener {
             calculateKillerStats(killer)
 
             killer.health = (killer.health + 3).coerceAtMost(killer.maxHealth)
-            killer.playSound(killer, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f)
+            SoundUtils.playSuccess(killer)
 
             event.deathMessage(
                 Component.text(parse("&6${victim.name} &fwas killed by &6${killer.name}&f!"))

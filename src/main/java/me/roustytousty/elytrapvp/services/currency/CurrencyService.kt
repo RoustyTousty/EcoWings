@@ -15,7 +15,6 @@ class CurrencyService(
 
         playerData.gold += finalAmount
 
-        // Optional: feedback
         sendFeedback(player, finalAmount, reason)
     }
 
@@ -26,7 +25,6 @@ class CurrencyService(
     }
 
     private fun sendFeedback(player: Player, amount: Int, reason: String?) {
-        // You can expand this later
         player.sendMessage(FormatUtils.parse("§6+${amount}g"))
     }
 }

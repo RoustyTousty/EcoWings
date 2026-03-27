@@ -9,10 +9,10 @@ import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.entity.TNTPrimed
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockPlaceEvent
-import org.bukkit.event.entity.EntityDamageEvent
-import org.bukkit.event.entity.EntityExplodeEvent
+import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.*
@@ -59,14 +59,11 @@ class Explosive(
         world.playSound(location, Sound.ENTITY_TNT_PRIMED, 1.0f, 1.0f)
     }
 
-    @EventHandler
-    fun onDamage(event: EntityDamageEvent) {
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    fun onDamage(event: EntityDamageByEntityEvent) {
         val victim = event.entity as? Player ?: return
 
-        if (event.cause != EntityDamageEvent.DamageCause.BLOCK_EXPLOSION &&
-            event.cause != EntityDamageEvent.DamageCause.ENTITY_EXPLOSION) {
-            return
-        }
+        val tnt = event.damager as? TNTPrimed ?: return
 
         val inSpawn = regionService.isInRegion(victim.location, "spawnRegion")
         if (inSpawn) {
@@ -74,13 +71,10 @@ class Explosive(
             return
         }
 
-        val tnt = event.entity.lastDamageCause?.entity as? TNTPrimed
-            ?: return
-
         if (!tnt.hasMetadata(TNT_OWNER_KEY)) return
 
-        val ownerUUID = tnt.getMetadata(TNT_OWNER_KEY)[0].asString()
-        val owner = Bukkit.getPlayer(UUID.fromString(ownerUUID)) ?: return
+        val ownerUUIDString = tnt.getMetadata(TNT_OWNER_KEY).firstOrNull()?.asString() ?: return
+        val owner = Bukkit.getPlayer(UUID.fromString(ownerUUIDString)) ?: return
 
         if (owner != victim) {
             combatService.tag(victim, owner)

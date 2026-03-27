@@ -33,7 +33,7 @@ class CombatService(
             val previous = combatMap[attacker.uniqueId]
 
             combatMap[attacker.uniqueId] = CombatData(
-                lastAttacker = previous?.lastAttacker, // KEEP EXISTING attacker
+                lastAttacker = previous?.lastAttacker,
                 lastHitTime = now
             )
         }

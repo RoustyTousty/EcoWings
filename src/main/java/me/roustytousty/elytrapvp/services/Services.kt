@@ -138,6 +138,7 @@ object Services {
         kitService = KitService(
             playerService = playerService,
             upgradeService = upgradeService,
+            shopService = shopService,
             plugin = plugin
         )
 

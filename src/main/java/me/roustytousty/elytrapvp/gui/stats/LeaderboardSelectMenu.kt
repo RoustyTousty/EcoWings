@@ -1,6 +1,7 @@
 package me.roustytousty.elytrapvp.gui.stats
 
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -47,7 +48,7 @@ class LeaderboardSelectMenu : Listener {
             val inventory = Bukkit.createInventory(null, 27, "Leaderboards")
             initItems(inventory)
             player.openInventory(inventory)
-            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+            SoundUtils.playGuiClick(player)
         }
 
         private fun initItems(inventory: Inventory) {

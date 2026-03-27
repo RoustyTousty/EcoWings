@@ -3,6 +3,7 @@ package me.roustytousty.elytrapvp.gui.stats
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.ItemUtils
+import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -43,7 +44,7 @@ class LeaderboardMenu : Listener {
             val inventory = Bukkit.createInventory(null, 36, "Leaderboard")
             initItems(inventory, player, stat)
             player.openInventory(inventory)
-            player.playSound(player, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f)
+            SoundUtils.playGuiClick(player)
         }
 
         private fun initItems(inventory: Inventory, player: Player, stat: String) {
