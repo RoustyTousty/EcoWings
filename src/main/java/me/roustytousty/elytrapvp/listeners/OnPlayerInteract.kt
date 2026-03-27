@@ -24,7 +24,7 @@ class OnPlayerInteract : Listener {
         val block = event.clickedBlock ?: return
         val location = block.location
 
-        if (regionService.isInRegion(location, "secretEntrance")) return
+//        if (regionService.isInRegion(location, "secretEntrance")) return
 
         if (event.action != Action.RIGHT_CLICK_BLOCK) return
 

@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.services.tablist
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
+import me.roustytousty.elytrapvp.utility.LuckPermsUtils
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
@@ -43,5 +44,8 @@ class TablistService {
 
     private fun updateForPlayer(player: Player, header: String, footer: String) {
         player.setPlayerListHeaderFooter(header, footer)
+
+        val prefix = LuckPermsUtils.getPrefix(player)
+        player.setPlayerListName(parse("$prefix ${player.name}"))
     }
 }

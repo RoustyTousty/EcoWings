@@ -6,6 +6,7 @@ import me.roustytousty.elytrapvp.services.event.EventService
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
+import me.roustytousty.elytrapvp.utility.LuckPermsUtils
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
@@ -38,7 +39,7 @@ class ScoreboardService(
 
         objective.getScore(parse("&d")).also { board.registerNewTeam("dateTime").addEntry(it.entry) }.score = 15
         objective.getScore(parse("&f")).score = 14
-        objective.getScore(parse(" &fRank: <Member>")).score = 13
+        objective.getScore(parse(" &fRank: ")).also { board.registerNewTeam("rank").addEntry(it.entry) }.score = 13
         objective.getScore(parse(" &fGold: ")).also { board.registerNewTeam("gold").addEntry(it.entry) }.score = 12
 
         objective.getScore(parse("&e")).score = 11
@@ -74,7 +75,9 @@ class ScoreboardService(
             val board = player.scoreboard
             val objective = board.getObjective("test") ?: continue
             val playerData = playerService.getOrCreatePlayerData(player)
+            val rankPrefix = LuckPermsUtils.getPrefix(player)
 
+            board.getTeam("rank")?.suffix = parse("&7$rankPrefix")
             board.getTeam("dateTime")?.prefix = parse("&7$currentDateTime")
             board.getTeam("gold")?.suffix = parse("&6${formatNumber(playerData.gold)}")
             board.getTeam("mapReset")?.suffix = parse("&6${mapResetService.getFormattedTimeRemaining()}")

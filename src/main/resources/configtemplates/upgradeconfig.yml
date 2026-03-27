@@ -203,31 +203,31 @@ upgrades:
     1:
       material: WOODEN_PICKAXE
       name: "&fPickaxe &6[&fT1&6]"
-      cost: 50
+      cost: 100
     2:
       material: WOODEN_PICKAXE
       name: "&fPickaxe &6[&fT2&6]"
       enchants:
         EFFICIENCY: 1
-      cost: 150
+      cost: 200
     3:
       material: WOODEN_PICKAXE
       name: "&fPickaxe &6[&fT3&6]"
       enchants:
         EFFICIENCY: 2
-      cost: 300
+      cost: 400
     4:
       material: WOODEN_PICKAXE
       name: "&fPickaxe &6[&fT4&6]"
       enchants:
         EFFICIENCY: 3
-      cost: 600
+      cost: 800
     5:
       material: WOODEN_PICKAXE
       name: "&fPickaxe &6[&fT5&6]"
       enchants:
         EFFICIENCY: 4
-      cost: 1200
+      cost: 1400
 
   axe:
     0:

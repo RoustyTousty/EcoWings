@@ -90,6 +90,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnPlayerInteract(), this)
         pluginmanager.registerEvents(OnWarTableClick(), this)
         pluginmanager.registerEvents(OnEntityExplode(), this)
+        pluginmanager.registerEvents(OnAsyncPlayerChat(), this)
 
         // GUI
         pluginmanager.registerEvents(ShopMenu(), this)

@@ -24,7 +24,7 @@ class AnnouncementService(
     }
 
     private fun start() {
-        val interval = 5000L
+        val interval = 3000L
 
         Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
             broadcastNext()
