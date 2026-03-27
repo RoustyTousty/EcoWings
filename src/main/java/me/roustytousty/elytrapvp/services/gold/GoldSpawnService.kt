@@ -17,6 +17,8 @@ class GoldSpawnService(
     private val PLAYER_COUNT_INTERVAL = 5
     private val SPAWN_DELAY_SECONDS = 30
     private val SPAWN_ATTEMPTS = 10
+
+    private val BUILD_BUFFER_REGION = "buildBufferRegion"
     private val REGION = "goldSpawnRegion"
 
     init {
@@ -67,7 +69,7 @@ class GoldSpawnService(
             val loc = regionObj.getRandomLocation()
             val block = loc.block
 
-            if (block.type.isAir) {
+            if (block.type.isAir && !regionService.isInRegion(loc, BUILD_BUFFER_REGION)) {
                 block.type = Material.RAW_GOLD_BLOCK
                 activeGoldBlocks.add(loc)
                 return

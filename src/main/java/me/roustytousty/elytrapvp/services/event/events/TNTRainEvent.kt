@@ -25,24 +25,22 @@ class TNTRainEvent : EventIntefrace {
     override var isActive = false
 
     private var rainTask: BukkitTask? = null
-
-    private val ceilingRegionName = "PVPAreaCeiling"
     private val pvpRegionName = "pvpRegion"
 
     override fun activate() {
         isActive = true
 
-        val region = Services.regionService.get(ceilingRegionName) ?: return
-        val y = region.getMinY().toDouble()
+        val region = Services.regionService.get(pvpRegionName) ?: return
+        val spawnY = region.getMaxY().toDouble()
 
         rainTask = Bukkit.getScheduler().runTaskTimer(
             ElytraPVP.instance!!,
             Runnable {
                 repeat(2) {
-                    if (Random.nextInt(100) < 2) {
-                        targetPlayer(region, y)
+                    if (Random.nextInt(100) < 1) {
+                        targetPlayer(region, spawnY)
                     } else {
-                        spawnRandom(region, y)
+                        spawnRandom(region, spawnY)
                     }
                 }
             },
@@ -59,7 +57,7 @@ class TNTRainEvent : EventIntefrace {
 
     private fun targetPlayer(region: Region, y: Double) {
         val players = Bukkit.getOnlinePlayers().filter {
-            Services.regionService.isInRegion(it.location, pvpRegionName)
+            region.contains(it.location)
         }
 
         if (players.isEmpty()) return
@@ -67,15 +65,8 @@ class TNTRainEvent : EventIntefrace {
         val target = players.random()
         val loc = target.location
 
-        val x = loc.x.coerceIn(
-            region.getMinX().toDouble() + 0.5,
-            region.getMaxX().toDouble() + 0.5
-        )
-
-        val z = loc.z.coerceIn(
-            region.getMinZ().toDouble() + 0.5,
-            region.getMaxZ().toDouble() + 0.5
-        )
+        val x = loc.x.coerceIn(region.getMinX().toDouble(), region.getMaxX().toDouble())
+        val z = loc.z.coerceIn(region.getMinZ().toDouble(), region.getMaxZ().toDouble())
 
         spawnTNT(region.world, Location(region.world, x, y, z))
     }
@@ -87,6 +78,6 @@ class TNTRainEvent : EventIntefrace {
 
     private fun spawnTNT(world: World, location: Location) {
         val tnt = world.spawnEntity(location, EntityType.PRIMED_TNT) as TNTPrimed
-        tnt.fuseTicks = 80
+        tnt.fuseTicks = 80 // 4 seconds
     }
 }
