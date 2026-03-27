@@ -74,9 +74,9 @@ object MessageUtils {
     */
     fun sendAnnouncement(message: String) {
         for (player: Player in Bukkit.getOnlinePlayers()) {
-            player.sendMessage(Component.text("§r "))
+            player.sendMessage(" ")
             player.sendMessage(parse("&6&lEcoWings &8| $message"))
-            player.sendMessage(Component.text("§r "))
+            player.sendMessage(" ")
         }
     }
 

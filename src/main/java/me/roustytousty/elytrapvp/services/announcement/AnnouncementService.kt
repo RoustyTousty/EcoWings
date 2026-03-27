@@ -33,7 +33,7 @@ class AnnouncementService(
 
     private fun broadcastNext() {
         val message = messages[currentIndex]
-        MessageUtils.sendMessage(message)
+        MessageUtils.sendAnnouncement(message)
 
         currentIndex = (currentIndex + 1) % messages.size
     }

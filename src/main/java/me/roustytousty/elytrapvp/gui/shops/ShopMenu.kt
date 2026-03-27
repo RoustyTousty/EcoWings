@@ -27,9 +27,9 @@ class ShopMenu : Listener {
 
         val player = e.whoClicked as Player
         when (e.rawSlot) {
-            11 -> BlockShopMenu.openInventory(player)
-            12 -> UtilityShopMenu.openInventory(player)
-            13 -> ConsumablesShopMenu.openInventory(player)
+            11 -> CategoryShopMenu.openInventory(player, "Blocks")
+            12 -> CategoryShopMenu.openInventory(player, "Utility")
+            13 -> CategoryShopMenu.openInventory(player, "Consumables")
             18 -> {
                 player.closeInventory()
                 SoundUtils.playGuiClick(player)

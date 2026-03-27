@@ -5,34 +5,37 @@ import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import org.bukkit.inventory.Inventory
+import kotlin.math.max
 
-class UtilityShopMenu : Listener {
+class CategoryShopMenu : Listener {
 
     private val shopService = Services.shopService
-    private val SHOP_TITLE = "Utility"
 
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
-        if (e.view.title != SHOP_TITLE) return
+        val title = e.view.title
+        val items = shopService.getShopItems(title)
+
+        if (items.isEmpty()) return
 
         e.isCancelled = true
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        if (e.rawSlot == 18) {
+        val backSlot = e.inventory.size - 9
+        if (e.rawSlot == backSlot) {
             ShopMenu.openInventory(p)
             return
         }
 
-        val shopItem = shopService.getShopItemBySlot(SHOP_TITLE, e.rawSlot)
+        val shopItem = shopService.getShopItemBySlot(title, e.rawSlot)
         if (shopItem != null) {
             shopService.tryPlayerPurchaseItem(p, shopItem)
         }
@@ -40,29 +43,40 @@ class UtilityShopMenu : Listener {
 
     @EventHandler
     private fun onInventoryDrag(e: InventoryDragEvent) {
-        if (e.view.title == SHOP_TITLE) {
+        if (shopService.getShopItems(e.view.title).isNotEmpty()) {
             e.isCancelled = true
         }
     }
 
     companion object {
 
-        fun openInventory(player: Player) {
-            val inventory = Bukkit.createInventory(null, 27, "Utility")
-            initItems(inventory)
+        fun openInventory(player: Player, shopType: String) {
+            val items = Services.shopService.getShopItems(shopType)
+            if (items.isEmpty()) return
+
+            val maxSlot = items.maxOfOrNull { it.slot } ?: 0
+
+            var size = ((maxSlot / 9) + 2) * 9
+            size = max(27, size)
+
+            val inventory = Bukkit.createInventory(null, size, shopType)
+            initItems(inventory, shopType)
             player.openInventory(inventory)
             SoundUtils.playGuiClick(player)
         }
 
-        private fun initItems(inventory: Inventory) {
-            val slots = intArrayOf(0, 8, 9, 17, 18, 26)
-            for (slot in slots) {
-                inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
+        private fun initItems(inventory: Inventory, shopType: String) {
+            val size = inventory.size
+
+            for (i in 0 until size step 9) {
+                inventory.setItem(i, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f")) // Left edge
+                inventory.setItem(i + 8, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f")) // Right edge
             }
 
-            inventory.setItem(18, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cBack"))
+            val backSlot = size - 9
+            inventory.setItem(backSlot, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cBack"))
 
-            val items = Services.shopService.getShopItems("Utility")
+            val items = Services.shopService.getShopItems(shopType)
             for (item in items) {
                 val lore = mutableListOf<String>()
                 lore.addAll(item.description)

@@ -93,10 +93,7 @@ class ElytraPVP : JavaPlugin() {
 
         // GUI
         pluginmanager.registerEvents(ShopMenu(), this)
-        pluginmanager.registerEvents(BlockShopMenu(), this)
-        pluginmanager.registerEvents(UtilityShopMenu(), this)
-        pluginmanager.registerEvents(ConsumablesShopMenu(), this)
-        pluginmanager.registerEvents(RocketsShopMenu(), this)
+        pluginmanager.registerEvents(CategoryShopMenu(), this)
         pluginmanager.registerEvents(UpgradeMenu(), this)
         pluginmanager.registerEvents(ConfirmUpgradeMenu(), this)
         pluginmanager.registerEvents(StatsMenu(), this)
