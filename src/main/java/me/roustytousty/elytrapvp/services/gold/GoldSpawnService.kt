@@ -49,6 +49,14 @@ class GoldSpawnService(
         activeGoldBlocks.clear()
     }
 
+    private fun cleanupRegion() {
+        regionService.forEachBlock(REGION) {
+            if (it.type == Material.RAW_GOLD_BLOCK) {
+                it.type = Material.AIR
+            }
+        }
+    }
+
     private fun startSpawner() {
         object : BukkitRunnable() {
             override fun run() {
@@ -70,8 +78,7 @@ class GoldSpawnService(
             val block = loc.block
 
             if (block.type.isAir && !regionService.isInRegion(loc, BUILD_BUFFER_REGION)) {
-                block.type = Material.RAW_GOLD_BLOCK
-                activeGoldBlocks.add(loc)
+                playSpawnAnimation(loc)
                 return
             }
         }
@@ -120,11 +127,47 @@ class GoldSpawnService(
         }.runTaskTimer(plugin, 0L, 20L * 2)
     }
 
-    private fun cleanupRegion() {
-        regionService.forEachBlock(REGION) {
-            if (it.type == Material.RAW_GOLD_BLOCK) {
-                it.type = Material.AIR
+    private fun playSpawnAnimation(loc: Location) {
+        object : BukkitRunnable() {
+            var ticks = 0
+            val maxTicks = 60
+            val center = loc.clone().add(0.5, 0.5, 0.5)
+
+            override fun run() {
+                val world = loc.world ?: return
+
+                if (ticks >= maxTicks) {
+                    if (loc.block.type.isAir) {
+                        loc.block.type = Material.RAW_GOLD_BLOCK
+                        activeGoldBlocks.add(loc)
+
+                        world.spawnParticle(Particle.EXPLOSION_LARGE, center, 1)
+                        world.spawnParticle(Particle.BLOCK_CRACK, center, 50, 0.5, 0.5, 0.5, Material.RAW_GOLD_BLOCK.createBlockData())
+
+                        world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.2f)
+                        world.playSound(center, Sound.BLOCK_ANVIL_PLACE, 1.0f, 0.5f) // Heavy thud
+                    }
+
+                    this.cancel()
+                    return
+                }
+
+                val progress = ticks.toDouble() / maxTicks
+                val particleCount = (progress * 15).toInt().coerceAtLeast(1)
+
+                world.spawnParticle(
+                    Particle.FLAME,
+                    center,
+                    particleCount,
+                    0.4, 0.4, 0.4,
+                    0.05
+                )
+
+                val pitch = 0.5f + (progress.toFloat() * 1.5f)
+                world.playSound(center, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.6f, pitch)
+
+                ticks += 5
             }
-        }
+        }.runTaskTimer(plugin, 0L, 5L)
     }
 }

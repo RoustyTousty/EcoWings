@@ -11,9 +11,11 @@ object LuckPermsUtils {
         return user.cachedData.metaData.prefix ?: ""
     }
 
-    fun getGroupName(player: Player): String {
-        val user = api.userManager.getUser(player.uniqueId) ?: return "Member"
-        val group = api.groupManager.getGroup(user.primaryGroup)
-        return group?.displayName ?: user.primaryGroup.replaceFirstChar { it.uppercase() }
+    fun getWeight(player: Player): Int {
+        val lp = LuckPermsProvider.get()
+        val user = lp.userManager.getUser(player.uniqueId) ?: return 0
+        val groupName = user.primaryGroup
+        val group = lp.groupManager.getGroup(groupName) ?: return 0
+        return group.weight.orElse(0)
     }
 }
