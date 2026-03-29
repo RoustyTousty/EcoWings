@@ -66,6 +66,17 @@ class MongoPlayerRepository : PlayerRepository {
         ).toInt()
     }
 
+    override fun getValueAtOffset(stat: String, offset: Int): Int {
+        val doc = collection.find()
+            .sort(Sorts.descending(stat))
+            .skip(offset - 1)
+            .projection(Document(stat, 1))
+            .limit(1)
+            .first() ?: return 0
+
+        return doc.getInteger(stat, 0)
+    }
+
     private fun documentToLeaderboardEntry(stat: String, doc: Document): LeaderboardEntry {
 
         return LeaderboardEntry(

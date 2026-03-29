@@ -59,8 +59,9 @@ class ElytraPVP : JavaPlugin() {
     }
 
     override fun onDisable() {
-        Services.goldSpawnService.shutdown()
+        Services.goldSpawnService.stopSpawner()
         Services.playerService.saveAndUnloadAllPlayerData()
+        Services.eventService.saveAllEventData()
 
         MongoManager.close()
         logger.info("Disabled Plugin!")
@@ -79,6 +80,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnBlockBreak(), this)
         pluginmanager.registerEvents(OnPlayerMove(), this)
         pluginmanager.registerEvents(OnPlayerRespawn(), this)
+        pluginmanager.registerEvents(OnPlayerPostRespawn(), this)
         pluginmanager.registerEvents(OnFoodLevelChange(), this)
         pluginmanager.registerEvents(OnInventoryClose(), this)
         pluginmanager.registerEvents(OnPlayerCraft(), this)

@@ -95,7 +95,7 @@ class UpgradeMenu : Listener {
                     inventory.setItem(
                         type.slot,
                         itemBuilder(
-                            Material.GRAY_STAINED_GLASS_PANE,
+                            Material.ORANGE_STAINED_GLASS_PANE,
                             1,
                             false,
                             "&f${type.displayName} &6[&fT0&6]",

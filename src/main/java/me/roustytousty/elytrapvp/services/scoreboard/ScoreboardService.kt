@@ -102,13 +102,11 @@ class ScoreboardService(
         val data = playerService.getOrCreatePlayerData(player)
 
         if (eventService.isAnyEventActive()) {
-            // Noņemam liekās rindiņas (KD un Killstreak)
             board.resetScores(ENTRIES.KD)
             board.resetScores(ENTRIES.KSTREAK)
 
-            val activeEvent = eventService.getActiveEvents().first()
+            val activeEvent = eventService.getActiveEvent()!!
 
-            // Izmantojam d1 un d2 priekš Event datiem
             objective.getScore(ENTRIES.KILLS).score = 10
             d1.prefix = parse("  &8• &fEvent: ")
             d1.suffix = parse("&6${activeEvent.name}")
@@ -117,7 +115,6 @@ class ScoreboardService(
             d2.prefix = parse("  &8• &fTime: ")
             d2.suffix = parse("&6${eventService.getEventRemainingTime(activeEvent.name)}")
         } else {
-            // Rādām visas 4 rindiņas sakārtotā secībā
             objective.getScore(ENTRIES.KILLS).score = 10
             d1.prefix = parse("  &8• &fKills: ")
             d1.suffix = parse("&6${formatNumber(data.kills)}")

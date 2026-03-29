@@ -31,8 +31,6 @@ commands:
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   eventsmenu:
     description: "Opens the events GUI"
-    permission: op
-    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   rebirthmenu:
     description: "Opens the rebirth GUI"
     permission: op

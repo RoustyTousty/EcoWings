@@ -1,8 +1,7 @@
 package me.roustytousty.elytrapvp.services.event.events
 
-import com.destroystokyo.paper.event.player.PlayerJumpEvent
 import me.roustytousty.elytrapvp.ElytraPVP
-import me.roustytousty.elytrapvp.services.event.EventIntefrace
+import me.roustytousty.elytrapvp.services.event.EventInterface
 import net.citizensnpcs.api.CitizensAPI
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -10,7 +9,6 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
@@ -19,7 +17,7 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
 
-class MoonEvent : EventIntefrace {
+class MoonEvent : EventInterface {
     override val name = "Moon"
     override val description = "Time to float!"
     override val displayMaterial = Material.END_STONE

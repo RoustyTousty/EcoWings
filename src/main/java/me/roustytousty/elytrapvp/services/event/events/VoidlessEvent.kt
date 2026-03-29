@@ -2,7 +2,7 @@ package me.roustytousty.elytrapvp.services.event.events
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.services.Services
-import me.roustytousty.elytrapvp.services.event.EventIntefrace
+import me.roustytousty.elytrapvp.services.event.EventInterface
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Particle
@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.scheduler.BukkitTask
 import org.bukkit.util.Vector
 
-class VoidlessEvent : EventIntefrace {
+class VoidlessEvent : EventInterface {
     override val name = "Voidless"
     override val description = "No void, no problem."
     override val displayMaterial = Material.SCULK

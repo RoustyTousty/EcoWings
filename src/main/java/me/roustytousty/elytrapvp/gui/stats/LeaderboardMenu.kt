@@ -77,9 +77,16 @@ class LeaderboardMenu : Listener {
             }
 
             val playerStat = Services.playerService.getDynamicPlayerData(player, stat)
-            val playerRank = Services.leaderboardService.getRank(stat, player)
+            val rankDisplay = Services.leaderboardService.getRankDisplay(stat, player)
+
             inventory.setItem(35,
-                ItemUtils.itemBuilder(player, 1, false, "&e${player.name} &6#$playerRank", "&7Value: ${formatNumber(playerStat as Int)}")
+                ItemUtils.itemBuilder(
+                    player,
+                    1,
+                    false,
+                    "&e${player.name} &6$rankDisplay",
+                    "&7Value: ${formatNumber(playerStat as Int)}"
+                )
             )
 
             val leaderboardSlots = intArrayOf(17, 16, 15, 14, 13, 12, 11, 10, 9)
@@ -88,7 +95,13 @@ class LeaderboardMenu : Listener {
             topPlayers.take(9).forEachIndexed { index, leaderboardEntry ->
                 val pName = leaderboardEntry.username
                 val pStat = leaderboardEntry.value
-                val skullItem = ItemUtils.itemBuilder(Bukkit.getOfflinePlayer(leaderboardEntry.uuid), 1, false, "&e$pName &6#${index + 1}", "&7Value: ${formatNumber(pStat)}")
+                val skullItem = ItemUtils.itemBuilder(
+                    Bukkit.getOfflinePlayer(leaderboardEntry.uuid),
+                    1,
+                    false,
+                    "&e$pName &6#${index + 1}",
+                    "&7Value: ${formatNumber(pStat)}"
+                )
                 inventory.setItem(leaderboardSlots[index], skullItem)
             }
 

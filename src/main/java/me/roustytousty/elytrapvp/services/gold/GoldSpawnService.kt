@@ -39,7 +39,7 @@ class GoldSpawnService(
         }
     }
 
-    fun shutdown() {
+    fun stopSpawner() {
         for (loc in activeGoldBlocks) {
             val block = loc.block
             if (block.type == Material.RAW_GOLD_BLOCK) {

@@ -39,7 +39,7 @@ class TablistService {
                     updateForPlayer(player, header, footer)
                 }
             }
-        }.runTaskTimer(ElytraPVP.instance!!, 0L, 20L * 5)
+        }.runTaskTimer(ElytraPVP.instance!!, 0L, 20L * 1)
     }
 
     private fun updateForPlayer(player: Player, header: String, footer: String) {

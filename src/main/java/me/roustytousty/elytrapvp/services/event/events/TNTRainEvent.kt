@@ -2,7 +2,7 @@ package me.roustytousty.elytrapvp.services.event.events
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.services.Services
-import me.roustytousty.elytrapvp.services.event.EventIntefrace
+import me.roustytousty.elytrapvp.services.event.EventInterface
 import me.roustytousty.elytrapvp.services.region.Region
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -13,7 +13,7 @@ import org.bukkit.entity.TNTPrimed
 import org.bukkit.scheduler.BukkitTask
 import kotlin.random.Random
 
-class TNTRainEvent : EventIntefrace {
+class TNTRainEvent : EventInterface {
     override val name = "TNT Rain"
     override val description = "Watch your head!"
     override val displayMaterial = Material.TNT

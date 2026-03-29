@@ -1,12 +1,9 @@
 package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.services.Services
-import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
-import me.roustytousty.elytrapvp.utility.MessageUtils
 import me.roustytousty.elytrapvp.utility.SoundUtils
 import net.kyori.adventure.text.Component
-import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -21,22 +18,19 @@ class OnPlayerDeath : Listener {
     @EventHandler
     fun onPlayerDeath(event: PlayerDeathEvent) {
         val victim = event.entity
-
         val killer = combatService.getLastAttacker(victim)
 
         if (killer != null) {
             calculateKillerStats(killer)
 
-            killer.health = (killer.health + 3).coerceAtMost(killer.maxHealth)
+            val healAmount = if (combatService.hasRespawnProtection(killer)) 6.0 else 3.0
+
+            killer.health = (killer.health + healAmount).coerceAtMost(killer.maxHealth)
             SoundUtils.playSuccess(killer)
 
-            event.deathMessage(
-                Component.text(parse("&6${victim.name} &fwas killed by &6${killer.name}&f!"))
-            )
+            event.deathMessage(Component.text(parse("&6${victim.name} &fwas killed by &6${killer.name}&f!")))
         } else {
-            event.deathMessage(
-                Component.text(parse("&6${victim.name} &fhas died!"))
-            )
+            event.deathMessage(Component.text(parse("&6${victim.name} &fhas died!")))
         }
 
         combatService.clear(victim)

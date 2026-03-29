@@ -2,12 +2,10 @@ package me.roustytousty.elytrapvp.gui.events
 
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
-import me.roustytousty.elytrapvp.utility.MessageUtils
 import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
-import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -27,32 +25,17 @@ class EventsMenu : Listener {
         if (clickedItem == null || clickedItem.type.isAir) return
         val p = e.whoClicked as Player
 
-        val playerData = Services.playerService.getOrCreatePlayerData(p)
-
         when (e.rawSlot) {
             11, 13, 15 -> {
-
-                if (eventService.isAnyEventActive()) {
-                    p.closeInventory()
-                    MessageUtils.sendMessage(p, "&fYou cannot contribute to an &6&lEVENT &fwhile one is active!")
-                    SoundUtils.playFailure(p)
-                    return
-                }
-
                 val eventName = ChatColor.stripColor(clickedItem.itemMeta?.displayName ?: return) ?: return
-
                 val donationAmount = if (e.isShiftClick) 100 else 10
-                if (playerData.gold >= donationAmount) {
-                    MessageUtils.sendMessage(p, "&fYou contributed &6&l${donationAmount}g &fto &6&l${eventName} &fevent!")
-                    SoundUtils.playSuccess(p)
 
-                    playerData.gold -= donationAmount
-                    eventService.contributeToEvent(eventName, donationAmount)
+                val success = eventService.processPlayerContribution(p, eventName, donationAmount)
 
+                if (success) {
                     openInventory(p)
                 } else {
-                    MessageUtils.sendError(p, "&fYou don't have enough gold!")
-                    SoundUtils.playFailure(p)
+                    p.closeInventory()
                 }
             }
 
@@ -71,7 +54,6 @@ class EventsMenu : Listener {
     }
 
     companion object {
-
         private val eventService = Services.eventService
 
         fun openInventory(player: Player) {
@@ -89,8 +71,8 @@ class EventsMenu : Listener {
 
             val eventSlots = intArrayOf(11, 13, 15)
             val events = eventService.getEvents()
-            events.forEachIndexed { index, event ->
 
+            events.forEachIndexed { index, event ->
                 inventory.setItem(
                     eventSlots[index],
                     itemBuilder(

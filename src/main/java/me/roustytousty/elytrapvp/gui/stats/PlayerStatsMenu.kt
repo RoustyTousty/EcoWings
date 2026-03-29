@@ -69,133 +69,43 @@ class PlayerStatsMenu : Listener {
             val recordKillstreak = playerData.recordKillstreak
             val deaths = playerData.deaths
 
-            val goldRank = leaderboardService.getRank("gold", statPlayer)
-            val rebirthsRank = leaderboardService.getRank("rebirths", statPlayer)
-            val killsRank = leaderboardService.getRank("kills", statPlayer)
-            val recordKillstreakRank = leaderboardService.getRank("recordKillstreak", statPlayer)
-            val deathsRank = leaderboardService.getRank("deaths", statPlayer)
+            val goldRank = leaderboardService.getRankDisplay("gold", statPlayer)
+            val rebirthsRank = leaderboardService.getRankDisplay("rebirths", statPlayer)
+            val killsRank = leaderboardService.getRankDisplay("kills", statPlayer)
+            val recordKillstreakRank = leaderboardService.getRankDisplay("recordKillstreak", statPlayer)
+            val deathsRank = leaderboardService.getRankDisplay("deaths", statPlayer)
 
-            inventory.setItem(
-                11,
-                getDisplayItem(playerData, UpgradeType.HELMET)
-            )
-            inventory.setItem(
-                20,
-                getDisplayItem(playerData, UpgradeType.ELYTRA)
-            )
-            inventory.setItem(
-                29,
-                getDisplayItem(playerData, UpgradeType.LEGGINGS)
-            )
-            inventory.setItem(
-                38,
-                getDisplayItem(playerData, UpgradeType.BOOTS)
-            )
-            inventory.setItem(
-                12,
-                getDisplayItem(playerData, UpgradeType.SWORD)
-            )
-            inventory.setItem(
-                21,
-                getDisplayItem(playerData, UpgradeType.SHEARS)
-            )
-            inventory.setItem(
-                30,
-                getDisplayItem(playerData, UpgradeType.PICKAXE)
-            )
-            inventory.setItem(
-                39,
-                getDisplayItem(playerData, UpgradeType.AXE)
-            )
+            for (type in UpgradeType.values()) {
+                inventory.setItem(
+                    type.statsSlot,
+                    getDisplayItem(playerData, type)
+                )
+            }
 
-            inventory.setItem(
-                0,
-                ItemUtils.itemBuilder(
-                    statPlayer,
-                    1,
-                    false,
-                    "&f"
-                )
-            )
-            inventory.setItem(
-                24,
-                ItemUtils.itemBuilder(
-                    Material.GOLDEN_SWORD,
-                    1,
-                    false,
-                    "&eRecord killstreak &6#$recordKillstreakRank",
-                    "&7Value: ${formatNumber(recordKillstreak)}"
-                )
-            )
-            inventory.setItem(
-                23,
-                ItemUtils.itemBuilder(
-                    Material.CHERRY_SAPLING,
-                    1,
-                    false,
-                    "&eRebirths &6#$rebirthsRank",
-                    "&7Value: ${formatNumber(rebirths)}"
-                )
-            )
-            inventory.setItem(
-                14,
-                ItemUtils.itemBuilder(
-                    Material.GOLD_INGOT,
-                    1,
-                    false,
-                    "&eGold &6#$goldRank",
-                    "&7Value: ${formatNumber(gold)}"
-                )
-            )
-            inventory.setItem(
-                15,
-                ItemUtils.itemBuilder(
-                    Material.WOODEN_SWORD,
-                    1,
-                    false,
-                    "&eKills &6#$killsRank",
-                    "&7Value: ${formatNumber(kills)}"
-                )
-            )
-            inventory.setItem(
-                33,
-                ItemUtils.itemBuilder(
-                    Material.SKELETON_SKULL,
-                    1,
-                    false,
-                    "&eDeaths &6#$deathsRank",
-                    "&7Value: ${formatNumber(deaths)}"
-                )
-            )
+            inventory.setItem(0, ItemUtils.itemBuilder(statPlayer, 1, false, "&f"))
+            
+            inventory.setItem(24, ItemUtils.itemBuilder(Material.GOLDEN_SWORD, 1, false, "&eRecord killstreak &6$recordKillstreakRank", "&7Value: ${formatNumber(recordKillstreak)}"))
+            inventory.setItem(23, ItemUtils.itemBuilder(Material.CHERRY_SAPLING, 1, false, "&eRebirths &6$rebirthsRank", "&7Value: ${formatNumber(rebirths)}"))
+            inventory.setItem(14, ItemUtils.itemBuilder(Material.GOLD_INGOT, 1, false, "&eGold &6$goldRank", "&7Value: ${formatNumber(gold)}"))
+            inventory.setItem(15, ItemUtils.itemBuilder(Material.WOODEN_SWORD, 1, false, "&eKills &6$killsRank", "&7Value: ${formatNumber(kills)}"))
+            inventory.setItem(33, ItemUtils.itemBuilder(Material.SKELETON_SKULL, 1, false, "&eDeaths &6$deathsRank", "&7Value: ${formatNumber(deaths)}"))
 
-            inventory.setItem(
-                45,
-                ItemUtils.itemBuilder(
-                    Material.RED_STAINED_GLASS_PANE,
-                    1,
-                    false,
-                    "&cBack"
-                )
-            )
+            inventory.setItem(45, ItemUtils.itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cBack"))
         }
 
         private fun getDisplayItem(playerData: PlayerData, type: UpgradeType): ItemStack {
-            val level = type.getLevel(playerData)
+            val data = upgradeService.getCurrentUpgradeData(playerData, type)
 
-            if (level <= 0) {
+            if (data.item.type == Material.AIR) {
                 return ItemUtils.itemBuilder(
-                    Material.GRAY_STAINED_GLASS_PANE,
+                    Material.ORANGE_STAINED_GLASS_PANE,
                     1,
                     false,
                     "&f${type.displayName} &6[&fT0&6]",
                 )
             }
 
-            val data = upgradeService.getCurrentUpgradeData(playerData, type)
-
-            return ItemUtils.itemBuilder(
-                data.item
-            )
+            return ItemUtils.itemBuilder(data.item)
         }
     }
 }

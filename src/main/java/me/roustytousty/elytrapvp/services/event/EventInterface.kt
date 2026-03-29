@@ -3,7 +3,7 @@ package me.roustytousty.elytrapvp.services.event
 import org.bukkit.Material
 import org.bukkit.scheduler.BukkitTask
 
-interface EventIntefrace {
+interface EventInterface {
     val name: String
     val description: String
     val displayMaterial: Material

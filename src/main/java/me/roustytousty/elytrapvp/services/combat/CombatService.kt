@@ -11,6 +11,7 @@ class CombatService(
 ) {
 
     private val combatMap = mutableMapOf<UUID, CombatData>()
+    private val protectionMap = mutableMapOf<UUID, Long>()
     private val combatDuration = 8_000L
 
     init {
@@ -57,5 +58,19 @@ class CombatService(
 
     fun clear(player: Player) {
         combatMap.remove(player.uniqueId)
+        protectionMap.remove(player.uniqueId)
+    }
+
+    fun applyRespawnProtection(player: Player) {
+        protectionMap[player.uniqueId] = System.currentTimeMillis() + 20_000L
+    }
+
+    fun hasRespawnProtection(player: Player): Boolean {
+        val expiry = protectionMap[player.uniqueId] ?: return false
+        if (System.currentTimeMillis() > expiry) {
+            protectionMap.remove(player.uniqueId)
+            return false
+        }
+        return true
     }
 }

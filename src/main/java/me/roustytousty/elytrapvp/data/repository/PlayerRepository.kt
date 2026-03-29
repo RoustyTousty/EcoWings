@@ -15,4 +15,6 @@ interface PlayerRepository {
     fun getTopLeaderboard(stat: String, limit: Int): List<LeaderboardEntry>
 
     fun getPlayerRank(uuid: UUID, stat: String): Int
+
+    fun getValueAtOffset(stat: String, offset: Int): Int
 }

@@ -8,80 +8,49 @@ enum class UpgradeType(
     val material: Material,
     val displayName: String,
     val slot: Int,
+    val statsSlot: Int,
     val levelGetter: (PlayerData) -> Int,
     val levelSetter: (PlayerData, Int) -> Unit
 ) {
 
     HELMET(
-        "helmet",
-        Material.LEATHER_HELMET,
-        "Helmet",
-        12,
-        { it.helmetLevel },
-        { data, value -> data.helmetLevel = value }
+        "helmet", Material.LEATHER_HELMET, "Helmet", 12, 11,
+        { it.helmetLevel }, { data, value -> data.helmetLevel = value }
     ),
 
     ELYTRA(
-        "elytra",
-        Material.ELYTRA,
-        "Elytra",
-        21,
-        { it.elytraLevel },
-        { data, value -> data.elytraLevel = value }
+        "elytra", Material.ELYTRA, "Elytra", 21, 20,
+        { it.elytraLevel }, { data, value -> data.elytraLevel = value }
     ),
 
     LEGGINGS(
-        "leggings",
-        Material.LEATHER_LEGGINGS,
-        "Leggings",
-        30,
-        { it.leggingsLevel },
-        { data, value -> data.leggingsLevel = value }
+        "leggings", Material.LEATHER_LEGGINGS, "Leggings", 30, 29,
+        { it.leggingsLevel }, { data, value -> data.leggingsLevel = value }
     ),
 
     BOOTS(
-        "boots",
-        Material.LEATHER_BOOTS,
-        "Boots",
-        39,
-        { it.bootsLevel },
-        { data, value -> data.bootsLevel = value }
+        "boots", Material.LEATHER_BOOTS, "Boots", 39, 38,
+        { it.bootsLevel }, { data, value -> data.bootsLevel = value }
     ),
 
     SWORD(
-        "sword",
-        Material.WOODEN_SWORD,
-        "Sword",
-        14,
-        { it.swordLevel },
-        { data, value -> data.swordLevel = value }
+        "sword", Material.WOODEN_SWORD, "Sword", 14, 12,
+        { it.swordLevel }, { data, value -> data.swordLevel = value }
     ),
 
     SHEARS(
-        "shears",
-        Material.SHEARS,
-        "Shears",
-        23,
-        { it.shearsLevel },
-        { data, value -> data.shearsLevel = value }
+        "shears", Material.SHEARS, "Shears", 23, 21,
+        { it.shearsLevel }, { data, value -> data.shearsLevel = value }
     ),
 
     PICKAXE(
-        "pickaxe",
-        Material.WOODEN_PICKAXE,
-        "Pickaxe",
-        32,
-        { it.pickaxeLevel },
-        { data, value -> data.pickaxeLevel = value }
+        "pickaxe", Material.WOODEN_PICKAXE, "Pickaxe", 32, 30,
+        { it.pickaxeLevel }, { data, value -> data.pickaxeLevel = value }
     ),
 
     AXE(
-        "axe",
-        Material.WOODEN_AXE,
-        "Axe",
-        41,
-        { it.axeLevel },
-        { data, value -> data.axeLevel = value }
+        "axe", Material.WOODEN_AXE, "Axe", 41, 39,
+        { it.axeLevel }, { data, value -> data.axeLevel = value }
     );
 
     fun getLevel(data: PlayerData): Int {

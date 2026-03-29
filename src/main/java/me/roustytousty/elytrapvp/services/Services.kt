@@ -2,6 +2,8 @@ package me.roustytousty.elytrapvp.services
 
 import me.roustytousty.elytrapvp.data.cache.LeaderboardCache
 import me.roustytousty.elytrapvp.data.cache.PlayerCache
+import me.roustytousty.elytrapvp.data.repository.EventRepository
+import me.roustytousty.elytrapvp.data.repository.MongoEventRepository
 import me.roustytousty.elytrapvp.data.repository.PlayerRepository
 import me.roustytousty.elytrapvp.data.repository.MongoPlayerRepository
 import me.roustytousty.elytrapvp.services.announcement.AnnouncementService
@@ -28,6 +30,7 @@ object Services {
         private set
 
     private lateinit var playerRepository: PlayerRepository
+    private lateinit var eventRepository: EventRepository
 
     private lateinit var playerCache: PlayerCache
     private lateinit var leaderboardCache: LeaderboardCache
@@ -86,13 +89,13 @@ object Services {
         plugin = pluginInstance
 
         playerRepository = MongoPlayerRepository()
+        eventRepository = MongoEventRepository()
         playerCache = PlayerCache()
         leaderboardCache = LeaderboardCache()
 
 
         tablistService = TablistService()
         regionService = RegionService()
-        eventService = EventService()
 
         mapResetService = MapResetService(
             regionService = regionService
@@ -108,6 +111,12 @@ object Services {
             cache = playerCache
         )
 
+        eventService = EventService(
+            eventRepository = eventRepository,
+            playerService = playerService,
+            plugin = plugin
+        )
+
         currencyService = CurrencyService(
             playerService = playerService
         )
@@ -119,6 +128,7 @@ object Services {
         leaderboardService = LeaderboardService(
             playerRepository = playerRepository,
             leaderboardCache = leaderboardCache,
+            playerService = playerService,
             plugin = plugin
         )
 

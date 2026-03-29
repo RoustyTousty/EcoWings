@@ -10,7 +10,9 @@ class LeaderboardCache {
     private val leaderboards: MutableMap<String, List<LeaderboardEntry>> = ConcurrentHashMap()
     private val ranks: MutableMap<String, MutableMap<UUID, Int>> = ConcurrentHashMap()
 
-    fun update(stat: String, players: List<LeaderboardEntry>) {
+    private val thresholds: MutableMap<String, Map<Int, Int>> = ConcurrentHashMap()
+
+    fun update(stat: String, players: List<LeaderboardEntry>, statThresholds: Map<Int, Int>) {
 
         leaderboards[stat] = players
 
@@ -21,7 +23,11 @@ class LeaderboardCache {
         }
 
         ranks[stat] = rankMap
+
+        thresholds[stat] = statThresholds
     }
+
+    fun getThresholds(stat: String): Map<Int, Int> = thresholds[stat] ?: emptyMap()
 
     fun getTop(stat: String): List<LeaderboardEntry> {
         return leaderboards[stat] ?: emptyList()
