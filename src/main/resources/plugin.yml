@@ -24,6 +24,7 @@ commands:
     aliases: [shop]
     description: "Opens the shop GUI"
   statsmenu:
+    aliases: [leaderboards, lb]
     description: "Opens the stats GUI"
   perksmenu:
     description: "Opens the perks GUI"
@@ -48,6 +49,14 @@ commands:
   spawn:
     aliases: [hub, lobby, s]
     description: "Teleports you to spawn!"
+  ip:
+    aliases: [serverip]
+    description: "Provides the server IP!"
+  link:
+    aliases: [freerank]
+    description: "Initiates linking between minecraft and discord!"
+  unlink:
+    description: "Initiates unlinking between minecraft and discord!"
 
   # Staff commands
   reloadupgradeconfig:
@@ -56,6 +65,10 @@ commands:
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   reloadshopconfig:
     description: "Reloads the shop config!"
+    permission: op
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+  reloadregionconfig:
+    description: "Reloads the region config!"
     permission: op
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   buildmode:
@@ -68,6 +81,10 @@ commands:
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   setgold:
     description: "Set players gold amount!"
+    permission: op
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+  addgold:
+    description: "Add gold to players gold amount!"
     permission: op
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   setkitlevel:

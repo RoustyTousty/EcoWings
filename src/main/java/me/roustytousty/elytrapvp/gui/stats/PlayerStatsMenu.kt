@@ -83,7 +83,7 @@ class PlayerStatsMenu : Listener {
             }
 
             inventory.setItem(0, ItemUtils.itemBuilder(statPlayer, 1, false, "&f"))
-            
+
             inventory.setItem(24, ItemUtils.itemBuilder(Material.GOLDEN_SWORD, 1, false, "&eRecord killstreak &6$recordKillstreakRank", "&7Value: ${formatNumber(recordKillstreak)}"))
             inventory.setItem(23, ItemUtils.itemBuilder(Material.CHERRY_SAPLING, 1, false, "&eRebirths &6$rebirthsRank", "&7Value: ${formatNumber(rebirths)}"))
             inventory.setItem(14, ItemUtils.itemBuilder(Material.GOLD_INGOT, 1, false, "&eGold &6$goldRank", "&7Value: ${formatNumber(gold)}"))

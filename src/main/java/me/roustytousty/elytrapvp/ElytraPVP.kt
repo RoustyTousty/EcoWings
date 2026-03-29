@@ -2,10 +2,7 @@ package me.roustytousty.elytrapvp
 
 import me.roustytousty.elytrapvp.commands.GuiCommands
 import me.roustytousty.elytrapvp.commands.TestCommand
-import me.roustytousty.elytrapvp.commands.playercommands.DiscordCommand
-import me.roustytousty.elytrapvp.commands.playercommands.GoldCommand
-import me.roustytousty.elytrapvp.commands.playercommands.SpawnCommand
-import me.roustytousty.elytrapvp.commands.playercommands.StatsCommand
+import me.roustytousty.elytrapvp.commands.playercommands.*
 import me.roustytousty.elytrapvp.commands.staffcommands.*
 import me.roustytousty.elytrapvp.data.configs.RegionConfig
 import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
@@ -126,13 +123,18 @@ class ElytraPVP : JavaPlugin() {
         getCommand("stats")?.setExecutor(StatsCommand())
         getCommand("discord")?.setExecutor(DiscordCommand())
         getCommand("spawn")?.setExecutor(SpawnCommand())
+        getCommand("ip")?.setExecutor(IpCommand())
+        getCommand("link")?.setExecutor(LinkCommand())
+        getCommand("unlink")?.setExecutor(UnlinkCommand())
 
         // Staff commands
         getCommand("reloadupgradeconfig")?.setExecutor(ReloadUpgradeConfigCommand())
         getCommand("reloadshopconfig")?.setExecutor(ReloadShopConfigCommand())
+        getCommand("reloadregionconfig")?.setExecutor(ReloadRegionConfigCommand())
         getCommand("feed")?.setExecutor(FeedCommand())
         getCommand("buildmode")?.setExecutor(BuildModeCommand())
         getCommand("setgold")?.setExecutor(SetGoldCommand())
+        getCommand("addgold")?.setExecutor(AddGoldCommand())
         getCommand("setkitlevel")?.setExecutor(SetKitLevelCommand())
         getCommand("eventactivate")?.setExecutor(EventActivateCommand())
         getCommand("mapreset")?.setExecutor(MapResetCommand())
