@@ -13,7 +13,7 @@ import me.roustytousty.elytrapvp.services.event.EventService
 import me.roustytousty.elytrapvp.services.gold.GoldSpawnService
 import me.roustytousty.elytrapvp.services.kit.KitService
 import me.roustytousty.elytrapvp.services.leaderboard.LeaderboardService
-import me.roustytousty.elytrapvp.services.mapreset.MapResetService
+import me.roustytousty.elytrapvp.services.map.MapService
 import me.roustytousty.elytrapvp.services.perk.PerkService
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.services.rebirth.RebirthService
@@ -41,7 +41,7 @@ object Services {
     lateinit var leaderboardService: LeaderboardService
         private set
 
-    lateinit var mapResetService: MapResetService
+    lateinit var mapService: MapService
         private set
 
     lateinit var eventService: EventService
@@ -97,7 +97,7 @@ object Services {
         tablistService = TablistService()
         regionService = RegionService()
 
-        mapResetService = MapResetService(
+        mapService = MapService(
             regionService = regionService
         )
 
@@ -160,7 +160,7 @@ object Services {
 
         scoreboardService = ScoreboardService(
             playerService = playerService,
-            mapResetService = mapResetService,
+            mapResetService = mapService,
             eventService = eventService
         )
 

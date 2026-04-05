@@ -1,11 +1,11 @@
-package me.roustytousty.elytrapvp.services.mapreset
+package me.roustytousty.elytrapvp.services.map
 
 import me.roustytousty.elytrapvp.ElytraPVP
 import me.roustytousty.elytrapvp.services.region.RegionService
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.scheduler.BukkitRunnable
 
-class MapResetService(
+class MapService(
     private val regionService: RegionService
 ) {
 
@@ -28,6 +28,10 @@ class MapResetService(
 
     fun resetMapRegion() {
         regionService.clearRegion(REGION_NAME)
+    }
+
+    fun resetMapTimer() {
+        timeRemainingSeconds = RESET_INTERVAL_SECONDS
     }
 
     private inner class ResetTask : BukkitRunnable() {

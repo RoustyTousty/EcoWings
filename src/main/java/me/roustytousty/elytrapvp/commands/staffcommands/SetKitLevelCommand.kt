@@ -11,6 +11,9 @@ import org.bukkit.entity.Player
 
 class SetKitLevelCommand : CommandExecutor {
 
+    private val playerService = Services.playerService
+    private val kitService = Services.kitService
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (sender !is Player) return false
         val player = sender
@@ -35,7 +38,7 @@ class SetKitLevelCommand : CommandExecutor {
             return false
         }
 
-        val targetData = Services.playerService.getOrCreatePlayerData(targetPlayer)
+        val targetData = playerService.getOrCreatePlayerData(targetPlayer)
 
         val upgradeType = try {
             UpgradeType.valueOf(kitName)
@@ -46,7 +49,7 @@ class SetKitLevelCommand : CommandExecutor {
 
         upgradeType.setLevel(targetData, level)
 
-        Services.kitService.syncKit(targetPlayer)
+        kitService.syncKit(targetPlayer)
 
         MessageUtils.sendMessage(player, "&fSuccessfully set &6&l${targetPlayer.name}&f's &6&l${upgradeType.displayName} &flevel to &6&l$level&f!")
         MessageUtils.sendMessage(targetPlayer, "&fYour ${upgradeType.displayName} &flevel has been set to &6&l$level&f!")

@@ -1,7 +1,7 @@
 package me.roustytousty.elytrapvp.services.scoreboard
 
 import me.roustytousty.elytrapvp.ElytraPVP
-import me.roustytousty.elytrapvp.services.mapreset.MapResetService
+import me.roustytousty.elytrapvp.services.map.MapService
 import me.roustytousty.elytrapvp.services.event.EventService
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
@@ -16,7 +16,7 @@ import java.util.*
 
 class ScoreboardService(
     private val playerService: PlayerService,
-    private val mapResetService: MapResetService,
+    private val mapService: MapService,
     private val eventService: EventService
 ) {
 
@@ -80,7 +80,7 @@ class ScoreboardService(
             board.getTeam("rank")?.suffix = parse("&7$rankPrefix")
             board.getTeam("dateTime")?.prefix = parse("&7$currentDateTime")
             board.getTeam("gold")?.suffix = parse("&6${formatNumber(playerData.gold)}")
-            board.getTeam("mapReset")?.suffix = parse("&6${mapResetService.getFormattedTimeRemaining()}")
+            board.getTeam("mapReset")?.suffix = parse("&6${mapService.getFormattedTimeRemaining()}")
 
             if (onlineCount < 8) {
                 board.resetScores(ENTRIES.PLAYERS)

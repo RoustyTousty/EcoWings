@@ -7,13 +7,13 @@ import me.roustytousty.elytrapvp.utility.MessageUtils
 import me.roustytousty.elytrapvp.utility.MiscUtils
 import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Material
-import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
 class ShopService(
     private val playerService: PlayerService
 ) {
+
     private val shopItems = mutableMapOf<String, MutableList<ShopItem>>()
     private val materialLookup = mutableMapOf<Material, ShopItem>()
 

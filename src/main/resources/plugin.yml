@@ -95,7 +95,11 @@ commands:
     description: "Activates a specific event!"
     permission: op
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
-  mapreset:
+  mapregionreset:
     description: "Resets the map!"
+    permission: op
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+  maptimerreset:
+    description: "Resets the map reset timer!"
     permission: op
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"

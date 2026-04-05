@@ -137,7 +137,8 @@ class ElytraPVP : JavaPlugin() {
         getCommand("addgold")?.setExecutor(AddGoldCommand())
         getCommand("setkitlevel")?.setExecutor(SetKitLevelCommand())
         getCommand("eventactivate")?.setExecutor(EventActivateCommand())
-        getCommand("mapreset")?.setExecutor(MapResetCommand())
+        getCommand("mapregionreset")?.setExecutor(MapRegionResetCommand())
+        getCommand("maptimerreset")?.setExecutor(MapTimerResetCommand())
     }
 
     private fun setupConfigsOnEnable() {

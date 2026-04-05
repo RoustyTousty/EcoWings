@@ -9,10 +9,12 @@ import org.bukkit.entity.Player
 
 class GoldCommand : CommandExecutor {
 
+    private val playerService = Services.playerService
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         val player = sender as Player
 
-        val playerData = Services.playerService.getOrCreatePlayerData(player)
+        val playerData = playerService.getOrCreatePlayerData(player)
 
         val gold = playerData.gold
         MessageUtils.sendMessage(player, "&fGold: &6${gold}g")

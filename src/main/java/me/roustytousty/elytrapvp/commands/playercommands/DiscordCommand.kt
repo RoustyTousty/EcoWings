@@ -32,7 +32,7 @@ class DiscordCommand : CommandExecutor {
                 Component.text("CLICK HERE")
                     .color(NamedTextColor.GOLD)
                     .decorate(TextDecoration.BOLD)
-                    .hoverEvent(HoverEvent.showText(Component.text("Join our community Discord!").color(NamedTextColor.GREEN)))
+                    .hoverEvent(HoverEvent.showText(Component.text("Join our community Discord!").color(NamedTextColor.GOLD)))
                     .clickEvent(ClickEvent.openUrl(discordLink))
             )
             .append(

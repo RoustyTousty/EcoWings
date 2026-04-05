@@ -1,21 +1,22 @@
 package me.roustytousty.elytrapvp.commands.staffcommands
 
-import me.roustytousty.elytrapvp.data.configs.RegionConfig
-import me.roustytousty.elytrapvp.data.configs.ShopConfig
 import me.roustytousty.elytrapvp.services.Services
+import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
 
-class ReloadRegionConfigCommand : CommandExecutor {
+class MapRegionResetCommand : CommandExecutor {
 
-    private val regionService = Services.regionService
+    private val mapService = Services.mapService
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
+        val player = sender as Player
 
-        RegionConfig.load()
+        mapService.resetMapRegion()
 
-        regionService.loadRegions()
+        MessageUtils.sendMessage(player, "&fMap reset has been completed!")
 
         return true
     }

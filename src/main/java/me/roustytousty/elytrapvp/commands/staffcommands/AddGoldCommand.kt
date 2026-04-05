@@ -10,6 +10,8 @@ import org.bukkit.entity.Player
 
 class AddGoldCommand : CommandExecutor {
 
+    private val playerService = Services.playerService
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         val player = sender as Player
 
@@ -28,7 +30,7 @@ class AddGoldCommand : CommandExecutor {
 
         val selectedPlayer = Bukkit.getPlayer(selectedPlayerName)
         if (selectedPlayer != null) {
-            val selectedPlayerData = Services.playerService.getOrCreatePlayerData(selectedPlayer)
+            val selectedPlayerData = playerService.getOrCreatePlayerData(selectedPlayer)
             selectedPlayerData.gold += goldAmount
             MessageUtils.sendMessage(player, "&fSuccessfully added &6$goldAmount &fgold to &6${selectedPlayer.name}&f's gold")
         } else {

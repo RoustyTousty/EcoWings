@@ -11,10 +11,12 @@ import org.bukkit.entity.Player
 
 class SpawnCommand : CommandExecutor {
 
+    private val combatService = Services.combatService
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         val player = sender as Player
 
-        val isInCombat = Services.combatService.isInCombat(player)
+        val isInCombat = combatService.isInCombat(player)
 
         if (isInCombat) {
             MessageUtils.sendError(player, "&fCan't go to spawn while in combat!")
