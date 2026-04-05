@@ -9,7 +9,7 @@ data class PlayerData(
     var isBuildMode: Boolean = false,
 
     var gold: Int = 50,
-    var rebirthTokens: Int = 0,
+    var shards: Int = 0,
 
     var rebirths: Int = 0,
     var kills: Int = 0,
@@ -24,5 +24,9 @@ data class PlayerData(
     var swordLevel: Int = 0,
     var shearsLevel: Int = 0,
     var pickaxeLevel: Int = 0,
-    var axeLevel: Int = 0
+    var axeLevel: Int = 0,
+
+    var unlockedPerks: MutableList<String> = mutableListOf(),
+    var equippedPerks: MutableList<String> = mutableListOf("", "", ""),
+    var unlockedPerkSlots: Int = 1
 )

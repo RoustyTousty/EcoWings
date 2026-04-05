@@ -6,6 +6,7 @@ import com.mongodb.client.model.Sorts
 import me.roustytousty.elytrapvp.data.api.MongoManager
 import me.roustytousty.elytrapvp.data.model.LeaderboardEntry
 import me.roustytousty.elytrapvp.data.model.PlayerData
+import me.roustytousty.elytrapvp.services.perk.PerkType
 import org.bson.Document
 import java.util.*
 
@@ -87,7 +88,6 @@ class MongoPlayerRepository : PlayerRepository {
     }
 
     private fun documentToPlayerData(doc: Document): PlayerData {
-
         return PlayerData(
             uuid = UUID.fromString(doc.getString("_id")),
             username = doc.getString("username"),
@@ -95,7 +95,7 @@ class MongoPlayerRepository : PlayerRepository {
             isBuildMode = doc.getBoolean("isBuildMode", false),
 
             gold = doc.getInteger("gold", 50),
-            rebirthTokens = doc.getInteger("rebirthTokens", 0),
+            shards = doc.getInteger("rebirthTokens", 0),
 
             rebirths = doc.getInteger("rebirths", 0),
             kills = doc.getInteger("kills", 0),
@@ -110,7 +110,11 @@ class MongoPlayerRepository : PlayerRepository {
             swordLevel = doc.getInteger("swordLevel", 0),
             shearsLevel = doc.getInteger("shearsLevel", 0),
             pickaxeLevel = doc.getInteger("pickaxeLevel", 0),
-            axeLevel = doc.getInteger("axeLevel", 0)
+            axeLevel = doc.getInteger("axeLevel", 0),
+
+            unlockedPerks = getValidUnlockedPerks(doc),
+            equippedPerks = getValidEquippedPerks(doc),
+            unlockedPerkSlots = doc.getInteger("unlockedPerkSlots", 1)
         )
     }
 
@@ -123,7 +127,7 @@ class MongoPlayerRepository : PlayerRepository {
             .append("isBuildMode", playerData.isBuildMode)
 
             .append("gold", playerData.gold)
-            .append("rebirthTokens", playerData.rebirthTokens)
+            .append("rebirthTokens", playerData.shards)
 
             .append("rebirths", playerData.rebirths)
             .append("kills", playerData.kills)
@@ -139,5 +143,22 @@ class MongoPlayerRepository : PlayerRepository {
             .append("shearsLevel", playerData.shearsLevel)
             .append("pickaxeLevel", playerData.pickaxeLevel)
             .append("axeLevel", playerData.axeLevel)
+
+            .append("unlockedPerks", playerData.unlockedPerks)
+            .append("equippedPerks", playerData.equippedPerks)
+            .append("unlockedPerkSlots", playerData.unlockedPerkSlots)
+    }
+
+    private fun getValidUnlockedPerks(doc: Document): MutableList<String> {
+        val rawList = doc.getList("unlockedPerks", String::class.java) ?: return mutableListOf()
+        return rawList.filter { PerkType.fromId(it) != null }.toMutableList()
+    }
+
+    private fun getValidEquippedPerks(doc: Document): MutableList<String> {
+        val rawList = doc.getList("equippedPerks", String::class.java) ?: mutableListOf()
+        return MutableList(3) { i ->
+            val id = rawList.getOrNull(i) ?: ""
+            if (id.isNotEmpty() && PerkType.fromId(id) == null) "" else id
+        }
     }
 }

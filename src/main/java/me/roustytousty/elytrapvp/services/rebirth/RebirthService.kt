@@ -45,7 +45,7 @@ class RebirthService(
         // OTHER
         playerData.gold = 0
         playerData.rebirths += 1
-        playerData.rebirthTokens += 1
+        playerData.shards += 5
     }
 
     private fun isRebirthAllowed(playerData: PlayerData): Boolean {
