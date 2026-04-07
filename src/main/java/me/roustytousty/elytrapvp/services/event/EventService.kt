@@ -26,6 +26,7 @@ class EventService(
 
     init {
         registerEvent(TNTRainEvent())
+        registerEvent(VoidlessEvent())
     }
 
     private fun registerEvent(event: EventInterface) {

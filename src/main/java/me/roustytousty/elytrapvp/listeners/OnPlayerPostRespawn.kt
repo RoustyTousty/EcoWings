@@ -23,8 +23,8 @@ class OnPlayerPostRespawn : Listener {
 
         val hiddenResistance = PotionEffect(
             PotionEffectType.DAMAGE_RESISTANCE,
-            400,
-            0,
+            300,
+            1,
             false,
             false,
             false

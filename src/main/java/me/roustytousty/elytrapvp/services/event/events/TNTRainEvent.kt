@@ -37,7 +37,7 @@ class TNTRainEvent : EventInterface {
             ElytraPVP.instance!!,
             Runnable {
                 repeat(2) {
-                    if (Random.nextInt(100) < 1) {
+                    if (Random.nextInt(100) < 2) {
                         targetPlayer(region, spawnY)
                     } else {
                         spawnRandom(region, spawnY)
@@ -78,6 +78,6 @@ class TNTRainEvent : EventInterface {
 
     private fun spawnTNT(world: World, location: Location) {
         val tnt = world.spawnEntity(location, EntityType.PRIMED_TNT) as TNTPrimed
-        tnt.fuseTicks = 80 // 4 seconds
+        tnt.fuseTicks = 80
     }
 }
