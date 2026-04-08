@@ -20,6 +20,7 @@ class OnBlockBreak : Listener {
     private val breakableMaterials = setOf(
         Material.WHITE_WOOL, Material.LIGHT_GRAY_WOOL, Material.OAK_PLANKS,
         Material.STONE_BRICKS, Material.DEEPSLATE_BRICKS, Material.POLISHED_DEEPSLATE,
+        Material.OBSIDIAN,
         Material.WHITE_CONCRETE_POWDER,
         Material.RAW_GOLD_BLOCK
     )

@@ -16,16 +16,24 @@ shops:
       display_name: "Light Gray Wool"
       description:
         - "&7Can't turn to dust!"
-    oak_planks:
+    obsidian:
       slot: 13
+      material: OBSIDIAN
+      amount: 1
+      cost: 50
+      display_name: "Obsidian"
+      description:
+        - "&7The strongest!"
+    oak_planks:
+      slot: 20
       material: OAK_PLANKS
       amount: 16
       cost: 5
-      display_name: "Oak Planks"
+      display_name: "Oak Plank"
       description:
         - "&7Regular wood!"
     stone_bricks:
-      slot: 14
+      slot: 21
       material: STONE_BRICKS
       amount: 16
       cost: 10
@@ -33,7 +41,7 @@ shops:
       description:
         - "&7Regular stone!"
     deepslate_bricks:
-      slot: 15
+      slot: 22
       material: DEEPSLATE_BRICKS
       amount: 16
       cost: 16
@@ -41,11 +49,43 @@ shops:
       description:
         - "&7Stronger than stone!"
     polished_deepslate:
-      slot: 22
+      slot: 23
       material: POLISHED_DEEPSLATE
       amount: 16
       cost: 32
       display_name: "Polished Deepslate"
+      description:
+        - "&7Immune to TNT!"
+    oak_slab:
+      slot: 29
+      material: OAK_SLAB
+      amount: 8
+      cost: 5
+      display_name: "Oak Slab"
+      description:
+        - "&7Half a plank!"
+    stone_brick_slab:
+      slot: 30
+      material: STONE_BRICK_SLAB
+      amount: 8
+      cost: 10
+      display_name: "Stone Brick Slab"
+      description:
+        - "&7Half a stone brick!"
+    deepslate_brick_slab:
+      slot: 31
+      material: DEEPSLATE_BRICK_SLAB
+      amount: 8
+      cost: 16
+      display_name: "Deepslate Brick Slab"
+      description:
+        - "&7Stronger than stone slabs!"
+    polished_deepslate_slab:
+      slot: 32
+      material: POLISHED_DEEPSLATE_SLAB
+      amount: 8
+      cost: 32
+      display_name: "Polished Deepslate Slab"
       description:
         - "&7Immune to TNT!"
   Consumables:

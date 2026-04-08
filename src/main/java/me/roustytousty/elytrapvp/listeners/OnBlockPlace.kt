@@ -17,6 +17,7 @@ class OnBlockPlace : Listener {
     private val placableMaterials = setOf(
         Material.WHITE_WOOL, Material.LIGHT_GRAY_WOOL, Material.OAK_PLANKS,
         Material.STONE_BRICKS, Material.DEEPSLATE_BRICKS, Material.POLISHED_DEEPSLATE,
+        Material.OBSIDIAN,
         Material.TNT, Material.AIR
     )
 
