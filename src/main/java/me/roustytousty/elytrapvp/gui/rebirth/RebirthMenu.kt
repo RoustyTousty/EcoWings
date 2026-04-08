@@ -62,6 +62,8 @@ class RebirthMenu : Listener {
 
             val playerData = Services.playerService.getOrCreatePlayerData(player)
             val currentCost = Services.rebirthService.getRebirthCost(playerData.rebirths)
+            val shardReward = Services.rebirthService.getShardReward(playerData.rebirths) // Get current reward
+
             val nextMultiplier = 1.0 + ((playerData.rebirths + 1) * 0.2)
 
             val upgradeLines = UpgradeType.values().map { type ->
@@ -79,7 +81,7 @@ class RebirthMenu : Listener {
             inventory.setItem(13, itemBuilder(
                 Material.CHERRY_SAPLING, 1, false, "&eRebirth",
                 "&fReset progress and gain:",
-                "&7+5 Shards",
+                "&7+$shardReward Shards",
                 "&7+${String.format("%.1f", nextMultiplier)}x Gold Multiplier",
                 "",
                 "&fYou will lose:",
