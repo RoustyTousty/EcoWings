@@ -10,6 +10,8 @@ import me.roustytousty.elytrapvp.data.api.MongoManager
 import me.roustytousty.elytrapvp.data.configs.ShopConfig
 import me.roustytousty.elytrapvp.gui.events.EventsMenu
 import me.roustytousty.elytrapvp.gui.events.WarTableMenu
+import me.roustytousty.elytrapvp.gui.perks.ConfirmPerkPurchaseMenu
+import me.roustytousty.elytrapvp.gui.perks.PerkSelectMenu
 import me.roustytousty.elytrapvp.gui.perks.PerksMenu
 import me.roustytousty.elytrapvp.gui.rebirth.RebirthMenu
 import me.roustytousty.elytrapvp.gui.shops.*
@@ -23,6 +25,7 @@ import me.roustytousty.elytrapvp.listeners.*
 import me.roustytousty.elytrapvp.listeners.items.Dusty
 import me.roustytousty.elytrapvp.listeners.items.Explosive
 import me.roustytousty.elytrapvp.listeners.items.RegenApple
+import me.roustytousty.elytrapvp.listeners.perks.PerkListener
 import me.roustytousty.elytrapvp.services.Services
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -91,6 +94,8 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnEntityExplode(), this)
         pluginmanager.registerEvents(OnAsyncPlayerChat(), this)
 
+        pluginmanager.registerEvents(PerkListener(), this)
+
         // GUI
         pluginmanager.registerEvents(ShopMenu(), this)
         pluginmanager.registerEvents(CategoryShopMenu(), this)
@@ -101,6 +106,8 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(LeaderboardSelectMenu(), this)
         pluginmanager.registerEvents(LeaderboardMenu(), this)
         pluginmanager.registerEvents(PerksMenu(), this)
+        pluginmanager.registerEvents(PerkSelectMenu(), this)
+        pluginmanager.registerEvents(ConfirmPerkPurchaseMenu(), this)
         pluginmanager.registerEvents(EventsMenu(), this)
         pluginmanager.registerEvents(WarTableMenu(), this)
         pluginmanager.registerEvents(RebirthMenu(), this)

@@ -61,41 +61,37 @@ class RebirthMenu : Listener {
             }
 
             val playerData = Services.playerService.getOrCreatePlayerData(player)
+            val currentCost = Services.rebirthService.getRebirthCost(playerData.rebirths)
+            val nextMultiplier = 1.0 + ((playerData.rebirths + 1) * 0.2)
 
             val upgradeLines = UpgradeType.values().map { type ->
                 val maxed = Services.upgradeService.getNextUpgradeData(playerData, type).maxed
                 val icon = if (maxed) "&a✔" else "&c✘"
                 "$icon &7${type.name.lowercase().replace("_", " ")} maxed"
-            }
+            }.toMutableList()
 
-            val maxedCount = upgradeLines.count { it.startsWith("&a") }
-            val total = UpgradeType.values().size
+            val goldIcon = if (playerData.gold >= currentCost) "&a✔" else "&c✘"
+            upgradeLines.add("$goldIcon &7${currentCost} gold")
 
-            inventory.setItem(
-                13,
-                itemBuilder(
-                    Material.CHERRY_SAPLING,
-                    1,
-                    false,
-                    "&eRebirth",
+            val totalReqs = UpgradeType.values().size + 1
+            val metReqs = upgradeLines.count { it.startsWith("&a") }
 
-                    "&fReset your progress and gain:",
-                    "&7+1 Rebirth token",
-                    "&7+x1 Coins multiplier",
-                    "",
-                    "&fYou will lose:",
-                    "&7All upgrades",
-                    "&7All gold",
-                    "",
-                    "&fRequirements:",
-                    "&fProgress: &6$maxedCount&f/&6$total",
-
-                    *upgradeLines.toTypedArray(),
-
-                    "",
-                    "&7Click to rebirth!"
-                )
-            )
+            inventory.setItem(13, itemBuilder(
+                Material.CHERRY_SAPLING, 1, false, "&eRebirth",
+                "&fReset progress and gain:",
+                "&7+5 Shards",
+                "&7+${String.format("%.1f", nextMultiplier)}x Gold Multiplier",
+                "",
+                "&fYou will lose:",
+                "&7All upgrades",
+                "&7All gold",
+                "",
+                "&fRequirements:",
+                "&fProgress: &6$metReqs&f/&6$totalReqs",
+                *upgradeLines.toTypedArray(),
+                "",
+                "&7Click to rebirth!"
+            ))
 
             inventory.setItem(
                 18,

@@ -21,6 +21,7 @@ class ScoreboardService(
 ) {
 
     private val ENTRIES = object {
+        val SHARDS = parse(" &fShards: ")
         val PLAYERS = parse(" &fPlayers: ")
         val KILLS = parse("&n")
         val DEATHS = parse("&b")
@@ -37,10 +38,11 @@ class ScoreboardService(
         val objective = board.registerNewObjective("test", "dummy", parse("  &6&lEcoWings"))
         objective.displaySlot = DisplaySlot.SIDEBAR
 
-        objective.getScore(parse("&d")).also { board.registerNewTeam("dateTime").addEntry(it.entry) }.score = 15
-        objective.getScore(parse("&f")).score = 14
-        objective.getScore(parse(" &fRank: ")).also { board.registerNewTeam("rank").addEntry(it.entry) }.score = 13
-        objective.getScore(parse(" &fGold: ")).also { board.registerNewTeam("gold").addEntry(it.entry) }.score = 12
+        objective.getScore(parse("&d")).also { board.registerNewTeam("dateTime").addEntry(it.entry) }.score = 16
+        objective.getScore(parse("&f")).score = 15
+        objective.getScore(parse(" &fRank: ")).also { board.registerNewTeam("rank").addEntry(it.entry) }.score = 14
+        objective.getScore(parse(" &fGold: ")).also { board.registerNewTeam("gold").addEntry(it.entry) }.score = 13
+        objective.getScore(ENTRIES.SHARDS).also { board.registerNewTeam("shards").addEntry(it.entry) }.score = 12
 
         objective.getScore(parse("&e")).score = 11
 
@@ -81,6 +83,14 @@ class ScoreboardService(
             board.getTeam("dateTime")?.prefix = parse("&7$currentDateTime")
             board.getTeam("gold")?.suffix = parse("&6${formatNumber(playerData.gold)}")
             board.getTeam("mapReset")?.suffix = parse("&6${mapService.getFormattedTimeRemaining()}")
+
+            if (playerData.shards <= 0) {
+                board.resetScores(ENTRIES.SHARDS)
+            } else {
+                val score = objective.getScore(ENTRIES.SHARDS)
+                if (!score.isScoreSet) score.score = 11
+                board.getTeam("shards")?.suffix = parse("&6${formatNumber(playerData.shards)}✧")
+            }
 
             if (onlineCount < 8) {
                 board.resetScores(ENTRIES.PLAYERS)

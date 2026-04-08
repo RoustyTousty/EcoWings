@@ -32,10 +32,10 @@ class ConfirmPerkPurchaseMenu : Listener {
             8 -> {
                 if (Services.perkService.tryPlayerPurchasePerk(p, holder.perk)) {
                     SoundUtils.playSuccess(p)
-                    MessageUtils.sendSuccess(p, "&7You unlocked &f${holder.perk.displayName}&7!")
+                    MessageUtils.sendSuccess(p, "&fYou successfully unlocked &6${holder.perk.displayName}&f!")
                     PerkSelectMenu.openInventory(p, holder.slotIndex)
                 } else {
-                    MessageUtils.sendError(p, "Purchase failed! You may lack the funds or rank.")
+                    MessageUtils.sendError(p, "&fPurchase failed! You may lack the funds or rank.")
                     SoundUtils.playFailure(p)
                     p.closeInventory()
                 }
@@ -71,9 +71,10 @@ class ConfirmPerkPurchaseMenu : Listener {
             inventory.setItem(0, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cCancel"))
 
             val lore = perk.description.toMutableList()
-            inventory.setItem(4, itemBuilder(perk.icon, 1, false, "&f${perk.displayName}", *lore.toTypedArray()))
+            inventory.setItem(4, itemBuilder(perk.icon, 1, false, "&e${perk.displayName}", *lore.toTypedArray()))
 
             val confirmLore = mutableListOf<String>()
+            confirmLore.add("")
             if (perk.goldCost > 0) confirmLore.add("&fCost: &6${perk.goldCost} Gold")
             if (perk.shardCost > 0) confirmLore.add("&fCost: &b${perk.shardCost} Shards")
             confirmLore.add("")

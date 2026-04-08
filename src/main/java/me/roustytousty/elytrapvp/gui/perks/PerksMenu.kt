@@ -28,8 +28,8 @@ class PerksMenu : Listener {
         val playerData = Services.playerService.getOrCreatePlayerData(p)
 
         when (e.rawSlot) {
-            20 -> PerkSelectMenu.openInventory(p, 0) // Slot 1 (Index 0)
-            22 -> { // Slot 2 (Index 1)
+            11 -> PerkSelectMenu.openInventory(p, 0)
+            13 -> {
                 if (playerData.unlockedPerkSlots > 1) {
                     PerkSelectMenu.openInventory(p, 1)
                 } else {
@@ -37,17 +37,17 @@ class PerksMenu : Listener {
                         SoundUtils.playSuccess(p)
                         openInventory(p)
                     } else {
-                        MessageUtils.sendError(p, "You don't have enough Shards to unlock this slot!")
+                        MessageUtils.sendError(p, "&fYou don't have enough Shards to unlock this slot!")
                         SoundUtils.playFailure(p)
                     }
                 }
             }
-            24 -> {
+            15 -> {
                 if (playerData.unlockedPerkSlots > 2) {
                     PerkSelectMenu.openInventory(p, 2)
                 } else if (playerData.unlockedPerkSlots == 2) {
                     if (!p.hasPermission("elytrapvp.rank.eco")) {
-                        MessageUtils.sendError(p, "You need the &6Eco &crank to unlock this slot!")
+                        MessageUtils.sendError(p, "&fYou need the &6Eco &crank to unlock this slot!")
                         SoundUtils.playFailure(p)
                         return
                     }
@@ -55,15 +55,15 @@ class PerksMenu : Listener {
                         SoundUtils.playSuccess(p)
                         openInventory(p)
                     } else {
-                        MessageUtils.sendError(p, "You don't have enough Shards to unlock this slot!")
+                        MessageUtils.sendError(p, "&fYou don't have enough Shards to unlock this slot!")
                         SoundUtils.playFailure(p)
                     }
                 } else {
-                    MessageUtils.sendError(p, "You must unlock Slot 2 first!")
+                    MessageUtils.sendError(p, "&fYou must unlock Slot 2 first!")
                     SoundUtils.playFailure(p)
                 }
             }
-            45 -> {
+            18 -> {
                 p.closeInventory()
                 SoundUtils.playGuiClick(p)
             }
@@ -77,14 +77,14 @@ class PerksMenu : Listener {
 
     companion object {
         fun openInventory(player: Player) {
-            val inventory = Bukkit.createInventory(null, 54, "Perks")
+            val inventory = Bukkit.createInventory(null, 27, "Perks")
             initItems(inventory, player)
             player.openInventory(inventory)
             SoundUtils.playGuiClick(player)
         }
 
         private fun initItems(inventory: Inventory, player: Player) {
-            val slots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35, 36, 44, 53)
+            val slots = intArrayOf(0, 8, 9, 17, 26)
             for (slot in slots) {
                 inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
             }
@@ -92,26 +92,29 @@ class PerksMenu : Listener {
             val playerData = Services.playerService.getOrCreatePlayerData(player)
 
             val perk1 = PerkType.fromId(playerData.equippedPerks.getOrElse(0) { "" })
-            inventory.setItem(20, itemBuilder(
+            val name1 = if (perk1 != null) "&e${perk1.displayName}" else "&aSlot 1"
+            inventory.setItem(11, itemBuilder(
                 perk1?.icon ?: Material.LIME_STAINED_GLASS_PANE, 1, perk1 != null,
-                perk1?.displayName ?: "&aSlot 1", "&7Click to select a perk!"
+                name1, "", "&7Click to select a perk!"
             ))
 
             if (playerData.unlockedPerkSlots > 1) {
                 val perk2 = PerkType.fromId(playerData.equippedPerks.getOrElse(1) { "" })
-                inventory.setItem(22, itemBuilder(perk2?.icon ?: Material.LIME_STAINED_GLASS_PANE, 1, perk2 != null, perk2?.displayName ?: "&aSlot 2", "&7Click to select a perk!"))
+                val name2 = if (perk2 != null) "&e${perk2.displayName}" else "&aSlot 2"
+                inventory.setItem(13, itemBuilder(perk2?.icon ?: Material.LIME_STAINED_GLASS_PANE, 1, perk2 != null, name2, "", "&7Click to select a perk!"))
             } else {
-                inventory.setItem(22, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cLocked Slot 2", "&fCost: &b${Services.perkService.slot2Cost} Shards", "&7Click to purchase!"))
+                inventory.setItem(13, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cLocked Slot 2", "", "&fCost: &b${Services.perkService.slot2Cost} Shards", "", "&7Click to purchase!"))
             }
 
             if (playerData.unlockedPerkSlots > 2) {
                 val perk3 = PerkType.fromId(playerData.equippedPerks.getOrElse(2) { "" })
-                inventory.setItem(24, itemBuilder(perk3?.icon ?: Material.LIME_STAINED_GLASS_PANE, 1, perk3 != null, perk3?.displayName ?: "&aSlot 3", "&7Click to select a perk!"))
+                val name3 = if (perk3 != null) "&e${perk3.displayName}" else "&aSlot 3"
+                inventory.setItem(15, itemBuilder(perk3?.icon ?: Material.LIME_STAINED_GLASS_PANE, 1, perk3 != null, name3, "", "&7Click to select a perk!"))
             } else {
-                inventory.setItem(24, itemBuilder(Material.ORANGE_STAINED_GLASS_PANE, 1, false, "&6Locked Slot 3", "&fCost: &b${Services.perkService.slot3Cost} Shards", "&cRequires Eco Rank!", "&7Click to purchase!"))
+                inventory.setItem(15, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cLocked Slot 3", "", "&fCost: &b${Services.perkService.slot3Cost} Shards", "&cRequires Eco Rank!", "", "&7Click to purchase!"))
             }
 
-            inventory.setItem(45, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cClose"))
+            inventory.setItem(18, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cClose"))
         }
     }
 }

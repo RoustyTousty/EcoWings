@@ -160,7 +160,7 @@ object Services {
 
         scoreboardService = ScoreboardService(
             playerService = playerService,
-            mapResetService = mapService,
+            mapService = mapService,
             eventService = eventService
         )
 

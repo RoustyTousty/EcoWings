@@ -6,8 +6,8 @@ import org.bukkit.entity.Player
 class PerkService(
     private val playerService: PlayerService
 ) {
-    val slot2Cost = 15
-    val slot3Cost = 35
+    val slot2Cost = 16
+    val slot3Cost = 22
 
     fun hasPerkEquipped(player: Player, perk: PerkType): Boolean {
         val playerData = playerService.getOrCreatePlayerData(player)

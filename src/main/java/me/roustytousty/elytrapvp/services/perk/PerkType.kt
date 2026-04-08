@@ -11,19 +11,23 @@ enum class PerkType(
     val icon: Material,
     val description: List<String>
 ) {
-    VAMPIRE("vampire", "Vampire", 1500, 0, false, Material.REDSTONE, listOf(
-        "&7Heal &c1 heart &7on kill."
+    RECYCLER("recycler", "Recycler", 4500, 0, false, Material.HOPPER, listOf(
+        "&7Breaking a block has a 50% chance", "&7of obtaining it."
     )),
-    SCAVENGER("scavenger", "Scavenger", 1000, 0, false, Material.GOLD_INGOT, listOf(
-        "&7Earn &6+5 extra gold &7on kill."
+    SCAVENGER("scavenger", "Scavenger", 4000, 0, false, Material.WHITE_WOOL, listOf(
+        "&7Placing a block has a 20% chance", "&7of not losing the block from your", "&7inventory."
     )),
-
-    TANK("tank", "Tank", 0, 50, false, Material.IRON_CHESTPLATE, listOf(
-        "&7Take &c10% less &7damage."
+    ADRENALINE("adrenaline", "Adrenaline", 1800, 0, false, Material.IRON_BOOTS, listOf(
+        "&7Killing a player gives speed 2 for", "&710 seconds"
     )),
-
-    JUGGERNAUT("juggernaut", "Juggernaut", 0, 100, true, Material.DIAMOND_CHESTPLATE, listOf(
-        "&7Gain permanent Resistance I."
+    ANCHORED("anchored", "Anchored", 8500, 0, false, Material.ANVIL, listOf(
+        "&7Take 10% less knockback."
+    )),
+    BLAST_DAMPENER("blast_dampener", "Blast Dampener", 700, 0, false, Material.TNT, listOf(
+        "&7Take 80% less damage from explosions."
+    )),
+    KINETIC_SHIELD("kinetic_shield", "Kinetic Shield", 2200, 0, false, Material.SHIELD, listOf(
+        "&7Take 80% less kinetic damage."
     ));
 
     companion object {

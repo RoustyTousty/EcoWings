@@ -33,9 +33,12 @@ class PlayerService(
         "swordLevel" to { it.swordLevel },
         "shearsLevel" to { it.shearsLevel },
         "pickaxeLevel" to { it.pickaxeLevel },
-        "axeLevel" to { it.axeLevel }
-    )
+        "axeLevel" to { it.axeLevel },
 
+        "unlockedPerks" to { it.unlockedPerks },
+        "equippedPerks" to { it.equippedPerks },
+        "unlockedPerkSlots" to { it.unlockedPerkSlots },
+    )
 
     fun getOrCreatePlayerData(player: Player): PlayerData {
         val uuid = player.uniqueId
