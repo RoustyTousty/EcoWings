@@ -22,9 +22,11 @@ import me.roustytousty.elytrapvp.gui.stats.StatsMenu
 import me.roustytousty.elytrapvp.gui.upgrade.ConfirmUpgradeMenu
 import me.roustytousty.elytrapvp.gui.upgrade.UpgradeMenu
 import me.roustytousty.elytrapvp.listeners.*
-import me.roustytousty.elytrapvp.listeners.items.Dusty
-import me.roustytousty.elytrapvp.listeners.items.Explosive
-import me.roustytousty.elytrapvp.listeners.items.RegenApple
+import me.roustytousty.elytrapvp.listeners.items.consumables.RegenApple
+import me.roustytousty.elytrapvp.listeners.items.consumables.SpeedFeather
+import me.roustytousty.elytrapvp.listeners.items.utility.Dusty
+import me.roustytousty.elytrapvp.listeners.items.utility.Explosive
+import me.roustytousty.elytrapvp.listeners.items.utility.Normalizer
 import me.roustytousty.elytrapvp.listeners.perks.PerkListener
 import me.roustytousty.elytrapvp.services.Services
 import org.bukkit.Bukkit
@@ -70,7 +72,9 @@ class ElytraPVP : JavaPlugin() {
     private fun registerEvents(){
         // Special items
         pluginmanager.registerEvents(Dusty(), this)
+        pluginmanager.registerEvents(Normalizer(), this)
         pluginmanager.registerEvents(RegenApple(), this)
+        pluginmanager.registerEvents(SpeedFeather(), this)
         pluginmanager.registerEvents(Explosive(this), this)
 
         // Listeners

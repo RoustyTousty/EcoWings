@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.listeners.items
+package me.roustytousty.elytrapvp.listeners.items.utility
 
 import org.bukkit.Material
 import org.bukkit.Particle
@@ -15,13 +15,14 @@ class Dusty : Listener {
         if (event.action.name.contains("RIGHT_CLICK")) {
 
             val item = event.player.inventory.itemInMainHand
+
             if (item.type == Material.SUGAR) {
                 val player = event.player
                 val playerLocation = player.location
                 val world = player.world
 
                 val center = playerLocation.toVector()
-                val radius = 5
+                val radius = 10
 
                 for (x in -radius..radius) {
                     for (y in -radius..radius) {
@@ -43,12 +44,12 @@ class Dusty : Listener {
                 world.spawnParticle(
                     Particle.CLOUD,
                     playerLocation.add(0.0, 1.0, 0.0),
-                    200,
-                    5.0, 5.0, 5.0,
+                    300,
+                    10.0, 10.0, 10.0,
                     0.1
                 )
 
-                world.playSound(playerLocation, Sound.BLOCK_CANDLE_EXTINGUISH, 1.0f, 1.0f)
+                world.playSound(playerLocation, Sound.BLOCK_CANDLE_EXTINGUISH, 2.0f, 1.0f)
             }
         }
     }

@@ -27,6 +27,8 @@ class ShopMenu : Listener {
             11 -> CategoryShopMenu.openInventory(player, "Blocks")
             12 -> CategoryShopMenu.openInventory(player, "Utility")
             13 -> CategoryShopMenu.openInventory(player, "Consumables")
+            14 -> CategoryShopMenu.openInventory(player, "Projectiles")
+            15 -> CategoryShopMenu.openInventory(player, "Misc")
             18 -> {
                 player.closeInventory()
                 SoundUtils.playGuiClick(player)
@@ -88,23 +90,24 @@ class ShopMenu : Listener {
             inventory.setItem(
                 14,
                 itemBuilder(
-                    Material.ORANGE_STAINED_GLASS_PANE,
+                    Material.BOW,
                     1,
                     false,
-                    "&cComing soon",
-                    "&7I didn't know what to put here :)"
+                    "&cProjectiles",
+                    "&7Projectiles are ranged weapons!"
                 )
             )
             inventory.setItem(
                 15,
                 itemBuilder(
-                    Material.ORANGE_STAINED_GLASS_PANE,
+                    Material.WHITE_DYE,
                     1,
                     false,
-                    "&cComing soon",
-                    "&7I didn't know what to put here :)"
+                    "&cMisc",
+                    "&7Miscellaneous items!"
                 )
             )
+
             inventory.setItem(
                 18,
                 itemBuilder(

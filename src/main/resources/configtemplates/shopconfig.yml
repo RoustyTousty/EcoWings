@@ -15,7 +15,7 @@ shops:
       cost: 2
       display_name: "Light Gray Wool"
       description:
-        - "&7Can't turn to dust!"
+        - "&7Is not effected by Dusty!"
     obsidian:
       slot: 13
       material: OBSIDIAN
@@ -87,17 +87,26 @@ shops:
       cost: 32
       display_name: "Polished Deepslate Slab"
       description:
-        - "&7Immune to TNT!"
+        - "&7Slab version"
   Consumables:
     regen_apple:
       slot: 11
       material: APPLE
       amount: 1
-      cost: 5
+      cost: 7
       display_name: "Regen Apple"
       description:
         - "&7Gives regeneration I for"
-        - "&730 seconds once consumed!"
+        - "&730 seconds when consumed!"
+    speed_feather:
+      slot: 12
+      material: FEATHER
+      amount: 1
+      cost: 5
+      display_name: "Speed Feather"
+      description:
+        - "&7Gives speed I for 30"
+        - "&7seconds when consumed!"
   Utility:
     dusty:
       slot: 11
@@ -106,17 +115,36 @@ shops:
       cost: 15
       display_name: "Dusty"
       description:
-        - "&7Blocks in 10 block radius"
+        - "&7White wool in 10 block radius"
         - "&7get turned into dust!"
-    explosive:
+    normalizer:
       slot: 12
+      material: GUNPOWDER
+      amount: 1
+      cost: 8
+      display_name: "Normalizer"
+      description:
+        - "&7Dust blocks in 10 block radius"
+        - "&7get turned back to normal blocks!"
+    explosive:
+      slot: 13
       material: TNT
       amount: 1
       cost: 30
       display_name: "Explosive"
       description:
         - "&7Goes KABOOM!"
-    rockets:
+  Projectiles:
+    snowball:
+      slot: 11
+      material: SNOWBALL
+      amount: 4
+      cost: 20
+      display_name: "Snowball"
+      description:
+        - "&7Just a regular snowball!"
+  Misc:
+    rocket:
       slot: 13
       material: FIREWORK_ROCKET
       amount: 1

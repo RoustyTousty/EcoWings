@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.listeners.items
+package me.roustytousty.elytrapvp.listeners.items.utility
 
 import me.roustytousty.elytrapvp.services.Services
 import org.bukkit.Bukkit

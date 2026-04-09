@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.listeners.items
+package me.roustytousty.elytrapvp.listeners.items.consumables
 
 import org.bukkit.Material
 import org.bukkit.Sound
