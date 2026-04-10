@@ -55,6 +55,13 @@ class ShopService(
         }
     }
 
+    fun isShopItem(material: Material): Boolean = materialLookup.containsKey(material)
+
+    fun isItemInShopType(material: Material, shopType: String): Boolean {
+        val item = materialLookup[material] ?: return false
+        return item.shopType.equals(shopType, ignoreCase = true)
+    }
+
     fun getShopItems(shopType: String): List<ShopItem> = shopItems[shopType] ?: emptyList()
 
     fun getShopItemBySlot(shopType: String, slot: Int): ShopItem? = getShopItems(shopType).find { it.slot == slot }

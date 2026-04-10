@@ -15,6 +15,8 @@ commands:
 
   test:
     description: "Test command for Rousty!"
+    permission: op
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
 
   # Gui commands
   upgrademenu:
@@ -27,15 +29,14 @@ commands:
     aliases: [leaderboards, lb]
     description: "Opens the stats GUI"
   perksmenu:
+    aliases: [perks]
     description: "Opens the perks GUI"
-    permission: op
-    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   eventsmenu:
+    aliases: [events]
     description: "Opens the events GUI"
   rebirthmenu:
+    aliases: [rebirth]
     description: "Opens the rebirth GUI"
-    permission: op
-    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
 
   # Player commands
   gold:

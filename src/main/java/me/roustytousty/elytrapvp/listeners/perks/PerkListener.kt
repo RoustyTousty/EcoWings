@@ -2,8 +2,8 @@ package me.roustytousty.elytrapvp.listeners.perks
 
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.services.perk.PerkType
+import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -11,19 +11,14 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.PlayerDeathEvent
-import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.event.player.PlayerVelocityEvent
-import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.EquipmentSlot
+import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import kotlin.random.Random
 
 class PerkListener : Listener {
-
-    private val recyclableMaterials = setOf(
-        Material.WHITE_WOOL, Material.LIGHT_GRAY_WOOL, Material.OAK_PLANKS,
-        Material.STONE_BRICKS, Material.DEEPSLATE_BRICKS, Material.POLISHED_DEEPSLATE
-    )
 
     // KINETIC SHIELD & BLAST DAMPENER
     @EventHandler
@@ -43,7 +38,6 @@ class PerkListener : Listener {
                     e.damage *= 0.2
                 }
             }
-
             else -> return
         }
     }
@@ -63,10 +57,13 @@ class PerkListener : Listener {
     @EventHandler
     fun onBlockBreak(e: BlockBreakEvent) {
         val player = e.player
+        val material = e.block.type
+
         if (Services.perkService.hasPerkEquipped(player, PerkType.RECYCLER)) {
-            if (recyclableMaterials.contains(e.block.type)) {
+            if (Services.shopService.isItemInShopType(material, "blocks")) {
                 if (Random.nextDouble() <= 0.5) {
-                    player.inventory.addItem(ItemStack(e.block.type, 1))
+                    val shopItem = Services.shopService.getFormattedItem(material, 1)
+                    player.inventory.addItem(shopItem)
                 }
             }
         }
@@ -75,12 +72,20 @@ class PerkListener : Listener {
     // SCAVENGER
     @EventHandler(ignoreCancelled = true)
     fun onBlockPlace(e: BlockPlaceEvent) {
+        if (e.hand != EquipmentSlot.HAND) return
+
         val player = e.player
+        val material = e.block.type
+
         if (Services.perkService.hasPerkEquipped(player, PerkType.SCAVENGER)) {
-            if (Random.nextDouble() <= 0.2) {
-                val item = e.itemInHand.clone()
-                item.amount = 1
-                player.inventory.addItem(item)
+            if (Services.shopService.isItemInShopType(material, "blocks")) {
+                if (Random.nextDouble() <= 0.2) {
+                    val plugin = JavaPlugin.getProvidingPlugin(PerkListener::class.java)
+                    Bukkit.getScheduler().runTask(plugin, Runnable {
+                        val refill = Services.shopService.getFormattedItem(material, 1)
+                        player.inventory.addItem(refill)
+                    })
+                }
             }
         }
     }

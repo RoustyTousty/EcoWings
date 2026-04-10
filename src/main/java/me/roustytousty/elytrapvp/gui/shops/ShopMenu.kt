@@ -80,7 +80,7 @@ class ShopMenu : Listener {
             inventory.setItem(
                 13,
                 itemBuilder(
-                    Material.GLASS_BOTTLE,
+                    Material.APPLE,
                     1,
                     false,
                     "&eConsumables",
@@ -90,10 +90,10 @@ class ShopMenu : Listener {
             inventory.setItem(
                 14,
                 itemBuilder(
-                    Material.BOW,
+                    Material.ARROW,
                     1,
                     false,
-                    "&cProjectiles",
+                    "&eProjectiles",
                     "&7Projectiles are ranged weapons!"
                 )
             )
@@ -103,7 +103,7 @@ class ShopMenu : Listener {
                     Material.WHITE_DYE,
                     1,
                     false,
-                    "&cMisc",
+                    "&eMisc",
                     "&7Miscellaneous items!"
                 )
             )
