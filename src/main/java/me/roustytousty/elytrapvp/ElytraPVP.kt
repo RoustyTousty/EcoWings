@@ -150,6 +150,10 @@ class ElytraPVP : JavaPlugin() {
         getCommand("eventactivate")?.setExecutor(EventActivateCommand())
         getCommand("mapregionreset")?.setExecutor(MapRegionResetCommand())
         getCommand("maptimerreset")?.setExecutor(MapTimerResetCommand())
+
+        getCommand("mute")?.setExecutor(MuteCommand())
+        getCommand("kick")?.setExecutor(KickCommand())
+        getCommand("ban")?.setExecutor(BanCommand())
     }
 
     private fun setupConfigsOnEnable() {

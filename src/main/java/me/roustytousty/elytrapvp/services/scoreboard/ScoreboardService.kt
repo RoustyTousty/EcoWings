@@ -41,8 +41,8 @@ class ScoreboardService(
         objective.getScore(parse("&d")).also { board.registerNewTeam("dateTime").addEntry(it.entry) }.score = 16
         objective.getScore(parse("&f")).score = 15
         objective.getScore(parse(" &fRank: ")).also { board.registerNewTeam("rank").addEntry(it.entry) }.score = 14
-        objective.getScore(parse(" &fGold: ")).also { board.registerNewTeam("gold").addEntry(it.entry) }.score = 13
-        objective.getScore(ENTRIES.SHARDS).also { board.registerNewTeam("shards").addEntry(it.entry) }.score = 12
+        objective.getScore(ENTRIES.SHARDS).also { board.registerNewTeam("shards").addEntry(it.entry) }.score = 13
+        objective.getScore(parse(" &fGold: ")).also { board.registerNewTeam("gold").addEntry(it.entry) }.score = 12
 
         objective.getScore(parse("&e")).score = 11
 
@@ -88,7 +88,7 @@ class ScoreboardService(
                 board.resetScores(ENTRIES.SHARDS)
             } else {
                 val score = objective.getScore(ENTRIES.SHARDS)
-                if (!score.isScoreSet) score.score = 11
+                if (!score.isScoreSet) score.score = 13
                 board.getTeam("shards")?.suffix = parse("&6${formatNumber(playerData.shards)}✧")
             }
 

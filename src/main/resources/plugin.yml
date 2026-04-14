@@ -104,3 +104,16 @@ commands:
     description: "Resets the map reset timer!"
     permission: op
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+
+  kick:
+    description: "Kicks a player!"
+    permission: group.guide
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+  ban:
+    description: "Bans a player!"
+    permission: group.guide
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+  mute:
+    description: "Mutes a player!"
+    permission: group.guide
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"

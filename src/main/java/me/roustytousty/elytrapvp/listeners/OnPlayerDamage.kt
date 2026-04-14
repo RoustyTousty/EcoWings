@@ -2,6 +2,7 @@ package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.services.Services
 import org.bukkit.entity.Player
+import org.bukkit.entity.Projectile
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
@@ -17,6 +18,7 @@ class OnPlayerDamage : Listener {
 
         val attacker = when (val damager = event.damager) {
             is Player -> damager
+            is Projectile -> damager.shooter as? Player
             else -> null
         } ?: return
 
