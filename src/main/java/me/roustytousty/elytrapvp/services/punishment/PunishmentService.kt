@@ -8,6 +8,8 @@ import java.util.UUID
 
 class PunishmentService {
 
+    var isChatMuted: Boolean = false
+
     private val ONE_HOUR = 3600000L
     private val ONE_MONTH = 2592000000L
 

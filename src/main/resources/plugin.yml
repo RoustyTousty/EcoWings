@@ -58,6 +58,8 @@ commands:
     description: "Initiates linking between minecraft and discord!"
   unlink:
     description: "Initiates unlinking between minecraft and discord!"
+  afk:
+    description: "Initiates afk status and rewards!"
 
   # Staff commands
   reloadupgradeconfig:
@@ -127,5 +129,17 @@ commands:
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   punishmenthistory:
     description: "Shows player's punishment history!"
+    permission: group.guide
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+  clearchat:
+    description: "Clears the chat!"
+    permission: group.guide
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+  mutechat:
+    description: "Mutes the chat!"
+    permission: group.guide
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+  unmutechat:
+    description: "Unmutes the chat!"
     permission: group.guide
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"

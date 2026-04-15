@@ -1,19 +1,16 @@
 package me.roustytousty.elytrapvp.listeners
 
-import me.roustytousty.elytrapvp.data.configs.RegionConfig
 import me.roustytousty.elytrapvp.services.Services
-import org.bukkit.Material
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
-import java.util.*
 
 class OnPlayerMove : Listener {
 
     private val eventService = Services.eventService
     private val combatService = Services.combatService
     private val regionService = Services.regionService
+    private val afkService = Services.afkService
 
     @EventHandler
     fun onPlayerMove(event: PlayerMoveEvent) {
@@ -29,6 +26,12 @@ class OnPlayerMove : Listener {
 
         val from = event.from
         val to = event.to
+
+        if (afkService.isAfk(player)) {
+            if (from.x != to.x || from.z != to.z || from.y != to.y) {
+                afkService.stopAfk(player)
+            }
+        }
 
         val enteringEntrance = !regionService.isInRegion(from, "spawnEntrance") && regionService.isInRegion(to, "spawnEntrance")
 

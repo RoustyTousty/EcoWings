@@ -7,10 +7,12 @@ import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.utility.FormatUtils.formatNumber
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import me.roustytousty.elytrapvp.utility.LuckPermsUtils
+import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scoreboard.DisplaySlot
+import org.bukkit.scoreboard.Team
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -74,6 +76,8 @@ class ScoreboardService(
         val onlineCount = Bukkit.getOnlinePlayers().size
 
         for (player in Bukkit.getOnlinePlayers()) {
+            updateNameTag(player)
+
             val board = player.scoreboard
             val objective = board.getObjective("test") ?: continue
             val playerData = playerService.getOrCreatePlayerData(player)
@@ -141,6 +145,27 @@ class ScoreboardService(
             objective.getScore(ENTRIES.KSTREAK).score = 7
             d4.prefix = parse("  &8• &fKillstreak: ")
             d4.suffix = parse("&6${formatNumber(data.killstreak)} &8{${formatNumber(data.recordKillstreak)}}")
+        }
+    }
+
+    fun updateNameTag(player: Player) {
+        val prefix = LuckPermsUtils.getPrefix(player)
+        val teamName = player.name
+
+        Bukkit.getOnlinePlayers().forEach { observer ->
+            val sb = observer.scoreboard
+            var team = sb.getTeam(teamName)
+
+            if (team == null) {
+                team = sb.registerNewTeam(teamName)
+            }
+
+            team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER)
+
+            team.prefix(Component.text(parse(prefix) + " "))
+            if (!team.hasEntry(player.name)) {
+                team.addEntry(player.name)
+            }
         }
     }
 }

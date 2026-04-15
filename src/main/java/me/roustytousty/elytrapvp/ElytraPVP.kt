@@ -138,6 +138,7 @@ class ElytraPVP : JavaPlugin() {
         getCommand("ip")?.setExecutor(IpCommand())
         getCommand("link")?.setExecutor(LinkCommand())
         getCommand("unlink")?.setExecutor(UnlinkCommand())
+        getCommand("afk")?.setExecutor(AfkCommand())
 
         // Staff commands
         getCommand("reloadupgradeconfig")?.setExecutor(ReloadUpgradeConfigCommand())
@@ -152,6 +153,9 @@ class ElytraPVP : JavaPlugin() {
         getCommand("mapregionreset")?.setExecutor(MapRegionResetCommand())
         getCommand("maptimerreset")?.setExecutor(MapTimerResetCommand())
 
+        getCommand("clearchat")?.setExecutor(ClearChatCommand())
+        getCommand("mutechat")?.setExecutor(MuteChatCommand())
+        getCommand("unmutechat")?.setExecutor(UnmuteChatCommand())
         getCommand("mute")?.setExecutor(MuteCommand())
         getCommand("unmute")?.setExecutor(UnmuteCommand())
         getCommand("kick")?.setExecutor(KickCommand())

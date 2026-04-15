@@ -6,6 +6,7 @@ import me.roustytousty.elytrapvp.data.repository.EventRepository
 import me.roustytousty.elytrapvp.data.repository.MongoEventRepository
 import me.roustytousty.elytrapvp.data.repository.PlayerRepository
 import me.roustytousty.elytrapvp.data.repository.MongoPlayerRepository
+import me.roustytousty.elytrapvp.services.afk.AfkService
 import me.roustytousty.elytrapvp.services.announcement.AnnouncementService
 import me.roustytousty.elytrapvp.services.combat.CombatService
 import me.roustytousty.elytrapvp.services.currency.CurrencyService
@@ -85,6 +86,9 @@ object Services {
         private set
 
     lateinit var announcementService: AnnouncementService
+        private set
+
+    lateinit var afkService: AfkService
         private set
 
 
@@ -172,6 +176,10 @@ object Services {
         combatService = CombatService(
             regionService = regionService,
             plugin = plugin
+        )
+
+        afkService = AfkService(
+            currencyService = currencyService
         )
     }
 }

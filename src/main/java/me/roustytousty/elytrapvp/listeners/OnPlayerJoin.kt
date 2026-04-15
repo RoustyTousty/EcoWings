@@ -26,5 +26,9 @@ class OnPlayerJoin : Listener {
 
         kitService.syncKit(player)
         scoreboardService.create(player)
+
+        Bukkit.getOnlinePlayers().forEach { onlinePlayer ->
+            scoreboardService.updateNameTag(onlinePlayer)
+        }
     }
 }
