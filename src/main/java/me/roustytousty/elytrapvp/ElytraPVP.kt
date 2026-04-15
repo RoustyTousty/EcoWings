@@ -97,6 +97,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnWarTableClick(), this)
         pluginmanager.registerEvents(OnEntityExplode(), this)
         pluginmanager.registerEvents(OnAsyncPlayerChat(), this)
+        pluginmanager.registerEvents(OnPlayerPreLogin(), this)
 
         pluginmanager.registerEvents(PerkListener(), this)
 
@@ -152,8 +153,11 @@ class ElytraPVP : JavaPlugin() {
         getCommand("maptimerreset")?.setExecutor(MapTimerResetCommand())
 
         getCommand("mute")?.setExecutor(MuteCommand())
+        getCommand("unmute")?.setExecutor(UnmuteCommand())
         getCommand("kick")?.setExecutor(KickCommand())
         getCommand("ban")?.setExecutor(BanCommand())
+        getCommand("unban")?.setExecutor(UnbanCommand())
+        getCommand("punishmenthistory")?.setExecutor(PunishmentHistoryCommand())
     }
 
     private fun setupConfigsOnEnable() {

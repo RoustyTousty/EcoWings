@@ -113,7 +113,19 @@ commands:
     description: "Bans a player!"
     permission: group.guide
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+  unban:
+    description: "Unbans a player!"
+    permission: group.guide
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
   mute:
     description: "Mutes a player!"
+    permission: group.guide
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+  unmute:
+    description: "Unmutes a player!"
+    permission: group.guide
+    permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"
+  punishmenthistory:
+    description: "Shows player's punishment history!"
     permission: group.guide
     permission-message: "&c&lEcoWings &8| &fYou don't have permission to use this command!"

@@ -1,5 +1,7 @@
 package me.roustytousty.elytrapvp.commands.staffcommands
 
+import me.roustytousty.elytrapvp.data.model.PunishmentType
+import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.FormatUtils
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
@@ -10,9 +12,11 @@ import org.bukkit.entity.Player
 
 class KickCommand : CommandExecutor {
 
+    private val punishmentService = Services.punishmentService
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         val player = sender as Player
-        if (!player.hasPermission("group.guide") && !player.hasPermission("group.mod")) {
+        if (!player.hasPermission("group.guide")) {
             MessageUtils.sendError(player, "&fYou do not have permission to use this command.")
             return true
         }
@@ -34,10 +38,10 @@ class KickCommand : CommandExecutor {
             "You have been kicked from the server."
         }
 
-        MessageUtils.sendError(targetPlayer, "&fYou have been kicked. \n&7Reason: $reason")
-        MessageUtils.sendSuccess(player, "&fSuccessfully kicked &6${targetPlayer.name}&f!")
+        punishmentService.punishPlayer(targetPlayer.uniqueId, PunishmentType.KICK, 0L, reason, player.name)
 
-        targetPlayer.kick()
+        MessageUtils.sendSuccess(player, "&fSuccessfully kicked &6${targetPlayer.name}&f!")
+        targetPlayer.kickPlayer(FormatUtils.parse("&fYou have been kicked by &6${player.name}&f. &fReason: &7$reason"))
 
         return true
     }

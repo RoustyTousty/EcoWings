@@ -5,6 +5,7 @@ import me.roustytousty.elytrapvp.data.model.PlayerData
 import me.roustytousty.elytrapvp.data.repository.PlayerRepository
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import java.util.*
 
 class PlayerService(
     private val repository: PlayerRepository,
@@ -73,6 +74,14 @@ class PlayerService(
         for (player in Bukkit.getOnlinePlayers()) {
             saveAndUnloadPlayerData(player)
         }
+    }
+
+    fun getPlayerDataByUUID(uuid: UUID): PlayerData? {
+        return cache.get(uuid) ?: repository.loadPlayer(uuid)
+    }
+
+    fun savePlayerData(data: PlayerData) {
+        repository.savePlayer(data)
     }
 
     fun getDynamicPlayerData(player: Player, stat: String): Any? {

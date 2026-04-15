@@ -1,11 +1,9 @@
 package me.roustytousty.elytrapvp.services.punishment
 
-import com.destroystokyo.paper.profile.PlayerProfile
-import io.papermc.paper.ban.BanListType
-import org.bukkit.Bukkit
-import org.bukkit.ban.ProfileBanList
+import me.roustytousty.elytrapvp.data.model.PunishmentEntry
+import me.roustytousty.elytrapvp.data.model.PunishmentType
+import me.roustytousty.elytrapvp.services.Services
 import org.bukkit.command.CommandSender
-import java.util.Date
 import java.util.UUID
 
 class PunishmentService {
@@ -13,20 +11,19 @@ class PunishmentService {
     private val ONE_HOUR = 3600000L
     private val ONE_MONTH = 2592000000L
 
-    private val mutes = mutableMapOf<UUID, Long>()
-
     fun parseDuration(timeStr: String): Long? {
-        val regex = "^(\\d+)([smhd]|mo)$".toRegex()
+        val regex = "^(\\d+)(s|sec|m|min|h|d|mo|y)$".toRegex()
         val match = regex.find(timeStr.lowercase()) ?: return null
+
         val value = match.groupValues[1].toLong()
         val unit = match.groupValues[2]
 
         return when (unit) {
-            "s" -> value * 1000
-            "m" -> value * 60 * 1000
-            "h" -> value * 60 * 60 * 1000
-            "d" -> value * 24 * 60 * 60 * 1000
-            "mo" -> value * 30 * 24 * 60 * 60 * 1000
+            "s" -> value * 1000L
+            "m", "min" -> value * 60 * 1000L
+            "h" -> value * 60 * 60 * 1000L
+            "d" -> value * 24 * 60 * 60 * 1000L
+            "mo" -> value * 30 * 24 * 60 * 60 * 1000L
             else -> null
         }
     }
@@ -38,24 +35,54 @@ class PunishmentService {
         return 0L
     }
 
-    fun isMuted(uuid: UUID): Boolean {
-        val expiry = mutes[uuid] ?: return false
-        if (System.currentTimeMillis() > expiry) {
-            mutes.remove(uuid)
-            return false
-        }
+    fun getActiveMute(uuid: UUID): PunishmentEntry? {
+        val data = Services.playerService.getPlayerDataByUUID(uuid) ?: return null
+        return data.punishments
+            .filter { it.type == PunishmentType.MUTE && !it.isExpired() }
+            .maxByOrNull { it.timestamp }
+    }
+
+    fun getActiveBan(uuid: UUID): PunishmentEntry? {
+        val data = Services.playerService.getPlayerDataByUUID(uuid) ?: return null
+        return data.punishments
+            .filter { it.type == PunishmentType.BAN && !it.isExpired() }
+            .maxByOrNull { it.timestamp }
+    }
+
+    fun unbanPlayer(uuid: UUID): Boolean {
+        val data = Services.playerService.getPlayerDataByUUID(uuid) ?: return false
+        val activeBan = data.punishments.filter { it.type == PunishmentType.BAN && !it.isExpired() }.maxByOrNull { it.timestamp }
+            ?: return false
+
+        val newDuration = System.currentTimeMillis() - activeBan.timestamp
+        val updatedBan = activeBan.copy(durationMillis = newDuration)
+
+        data.punishments.remove(activeBan)
+        data.punishments.add(updatedBan)
+        Services.playerService.savePlayerData(data)
         return true
     }
 
-    fun mutePlayer(uuid: UUID, durationMillis: Long) {
-        val expiryTime = if (durationMillis == Long.MAX_VALUE) Long.MAX_VALUE else System.currentTimeMillis() + durationMillis
-        mutes[uuid] = expiryTime
+    fun unmutePlayer(uuid: UUID): Boolean {
+        val data = Services.playerService.getPlayerDataByUUID(uuid) ?: return false
+        val activeMute = data.punishments.filter { it.type == PunishmentType.MUTE && !it.isExpired() }.maxByOrNull { it.timestamp }
+            ?: return false
+
+        val newDuration = System.currentTimeMillis() - activeMute.timestamp
+        val updatedMute = activeMute.copy(durationMillis = newDuration)
+
+        data.punishments.remove(activeMute)
+        data.punishments.add(updatedMute)
+        Services.playerService.savePlayerData(data)
+        return true
     }
 
-    fun banPlayer(targetName: String, durationMillis: Long, reason: String, source: String) {
-        val expiryDate = if (durationMillis == Long.MAX_VALUE) null else Date(System.currentTimeMillis() + durationMillis)
-        val profile: org.bukkit.profile.PlayerProfile = Bukkit.createPlayerProfile(targetName)
-        val banList: ProfileBanList = Bukkit.getBanList(BanListType.PROFILE)
-        val _entry: org.bukkit.BanEntry<PlayerProfile>? = banList.addBan(profile, reason, expiryDate, source)
+    fun punishPlayer(uuid: UUID, type: PunishmentType, durationMillis: Long, reason: String, issuer: String) {
+        val entry = PunishmentEntry(type, reason, issuer, System.currentTimeMillis(), durationMillis)
+
+        val data = Services.playerService.getPlayerDataByUUID(uuid) ?: return
+
+        data.punishments.add(entry)
+        Services.playerService.savePlayerData(data)
     }
 }

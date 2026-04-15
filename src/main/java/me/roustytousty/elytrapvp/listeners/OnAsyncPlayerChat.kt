@@ -1,6 +1,7 @@
 package me.roustytousty.elytrapvp.listeners
 
 import me.roustytousty.elytrapvp.services.Services
+import me.roustytousty.elytrapvp.utility.FormatUtils
 import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import me.roustytousty.elytrapvp.utility.LuckPermsUtils
 import me.roustytousty.elytrapvp.utility.MessageUtils
@@ -15,9 +16,11 @@ class OnAsyncPlayerChat : Listener {
     @EventHandler
     fun onChat(event: AsyncPlayerChatEvent) {
         val player = event.player
+        val activeMute = Services.punishmentService.getActiveMute(player.uniqueId)
 
-        if (punishmentService.isMuted(player.uniqueId)) {
-            MessageUtils.sendError(player, "&cYou are currently muted and cannot speak.")
+        if (activeMute != null) {
+            val timeStr = FormatUtils.formatDuration(activeMute.durationMillis)
+            MessageUtils.sendError(player, "&fYou are currently muted by &6${activeMute.issuer} &ffor (&6$timeStr&f). &fReason: &7${activeMute.reason}")
             event.isCancelled = true
             return
         }

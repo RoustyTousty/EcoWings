@@ -5,6 +5,8 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Sorts
 import me.roustytousty.elytrapvp.data.api.MongoManager
 import me.roustytousty.elytrapvp.data.model.LeaderboardEntry
+import me.roustytousty.elytrapvp.data.model.PunishmentEntry
+import me.roustytousty.elytrapvp.data.model.PunishmentType
 import me.roustytousty.elytrapvp.data.model.PlayerData
 import me.roustytousty.elytrapvp.services.perk.PerkType
 import org.bson.Document
@@ -88,9 +90,25 @@ class MongoPlayerRepository : PlayerRepository {
     }
 
     private fun documentToPlayerData(doc: Document): PlayerData {
+        val rawPunishments = doc.getList("punishments", Document::class.java) ?: emptyList()
+        val punishments = rawPunishments.mapNotNull {
+            try {
+                PunishmentEntry(
+                    type = PunishmentType.valueOf(it.getString("type")),
+                    reason = it.getString("reason"),
+                    issuer = it.getString("issuer"),
+                    timestamp = it.getLong("timestamp"),
+                    durationMillis = it.getLong("durationMillis")
+                )
+            } catch (e: Exception) {
+                null
+            }
+        }.toMutableList()
+
         return PlayerData(
             uuid = UUID.fromString(doc.getString("_id")),
             username = doc.getString("username"),
+            punishments = punishments,
 
             isBuildMode = doc.getBoolean("isBuildMode", false),
 
@@ -114,15 +132,24 @@ class MongoPlayerRepository : PlayerRepository {
 
             unlockedPerks = getValidUnlockedPerks(doc),
             equippedPerks = getValidEquippedPerks(doc),
-            unlockedPerkSlots = doc.getInteger("unlockedPerkSlots", 1)
+            unlockedPerkSlots = doc.getInteger("unlockedPerkSlots", 1),
         )
     }
 
     private fun playerDataToDocument(playerData: PlayerData): Document {
+        val punishmentDocs = playerData.punishments.map {
+            Document()
+                .append("type", it.type.name)
+                .append("reason", it.reason)
+                .append("issuer", it.issuer)
+                .append("timestamp", it.timestamp)
+                .append("durationMillis", it.durationMillis)
+        }
 
         return Document()
             .append("_id", playerData.uuid.toString())
             .append("username", playerData.username)
+            .append("punishments", punishmentDocs)
 
             .append("isBuildMode", playerData.isBuildMode)
 

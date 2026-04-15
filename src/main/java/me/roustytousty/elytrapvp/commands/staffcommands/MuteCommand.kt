@@ -1,5 +1,6 @@
 package me.roustytousty.elytrapvp.commands.staffcommands
 
+import me.roustytousty.elytrapvp.data.model.PunishmentType
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.FormatUtils
 import me.roustytousty.elytrapvp.utility.MessageUtils
@@ -15,22 +16,17 @@ class MuteCommand : CommandExecutor {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         val player = sender as Player
-        if (!player.hasPermission("group.guide") && !player.hasPermission("group.mod") && !player.hasPermission("group.admin")) {
+        if (!player.hasPermission("group.guide")) {
             MessageUtils.sendError(player, "&fYou do not have permission to use this command.")
             return true
         }
 
         if (args.isEmpty()) {
-            MessageUtils.sendError(player, "&cUsage: /mute <player> [time] [reason]")
+            MessageUtils.sendError(player, "&fUsage: &6/mute <player> [time] [reason]")
             return true
         }
 
-        val targetPlayer = Bukkit.getPlayer(args[0])
-        if (targetPlayer == null) {
-            MessageUtils.sendError(player, "&cPlayer not found or is offline.")
-            return true
-        }
-
+        val targetName = args[0]
         var duration = punishmentService.getMaxDurationMillis(player)
         var reasonStartIndex = 1
 
@@ -49,10 +45,17 @@ class MuteCommand : CommandExecutor {
             "Spam/Toxicity"
         }
 
-        punishmentService.mutePlayer(targetPlayer.uniqueId, duration)
+        val targetPlayer = Bukkit.getPlayerExact(targetName)
+        val targetUUID = targetPlayer?.uniqueId ?: Bukkit.getOfflinePlayer(targetName).uniqueId
 
-        MessageUtils.sendSuccess(player, "&aMuted &f${targetPlayer.name} &afor &f$reason&a.")
-        MessageUtils.sendError(targetPlayer, "&cYou have been muted. Reason: $reason")
+        punishmentService.punishPlayer(targetUUID, PunishmentType.MUTE, duration, reason, player.name)
+
+        val timeStr = FormatUtils.formatDuration(duration)
+        MessageUtils.sendSuccess(player, "&fMuted &6$targetName &ffor (&6$timeStr&f). &7Reason: $reason")
+
+        if (targetPlayer != null && targetPlayer.isOnline) {
+            MessageUtils.sendError(targetPlayer, "&fYou have been muted by &6${player.name} &ffor (&6$timeStr&f). &fReason: &7$reason")
+        }
 
         return true
     }

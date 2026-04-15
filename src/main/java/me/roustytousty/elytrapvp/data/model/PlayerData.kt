@@ -5,6 +5,7 @@ import java.util.*
 data class PlayerData(
     val uuid: UUID,
     var username: String,
+    var punishments: MutableList<PunishmentEntry> = mutableListOf(),
 
     var isBuildMode: Boolean = false,
 
@@ -28,5 +29,5 @@ data class PlayerData(
 
     var unlockedPerks: MutableList<String> = mutableListOf(),
     var equippedPerks: MutableList<String> = mutableListOf("", "", ""),
-    var unlockedPerkSlots: Int = 1
+    var unlockedPerkSlots: Int = 1,
 )

@@ -28,7 +28,7 @@ enum class PerkType(
         "&7Breaking a block has a 50% chance", "&7of obtaining it."
     )),
     ANCHORED("anchored", "Anchored", 8500, 0, false, Material.ANVIL, listOf(
-        "&7Take 10% less knockback."
+        "&7Take 5% less knockback."
     ));
 
     companion object {

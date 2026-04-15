@@ -96,8 +96,8 @@ class PerkListener : Listener {
         val player = e.player
         if (Services.perkService.hasPerkEquipped(player, PerkType.ANCHORED)) {
             val velocity = e.velocity
-            velocity.x *= 0.90
-            velocity.z *= 0.90
+            velocity.x *= 0.95
+            velocity.z *= 0.95
             e.velocity = velocity
         }
     }
