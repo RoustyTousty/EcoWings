@@ -21,21 +21,30 @@ class OnPlayerPostRespawn : Listener {
             val player = event.player
 
             kitService.syncKit(player)
-
             combatService.applyRespawnProtection(player)
 
-            val resistance = PotionEffect(
-                PotionEffectType.DAMAGE_RESISTANCE,
-                300,
+            val nightvision = PotionEffect(
+                PotionEffectType.NIGHT_VISION,
+                1000000,
                 0,
                 false,
                 false,
                 false
             )
-            val nightvision = PotionEffect(
-                PotionEffectType.NIGHT_VISION,
-                Int.MAX_VALUE,
+
+            val strenght = PotionEffect(
+                PotionEffectType.INCREASE_DAMAGE,
+                200,
                 0,
+                false,
+                false,
+                false
+            )
+
+            val resistance = PotionEffect(
+                PotionEffectType.DAMAGE_RESISTANCE,
+                300,
+                1,
                 false,
                 false,
                 false
@@ -43,8 +52,16 @@ class OnPlayerPostRespawn : Listener {
 
             player.addPotionEffect(nightvision)
             player.addPotionEffect(resistance)
+            player.addPotionEffect(strenght)
 
-            MessageUtils.sendTitle(player, "&c&lDeath", "&7Try harder next time.", 5, 30, 5)
+            MessageUtils.sendTitle(
+                player,
+                "&c&lDeath",
+                "&7Try harder next time.",
+                5,
+                30,
+                5
+            )
         })
     }
 }

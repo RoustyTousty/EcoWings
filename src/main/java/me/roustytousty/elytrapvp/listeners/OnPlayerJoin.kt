@@ -35,7 +35,7 @@ class OnPlayerJoin : Listener {
 
         val nightvision = PotionEffect(
             PotionEffectType.NIGHT_VISION,
-            Int.MAX_VALUE,
+            1000000,
             0,
             false,
             false,
