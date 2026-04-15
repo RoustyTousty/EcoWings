@@ -8,6 +8,8 @@ import org.bukkit.Location
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 class OnPlayerJoin : Listener {
 
@@ -30,5 +32,16 @@ class OnPlayerJoin : Listener {
         Bukkit.getOnlinePlayers().forEach { onlinePlayer ->
             scoreboardService.updateNameTag(onlinePlayer)
         }
+
+        val nightvision = PotionEffect(
+            PotionEffectType.NIGHT_VISION,
+            Int.MAX_VALUE,
+            0,
+            false,
+            false,
+            false
+        )
+
+        player.addPotionEffect(nightvision)
     }
 }

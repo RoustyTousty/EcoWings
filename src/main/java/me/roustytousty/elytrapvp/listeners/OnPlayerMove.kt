@@ -17,6 +17,10 @@ class OnPlayerMove : Listener {
         val player = event.player
         val loc = player.location
 
+        if (player.isDead) return
+        if (!player.isOnline) return
+        if (player.health <= 0) return
+
         if (loc.y <= 85 && !eventService.isEventActive("Voidless")) {
             val isInPVPRegion = regionService.isInRegion(loc, "pvpRegion")
             if (!isInPVPRegion) {

@@ -3,6 +3,7 @@ package me.roustytousty.elytrapvp.listeners
 import com.destroystokyo.paper.event.player.PlayerPostRespawnEvent
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.MessageUtils
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.potion.PotionEffect
@@ -12,26 +13,38 @@ class OnPlayerPostRespawn : Listener {
 
     private val kitService = Services.kitService
     private val combatService = Services.combatService
+    private val plugin = Services.plugin
 
     @EventHandler
     fun onPlayerPostRespawn(event: PlayerPostRespawnEvent) {
-        val player = event.player
+        Bukkit.getScheduler().runTask(plugin, Runnable {
+            val player = event.player
 
-        kitService.syncKit(player)
+            kitService.syncKit(player)
 
-        combatService.applyRespawnProtection(player)
+            combatService.applyRespawnProtection(player)
 
-        val hiddenResistance = PotionEffect(
-            PotionEffectType.DAMAGE_RESISTANCE,
-            300,
-            0,
-            false,
-            false,
-            false
-        )
+            val resistance = PotionEffect(
+                PotionEffectType.DAMAGE_RESISTANCE,
+                300,
+                0,
+                false,
+                false,
+                false
+            )
+            val nightvision = PotionEffect(
+                PotionEffectType.NIGHT_VISION,
+                Int.MAX_VALUE,
+                0,
+                false,
+                false,
+                false
+            )
 
-        player.addPotionEffect(hiddenResistance)
+            player.addPotionEffect(nightvision)
+            player.addPotionEffect(resistance)
 
-        MessageUtils.sendTitle(player, "&c&lDeath", "&7Try harder next time.", 5, 30, 5)
+            MessageUtils.sendTitle(player, "&c&lDeath", "&7Try harder next time.", 5, 30, 5)
+        })
     }
 }
