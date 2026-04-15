@@ -63,6 +63,7 @@ class ElytraPVP : JavaPlugin() {
     override fun onDisable() {
         Services.goldSpawnService.stopSpawner()
         Services.playerService.saveAndUnloadAllPlayerData()
+        Services.eventService.forceStopActiveEvent()
         Services.eventService.saveAllEventData()
 
         MongoManager.close()

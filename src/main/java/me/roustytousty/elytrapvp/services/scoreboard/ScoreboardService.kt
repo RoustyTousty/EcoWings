@@ -9,6 +9,7 @@ import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import me.roustytousty.elytrapvp.utility.LuckPermsUtils
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scoreboard.DisplaySlot
@@ -151,6 +152,10 @@ class ScoreboardService(
     fun updateNameTag(player: Player) {
         val prefix = LuckPermsUtils.getPrefix(player)
         val teamName = player.name
+        
+        val activeEvent = eventService.getActiveEvent()
+        val isPotato = activeEvent is me.roustytousty.elytrapvp.services.event.events.HotPotatoEvent
+                && activeEvent.currentPotatoUuid == player.uniqueId
 
         Bukkit.getOnlinePlayers().forEach { observer ->
             val sb = observer.scoreboard
@@ -162,7 +167,15 @@ class ScoreboardService(
 
             team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER)
 
-            team.prefix(Component.text(parse(prefix) + " "))
+            if (isPotato) {
+                team.color = ChatColor.GOLD
+
+                team.prefix(Component.text(parse(prefix) + " " + ChatColor.WHITE))
+            } else {
+                team.color = ChatColor.WHITE
+                team.prefix(Component.text(parse(prefix) + " "))
+            }
+
             if (!team.hasEntry(player.name)) {
                 team.addEntry(player.name)
             }

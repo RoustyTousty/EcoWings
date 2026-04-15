@@ -28,8 +28,8 @@ class EventsMenu : Listener {
         when (e.rawSlot) {
             11, 13, 15 -> {
                 val eventName = ChatColor.stripColor(clickedItem.itemMeta?.displayName ?: return) ?: return
-                val donationAmount = if (e.isShiftClick) 100 else 10
 
+                val donationAmount = if (e.isShiftClick) 100 else 10
                 val success = eventService.processPlayerContribution(p, eventName, donationAmount)
 
                 if (success) {
@@ -70,24 +70,41 @@ class EventsMenu : Listener {
             }
 
             val eventSlots = intArrayOf(11, 13, 15)
-            val events = eventService.getEvents()
+            val events = eventService.getDisplayEvents()
 
             events.forEachIndexed { index, event ->
-                inventory.setItem(
-                    eventSlots[index],
-                    itemBuilder(
-                        event.displayMaterial,
-                        1,
-                        false,
-                        "&e${event.name}",
-                        "&7${event.description}",
-                        "",
-                        "&fProgress: &6${event.contributions}g&f/&6${event.cost}g",
-                        "",
-                        "&7Click to donate 10g!",
-                        "&7Shift-Click to donate 100g!"
+                if (index < eventSlots.size) {
+                    val isActive = eventService.isEventActive(event.name)
+
+                    val statusLore = if (isActive) {
+                        arrayOf(
+                            "",
+                            "&fEnds in: &6${eventService.getEventRemainingTime(event.name)}",
+                            "",
+                            "&a&lACTIVE EVENT!"
+                        )
+                    } else {
+                        arrayOf(
+                            "",
+                            "&fProgress: &6${event.contributions}g&f/&6${event.cost}g",
+                            "",
+                            "&7Click to donate 10g!",
+                            "&7Shift-Click to donate 100g!"
+                        )
+                    }
+
+                    inventory.setItem(
+                        eventSlots[index],
+                        itemBuilder(
+                            event.displayMaterial,
+                            1,
+                            isActive,
+                            "&e${event.name}",
+                            "&7${event.description}",
+                            *statusLore
+                        )
                     )
-                )
+                }
             }
 
             inventory.setItem(

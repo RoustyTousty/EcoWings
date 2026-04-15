@@ -9,7 +9,7 @@ class VoidlessEvent : EventInterface {
     override val name = "Voidless"
     override val description = "No void, no problem."
     override val displayMaterial = Material.SCULK
-    override val cost = 200
+    override val cost = 400
     override var contributions = 0
     override val duration = 5 * 60
     override var endTime: Long? = null

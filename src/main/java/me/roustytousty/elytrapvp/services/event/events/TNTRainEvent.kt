@@ -17,7 +17,7 @@ class TNTRainEvent : EventInterface {
     override val name = "TNT Rain"
     override val description = "Watch your head!"
     override val displayMaterial = Material.TNT
-    override val cost = 450
+    override val cost = 550
     override var contributions = 0
     override val duration = 5 * 60
     override var endTime: Long? = null
@@ -78,6 +78,6 @@ class TNTRainEvent : EventInterface {
 
     private fun spawnTNT(world: World, location: Location) {
         val tnt = world.spawnEntity(location, EntityType.PRIMED_TNT) as TNTPrimed
-        tnt.fuseTicks = 80
+        tnt.fuseTicks = 100
     }
 }

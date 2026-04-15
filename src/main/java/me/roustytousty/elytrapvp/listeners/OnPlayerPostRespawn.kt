@@ -25,7 +25,7 @@ class OnPlayerPostRespawn : Listener {
 
             val nightvision = PotionEffect(
                 PotionEffectType.NIGHT_VISION,
-                1000000,
+                -1,
                 0,
                 false,
                 false,
