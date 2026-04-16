@@ -37,6 +37,10 @@ commands:
   rebirthmenu:
     aliases: [rebirth]
     description: "Opens the rebirth GUI"
+  cosmeticmenu:
+    permission: op
+    aliases: [cosmetic]
+    description: "Opens the rebirth GUI"
 
   # Player commands
   gold:

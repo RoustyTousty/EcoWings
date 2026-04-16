@@ -141,8 +141,8 @@ class GoldSpawnService(
                         loc.block.type = Material.RAW_GOLD_BLOCK
                         activeGoldBlocks.add(loc)
 
-                        world.spawnParticle(Particle.EXPLOSION_LARGE, center, 1)
-                        world.spawnParticle(Particle.BLOCK_CRACK, center, 50, 0.5, 0.5, 0.5, Material.RAW_GOLD_BLOCK.createBlockData())
+                        world.spawnParticle(Particle.EXPLOSION, center, 1)
+                        world.spawnParticle(Particle.BLOCK, center, 50, 0.5, 0.5, 0.5, Material.RAW_GOLD_BLOCK.createBlockData())
 
                         world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.2f)
                         world.playSound(center, Sound.BLOCK_ANVIL_PLACE, 1.0f, 0.5f) // Heavy thud

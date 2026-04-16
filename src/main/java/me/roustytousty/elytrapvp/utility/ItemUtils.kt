@@ -34,7 +34,15 @@ object ItemUtils {
         meta.setDisplayName(FormatUtils.parse(name))
 
         meta.attributeModifiers = item.type.getDefaultAttributeModifiers(EquipmentSlot.HAND)
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
+        meta.addItemFlags(
+            ItemFlag.HIDE_ATTRIBUTES,
+            ItemFlag.HIDE_ENCHANTS,
+            ItemFlag.HIDE_UNBREAKABLE,
+            ItemFlag.HIDE_ADDITIONAL_TOOLTIP,
+            ItemFlag.HIDE_ARMOR_TRIM,
+            ItemFlag.HIDE_STORED_ENCHANTS
+        )
 
         if (lore.isNotEmpty()) {
             val l: MutableList<String> = ArrayList()
@@ -45,7 +53,7 @@ object ItemUtils {
         }
 
         if (glow) {
-            meta.addEnchant(Enchantment.DURABILITY, 1, false)
+            meta.addEnchant(Enchantment.UNBREAKING, 1, false)
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         }
 
@@ -81,7 +89,7 @@ object ItemUtils {
         }
 
         if (glow) {
-            meta.addEnchant(Enchantment.DURABILITY, 1, false)
+            meta.addEnchant(Enchantment.UNBREAKING, 1, false)
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         }
 

@@ -33,7 +33,7 @@ class OnPlayerPostRespawn : Listener {
             )
 
             val strenght = PotionEffect(
-                PotionEffectType.INCREASE_DAMAGE,
+                PotionEffectType.STRENGTH,
                 200,
                 0,
                 false,
@@ -42,7 +42,7 @@ class OnPlayerPostRespawn : Listener {
             )
 
             val resistance = PotionEffect(
-                PotionEffectType.DAMAGE_RESISTANCE,
+                PotionEffectType.RESISTANCE,
                 300,
                 1,
                 false,

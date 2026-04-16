@@ -46,7 +46,7 @@ class OnBlockPlace : Listener {
 
         if (!placableMaterials.contains(event.block.type)) {
             event.isCancelled = true
-            MessageUtils.sendMessage(player, "&fYou can only place specific blocks here!")
+            MessageUtils.sendError(player, "&fYou can only place specific blocks here!")
             SoundUtils.playFailure(player)
         }
     }

@@ -42,7 +42,7 @@ class Normalizer : Listener {
                 item.amount -= 1
 
                 world.spawnParticle(
-                    Particle.SMOKE_LARGE,
+                    Particle.LARGE_SMOKE,
                     playerLocation.add(0.0, 1.0, 0.0),
                     300,
                     10.0, 10.0, 10.0,

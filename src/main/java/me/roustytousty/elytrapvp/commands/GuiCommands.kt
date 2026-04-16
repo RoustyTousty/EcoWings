@@ -1,5 +1,6 @@
 package me.roustytousty.elytrapvp.commands
 
+import me.roustytousty.elytrapvp.gui.cosmetics.CosmeticMenu
 import me.roustytousty.elytrapvp.gui.events.EventsMenu
 import me.roustytousty.elytrapvp.gui.perks.PerksMenu
 import me.roustytousty.elytrapvp.gui.rebirth.RebirthMenu
@@ -37,6 +38,8 @@ class GuiCommands : CommandExecutor {
             EventsMenu.openInventory(player)
         } else if (command.name.equals("rebirthmenu", ignoreCase = true)) {
             RebirthMenu.openInventory(player)
+        } else if (command.name.equals("cosmeticmenu", ignoreCase = true)) {
+            CosmeticMenu.openInventory(player)
         }
 
         return true

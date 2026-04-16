@@ -9,6 +9,7 @@ import me.roustytousty.elytrapvp.data.repository.MongoPlayerRepository
 import me.roustytousty.elytrapvp.services.afk.AfkService
 import me.roustytousty.elytrapvp.services.announcement.AnnouncementService
 import me.roustytousty.elytrapvp.services.combat.CombatService
+import me.roustytousty.elytrapvp.services.cosmetic.CosmeticService
 import me.roustytousty.elytrapvp.services.currency.CurrencyService
 import me.roustytousty.elytrapvp.services.event.EventService
 import me.roustytousty.elytrapvp.services.gold.GoldSpawnService
@@ -68,6 +69,9 @@ object Services {
         private set
 
     lateinit var rebirthService: RebirthService
+        private set
+
+    lateinit var cosmeticService: CosmeticService
         private set
 
     lateinit var kitService: KitService
@@ -154,10 +158,16 @@ object Services {
             playerService = playerService
         )
 
+        cosmeticService = CosmeticService(
+            playerService = playerService,
+            plugin = plugin
+        )
+
         kitService = KitService(
             playerService = playerService,
             upgradeService = upgradeService,
             shopService = shopService,
+            cosmeticService = cosmeticService,
             plugin = plugin
         )
 

@@ -133,6 +133,11 @@ class MongoPlayerRepository : PlayerRepository {
             unlockedPerks = getValidUnlockedPerks(doc),
             equippedPerks = getValidEquippedPerks(doc),
             unlockedPerkSlots = doc.getInteger("unlockedPerkSlots", 1),
+
+            unlockedTrimPatterns = doc.getList("unlockedTrimPatterns", String::class.java)?.toMutableList() ?: mutableListOf(),
+            unlockedTrimMaterials = doc.getList("unlockedTrimMaterials", String::class.java)?.toMutableList() ?: mutableListOf(),
+            activeTrimPattern = doc.getString("activeTrimPattern") ?: "",
+            activeTrimMaterial = doc.getString("activeTrimMaterial") ?: ""
         )
     }
 
@@ -174,6 +179,11 @@ class MongoPlayerRepository : PlayerRepository {
             .append("unlockedPerks", playerData.unlockedPerks)
             .append("equippedPerks", playerData.equippedPerks)
             .append("unlockedPerkSlots", playerData.unlockedPerkSlots)
+
+            .append("unlockedTrimPatterns", playerData.unlockedTrimPatterns)
+            .append("unlockedTrimMaterials", playerData.unlockedTrimMaterials)
+            .append("activeTrimPattern", playerData.activeTrimPattern)
+            .append("activeTrimMaterial", playerData.activeTrimMaterial)
     }
 
     private fun getValidUnlockedPerks(doc: Document): MutableList<String> {

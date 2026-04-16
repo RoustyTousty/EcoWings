@@ -98,3 +98,14 @@ regions:
       x: 2
       y: 137
       z: 171
+  cosmeticBlockRegion:
+    pos1:
+      world: EcoWings
+      x: 18
+      y: 137
+      z: 183
+    pos2:
+      world: EcoWings
+      x: 18
+      y: 137
+      z: 183

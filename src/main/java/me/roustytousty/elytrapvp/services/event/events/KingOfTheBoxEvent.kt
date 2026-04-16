@@ -133,7 +133,7 @@ class KingOfTheBoxEvent : EventInterface {
             val y = y1 + (y2 - y1) * ratio
             val z = z1 + (z2 - z1) * ratio
 
-            world.spawnParticle(Particle.REDSTONE, x, y, z, 1, 0.0, 0.0, 0.0, 0.0, orangeDust, true)
+            world.spawnParticle(Particle.DUST, x, y, z, 1, 0.0, 0.0, 0.0, 0.0, orangeDust, true)
         }
     }
 }

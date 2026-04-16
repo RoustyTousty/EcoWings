@@ -1,6 +1,7 @@
 package me.roustytousty.elytrapvp.services.kit
 
 import me.roustytousty.elytrapvp.data.model.PlayerData
+import me.roustytousty.elytrapvp.services.cosmetic.CosmeticService
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.services.shop.ShopService
 import me.roustytousty.elytrapvp.services.upgrade.UpgradeService
@@ -16,6 +17,7 @@ class KitService(
     private val playerService: PlayerService,
     private val upgradeService: UpgradeService,
     private val shopService: ShopService,
+    private val cosmeticService: CosmeticService,
     private val plugin: JavaPlugin
 ) {
 
@@ -53,10 +55,19 @@ class KitService(
     private fun applyArmor(player: Player, data: PlayerData) {
         val inv = player.inventory
 
-        inv.helmet = upgradeService.getItem(data, UpgradeType.HELMET)
-        inv.chestplate = upgradeService.getItem(data, UpgradeType.ELYTRA)
-        inv.leggings = upgradeService.getItem(data, UpgradeType.LEGGINGS)
-        inv.boots = upgradeService.getItem(data, UpgradeType.BOOTS)
+        val helmet = upgradeService.getItem(data, UpgradeType.HELMET)
+        val chestplate = upgradeService.getItem(data, UpgradeType.ELYTRA)
+        val leggings = upgradeService.getItem(data, UpgradeType.LEGGINGS)
+        val boots = upgradeService.getItem(data, UpgradeType.BOOTS)
+
+        helmet?.let { cosmeticService.applyTrimToItem(player, it) }
+        leggings?.let { cosmeticService.applyTrimToItem(player, it) }
+        boots?.let { cosmeticService.applyTrimToItem(player, it) }
+
+        inv.helmet = helmet
+        inv.chestplate = chestplate
+        inv.leggings = leggings
+        inv.boots = boots
     }
 
 

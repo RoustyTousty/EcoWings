@@ -29,7 +29,7 @@ class MoonEvent : EventInterface {
     override var isActive = false
 
     private val KNOCKBACK_MULTIPLIER = 2.0
-    private val JUMP_BOOST = PotionEffect(PotionEffectType.JUMP, Int.MAX_VALUE, 1, false, false, false)
+    private val JUMP_BOOST = PotionEffect(PotionEffectType.JUMP_BOOST, Int.MAX_VALUE, 1, false, false, false)
     private val FEATHER_FALLING = PotionEffect(PotionEffectType.SLOW_FALLING, Int.MAX_VALUE, 0, false, false, false)
 
     private val listener = object : Listener {
@@ -96,7 +96,7 @@ class MoonEvent : EventInterface {
     }
 
     private fun removeEffects(player: Player) {
-        player.removePotionEffect(PotionEffectType.JUMP)
+        player.removePotionEffect(PotionEffectType.JUMP_BOOST)
         player.removePotionEffect(PotionEffectType.SLOW_FALLING)
     }
 }

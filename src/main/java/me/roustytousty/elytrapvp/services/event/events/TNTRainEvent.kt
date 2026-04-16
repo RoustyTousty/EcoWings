@@ -77,7 +77,7 @@ class TNTRainEvent : EventInterface {
     }
 
     private fun spawnTNT(world: World, location: Location) {
-        val tnt = world.spawnEntity(location, EntityType.PRIMED_TNT) as TNTPrimed
+        val tnt = world.spawnEntity(location, EntityType.TNT) as TNTPrimed
         tnt.fuseTicks = 100
     }
 }

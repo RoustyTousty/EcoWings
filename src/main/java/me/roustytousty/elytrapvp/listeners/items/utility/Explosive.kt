@@ -46,7 +46,7 @@ class Explosive(
 
         val tnt = world.spawnEntity(
             Location(world, location.x + 0.5, location.y + 0.5, location.z + 0.5),
-            EntityType.PRIMED_TNT
+            EntityType.TNT
         ) as TNTPrimed
 
         tnt.fuseTicks = 50

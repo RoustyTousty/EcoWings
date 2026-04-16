@@ -53,7 +53,7 @@ class OnBlockBreak : Listener {
 
         if (!breakableMaterials.contains(block.type)) {
             event.isCancelled = true
-            MessageUtils.sendMessage(player, "&fYou can only break specific blocks here!")
+            MessageUtils.sendError(player, "&fYou can only break specific blocks here!")
             SoundUtils.playFailure(player)
             return
         }

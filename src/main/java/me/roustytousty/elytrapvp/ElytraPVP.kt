@@ -9,6 +9,9 @@ import me.roustytousty.elytrapvp.data.configs.RegionConfig
 import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.data.api.MongoManager
 import me.roustytousty.elytrapvp.data.configs.ShopConfig
+import me.roustytousty.elytrapvp.gui.cosmetics.ConfirmCosmeticPurchaseMenu
+import me.roustytousty.elytrapvp.gui.cosmetics.CosmeticMenu
+import me.roustytousty.elytrapvp.gui.cosmetics.CosmeticSelectMenu
 import me.roustytousty.elytrapvp.gui.events.EventsMenu
 import me.roustytousty.elytrapvp.gui.events.WarTableMenu
 import me.roustytousty.elytrapvp.gui.perks.ConfirmPerkPurchaseMenu
@@ -23,6 +26,7 @@ import me.roustytousty.elytrapvp.gui.stats.StatsMenu
 import me.roustytousty.elytrapvp.gui.upgrade.ConfirmUpgradeMenu
 import me.roustytousty.elytrapvp.gui.upgrade.UpgradeMenu
 import me.roustytousty.elytrapvp.listeners.*
+import me.roustytousty.elytrapvp.listeners.interactables.OnCosmeticBlockClick
 import me.roustytousty.elytrapvp.listeners.items.consumables.RegenApple
 import me.roustytousty.elytrapvp.listeners.items.consumables.SpeedFeather
 import me.roustytousty.elytrapvp.listeners.items.utility.Dusty
@@ -96,7 +100,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnInventoryClick(), this)
         pluginmanager.registerEvents(OnPlayerInteractEntity(), this)
         pluginmanager.registerEvents(OnPlayerInteract(), this)
-        pluginmanager.registerEvents(OnWarTableClick(), this)
+        pluginmanager.registerEvents(OnCosmeticBlockClick(), this)
         pluginmanager.registerEvents(OnEntityExplode(), this)
         pluginmanager.registerEvents(OnAsyncPlayerChat(), this)
         pluginmanager.registerEvents(OnPlayerPreLogin(), this)
@@ -118,6 +122,9 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(EventsMenu(), this)
         pluginmanager.registerEvents(WarTableMenu(), this)
         pluginmanager.registerEvents(RebirthMenu(), this)
+        pluginmanager.registerEvents(CosmeticMenu(), this)
+        pluginmanager.registerEvents(CosmeticSelectMenu(), this)
+        pluginmanager.registerEvents(ConfirmCosmeticPurchaseMenu(), this)
     }
 
     private fun registerCommands(){
@@ -131,6 +138,7 @@ class ElytraPVP : JavaPlugin() {
         getCommand("perksmenu")?.setExecutor(GuiCommands())
         getCommand("eventsmenu")?.setExecutor(GuiCommands())
         getCommand("rebirthmenu")?.setExecutor(GuiCommands())
+        getCommand("cosmeticmenu")?.setExecutor(GuiCommands())
 
         // Commands
         getCommand("gold")?.setExecutor(GoldCommand())

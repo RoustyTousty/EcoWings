@@ -27,7 +27,14 @@ data class PlayerData(
     var pickaxeLevel: Int = 0,
     var axeLevel: Int = 0,
 
+
     var unlockedPerks: MutableList<String> = mutableListOf(),
     var equippedPerks: MutableList<String> = mutableListOf("", "", ""),
     var unlockedPerkSlots: Int = 1,
+
+
+    var unlockedTrimPatterns: MutableList<String> = mutableListOf(),
+    var unlockedTrimMaterials: MutableList<String> = mutableListOf(),
+    var activeTrimPattern: String = "",
+    var activeTrimMaterial: String = "",
 )
