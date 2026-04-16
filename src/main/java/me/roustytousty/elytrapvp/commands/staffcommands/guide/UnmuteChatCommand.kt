@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.commands.staffcommands
+package me.roustytousty.elytrapvp.commands.staffcommands.guide
 
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.MessageUtils

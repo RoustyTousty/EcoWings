@@ -1,4 +1,4 @@
-package me.roustytousty.elytrapvp.commands.staffcommands
+package me.roustytousty.elytrapvp.commands.staffcommands.guide
 
 import me.roustytousty.elytrapvp.data.model.PunishmentType
 import me.roustytousty.elytrapvp.services.Services
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class BanCommand : CommandExecutor {
+class MuteCommand : CommandExecutor {
 
     private val punishmentService = Services.punishmentService
 
@@ -22,45 +22,40 @@ class BanCommand : CommandExecutor {
         }
 
         if (args.isEmpty()) {
-            MessageUtils.sendError(player, "&fUsage: &6/ban <player> [time] [reason]")
+            MessageUtils.sendError(player, "&fUsage: &6/mute <player> [time] [reason]")
             return true
         }
 
         val targetName = args[0]
-        var duration = -1L
+        var duration = punishmentService.getMaxDurationMillis(player)
         var reasonStartIndex = 1
 
         if (args.size > 1) {
             val parsedTime = punishmentService.parseDuration(args[1])
             if (parsedTime != null) {
                 val maxLimit = punishmentService.getMaxDurationMillis(player)
-                duration = if (parsedTime > maxLimit && maxLimit != Long.MAX_VALUE) maxLimit else parsedTime
+                duration = if (parsedTime > maxLimit) maxLimit else parsedTime
                 reasonStartIndex = 2
-            } else {
-                duration = punishmentService.getMaxDurationMillis(player)
-                reasonStartIndex = 1
             }
-        } else {
-            duration = punishmentService.getMaxDurationMillis(player)
         }
 
         val reason = if (args.size > reasonStartIndex) {
             args.copyOfRange(reasonStartIndex, args.size).joinToString(" ")
         } else {
-            "Rule violation"
+            "Spam/Toxicity"
         }
 
         val targetPlayer = Bukkit.getPlayerExact(targetName)
         val targetUUID = targetPlayer?.uniqueId ?: Bukkit.getOfflinePlayer(targetName).uniqueId
 
-        punishmentService.punishPlayer(targetUUID, PunishmentType.BAN, duration, reason, player.name)
+        punishmentService.punishPlayer(targetUUID, PunishmentType.MUTE, duration, reason, player.name)
 
         val timeStr = FormatUtils.formatDuration(duration)
-        if (targetPlayer != null && targetPlayer.isOnline) {
-            targetPlayer.kickPlayer(FormatUtils.parse("&fYou have been banned by &6${player.name} &ffor (&6$timeStr&f).&7Reason: $reason"))
-        }
+        MessageUtils.sendSuccess(player, "&fMuted &6$targetName &ffor (&6$timeStr&f). &7Reason: $reason")
 
-        MessageUtils.sendSuccess(player, "&fSuccessfully banned &6$targetName &ffor (&6$timeStr&f) &fReason: &7$reason")
+        if (targetPlayer != null && targetPlayer.isOnline) {
+            MessageUtils.sendError(targetPlayer, "&fYou have been muted by &6${player.name} &ffor (&6$timeStr&f). &fReason: &7$reason")
+        }
 
         return true
     }

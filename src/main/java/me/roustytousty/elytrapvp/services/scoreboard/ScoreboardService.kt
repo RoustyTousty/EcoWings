@@ -152,10 +152,13 @@ class ScoreboardService(
     fun updateNameTag(player: Player) {
         val prefix = LuckPermsUtils.getPrefix(player)
         val teamName = player.name
-        
+
         val activeEvent = eventService.getActiveEvent()
         val isPotato = activeEvent is me.roustytousty.elytrapvp.services.event.events.HotPotatoEvent
                 && activeEvent.currentPotatoUuid == player.uniqueId
+
+        val isKing = activeEvent is me.roustytousty.elytrapvp.services.event.events.KingOfTheBoxEvent
+                && activeEvent.isActive && player.hasPotionEffect(org.bukkit.potion.PotionEffectType.GLOWING)
 
         Bukkit.getOnlinePlayers().forEach { observer ->
             val sb = observer.scoreboard
@@ -167,7 +170,7 @@ class ScoreboardService(
 
             team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER)
 
-            if (isPotato) {
+            if (isPotato || isKing) {
                 team.color = ChatColor.GOLD
 
                 team.prefix(Component.text(parse(prefix) + " " + ChatColor.WHITE))

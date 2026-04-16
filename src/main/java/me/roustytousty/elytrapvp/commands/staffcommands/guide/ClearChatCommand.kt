@@ -1,13 +1,13 @@
-package me.roustytousty.elytrapvp.commands.staffcommands
+package me.roustytousty.elytrapvp.commands.staffcommands.guide
 
-import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.MessageUtils
+import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class MuteChatCommand : CommandExecutor {
+class ClearChatCommand : CommandExecutor {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         val player = sender as Player
@@ -16,8 +16,9 @@ class MuteChatCommand : CommandExecutor {
             return true
         }
 
-        Services.punishmentService.isChatMuted = true
-        MessageUtils.sendAnnouncement("&fChat has been muted by &6${player.name}&f.")
+        repeat(300) { Bukkit.broadcast(net.kyori.adventure.text.Component.empty()) }
+
+        MessageUtils.sendAnnouncement("&fChat was cleared by &6${player.name}&f.")
         return true
     }
 }

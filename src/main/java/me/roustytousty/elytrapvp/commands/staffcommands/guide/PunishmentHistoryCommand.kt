@@ -1,8 +1,7 @@
-package me.roustytousty.elytrapvp.commands.staffcommands
+package me.roustytousty.elytrapvp.commands.staffcommands.guide
 
 import me.roustytousty.elytrapvp.services.Services
 import me.roustytousty.elytrapvp.utility.FormatUtils
-import me.roustytousty.elytrapvp.utility.FormatUtils.parse
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import org.bukkit.Bukkit
 import org.bukkit.command.Command

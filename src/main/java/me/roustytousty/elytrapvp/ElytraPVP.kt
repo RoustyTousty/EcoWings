@@ -4,6 +4,7 @@ import me.roustytousty.elytrapvp.commands.GuiCommands
 import me.roustytousty.elytrapvp.commands.TestCommand
 import me.roustytousty.elytrapvp.commands.playercommands.*
 import me.roustytousty.elytrapvp.commands.staffcommands.*
+import me.roustytousty.elytrapvp.commands.staffcommands.guide.*
 import me.roustytousty.elytrapvp.data.configs.RegionConfig
 import me.roustytousty.elytrapvp.data.configs.UpgradeConfig
 import me.roustytousty.elytrapvp.data.api.MongoManager

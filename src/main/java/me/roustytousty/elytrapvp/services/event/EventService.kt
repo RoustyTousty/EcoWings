@@ -1,10 +1,7 @@
 package me.roustytousty.elytrapvp.services.event
 
 import me.roustytousty.elytrapvp.data.repository.EventRepository
-import me.roustytousty.elytrapvp.services.event.events.HotPotatoEvent
-import me.roustytousty.elytrapvp.services.event.events.MoonEvent
-import me.roustytousty.elytrapvp.services.event.events.TNTRainEvent
-import me.roustytousty.elytrapvp.services.event.events.VoidlessEvent
+import me.roustytousty.elytrapvp.services.event.events.*
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.utility.MessageUtils
 import me.roustytousty.elytrapvp.utility.SoundUtils
@@ -32,6 +29,7 @@ class EventService(
     init {
         registerEvent(TNTRainEvent())
         registerEvent(VoidlessEvent())
+        registerEvent(KingOfTheBoxEvent())
         registerEvent(HotPotatoEvent())
 
         setupRotationPool()
