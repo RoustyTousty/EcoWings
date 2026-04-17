@@ -74,6 +74,9 @@ class AfkService(
             }
             random <= 5.1 -> currencyService.giveGold(player, 50, "AFK Reward")
             random <= 25.1 -> currencyService.giveGold(player, 10, "AFK Reward")
+            else -> {
+                currencyService.giveGold(player, 1, "AFK Reward")
+            }
         }
     }
 }

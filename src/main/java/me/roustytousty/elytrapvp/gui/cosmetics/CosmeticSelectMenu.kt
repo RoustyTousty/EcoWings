@@ -33,6 +33,7 @@ class CosmeticSelectMenu : Listener {
         when (e.rawSlot) {
             4 -> {
                 if (isPattern) service.unequipPattern(p) else service.unequipMaterial(p)
+                Services.kitService.syncKit(p)
                 SoundUtils.playSuccess(p)
                 CosmeticMenu.openInventory(p)
                 return

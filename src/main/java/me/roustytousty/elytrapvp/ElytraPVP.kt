@@ -165,6 +165,8 @@ class ElytraPVP : JavaPlugin() {
         getCommand("eventactivate")?.setExecutor(EventActivateCommand())
         getCommand("mapregionreset")?.setExecutor(MapRegionResetCommand())
         getCommand("maptimerreset")?.setExecutor(MapTimerResetCommand())
+        getCommand("addshards")?.setExecutor(AddShardsCommand())
+        getCommand("setshards")?.setExecutor(SetShardsCommand())
 
         getCommand("clearchat")?.setExecutor(ClearChatCommand())
         getCommand("mutechat")?.setExecutor(MuteChatCommand())

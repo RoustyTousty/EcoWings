@@ -29,9 +29,9 @@ enum class CosmeticPattern(
     RIB("rib", "Rib Pattern", 3500, 0, false, Material.RIB_ARMOR_TRIM_SMITHING_TEMPLATE, NamespacedKey.minecraft("rib")),
     EYE("eye", "Eye Pattern", 0, 12, false, Material.EYE_ARMOR_TRIM_SMITHING_TEMPLATE, NamespacedKey.minecraft("eye")),
     SPIRE("spire", "Spire Pattern", 0, 8, false, Material.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, NamespacedKey.minecraft("spire")),
-    TIDE("tide", "Tide Pattern", 0, 6, true, Material.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE, NamespacedKey.minecraft("tide"));
-//    BOLT("bolt", "Bolt Pattern", 10, 0, false, Material.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE, NamespacedKey.minecraft("bolt")),
-//    FLOW("flow", "Flow Pattern", 10, 0, false, Material.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE, NamespacedKey.minecraft("flow"));
+    TIDE("tide", "Tide Pattern", 0, 6, true, Material.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE, NamespacedKey.minecraft("tide")),
+    BOLT("bolt", "Bolt Pattern", 11000, 0, false, Material.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE, NamespacedKey.minecraft("bolt")),
+    FLOW("flow", "Flow Pattern", 15000, 0, true, Material.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE, NamespacedKey.minecraft("flow"));
 
     fun getBukkitPattern(): TrimPattern? = Registry.TRIM_PATTERN.get(patternKey)
 
