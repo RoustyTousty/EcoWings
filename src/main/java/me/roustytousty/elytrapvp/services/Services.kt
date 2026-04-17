@@ -19,6 +19,7 @@ import me.roustytousty.elytrapvp.services.map.MapService
 import me.roustytousty.elytrapvp.services.perk.PerkService
 import me.roustytousty.elytrapvp.services.player.PlayerService
 import me.roustytousty.elytrapvp.services.punishment.PunishmentService
+import me.roustytousty.elytrapvp.services.quest.QuestService
 import me.roustytousty.elytrapvp.services.rebirth.RebirthService
 import me.roustytousty.elytrapvp.services.region.RegionService
 import me.roustytousty.elytrapvp.services.scoreboard.ScoreboardService
@@ -42,6 +43,9 @@ object Services {
         private set
 
     lateinit var leaderboardService: LeaderboardService
+        private set
+
+    lateinit var questService: QuestService
         private set
 
     lateinit var punishmentService: PunishmentService
@@ -109,6 +113,7 @@ object Services {
         tablistService = TablistService()
         regionService = RegionService()
         punishmentService = PunishmentService()
+        questService = QuestService()
 
         mapService = MapService(
             regionService = regionService

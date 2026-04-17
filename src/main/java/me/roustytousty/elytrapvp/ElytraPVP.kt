@@ -17,6 +17,7 @@ import me.roustytousty.elytrapvp.gui.events.WarTableMenu
 import me.roustytousty.elytrapvp.gui.perks.ConfirmPerkPurchaseMenu
 import me.roustytousty.elytrapvp.gui.perks.PerkSelectMenu
 import me.roustytousty.elytrapvp.gui.perks.PerksMenu
+import me.roustytousty.elytrapvp.gui.quest.QuestMenu
 import me.roustytousty.elytrapvp.gui.rebirth.RebirthMenu
 import me.roustytousty.elytrapvp.gui.shops.*
 import me.roustytousty.elytrapvp.gui.stats.LeaderboardMenu
@@ -33,6 +34,7 @@ import me.roustytousty.elytrapvp.listeners.items.utility.Dusty
 import me.roustytousty.elytrapvp.listeners.items.utility.Explosive
 import me.roustytousty.elytrapvp.listeners.items.utility.Normalizer
 import me.roustytousty.elytrapvp.listeners.other.AfkListener
+import me.roustytousty.elytrapvp.listeners.other.QuestListener
 import me.roustytousty.elytrapvp.listeners.perks.PerkListener
 import me.roustytousty.elytrapvp.services.Services
 import org.bukkit.Bukkit
@@ -107,8 +109,8 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnPlayerPreLogin(), this)
 
         pluginmanager.registerEvents(AfkListener(), this)
-
         pluginmanager.registerEvents(PerkListener(), this)
+        pluginmanager.registerEvents(QuestListener(), this)
 
         // GUI
         pluginmanager.registerEvents(ShopMenu(), this)
@@ -128,6 +130,7 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(CosmeticMenu(), this)
         pluginmanager.registerEvents(CosmeticSelectMenu(), this)
         pluginmanager.registerEvents(ConfirmCosmeticPurchaseMenu(), this)
+        pluginmanager.registerEvents(QuestMenu(), this)
     }
 
     private fun registerCommands(){
@@ -142,6 +145,7 @@ class ElytraPVP : JavaPlugin() {
         getCommand("eventsmenu")?.setExecutor(GuiCommands())
         getCommand("rebirthmenu")?.setExecutor(GuiCommands())
         getCommand("cosmeticmenu")?.setExecutor(GuiCommands())
+        getCommand("questmenu")?.setExecutor(GuiCommands())
 
         // Commands
         getCommand("gold")?.setExecutor(GoldCommand())

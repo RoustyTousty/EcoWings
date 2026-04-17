@@ -37,4 +37,9 @@ data class PlayerData(
     var unlockedTrimMaterials: MutableList<String> = mutableListOf(),
     var activeTrimPattern: String = "",
     var activeTrimMaterial: String = "",
+
+
+    var lastQuestDate: Long = 0L,
+    var questProgress: MutableMap<String, Int> = mutableMapOf(),
+    var claimedQuests: MutableList<String> = mutableListOf()
 )

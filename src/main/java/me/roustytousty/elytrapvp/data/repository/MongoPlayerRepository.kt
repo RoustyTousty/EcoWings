@@ -137,7 +137,12 @@ class MongoPlayerRepository : PlayerRepository {
             unlockedTrimPatterns = doc.getList("unlockedTrimPatterns", String::class.java)?.toMutableList() ?: mutableListOf(),
             unlockedTrimMaterials = doc.getList("unlockedTrimMaterials", String::class.java)?.toMutableList() ?: mutableListOf(),
             activeTrimPattern = doc.getString("activeTrimPattern") ?: "",
-            activeTrimMaterial = doc.getString("activeTrimMaterial") ?: ""
+            activeTrimMaterial = doc.getString("activeTrimMaterial") ?: "",
+
+            lastQuestDate = doc.getLong("lastQuestDate") ?: 0L,
+            claimedQuests = doc.getList("claimedQuests", String::class.java)?.toMutableList() ?: mutableListOf(),
+            questProgress = getQuestProgress(doc)
+
         )
     }
 
@@ -184,6 +189,22 @@ class MongoPlayerRepository : PlayerRepository {
             .append("unlockedTrimMaterials", playerData.unlockedTrimMaterials)
             .append("activeTrimPattern", playerData.activeTrimPattern)
             .append("activeTrimMaterial", playerData.activeTrimMaterial)
+
+            .append("lastQuestDate", playerData.lastQuestDate)
+            .append("claimedQuests", playerData.claimedQuests)
+            .append("questProgress", Document(playerData.questProgress as Map<String, Any>))
+    }
+
+    private fun getQuestProgress(doc: Document): MutableMap<String, Int> {
+        val progressDoc = doc.get("questProgress", Document::class.java) ?: return mutableMapOf()
+        val map = mutableMapOf<String, Int>()
+
+        progressDoc.forEach { (key, value) ->
+            if (value is Int) {
+                map[key] = value
+            }
+        }
+        return map
     }
 
     private fun getValidUnlockedPerks(doc: Document): MutableList<String> {

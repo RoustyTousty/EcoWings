@@ -68,7 +68,7 @@ class KingOfTheBoxEvent : EventInterface {
 
         currentZoneCenter = Location(pvpRegion.world, x, y, z)
 
-        MessageUtils.sendMessage("The capture box has moved!")
+        MessageUtils.sendMessage("&fThe capture box has moved!")
         Bukkit.getOnlinePlayers().forEach {
             it.playSound(it.location, Sound.BLOCK_BEACON_POWER_SELECT, 1f, 1.5f)
         }

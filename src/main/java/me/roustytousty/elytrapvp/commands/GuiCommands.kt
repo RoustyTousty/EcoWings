@@ -3,6 +3,7 @@ package me.roustytousty.elytrapvp.commands
 import me.roustytousty.elytrapvp.gui.cosmetics.CosmeticMenu
 import me.roustytousty.elytrapvp.gui.events.EventsMenu
 import me.roustytousty.elytrapvp.gui.perks.PerksMenu
+import me.roustytousty.elytrapvp.gui.quest.QuestMenu
 import me.roustytousty.elytrapvp.gui.rebirth.RebirthMenu
 import me.roustytousty.elytrapvp.gui.shops.ShopMenu
 import me.roustytousty.elytrapvp.gui.stats.StatsMenu
@@ -40,6 +41,8 @@ class GuiCommands : CommandExecutor {
             RebirthMenu.openInventory(player)
         } else if (command.name.equals("cosmeticmenu", ignoreCase = true)) {
             CosmeticMenu.openInventory(player)
+        } else if (command.name.equals("questmenu", ignoreCase = true)) {
+            QuestMenu.openInventory(player)
         }
 
         return true
