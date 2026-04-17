@@ -189,7 +189,8 @@ object Services {
         )
 
         afkService = AfkService(
-            currencyService = currencyService
+            currencyService = currencyService,
+            regionService = regionService
         )
     }
 }

@@ -31,12 +31,6 @@ class OnPlayerMove : Listener {
         val from = event.from
         val to = event.to
 
-        if (afkService.isAfk(player)) {
-            if (from.x != to.x || from.z != to.z || from.y != to.y) {
-                afkService.stopAfk(player)
-            }
-        }
-
         val enteringEntrance = !regionService.isInRegion(from, "spawnEntrance") && regionService.isInRegion(to, "spawnEntrance")
 
         if (combatService.isInCombat(player) && enteringEntrance) {

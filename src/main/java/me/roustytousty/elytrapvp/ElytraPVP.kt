@@ -32,6 +32,7 @@ import me.roustytousty.elytrapvp.listeners.items.consumables.SpeedFeather
 import me.roustytousty.elytrapvp.listeners.items.utility.Dusty
 import me.roustytousty.elytrapvp.listeners.items.utility.Explosive
 import me.roustytousty.elytrapvp.listeners.items.utility.Normalizer
+import me.roustytousty.elytrapvp.listeners.other.AfkListener
 import me.roustytousty.elytrapvp.listeners.perks.PerkListener
 import me.roustytousty.elytrapvp.services.Services
 import org.bukkit.Bukkit
@@ -104,6 +105,8 @@ class ElytraPVP : JavaPlugin() {
         pluginmanager.registerEvents(OnEntityExplode(), this)
         pluginmanager.registerEvents(OnAsyncPlayerChat(), this)
         pluginmanager.registerEvents(OnPlayerPreLogin(), this)
+
+        pluginmanager.registerEvents(AfkListener(), this)
 
         pluginmanager.registerEvents(PerkListener(), this)
 

@@ -35,14 +35,14 @@ regions:
   spawnRegion:
     pos1:
       world: EcoWings
-      x: -10
-      y: 148
+      x: -12
+      y: 149
       z: 171
     pos2:
       world: EcoWings
-      x: 18
-      y: 132
-      z: 205
+      x: 34
+      y: 130
+      z: 207
   warTableRegion:
     pos1:
       world: EcoWings
@@ -101,11 +101,22 @@ regions:
   cosmeticBlockRegion:
     pos1:
       world: EcoWings
-      x: 18
-      y: 137
-      z: 183
+      x: 24
+      y: 138
+      z: 182
     pos2:
       world: EcoWings
-      x: 18
-      y: 137
-      z: 183
+      x: 24
+      y: 138
+      z: 182
+  afkRegion:
+    pos1:
+      world: EcoWings
+      x: 13
+      y: 129
+      z: 193
+    pos2:
+      world: EcoWings
+      x: 24
+      y: 147
+      z: 202

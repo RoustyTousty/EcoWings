@@ -14,16 +14,16 @@ enum class CosmeticMaterial(
     override val icon: Material,
     val materialKey: NamespacedKey
 ) : ICosmetic {
-    IRON("iron", "Iron", 10, 0, false, Material.IRON_INGOT, NamespacedKey.minecraft("iron")),
-    GOLD("gold", "Gold", 10, 0, false, Material.GOLD_INGOT, NamespacedKey.minecraft("gold")),
-    NETHERITE("netherite", "Netherite", 10, 0, false, Material.NETHERITE_INGOT, NamespacedKey.minecraft("netherite")),
-    DIAMOND("diamond", "Diamond", 10, 0, false, Material.DIAMOND, NamespacedKey.minecraft("diamond")),
-    EMERALD("emerald", "Emerald", 10, 0, false, Material.EMERALD, NamespacedKey.minecraft("emerald")),
-    LAPIS("lapis", "Lapis", 10, 0, false, Material.LAPIS_LAZULI, NamespacedKey.minecraft("lapis")),
-    REDSTONE("redstone", "Redstone", 10, 0, false, Material.REDSTONE, NamespacedKey.minecraft("redstone")),
-    AMETHYST("amethyst", "Amethyst", 10, 0, false, Material.AMETHYST_SHARD, NamespacedKey.minecraft("amethyst")),
-    QUARTZ("quartz", "Quartz", 10, 0, false, Material.QUARTZ, NamespacedKey.minecraft("quartz")),
-    COPPER("copper", "Copper", 10, 0, false, Material.COPPER_INGOT, NamespacedKey.minecraft("copper"));
+    IRON("iron", "Iron", 0, 4, false, Material.IRON_INGOT, NamespacedKey.minecraft("iron")),
+    GOLD("gold", "Gold", 0, 25, true, Material.GOLD_INGOT, NamespacedKey.minecraft("gold")),
+    NETHERITE("netherite", "Netherite", 1000, 0, false, Material.NETHERITE_INGOT, NamespacedKey.minecraft("netherite")),
+    DIAMOND("diamond", "Diamond", 0, 12, false, Material.DIAMOND, NamespacedKey.minecraft("diamond")),
+    EMERALD("emerald", "Emerald", 0, 10, false, Material.EMERALD, NamespacedKey.minecraft("emerald")),
+    LAPIS("lapis", "Lapis", 2500, 0, false, Material.LAPIS_LAZULI, NamespacedKey.minecraft("lapis")),
+    REDSTONE("redstone", "Redstone", 2500, 0, false, Material.REDSTONE, NamespacedKey.minecraft("redstone")),
+    AMETHYST("amethyst", "Amethyst", 0, 20, true, Material.AMETHYST_SHARD, NamespacedKey.minecraft("amethyst")),
+    QUARTZ("quartz", "Quartz", 0, 6, false, Material.QUARTZ, NamespacedKey.minecraft("quartz")),
+    COPPER("copper", "Copper", 1500, 0, false, Material.COPPER_INGOT, NamespacedKey.minecraft("copper"));
 
     fun getBukkitMaterial(): TrimMaterial? = Registry.TRIM_MATERIAL.get(materialKey)
 
