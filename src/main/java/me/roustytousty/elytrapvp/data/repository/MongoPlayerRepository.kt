@@ -136,8 +136,10 @@ class MongoPlayerRepository : PlayerRepository {
 
             unlockedTrimPatterns = doc.getList("unlockedTrimPatterns", String::class.java)?.toMutableList() ?: mutableListOf(),
             unlockedTrimMaterials = doc.getList("unlockedTrimMaterials", String::class.java)?.toMutableList() ?: mutableListOf(),
+            unlockedArmorColors = doc.getList("unlockedArmorColors", String::class.java)?.toMutableList() ?: mutableListOf(),
             activeTrimPattern = doc.getString("activeTrimPattern") ?: "",
             activeTrimMaterial = doc.getString("activeTrimMaterial") ?: "",
+            activeArmorColor = doc.getString("activeArmorColor") ?: "",
 
             lastQuestDate = doc.getLong("lastQuestDate") ?: 0L,
             claimedQuests = doc.getList("claimedQuests", String::class.java)?.toMutableList() ?: mutableListOf(),
@@ -187,8 +189,10 @@ class MongoPlayerRepository : PlayerRepository {
 
             .append("unlockedTrimPatterns", playerData.unlockedTrimPatterns)
             .append("unlockedTrimMaterials", playerData.unlockedTrimMaterials)
+            .append("unlockedArmorColors", playerData.unlockedArmorColors)
             .append("activeTrimPattern", playerData.activeTrimPattern)
             .append("activeTrimMaterial", playerData.activeTrimMaterial)
+            .append("activeArmorColor", playerData.activeArmorColor)
 
             .append("lastQuestDate", playerData.lastQuestDate)
             .append("claimedQuests", playerData.claimedQuests)

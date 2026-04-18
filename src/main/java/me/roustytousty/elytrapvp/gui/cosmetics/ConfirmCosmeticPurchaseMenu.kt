@@ -27,17 +27,20 @@ class ConfirmCosmeticPurchaseMenu : Listener {
 
         when (e.rawSlot) {
             0 -> {
-                CosmeticSelectMenu.openInventory(p, holder.isPattern)
+                CosmeticSelectMenu.openInventory(p, holder.type)
                 SoundUtils.playGuiClick(p)
             }
             8 -> {
-                val success = if (holder.isPattern) service.tryPlayerPurchaseTrimPattern(p, holder.item as CosmeticPattern)
-                else service.tryPlayerPurchaseTrimMaterial(p, holder.item as CosmeticMaterial)
+                val success = when (holder.type) {
+                    CosmeticType.PATTERN -> service.tryPlayerPurchaseTrimPattern(p, holder.item as CosmeticPattern)
+                    CosmeticType.MATERIAL -> service.tryPlayerPurchaseTrimMaterial(p, holder.item as CosmeticMaterial)
+                    CosmeticType.COLOR -> service.tryPlayerPurchaseColor(p, holder.item as CosmeticColor)
+                }
 
                 if (success) {
                     SoundUtils.playSuccess(p)
                     MessageUtils.sendSuccess(p, "&fYou successfully unlocked &6${holder.item.displayName}&f!")
-                    CosmeticSelectMenu.openInventory(p, holder.isPattern)
+                    CosmeticSelectMenu.openInventory(p, holder.type)
                 } else {
                     MessageUtils.sendError(p, "&fPurchase failed! You may lack the funds or rank.")
                     SoundUtils.playFailure(p)
@@ -55,8 +58,8 @@ class ConfirmCosmeticPurchaseMenu : Listener {
     }
 
     companion object {
-        fun openInventory(player: Player, item: ICosmetic, isPattern: Boolean) {
-            val holder = ConfirmCosmeticPurchaseHolder(item, isPattern)
+        fun openInventory(player: Player, item: ICosmetic, type: CosmeticType) {
+            val holder = ConfirmCosmeticPurchaseHolder(item, type)
             val inventory: Inventory = Bukkit.createInventory(holder, 9, "Confirm Purchase")
 
             holder.setInventory(inventory)

@@ -1,8 +1,10 @@
 package me.roustytousty.elytrapvp.gui.cosmetics
 
 import me.roustytousty.elytrapvp.services.Services
+import me.roustytousty.elytrapvp.services.cosmetic.CosmeticColor
 import me.roustytousty.elytrapvp.services.cosmetic.CosmeticMaterial
 import me.roustytousty.elytrapvp.services.cosmetic.CosmeticPattern
+import me.roustytousty.elytrapvp.services.cosmetic.CosmeticType
 import me.roustytousty.elytrapvp.utility.ItemUtils.itemBuilder
 import me.roustytousty.elytrapvp.utility.SoundUtils
 import org.bukkit.Bukkit
@@ -23,12 +25,12 @@ class CosmeticMenu : Listener {
 
         val clickedItem = e.currentItem
         if (clickedItem == null || clickedItem.type.isAir) return
-
         val p = e.whoClicked as Player
 
         when (e.rawSlot) {
-            12 -> CosmeticSelectMenu.openInventory(p, true)
-            14 -> CosmeticSelectMenu.openInventory(p, false)
+            11 -> CosmeticSelectMenu.openInventory(p, CosmeticType.PATTERN)
+            13 -> CosmeticSelectMenu.openInventory(p, CosmeticType.MATERIAL)
+            15 -> CosmeticSelectMenu.openInventory(p, CosmeticType.COLOR)
             18 -> {
                 p.closeInventory()
                 SoundUtils.playGuiClick(p)
@@ -58,15 +60,21 @@ class CosmeticMenu : Listener {
             val data = Services.playerService.getOrCreatePlayerData(player)
             val pattern = CosmeticPattern.fromId(data.activeTrimPattern)
             val mat = CosmeticMaterial.fromId(data.activeTrimMaterial)
+            val color = CosmeticColor.fromId(data.activeArmorColor)
 
-            inventory.setItem(12, itemBuilder(
+            inventory.setItem(11, itemBuilder(
                 pattern?.icon ?: Material.LIME_STAINED_GLASS_PANE, 1, pattern != null,
                 "&ePatterns", "", "&fCurrent: &6${pattern?.displayName ?: "&6None"}", "", "&7Click to select a pattern!"
             ))
 
-            inventory.setItem(14, itemBuilder(
+            inventory.setItem(13, itemBuilder(
                 mat?.icon ?: Material.LIME_STAINED_GLASS_PANE, 1, mat != null,
                 "&eMaterials", "", "&fCurrent: &6${mat?.displayName ?: "&6None"}", "", "&7Click to select a material!"
+            ))
+
+            inventory.setItem(15, itemBuilder(
+                color?.icon ?: Material.LIME_STAINED_GLASS_PANE, 1, color != null,
+                "&eDyes", "", "&fCurrent: &6${color?.displayName ?: "&6None"}", "", "&7Click to select a color!"
             ))
 
             inventory.setItem(18, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cClose"))

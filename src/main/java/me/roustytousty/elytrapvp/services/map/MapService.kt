@@ -9,7 +9,7 @@ class MapService(
     private val regionService: RegionService
 ) {
 
-    private val RESET_INTERVAL_SECONDS = 60 * 60
+    private val RESET_INTERVAL_SECONDS = 9000
     private val REGION_NAME = "pvpRegion"
 
     init {
@@ -21,9 +21,15 @@ class MapService(
     fun getFormattedTimeRemaining(): String {
         if (timeRemainingSeconds <= 0) return "00:00"
 
-        val minutes = timeRemainingSeconds / 60
+        val hours = timeRemainingSeconds / 3600
+        val minutes = (timeRemainingSeconds % 3600) / 60
         val seconds = timeRemainingSeconds % 60
-        return String.format("%02d:%02d", minutes, seconds)
+
+        return if (hours > 0) {
+            String.format("%02d:%02d:%02d", hours, minutes, seconds)
+        } else {
+            String.format("%02d:%02d", minutes, seconds)
+        }
     }
 
     fun resetMapRegion() {
@@ -35,9 +41,9 @@ class MapService(
     }
 
     private inner class ResetTask : BukkitRunnable() {
-
         override fun run() {
             when (timeRemainingSeconds) {
+                600 -> MessageUtils.sendMessage("&fMap will reset in &6&l10 &fminutes!")
                 60 -> MessageUtils.sendMessage("&fMap will reset in &6&l1 &fminute!")
                 10, 3, 2, 1 -> MessageUtils.sendMessage("&fMap will reset in &6&l$timeRemainingSeconds &fsecond${if (timeRemainingSeconds > 1) "s" else ""}!")
                 0 -> {

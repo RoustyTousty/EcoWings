@@ -19,9 +19,12 @@ class CosmeticSelectMenu : Listener {
     @EventHandler
     private fun onInventoryClick(e: InventoryClickEvent) {
         val title = e.view.title
-        val isPattern = title == "Select Pattern"
-        val isMaterial = title == "Select Material"
-        if (!isPattern && !isMaterial) return
+        val type = when (title) {
+            "Select Pattern" -> CosmeticType.PATTERN
+            "Select Material" -> CosmeticType.MATERIAL
+            "Select Dye" -> CosmeticType.COLOR
+            else -> return
+        }
 
         e.isCancelled = true
         val clickedItem = e.currentItem ?: return
@@ -32,7 +35,11 @@ class CosmeticSelectMenu : Listener {
 
         when (e.rawSlot) {
             4 -> {
-                if (isPattern) service.unequipPattern(p) else service.unequipMaterial(p)
+                when (type) {
+                    CosmeticType.PATTERN -> service.unequipPattern(p)
+                    CosmeticType.MATERIAL -> service.unequipMaterial(p)
+                    CosmeticType.COLOR -> service.unequipColor(p)
+                }
                 Services.kitService.syncKit(p)
                 SoundUtils.playSuccess(p)
                 CosmeticMenu.openInventory(p)
@@ -47,18 +54,28 @@ class CosmeticSelectMenu : Listener {
 
         if (!COSMETIC_SLOTS.contains(e.rawSlot)) return
 
-        val items: List<ICosmetic> = if (isPattern) CosmeticPattern.getSortedPatterns() else CosmeticMaterial.getSortedMaterials()
-        val index = COSMETIC_SLOTS.indexOf(e.rawSlot)
+        val items: List<ICosmetic> = when (type) {
+            CosmeticType.PATTERN -> CosmeticPattern.getSortedPatterns()
+            CosmeticType.MATERIAL -> CosmeticMaterial.getSortedMaterials()
+            CosmeticType.COLOR -> CosmeticColor.getSortedColors()
+        }
 
+        val index = COSMETIC_SLOTS.indexOf(e.rawSlot)
         if (index >= items.size) return
         val selected = items[index]
 
-        val isUnlocked = if (isPattern) service.hasUnlockedPattern(p, selected as CosmeticPattern)
-        else service.hasUnlockedMaterial(p, selected as CosmeticMaterial)
+        val isUnlocked = when (type) {
+            CosmeticType.PATTERN -> service.hasUnlockedPattern(p, selected as CosmeticPattern)
+            CosmeticType.MATERIAL -> service.hasUnlockedMaterial(p, selected as CosmeticMaterial)
+            CosmeticType.COLOR -> service.hasUnlockedColor(p, selected as CosmeticColor)
+        }
 
         if (isUnlocked) {
-            if (isPattern) service.equipPattern(p, selected as CosmeticPattern)
-            else service.equipMaterial(p, selected as CosmeticMaterial)
+            when (type) {
+                CosmeticType.PATTERN -> service.equipPattern(p, selected as CosmeticPattern)
+                CosmeticType.MATERIAL -> service.equipMaterial(p, selected as CosmeticMaterial)
+                CosmeticType.COLOR -> service.equipColor(p, selected as CosmeticColor)
+            }
             Services.kitService.syncKit(p)
             SoundUtils.playSuccess(p)
             CosmeticMenu.openInventory(p)
@@ -68,14 +85,14 @@ class CosmeticSelectMenu : Listener {
                 SoundUtils.playFailure(p)
                 return
             }
-            ConfirmCosmeticPurchaseMenu.openInventory(p, selected, isPattern)
+            ConfirmCosmeticPurchaseMenu.openInventory(p, selected, type)
         }
     }
 
     @EventHandler
     private fun onInventoryDrag(e: InventoryDragEvent) {
         val title = e.view.title
-        if (title == "Select Pattern" || title == "Select Material") e.isCancelled = true
+        if (title == "Select Pattern" || title == "Select Material" || title == "Select Dye") e.isCancelled = true
     }
 
     companion object {
@@ -86,15 +103,19 @@ class CosmeticSelectMenu : Listener {
             38, 39, 40, 41, 42
         )
 
-        fun openInventory(player: Player, isPattern: Boolean) {
-            val title = if (isPattern) "Select Pattern" else "Select Material"
+        fun openInventory(player: Player, type: CosmeticType) {
+            val title = when (type) {
+                CosmeticType.PATTERN -> "Select Pattern"
+                CosmeticType.MATERIAL -> "Select Material"
+                CosmeticType.COLOR -> "Select Dye"
+            }
             val inventory = Bukkit.createInventory(null, 54, title)
-            initItems(inventory, player, isPattern)
+            initItems(inventory, player, type)
             player.openInventory(inventory)
             SoundUtils.playGuiClick(player)
         }
 
-        private fun initItems(inventory: Inventory, player: Player, isPattern: Boolean) {
+        private fun initItems(inventory: Inventory, player: Player, type: CosmeticType) {
             val borderSlots = intArrayOf(0, 8, 9, 17, 18, 26, 27, 35, 36, 44, 53)
             for (slot in borderSlots) {
                 inventory.setItem(slot, itemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1, false, "&f"))
@@ -103,16 +124,29 @@ class CosmeticSelectMenu : Listener {
             inventory.setItem(45, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cBack"))
             inventory.setItem(4, itemBuilder(Material.RED_STAINED_GLASS_PANE, 1, false, "&cRemove Selection", "&7Click to clear this slot."))
 
-            val items: List<ICosmetic> = if (isPattern) CosmeticPattern.getSortedPatterns() else CosmeticMaterial.getSortedMaterials()
+            val items: List<ICosmetic> = when (type) {
+                CosmeticType.PATTERN -> CosmeticPattern.getSortedPatterns()
+                CosmeticType.MATERIAL -> CosmeticMaterial.getSortedMaterials()
+                CosmeticType.COLOR -> CosmeticColor.getSortedColors()
+            }
+
             val data = Services.playerService.getOrCreatePlayerData(player)
             val service = Services.cosmeticService
-            val activeId = if (isPattern) data.activeTrimPattern else data.activeTrimMaterial
+
+            val activeId = when (type) {
+                CosmeticType.PATTERN -> data.activeTrimPattern
+                CosmeticType.MATERIAL -> data.activeTrimMaterial
+                CosmeticType.COLOR -> data.activeArmorColor
+            }
 
             for ((index, item) in items.withIndex()) {
                 if (index >= COSMETIC_SLOTS.size) break
 
-                val isUnlocked = if (isPattern) service.hasUnlockedPattern(player, item as CosmeticPattern)
-                else service.hasUnlockedMaterial(player, item as CosmeticMaterial)
+                val isUnlocked = when (type) {
+                    CosmeticType.PATTERN -> service.hasUnlockedPattern(player, item as CosmeticPattern)
+                    CosmeticType.MATERIAL -> service.hasUnlockedMaterial(player, item as CosmeticMaterial)
+                    CosmeticType.COLOR -> service.hasUnlockedColor(player, item as CosmeticColor)
+                }
 
                 val isEquipped = activeId == item.id
 

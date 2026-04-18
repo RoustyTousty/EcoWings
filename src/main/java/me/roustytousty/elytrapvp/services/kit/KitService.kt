@@ -60,9 +60,18 @@ class KitService(
         val leggings = upgradeService.getItem(data, UpgradeType.LEGGINGS)
         val boots = upgradeService.getItem(data, UpgradeType.BOOTS)
 
-        helmet?.let { cosmeticService.applyTrimToItem(player, it) }
-        leggings?.let { cosmeticService.applyTrimToItem(player, it) }
-        boots?.let { cosmeticService.applyTrimToItem(player, it) }
+        helmet?.let {
+            cosmeticService.applyTrimToItem(player, it)
+            cosmeticService.applyColorToItem(player, it)
+        }
+        leggings?.let {
+            cosmeticService.applyTrimToItem(player, it)
+            cosmeticService.applyColorToItem(player, it)
+        }
+        boots?.let {
+            cosmeticService.applyTrimToItem(player, it)
+            cosmeticService.applyColorToItem(player, it)
+        }
 
         inv.helmet = helmet
         inv.chestplate = chestplate

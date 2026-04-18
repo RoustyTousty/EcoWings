@@ -33,8 +33,10 @@ data class PlayerData(
     var unlockedPerkSlots: Int = 1,
 
 
+    val unlockedArmorColors: MutableList<String> = mutableListOf(),
     var unlockedTrimPatterns: MutableList<String> = mutableListOf(),
     var unlockedTrimMaterials: MutableList<String> = mutableListOf(),
+    var activeArmorColor: String = "",
     var activeTrimPattern: String = "",
     var activeTrimMaterial: String = "",
 
