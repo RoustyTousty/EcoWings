@@ -25,7 +25,7 @@ class HotPotatoEvent : EventInterface {
     override val name = "Hot Potato"
     override val description = "Be the potato to earn gold!"
     override val displayMaterial = Material.BAKED_POTATO
-    override val cost = 700
+    override val cost = 450
     override var contributions = 0
     override val duration = 5 * 60
     override var endTime: Long? = null

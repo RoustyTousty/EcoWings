@@ -10,7 +10,6 @@ class OnPlayerMove : Listener {
     private val eventService = Services.eventService
     private val combatService = Services.combatService
     private val regionService = Services.regionService
-    private val afkService = Services.afkService
 
     @EventHandler
     fun onPlayerMove(event: PlayerMoveEvent) {
@@ -24,7 +23,7 @@ class OnPlayerMove : Listener {
         if (loc.y <= 85 && !eventService.isEventActive("Voidless")) {
             val isInPVPRegion = regionService.isInRegion(loc, "pvpRegion")
             if (!isInPVPRegion) {
-                player.damage(40.0)
+                player.health = 0.0
             }
         }
 

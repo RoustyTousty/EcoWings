@@ -156,6 +156,7 @@ class ElytraPVP : JavaPlugin() {
         getCommand("link")?.setExecutor(LinkCommand())
         getCommand("unlink")?.setExecutor(UnlinkCommand())
         getCommand("afk")?.setExecutor(AfkCommand())
+        getCommand("rules")?.setExecutor(RulesCommand())
 
         // Staff commands
         getCommand("reloadupgradeconfig")?.setExecutor(ReloadUpgradeConfigCommand())

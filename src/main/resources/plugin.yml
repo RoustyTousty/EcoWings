@@ -66,6 +66,8 @@ commands:
     description: "Initiates unlinking between minecraft and discord!"
   afk:
     description: "Initiates afk status and rewards!"
+  rules:
+    description: "Displays all in-game rules!"
 
   # Staff commands
   reloadupgradeconfig:

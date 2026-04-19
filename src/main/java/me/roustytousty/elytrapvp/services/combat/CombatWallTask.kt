@@ -41,7 +41,7 @@ class CombatWallTask(
 
     private fun showWall(player: Player, region: Region) {
         region.forEachBlock {
-            player.sendBlockChange(it.location, Material.RED_STAINED_GLASS.createBlockData())
+            player.sendBlockChange(it.location, Material.BROWN_STAINED_GLASS.createBlockData())
         }
     }
 

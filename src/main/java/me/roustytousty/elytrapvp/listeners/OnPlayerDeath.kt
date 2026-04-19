@@ -23,10 +23,14 @@ class OnPlayerDeath : Listener {
         if (killer != null) {
             calculateKillerStats(killer)
 
-            val healAmount = if (combatService.hasRespawnProtection(killer)) 6.0 else 1.0
+            if (killer.isOnline && !killer.isDead && killer.health > 0.0) {
+                val healAmount = if (combatService.hasRespawnProtection(killer)) 6.0 else 1.0
 
-            killer.health = (killer.health + healAmount).coerceAtMost(killer.maxHealth)
-            SoundUtils.playSuccess(killer)
+                val maxHealth = killer.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH)?.value ?: 20.0
+
+                killer.health = (killer.health + healAmount).coerceAtMost(maxHealth)
+                SoundUtils.playSuccess(killer)
+            }
 
             event.deathMessage(Component.text(parse("&6${victim.name} &fwas killed by &6${killer.name}&f!")))
         } else {

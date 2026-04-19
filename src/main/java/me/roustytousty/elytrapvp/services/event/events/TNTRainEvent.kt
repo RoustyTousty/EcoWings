@@ -17,7 +17,7 @@ class TNTRainEvent : EventInterface {
     override val name = "TNT Rain"
     override val description = "Watch your head!"
     override val displayMaterial = Material.TNT
-    override val cost = 550
+    override val cost = 650
     override var contributions = 0
     override val duration = 5 * 60
     override var endTime: Long? = null

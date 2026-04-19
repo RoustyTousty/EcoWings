@@ -12,22 +12,22 @@ enum class PerkType(
     val description: List<String>
 ) {
 
-    BLAST_DAMPENER("blast_dampener", "Blast Dampener", 800, 0, false, Material.TNT, listOf(
+    BLAST_DAMPENER("blast_dampener", "Blast Dampener", 400, 0, false, Material.TNT, listOf(
         "&7Take 80% less damage from explosions."
     )),
-    KINETIC_SHIELD("kinetic_shield", "Kinetic Shield", 1200, 0, false, Material.SHIELD, listOf(
+    KINETIC_SHIELD("kinetic_shield", "Kinetic Shield", 600, 0, false, Material.SHIELD, listOf(
         "&7Take 80% less kinetic damage."
     )),
-    ADRENALINE("adrenaline", "Adrenaline", 1800, 0, false, Material.IRON_BOOTS, listOf(
+    ADRENALINE("adrenaline", "Adrenaline", 800, 0, false, Material.IRON_BOOTS, listOf(
         "&7Killing a player gives speed 2 for", "&710 seconds"
     )),
-    SCAVENGER("scavenger", "Scavenger", 4000, 0, false, Material.WHITE_WOOL, listOf(
+    SCAVENGER("scavenger", "Scavenger", 2000, 0, false, Material.WHITE_WOOL, listOf(
         "&7Placing a block has a 20% chance", "&7of not losing the block from your", "&7inventory."
     )),
-    RECYCLER("recycler", "Recycler", 5500, 0, false, Material.HOPPER, listOf(
+    RECYCLER("recycler", "Recycler", 2500, 0, false, Material.HOPPER, listOf(
         "&7Breaking a block has a 50% chance", "&7of obtaining it."
     )),
-    ANCHORED("anchored", "Anchored", 8500, 0, false, Material.ANVIL, listOf(
+    ANCHORED("anchored", "Anchored", 4500, 0, false, Material.ANVIL, listOf(
         "&7Take 5% less knockback."
     ));
 

@@ -13,7 +13,7 @@ class KingOfTheBoxEvent : EventInterface {
     override val name = "King of the Box"
     override val description = "Capture the box to earn gold!"
     override val displayMaterial = Material.BEACON
-    override val cost = 600
+    override val cost = 400
     override var contributions = 0
     override val duration = 5 * 60
     override var endTime: Long? = null
